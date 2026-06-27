@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InstaMomU | College Care Packages With Motherly Love and Professor Insight</title>
+    <meta
+      name="description"
+      content="InstaMomU sends thoughtful college care packages with practical tips, QR resources, and campus-ready items for students starting strong."
+    >
+    <link rel="preload" href="assets/instamomu-welcome-care-package.png" as="image">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="InstaMomU home">
+        <span class="brand-mark">IMU</span>
+        <span>InstaMomU</span>
+      </a>
+      <nav>
+        <a href="#packages">Packages</a>
+        <a href="#inside">Inside</a>
+        <a href="#build">Build</a>
+        <a href="#cart">Cart <span id="cartCount">0</span></a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="InstaMomU welcome package builder">
+        <img
+          class="hero-image"
+          src="assets/instamomu-welcome-care-package.png"
+          alt="Open college welcome care package on a dorm desk with snacks, study supplies, and a QR resource card"
+        >
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <p class="eyebrow">College care packages, intelligently packed</p>
+          <h1>InstaMomU</h1>
+          <p class="hero-copy">
+            The care package that feels like mom packed it, with the insight a great professor would add before week one begins.
+          </p>
+          <form class="quick-builder" aria-label="Package quick builder">
+            <label>
+              Student type
+              <select id="studentType" name="studentType">
+                <option>First-year starter</option>
+                <option>Homesick helper</option>
+                <option>Focused achiever</option>
+                <option>Wellness reset</option>
+                <option>Club or team rush</option>
+              </select>
+            </label>
+            <label>
+              Moment
+              <select id="moment" name="moment">
+                <option>Welcome week</option>
+                <option>Midterms</option>
+                <option>Finals</option>
+                <option>Birthday</option>
+                <option>Just because</option>
+              </select>
+            </label>
+            <button type="button" id="previewButton">Preview package</button>
+            <button type="button" id="addPreviewButton" class="secondary-button">Add to cart</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="intro-band" aria-label="Package preview">
+        <div>
+          <p class="section-kicker">Current focus</p>
+          <h2 id="previewTitle">Welcome Week Starter</h2>
+        </div>
+        <p id="previewCopy">
+          A practical first-week box with comfort items, quick wins, and QR-linked tips for finding classes, talking to professors, and building a sane routine.
+        </p>
+      </section>
+
+      <section class="section" id="packages">
+        <div class="section-heading">
+          <p class="section-kicker">Built for the student in front of you</p>
+          <h2>Choose the kind of support they need right now.</h2>
+        </div>
+        <div class="package-grid">
+          <article class="package-card" data-product-id="welcome">
+            <span class="icon" aria-hidden="true">01</span>
+            <div class="card-title-row">
+              <h3>Welcome Package</h3>
+              <p>$58</p>
+            </div>
+            <p>Campus basics, dorm comfort, first-week checklists, and QR codes for smart starts.</p>
+            <button type="button" class="add-product" data-product-id="welcome">Add package</button>
+          </article>
+          <article class="package-card" data-product-id="study">
+            <span class="icon" aria-hidden="true">02</span>
+            <div class="card-title-row">
+              <h3>Study Sprint</h3>
+              <p>$64</p>
+            </div>
+            <p>High-focus snacks, planning tools, professor office-hours prompts, and exam-week resets.</p>
+            <button type="button" class="add-product" data-product-id="study">Add package</button>
+          </article>
+          <article class="package-card" data-product-id="homesick">
+            <span class="icon" aria-hidden="true">03</span>
+            <div class="card-title-row">
+              <h3>Homesick Helper</h3>
+              <p>$52</p>
+            </div>
+            <p>Comfort staples, handwritten notes, familiar treats, and gentle routines for settling in.</p>
+            <button type="button" class="add-product" data-product-id="homesick">Add package</button>
+          </article>
+          <article class="package-card" data-product-id="activity">
+            <span class="icon" aria-hidden="true">04</span>
+            <div class="card-title-row">
+              <h3>Activity Kits</h3>
+              <p>$49</p>
+            </div>
+            <p>Rush week, club fairs, game days, lab-heavy weeks, and athlete-friendly add-ons.</p>
+            <button type="button" class="add-product" data-product-id="activity">Add package</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="section split" id="inside">
+        <div class="section-heading">
+          <p class="section-kicker">What makes it InstaMomU</p>
+          <h2>Comfort plus campus intelligence.</h2>
+          <p>
+            Each box pairs useful items with tiny pieces of academic coaching: what to do, what to ask, and how to recover when the week gets messy.
+          </p>
+        </div>
+        <div class="inside-list">
+          <article>
+            <h3>QR tip cards</h3>
+            <p>Short guides for first-week routines, professor emails, advising meetings, and campus resources.</p>
+          </article>
+          <article>
+            <h3>Brochures that get read</h3>
+            <p>One-page, student-friendly checklists instead of bulky packets that stay in the box.</p>
+          </article>
+          <article>
+            <h3>Motherly practical items</h3>
+            <p>Snacks, wellness basics, desk tools, laundry saves, and reminders that someone is thinking ahead.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="build-section" id="build">
+        <div>
+          <p class="section-kicker">Start a box</p>
+          <h2>Customize the box before checkout.</h2>
+          <p>
+            This is a fake store flow for now. It captures the product, variants, add-ons, and gift note so the Shopify version has a clear blueprint later.
+          </p>
+        </div>
+        <form class="interest-form" aria-label="Package customization form">
+          <label>
+            Student name
+            <input type="text" id="studentName" name="studentName" placeholder="Maya">
+          </label>
+          <label>
+            School or campus
+            <input type="text" id="school" name="school" placeholder="Howard University">
+          </label>
+          <label>
+            Delivery window
+            <select id="deliveryWindow" name="deliveryWindow">
+              <option>Welcome week delivery</option>
+              <option>Ship this week</option>
+              <option>Midterm week</option>
+              <option>Finals week</option>
+            </select>
+          </label>
+          <label>
+            What should this package help with?
+            <textarea id="need" name="need" rows="4" placeholder="Getting settled, making friends, talking to professors, and eating something besides cereal."></textarea>
+          </label>
+          <fieldset class="addon-fieldset">
+            <legend>Add-ons</legend>
+            <label class="checkbox-line">
+              <input type="checkbox" name="addon" value="laundry" data-price="12">
+              Laundry rescue pack <span>+$12</span>
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="addon" value="professor" data-price="8">
+              Professor email prompt cards <span>+$8</span>
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="addon" value="snacks" data-price="15">
+              Extra snack sleeve <span>+$15</span>
+            </label>
+          </fieldset>
+          <button type="button" id="saveInterest">Attach note to cart</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="cart-section" id="cart" aria-label="Fake cart and checkout">
+        <div class="section-heading">
+          <p class="section-kicker">Prototype cart</p>
+          <h2>Fake checkout, real behavior.</h2>
+          <p>
+            The buttons below simulate the steps that will later connect to Shopify: create cart, add line items, attach notes, and send the customer to checkout.
+          </p>
+        </div>
+        <div class="cart-layout">
+          <div class="cart-panel">
+            <div class="cart-panel-header">
+              <h3>Cart</h3>
+              <button type="button" id="clearCart" class="text-button">Clear</button>
+            </div>
+            <div id="cartItems" class="cart-items">
+              <p class="empty-cart">No packages yet.</p>
+            </div>
+          </div>
+          <aside class="checkout-panel">
+            <dl>
+              <div>
+                <dt>Subtotal</dt>
+                <dd id="subtotal">$0</dd>
+              </div>
+              <div>
+                <dt>Add-ons</dt>
+                <dd id="addonTotal">$0</dd>
+              </div>
+              <div class="total-row">
+                <dt>Total</dt>
+                <dd id="cartTotal">$0</dd>
+              </div>
+            </dl>
+            <button type="button" id="checkoutButton">Fake Shopify checkout</button>
+            <p id="checkoutStatus" class="form-status" role="status" aria-live="polite"></p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>InstaMomU</p>
+      <p>Motherly care. Professor-level insight. Packed for college life.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

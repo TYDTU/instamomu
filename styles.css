@@ -1,16 +1,16 @@
 :root {
-  color-scheme: light;
-  --ink: #082b63;
-  --muted: #5f6f86;
-  --paper: #fff8df;
-  --surface: #ffffff;
-  --line: #e8d38a;
-  --navy: #062b66;
-  --navy-dark: #041d45;
-  --gold: #ffc928;
-  --cream: #fff0b8;
-  --pink: #ed2f89;
-  --shadow: 0 18px 50px rgba(6, 43, 102, 0.18);
+  color-scheme: dark;
+  --ink: #ffffff;
+  --muted: #a0a0ab;
+  --paper: #000000;
+  --surface: #121214;
+  --line: #27272a;
+  --navy: #ff2e93;
+  --navy-dark: #cc0066;
+  --gold: #ff2e93;
+  --cream: #3a1024;
+  --pink: #ff2e93;
+  --shadow: 0 18px 50px rgba(255, 46, 147, 0.15);
 }
 
 * {
@@ -26,8 +26,8 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background-color: var(--paper);
-  background-image: radial-gradient(var(--ink) 10%, transparent 11%),
-                    radial-gradient(var(--ink) 10%, transparent 11%);
+  background-image: radial-gradient(rgba(255, 46, 147, 0.15) 10%, transparent 11%),
+                    radial-gradient(rgba(255, 46, 147, 0.15) 10%, transparent 11%);
   background-size: 24px 24px;
   background-position: 0 0, 12px 12px;
   line-height: 1.5;
@@ -118,8 +118,8 @@ nav span {
 
 .hero-shade {
   background:
-    linear-gradient(90deg, rgba(4, 29, 69, 0.94) 0%, rgba(6, 43, 102, 0.82) 42%, rgba(4, 29, 69, 0.2) 78%),
-    linear-gradient(0deg, rgba(4, 29, 69, 0.58), rgba(4, 29, 69, 0.08));
+    linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 24, 0.85) 42%, rgba(0, 0, 0, 0.2) 78%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
 }
 
 .hero-content {
@@ -212,7 +212,7 @@ textarea {
   border-radius: 8px;
   padding: 12px 13px;
   color: var(--ink);
-  background: #fff;
+  background: var(--surface);
 }
 
 textarea {
@@ -371,7 +371,7 @@ footer {
   grid-template-columns: minmax(260px, 0.9fr) minmax(280px, 1.1fr);
   gap: clamp(26px, 6vw, 72px);
   align-items: start;
-  background: #fff;
+  background: var(--paper);
 }
 
 .inside-list {
@@ -394,7 +394,7 @@ footer {
   align-items: start;
   padding-top: clamp(54px, 8vw, 96px);
   padding-bottom: clamp(54px, 8vw, 96px);
-  background: #f0e6d8;
+  background: var(--surface);
   border-block: 8px solid var(--navy);
 }
 
@@ -451,7 +451,7 @@ footer {
 .cart-section {
   padding-top: clamp(54px, 8vw, 96px);
   padding-bottom: clamp(54px, 8vw, 96px);
-  background: #fff;
+  background: var(--paper);
 }
 
 .cart-layout {
@@ -527,7 +527,7 @@ footer {
   min-height: 36px;
   padding: 0;
   color: var(--ink);
-  background: #fff;
+  background: var(--surface);
   box-shadow: none;
 }
 
@@ -601,7 +601,7 @@ footer p {
 
   .hero-shade {
     background:
-      linear-gradient(0deg, rgba(4, 29, 69, 0.94) 0%, rgba(6, 43, 102, 0.78) 58%, rgba(4, 29, 69, 0.08) 100%);
+      linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 24, 0.85) 58%, rgba(0, 0, 0, 0.08) 100%);
   }
 
   .hero-content {

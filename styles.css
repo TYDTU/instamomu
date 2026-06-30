@@ -1,16 +1,17 @@
 :root {
-  color-scheme: dark;
-  --ink: #ffffff;
-  --muted: #a0a0ab;
-  --paper: #000000;
-  --surface: #121214;
-  --line: #27272a;
-  --navy: #ff2e93;
-  --navy-dark: #cc0066;
-  --gold: #ff2e93;
-  --cream: #3a1024;
-  --pink: #ff2e93;
-  --shadow: 0 18px 50px rgba(255, 46, 147, 0.15);
+  color-scheme: light;
+  --ink: #082b63;
+  --muted: #5f6f86;
+  --paper: #fff2ad;
+  --surface: #ffffff;
+  --line: #e8d38a;
+  --navy: #062b66;
+  --navy-dark: #041d45;
+  --gold: #ffc928;
+  --cream: #fff0b8;
+  --pink: #ed2f89;
+  --dot-pattern: radial-gradient(circle at 5px 5px, rgba(6, 43, 102, 0.2) 0 3px, transparent 3.2px);
+  --shadow: 0 18px 50px rgba(6, 43, 102, 0.18);
 }
 
 * {
@@ -26,10 +27,8 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background-color: var(--paper);
-  background-image: radial-gradient(rgba(255, 46, 147, 0.15) 10%, transparent 11%),
-                    radial-gradient(rgba(255, 46, 147, 0.15) 10%, transparent 11%);
-  background-size: 24px 24px;
-  background-position: 0 0, 12px 12px;
+  background-image: var(--dot-pattern);
+  background-size: 30px 30px;
   line-height: 1.5;
 }
 
@@ -291,6 +290,9 @@ footer {
 .section {
   padding-top: clamp(54px, 8vw, 96px);
   padding-bottom: clamp(54px, 8vw, 96px);
+  background-color: var(--paper);
+  background-image: var(--dot-pattern);
+  background-size: 30px 30px;
 }
 
 .section-heading {
@@ -371,7 +373,9 @@ footer {
   grid-template-columns: minmax(260px, 0.9fr) minmax(280px, 1.1fr);
   gap: clamp(26px, 6vw, 72px);
   align-items: start;
-  background: var(--paper);
+  background-color: var(--paper);
+  background-image: var(--dot-pattern);
+  background-size: 30px 30px;
 }
 
 .inside-list {
@@ -394,7 +398,9 @@ footer {
   align-items: start;
   padding-top: clamp(54px, 8vw, 96px);
   padding-bottom: clamp(54px, 8vw, 96px);
-  background: var(--surface);
+  background-color: var(--paper);
+  background-image: var(--dot-pattern);
+  background-size: 30px 30px;
   border-block: 8px solid var(--navy);
 }
 
@@ -451,7 +457,9 @@ footer {
 .cart-section {
   padding-top: clamp(54px, 8vw, 96px);
   padding-bottom: clamp(54px, 8vw, 96px);
-  background: var(--paper);
+  background-color: var(--paper);
+  background-image: var(--dot-pattern);
+  background-size: 30px 30px;
 }
 
 .cart-layout {

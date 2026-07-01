@@ -64,6 +64,66 @@ const packageData = {
     copy:
       "Campus activity basics, conversation starters, and QR-linked advice for choosing clubs, managing tryouts, and protecting study time.",
   },
+  "First-year starter|Room refresh": {
+    productId: "homesick",
+    title: "Room Refresh",
+    copy:
+      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
+  },
+  "Homesick helper|Room refresh": {
+    productId: "homesick",
+    title: "Room Refresh",
+    copy:
+      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
+  },
+  "Focused achiever|Room refresh": {
+    productId: "homesick",
+    title: "Room Refresh",
+    copy:
+      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
+  },
+  "Wellness reset|Room refresh": {
+    productId: "homesick",
+    title: "Room Refresh",
+    copy:
+      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
+  },
+  "Club or team rush|Room refresh": {
+    productId: "homesick",
+    title: "Room Refresh",
+    copy:
+      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
+  },
+  "First-year starter|Snack attack": {
+    productId: "welcome",
+    title: "Snack Attack",
+    copy:
+      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
+  },
+  "Homesick helper|Snack attack": {
+    productId: "welcome",
+    title: "Snack Attack",
+    copy:
+      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
+  },
+  "Focused achiever|Snack attack": {
+    productId: "welcome",
+    title: "Snack Attack",
+    copy:
+      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
+  },
+  "Wellness reset|Snack attack": {
+    productId: "welcome",
+    title: "Snack Attack",
+    copy:
+      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
+  },
+  "Club or team rush|Snack attack": {
+    productId: "welcome",
+    title: "Snack Attack",
+    copy:
+      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
+  },
 };
 
 const fallbackCopy = {
@@ -259,14 +319,24 @@ saveInterest.addEventListener("click", savePackageNote);
 checkoutButton.addEventListener("click", fakeCheckout);
 function renderSlider() {
   if (!sliderTrack) return;
-  sliderTrack.innerHTML = Object.entries(packageData).map(([key, data]) => {
-    const [student, moment] = key.split("|");
+  const uniquePackages = [];
+  const seenTitles = new Set();
+  
+  Object.entries(packageData).forEach(([key, data]) => {
+    if (!seenTitles.has(data.title)) {
+      seenTitles.add(data.title);
+      uniquePackages.push({ key, ...data });
+    }
+  });
+
+  sliderTrack.innerHTML = uniquePackages.map((pkg) => {
+    const [student, moment] = pkg.key.split("|");
     const tagText = `${moment.charAt(0).toUpperCase() + moment.slice(1)} • ${student}`;
     return `
-      <article class="lineup-card" data-key="${key}">
+      <article class="lineup-card" data-key="${pkg.key}">
         <span class="card-moment-tag">${tagText}</span>
-        <h3>${data.title}</h3>
-        <p>${data.copy}</p>
+        <h3>${pkg.title}</h3>
+        <p>${pkg.copy}</p>
       </article>
     `;
   }).join("");

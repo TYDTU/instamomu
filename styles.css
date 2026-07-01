@@ -123,9 +123,9 @@ nav span {
 }
 
 .hero-crest {
-  width: clamp(140px, 20vw, 220px);
+  width: clamp(160px, 24vw, 250px);
   aspect-ratio: 1;
-  margin-block: 24px;
+  margin-block: 20px;
   object-fit: contain;
   filter: drop-shadow(0 16px 26px rgba(0, 0, 0, 0.34));
 }
@@ -149,10 +149,11 @@ p {
 
 h1 {
   margin: 0;
-  font-size: clamp(3.2rem, 6.8vw, 5.8rem);
+  font-size: clamp(2.2rem, 6.2vw, 5.2rem);
   line-height: 1.0;
   letter-spacing: 0.02em;
   max-width: 100%;
+  white-space: nowrap;
   color: var(--gold);
   font-family: Georgia, "Times New Roman", serif;
   text-transform: uppercase;
@@ -164,11 +165,43 @@ h1 {
     0 8px 0 rgba(4, 29, 69, 0.55);
 }
 
-.hero-copy {
-  max-width: 620px;
-  margin: 18px 0 22px;
-  font-size: clamp(1.08rem, 1.8vw, 1.35rem);
-  font-weight: 800;
+.hero-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2.8vw, 36px);
+  margin-top: 10px;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.hero-badge-row .badge-text {
+  color: var(--gold);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.3rem, 2.5vw, 2.4rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    -1.5px -1.5px 0 var(--navy-dark),
+    1.5px -1.5px 0 var(--navy-dark),
+    -1.5px 1.5px 0 var(--navy-dark),
+    1.5px 1.5px 0 var(--navy-dark),
+    0 5px 0 rgba(4, 29, 69, 0.55);
+}
+
+.hero-badge-row .badge-plus {
+  color: var(--gold);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.6rem, 3.2vw, 3rem);
+  font-weight: 900;
+  line-height: 1;
+  text-shadow:
+    -1.5px -1.5px 0 var(--navy-dark),
+    1.5px -1.5px 0 var(--navy-dark),
+    -1.5px 1.5px 0 var(--navy-dark),
+    1.5px 1.5px 0 var(--navy-dark),
+    0 5px 0 rgba(4, 29, 69, 0.55);
 }
 
 .quick-builder,
@@ -611,8 +644,9 @@ footer p {
   }
 
   h1 {
-    font-size: clamp(2.4rem, 10vw, 4.2rem);
+    font-size: clamp(1.6rem, 7.5vw, 4.2rem);
     max-width: 100%;
+    white-space: nowrap;
   }
 
   .quick-builder,

@@ -13,7 +13,7 @@ const products = {
     studentType: "Focused achiever",
     moment: "Midterms",
     copy:
-      "High-focus snacks, planning tools, professor office-hours prompts, and exam-week resets.",
+      "Satisfying snacks, planning and study tools, and self-care resets.",
   },
   homesick: {
     title: "Homesick Helper",
@@ -21,7 +21,7 @@ const products = {
     studentType: "Homesick helper",
     moment: "Welcome week",
     copy:
-      "Comfort staples, handwritten notes, familiar treats, and gentle routines for settling in.",
+      "Comfort staples, familiar treats, and gentle routines for settling in and finding your community.",
   },
   activity: {
     title: "Activity Kits",

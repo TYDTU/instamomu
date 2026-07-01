@@ -282,6 +282,18 @@ if (prevButton && nextButton && sliderContainer) {
   });
 }
 
+if (sliderTrack) {
+  sliderTrack.addEventListener("click", (event) => {
+    const card = event.target.closest(".lineup-card");
+    if (!card) return;
+    const key = card.dataset.key;
+    const [student, moment] = key.split("|");
+    studentType.value = student;
+    momentSelect.value = moment;
+    updatePreview();
+  });
+}
+
 clearCart.addEventListener("click", () => {
   cart = [];
   checkoutStatus.textContent = "";

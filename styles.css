@@ -11,6 +11,7 @@
   --cream: #fff0b8;
   --pink: #ed2f89;
   --dot-pattern: radial-gradient(circle at 5px 5px, rgba(6, 43, 102, 0.2) 0 3px, transparent 3.2px);
+  --hero-dot-pattern: radial-gradient(circle at 5px 5px, rgba(255, 255, 255, 0.15) 0 3px, transparent 3.2px);
   --shadow: 0 18px 50px rgba(6, 43, 102, 0.18);
 }
 
@@ -27,8 +28,6 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background-color: var(--paper);
-  background-image: var(--dot-pattern);
-  background-size: 30px 30px;
   line-height: 1.5;
 }
 
@@ -116,9 +115,10 @@ nav span {
 }
 
 .hero-shade {
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 24, 0.85) 42%, rgba(0, 0, 0, 0.2) 78%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+  background-image: var(--hero-dot-pattern),
+                    linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 24, 0.85) 42%, rgba(0, 0, 0, 0.2) 78%),
+                    linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+  background-size: 30px 30px, auto, auto;
 }
 
 .hero-content {
@@ -291,8 +291,6 @@ footer {
   padding-top: clamp(54px, 8vw, 96px);
   padding-bottom: clamp(54px, 8vw, 96px);
   background-color: var(--paper);
-  background-image: var(--dot-pattern);
-  background-size: 30px 30px;
 }
 
 .section-heading {
@@ -374,8 +372,6 @@ footer {
   gap: clamp(26px, 6vw, 72px);
   align-items: start;
   background-color: var(--paper);
-  background-image: var(--dot-pattern);
-  background-size: 30px 30px;
 }
 
 .inside-list {
@@ -399,8 +395,6 @@ footer {
   padding-top: clamp(54px, 8vw, 96px);
   padding-bottom: clamp(54px, 8vw, 96px);
   background-color: var(--paper);
-  background-image: var(--dot-pattern);
-  background-size: 30px 30px;
   border-block: 8px solid var(--navy);
 }
 
@@ -458,8 +452,6 @@ footer {
   padding-top: clamp(54px, 8vw, 96px);
   padding-bottom: clamp(54px, 8vw, 96px);
   background-color: var(--paper);
-  background-image: var(--dot-pattern);
-  background-size: 30px 30px;
 }
 
 .cart-layout {
@@ -608,8 +600,9 @@ footer p {
   }
 
   .hero-shade {
-    background:
-      linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 24, 0.85) 58%, rgba(0, 0, 0, 0.08) 100%);
+    background-image: var(--hero-dot-pattern),
+                      linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 24, 0.85) 58%, rgba(0, 0, 0, 0.08) 100%);
+    background-size: 30px 30px, auto;
   }
 
   .hero-content {

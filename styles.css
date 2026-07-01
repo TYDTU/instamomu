@@ -11,7 +11,6 @@
   --cream: #fff0b8;
   --pink: #ed2f89;
   --dot-pattern: radial-gradient(circle at 5px 5px, rgba(6, 43, 102, 0.2) 0 3px, transparent 3.2px);
-  --hero-dot-pattern: radial-gradient(circle at 5px 5px, rgba(255, 255, 255, 0.15) 0 3px, transparent 3.2px);
   --shadow: 0 18px 50px rgba(6, 43, 102, 0.18);
 }
 
@@ -28,6 +27,8 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background-color: var(--paper);
+  background-image: var(--dot-pattern);
+  background-size: 30px 30px;
   line-height: 1.5;
 }
 
@@ -53,8 +54,9 @@ textarea {
   align-items: center;
   justify-content: space-between;
   padding: 16px clamp(18px, 5vw, 64px);
-  color: #fff;
-  background: linear-gradient(180deg, rgba(4, 29, 69, 0.9), rgba(4, 29, 69, 0));
+  color: var(--navy);
+  background:
+    linear-gradient(180deg, rgba(255, 242, 173, 0.96), rgba(255, 242, 173, 0.78) 72%, rgba(255, 242, 173, 0));
 }
 
 .brand {
@@ -90,7 +92,8 @@ nav span {
   place-items: center;
   margin-left: 4px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.22);
+  color: var(--gold);
+  background: var(--navy);
   font-size: 0.78rem;
 }
 
@@ -100,25 +103,9 @@ nav span {
   display: grid;
   align-items: center;
   overflow: hidden;
-}
-
-.hero-image,
-.hero-shade {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.hero-image {
-  object-fit: cover;
-}
-
-.hero-shade {
-  background-image: var(--hero-dot-pattern),
-                    linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 24, 0.85) 42%, rgba(0, 0, 0, 0.2) 78%),
-                    linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
-  background-size: 30px 30px, auto, auto;
+  background-color: var(--paper);
+  background-image: var(--dot-pattern);
+  background-size: 30px 30px;
 }
 
 .hero-content {
@@ -127,7 +114,7 @@ nav span {
   width: min(720px, calc(100% - 36px));
   margin-left: clamp(18px, 6vw, 80px);
   padding-top: 84px;
-  color: #fff;
+  color: var(--navy);
 }
 
 .hero-crest {
@@ -176,6 +163,7 @@ h1 {
   max-width: 620px;
   margin: 18px 0 22px;
   font-size: clamp(1.08rem, 1.8vw, 1.35rem);
+  font-weight: 800;
 }
 
 .quick-builder,
@@ -597,12 +585,6 @@ footer p {
   .hero {
     min-height: 92vh;
     align-items: end;
-  }
-
-  .hero-shade {
-    background-image: var(--hero-dot-pattern),
-                      linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 24, 0.85) 58%, rgba(0, 0, 0, 0.08) 100%);
-    background-size: 30px 30px, auto;
   }
 
   .hero-content {

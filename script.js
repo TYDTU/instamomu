@@ -38,7 +38,7 @@ const packageData = {
     productId: "welcome",
     title: "Welcome Week Starter",
     copy:
-      "A practical first-week box with comfort items, quick wins, and QR-linked tips for finding classes, talking to professors, and building a sane routine.",
+      "A practical new-student box with comfort items, colorful school supplies, and fun snacks, as well as QR-linked tips for academic success, creating relationships with professors, and building healthy and productive habits",
   },
   "Homesick helper|Welcome week": {
     productId: "homesick",

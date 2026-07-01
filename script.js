@@ -5,7 +5,7 @@ const products = {
     studentType: "First-year starter",
     moment: "Welcome week",
     copy:
-      "Campus basics, dorm comfort, first-week checklists, and QR codes for smart starts.",
+      "Campus basics, dorm comfort, and new student checklists for navigating academics and roommate relationships",
   },
   study: {
     title: "Study Sprint",

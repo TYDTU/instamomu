@@ -85,9 +85,10 @@ let packageNote = {};
 const studentType = document.querySelector("#studentType");
 const momentSelect = document.querySelector("#moment");
 const previewButton = document.querySelector("#previewButton");
-const addPreviewButton = document.querySelector("#addPreviewButton");
-const previewTitle = document.querySelector("#previewTitle");
-const previewCopy = document.querySelector("#previewCopy");
+const sliderContainer = document.querySelector(".lineup-slider-container");
+const sliderTrack = document.querySelector("#lineupSliderTrack");
+const prevButton = document.querySelector("#slidePrev");
+const nextButton = document.querySelector("#slideNext");
 const saveInterest = document.querySelector("#saveInterest");
 const formStatus = document.querySelector("#formStatus");
 const cartCount = document.querySelector("#cartCount");
@@ -121,9 +122,17 @@ function getSelectedAddons() {
 }
 
 function updatePreview() {
-  const packageInfo = selectedPackage();
-  previewTitle.textContent = packageInfo.title;
-  previewCopy.textContent = packageInfo.copy;
+  const key = `${studentType.value}|${momentSelect.value}`;
+  
+  // Highlight the card in the slider and scroll to it
+  document.querySelectorAll(".lineup-card").forEach((card) => {
+    if (card.dataset.key === key) {
+      card.classList.add("active");
+      card.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    } else {
+      card.classList.remove("active");
+    }
+  });
 }
 
 function addToCart(productId) {
@@ -248,11 +257,38 @@ cartItems.addEventListener("click", (event) => {
 
 saveInterest.addEventListener("click", savePackageNote);
 checkoutButton.addEventListener("click", fakeCheckout);
+function renderSlider() {
+  if (!sliderTrack) return;
+  sliderTrack.innerHTML = Object.entries(packageData).map(([key, data]) => {
+    const [student, moment] = key.split("|");
+    const tagText = `${moment.charAt(0).toUpperCase() + moment.slice(1)} • ${student}`;
+    return `
+      <article class="lineup-card" data-key="${key}">
+        <span class="card-moment-tag">${tagText}</span>
+        <h3>${data.title}</h3>
+        <p>${data.copy}</p>
+      </article>
+    `;
+  }).join("");
+}
+
+if (prevButton && nextButton && sliderContainer) {
+  prevButton.addEventListener("click", () => {
+    sliderContainer.scrollBy({ left: -374, behavior: "smooth" });
+  });
+
+  nextButton.addEventListener("click", () => {
+    sliderContainer.scrollBy({ left: 374, behavior: "smooth" });
+  });
+}
+
 clearCart.addEventListener("click", () => {
   cart = [];
   checkoutStatus.textContent = "";
   renderCart();
 });
 
+// Render and initialize
+renderSlider();
 updatePreview();
 renderCart();

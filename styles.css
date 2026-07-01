@@ -299,29 +299,143 @@ footer {
 }
 
 .intro-band {
-  display: grid;
-  grid-template-columns: minmax(220px, 0.65fr) minmax(260px, 1fr);
-  gap: 28px;
-  align-items: center;
-  padding-top: 28px;
-  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 40px;
+  padding-bottom: 48px;
   color: #fff;
   background: var(--navy);
   border-top: 8px solid var(--gold);
+  overflow: hidden;
 }
 
-.intro-band h2,
+.intro-band-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  width: 100%;
+}
+
+.intro-band-header h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.slider-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.slider-arrow {
+  width: 44px;
+  height: 44px;
+  min-height: auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 1.2rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+}
+
+.slider-arrow:hover {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+}
+
+.lineup-slider-container {
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.lineup-slider-container::-webkit-scrollbar {
+  display: none;
+}
+
+.lineup-slider-track {
+  display: flex;
+  gap: 24px;
+  padding-block: 10px;
+}
+
+.lineup-card {
+  flex: 0 0 350px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 24px;
+  scroll-snap-align: start;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.lineup-card:hover,
+.lineup-card.active {
+  background: var(--surface);
+  color: var(--navy);
+  border-color: var(--gold);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
+  transform: translateY(-4px);
+}
+
+.lineup-card .card-moment-tag {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(255, 255, 255, 0.12);
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+.lineup-card.active .card-moment-tag,
+.lineup-card:hover .card-moment-tag {
+  color: var(--navy);
+  background: var(--gold);
+}
+
+.lineup-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-family: Georgia, serif;
+}
+
+.lineup-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.lineup-card.active p,
+.lineup-card:hover p {
+  color: var(--muted);
+}
+
 .section h2,
 .build-section h2 {
   margin: 0;
   font-size: clamp(2rem, 4vw, 4.4rem);
   line-height: 0.98;
   letter-spacing: 0;
-}
-
-.intro-band p {
-  margin-block: 0;
-  font-size: 1.08rem;
 }
 
 .section {

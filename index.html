@@ -62,14 +62,22 @@
         </div>
       </section>
 
-      <section class="intro-band" aria-label="Package preview">
-        <div>
-          <p class="section-kicker">Current lineup</p>
-          <h2 id="previewTitle">Welcome Week Starter</h2>
+      <section class="intro-band" aria-label="Current lineup slider">
+        <div class="intro-band-header">
+          <div>
+            <p class="section-kicker">Current lineup</p>
+            <h2>Explore our customized packages</h2>
+          </div>
+          <div class="slider-controls">
+            <button type="button" id="slidePrev" aria-label="Previous package" class="slider-arrow">&larr;</button>
+            <button type="button" id="slideNext" aria-label="Next package" class="slider-arrow">&rarr;</button>
+          </div>
         </div>
-        <p id="previewCopy">
-          A practical new-student box with comfort items, colorful school supplies, and fun snacks, as well as QR-linked tips for academic success, creating relationships with professors, and building healthy and productive habits
-        </p>
+        <div class="lineup-slider-container">
+          <div class="lineup-slider-track" id="lineupSliderTrack">
+            <!-- Rendered dynamically by script.js -->
+          </div>
+        </div>
       </section>
 
       <section class="section" id="packages">

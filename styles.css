@@ -482,9 +482,13 @@ footer {
 .package-card {
   min-height: 290px;
   padding: 20px;
-  display: grid;
-  align-content: start;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
+}
+
+.package-card > p {
+  flex-grow: 1;
 }
 
 .icon {
@@ -522,6 +526,8 @@ footer {
 .card-title-row p {
   color: var(--pink);
   font-weight: 900;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .add-product {

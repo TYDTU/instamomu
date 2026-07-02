@@ -40,12 +40,7 @@ const packageData = {
     copy:
       "A practical new-student box with comfort items, colorful school supplies, and fun snacks, as well as QR-linked tips for academic success, creating relationships with professors, and building healthy and productive habits",
   },
-  "Homesick helper|Welcome week": {
-    productId: "homesick",
-    title: "Soft Landing Box",
-    copy:
-      "Comfort snacks, dorm warmth, and tiny prompts for reaching out, joining something low-pressure, and making the room feel less temporary.",
-  },
+
   "Focused achiever|Midterms": {
     productId: "study",
     title: "Study Sprint Box",
@@ -58,12 +53,7 @@ const packageData = {
     copy:
       "Sleep-friendly comforts, hydration helpers, calm checklists, and professor-informed tips for finishing strong without running on panic.",
   },
-  "Club or team rush|Welcome week": {
-    productId: "activity",
-    title: "Get-Involved Kit",
-    copy:
-      "Campus activity basics, conversation starters, and QR-linked advice for choosing clubs, managing tryouts, and protecting study time.",
-  },
+
   "First-year starter|Room refresh": {
     productId: "homesick",
     title: "Room Refresh",

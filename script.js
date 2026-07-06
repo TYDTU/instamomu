@@ -364,3 +364,40 @@ clearCart.addEventListener("click", () => {
 renderSlider();
 updatePreview();
 renderCart();
+
+// About Us Modal Logic
+const aboutUsBtn = document.querySelector("#aboutUsBtn");
+const aboutUsModal = document.querySelector("#aboutUsModal");
+const closeAboutUs = document.querySelector("#closeAboutUs");
+
+if (aboutUsBtn && aboutUsModal && closeAboutUs) {
+  const openModal = (e) => {
+    e.preventDefault();
+    aboutUsModal.classList.add("active");
+    aboutUsModal.setAttribute("aria-hidden", "false");
+    closeAboutUs.focus();
+  };
+
+  const closeModal = () => {
+    aboutUsModal.classList.remove("active");
+    aboutUsModal.setAttribute("aria-hidden", "true");
+    aboutUsBtn.focus();
+  };
+
+  aboutUsBtn.addEventListener("click", openModal);
+  closeAboutUs.addEventListener("click", closeModal);
+
+  // Close modal when clicking outside the modal content card
+  aboutUsModal.addEventListener("click", (e) => {
+    if (e.target === aboutUsModal) {
+      closeModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && aboutUsModal.classList.contains("active")) {
+      closeModal();
+    }
+  });
+}

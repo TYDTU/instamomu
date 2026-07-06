@@ -74,7 +74,6 @@ textarea {
   height: 44px;
   object-fit: contain;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.24));
-  mix-blend-mode: multiply;
 }
 
 nav {
@@ -129,7 +128,6 @@ nav span {
   margin-block: 20px;
   object-fit: contain;
   filter: drop-shadow(0 16px 26px rgba(0, 0, 0, 0.34));
-  mix-blend-mode: multiply;
 }
 
 .eyebrow,

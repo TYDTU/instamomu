@@ -168,55 +168,26 @@ h1 {
     0 8px 0 rgba(4, 29, 69, 0.55);
 }
 
-.hero-badge-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.hero-badge-container {
+  display: inline-block;
+  background-color: var(--navy);
+  padding: 12px 30px;
   margin-top: 10px;
   margin-bottom: 28px;
-  width: 100%;
+  /* Inner gold border inside the blue box near the edge */
+  outline: 2px solid var(--gold);
+  outline-offset: -6px;
+  box-shadow: 0 6px 16px rgba(4, 29, 69, 0.2);
 }
 
-.hero-badge-row .badge-text {
-  flex: 1;
+.hero-badge-container .badge-text {
   color: var(--gold);
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(1.3rem, 2.5vw, 2.4rem);
-  font-weight: 900;
+  font-size: clamp(0.95rem, 2vw, 1.35rem);
+  font-weight: 800;
   text-transform: uppercase;
   white-space: nowrap;
-  letter-spacing: 0.02em;
-  text-shadow:
-    -1.5px -1.5px 0 var(--navy-dark),
-    1.5px -1.5px 0 var(--navy-dark),
-    -1.5px 1.5px 0 var(--navy-dark),
-    1.5px 1.5px 0 var(--navy-dark),
-    0 5px 0 rgba(4, 29, 69, 0.55);
-}
-
-.hero-badge-row .badge-text:first-child {
-  text-align: right;
-}
-
-.hero-badge-row .badge-text:last-child {
-  text-align: left;
-}
-
-.hero-badge-row .badge-plus {
-  flex: 0 0 auto;
-  text-align: center;
-  padding-inline: clamp(12px, 3vw, 40px);
-  color: var(--gold);
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(1.6rem, 3.2vw, 3rem);
-  font-weight: 900;
-  line-height: 1;
-  text-shadow:
-    -1.5px -1.5px 0 var(--navy-dark),
-    1.5px -1.5px 0 var(--navy-dark),
-    -1.5px 1.5px 0 var(--navy-dark),
-    1.5px 1.5px 0 var(--navy-dark),
-    0 5px 0 rgba(4, 29, 69, 0.55);
+  letter-spacing: 0.08em;
 }
 
 .quick-builder,

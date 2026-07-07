@@ -911,11 +911,9 @@ footer p {
   left: -40px;
   width: 50px;
   height: 100%;
-  background-color: var(--navy-dark);
-  border-top: 4px solid var(--gold);
-  border-bottom: 4px solid var(--gold);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M 100,0 L 100,100 L 30,100 L 0,50 L 30,0 Z' fill='%23041d45' stroke='%23ffc928' stroke-width='8' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
   z-index: -2;
-  clip-path: polygon(100% 0, 100% 100%, 30% 100%, 0 50%, 30% 0);
 }
 
 /* Banner swallowtail right fold */
@@ -926,11 +924,9 @@ footer p {
   right: -40px;
   width: 50px;
   height: 100%;
-  background-color: var(--navy-dark);
-  border-top: 4px solid var(--gold);
-  border-bottom: 4px solid var(--gold);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M 0,0 L 70,0 L 100,50 L 70,100 L 0,100 Z' fill='%23041d45' stroke='%23ffc928' stroke-width='8' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
   z-index: -2;
-  clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%);
 }
 
 /* Left connection fold shadow */

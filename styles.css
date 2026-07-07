@@ -898,3 +898,92 @@ footer p {
 .close-modal:hover {
   color: var(--pink);
 }
+
+/* Hero Section Banner (Replicating logo banner behind 'InstaMom') */
+.hero-banner {
+  position: relative;
+  display: inline-block;
+  background-color: var(--navy);
+  border-top: 4px solid var(--gold);
+  border-bottom: 4px solid var(--gold);
+  padding: 14px clamp(30px, 6vw, 60px);
+  margin-bottom: 30px;
+  box-shadow: 0 12px 32px rgba(4, 29, 69, 0.35);
+  z-index: 2;
+}
+
+.hero-banner h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 4.2vw, 3.4rem);
+  line-height: 1.0;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  color: var(--gold);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow:
+    -1.5px -1.5px 0 var(--navy-dark),
+    1.5px -1.5px 0 var(--navy-dark),
+    -1.5px 1.5px 0 var(--navy-dark),
+    1.5px 1.5px 0 var(--navy-dark);
+  position: static; /* Allows pseudo-elements to align relative to .hero-banner */
+}
+
+/* Banner swallowtail left fold */
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: -40px;
+  width: 50px;
+  height: 100%;
+  background-color: var(--navy-dark);
+  border-top: 4px solid var(--gold);
+  border-bottom: 4px solid var(--gold);
+  z-index: -2;
+  clip-path: polygon(100% 0, 100% 100%, 30% 100%, 0 50%, 30% 0);
+}
+
+/* Banner swallowtail right fold */
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: -40px;
+  width: 50px;
+  height: 100%;
+  background-color: var(--navy-dark);
+  border-top: 4px solid var(--gold);
+  border-bottom: 4px solid var(--gold);
+  z-index: -2;
+  clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%);
+}
+
+/* Left connection fold shadow */
+.hero-banner h1::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 0;
+  border-color: transparent var(--navy-dark) transparent transparent;
+  z-index: -1;
+}
+
+/* Right connection fold shadow */
+.hero-banner h1::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 10px 10px;
+  border-color: transparent transparent transparent var(--navy-dark);
+  z-index: -1;
+}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
+
 :root {
   color-scheme: light;
   --ink: #082b63;
@@ -919,7 +921,7 @@ footer p {
   letter-spacing: 0.05em;
   white-space: nowrap;
   color: var(--gold);
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Graduate', Georgia, serif;
   font-weight: 900;
   text-transform: uppercase;
   text-shadow:
@@ -965,7 +967,7 @@ footer p {
   content: "";
   position: absolute;
   top: 100%;
-  left: 0;
+  left: -10px;
   width: 0;
   height: 0;
   border-style: solid;
@@ -979,7 +981,7 @@ footer p {
   content: "";
   position: absolute;
   top: 100%;
-  right: 0;
+  right: -10px;
   width: 0;
   height: 0;
   border-style: solid;

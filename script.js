@@ -1,11 +1,11 @@
 const products = {
   welcome: {
-    title: "Welcome Package",
+    title: "Welcome Week Starter",
     price: 58,
     studentType: "First-year starter",
     moment: "Welcome week",
     copy:
-      "Campus basics, dorm comfort, and new student checklists for navigating academics and roommate relationships",
+      "A practical box filled with campus basics, dorm comfort, and new student checklists to help students navigate relationships with roommates and professors while building healthy and productive habits",
   },
   study: {
     title: "Study Sprint",
@@ -38,7 +38,7 @@ const packageData = {
     productId: "welcome",
     title: "Welcome Week Starter",
     copy:
-      "A practical new-student box with comfort items, colorful school supplies, and fun snacks, as well as QR-linked tips for academic success, creating relationships with professors, and building healthy and productive habits",
+      "A practical box filled with campus basics, dorm comfort, and new student checklists to help students navigate relationships with roommates and professors while building healthy and productive habits",
   },
 
   "Focused achiever|Midterms": {
@@ -321,7 +321,7 @@ function renderSlider() {
 
   sliderTrack.innerHTML = uniquePackages.map((pkg) => {
     const [student, moment] = pkg.key.split("|");
-    const tagText = `${moment.charAt(0).toUpperCase() + moment.slice(1)} • ${student}`;
+    const tagText = pkg.title === "Welcome Week Starter" ? "Pre-Order Now" : `${moment.charAt(0).toUpperCase() + moment.slice(1)} • ${student}`;
     return `
       <article class="lineup-card" data-key="${pkg.key}">
         <span class="card-moment-tag">${tagText}</span>
@@ -351,6 +351,13 @@ if (sliderTrack) {
     studentType.value = student;
     momentSelect.value = moment;
     updatePreview();
+
+    if (key === "First-year starter|Welcome week") {
+      const targetCard = document.querySelector('.package-card[data-product-id="welcome"]');
+      if (targetCard) {
+        targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
   });
 }
 

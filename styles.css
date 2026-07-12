@@ -514,6 +514,17 @@ footer {
   margin-top: auto;
 }
 
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.card-actions button {
+  width: 100%;
+}
+
 .split {
   display: grid;
   grid-template-columns: minmax(260px, 0.9fr) minmax(280px, 1.1fr);

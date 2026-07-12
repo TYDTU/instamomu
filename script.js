@@ -5,7 +5,7 @@ const products = {
     studentType: "First-year starter",
     moment: "Welcome week",
     copy:
-      "A practical box filled with campus basics, dorm comfort, and new student checklists to help students navigate relationships with roommates and professors while building healthy and productive habits",
+      "Packed full of dorm necessities, this box Includes a popcorn starter set, mini first aid kit, utensils, candy, and other helpful dorm items. Academic coaching cards include how to read a syllabus, creating a roommate contract, and building good habits.",
   },
   study: {
     title: "Study Sprint",
@@ -38,7 +38,7 @@ const packageData = {
     productId: "welcome",
     title: "Welcome Week Starter",
     copy:
-      "A practical box filled with campus basics, dorm comfort, and new student checklists to help students navigate relationships with roommates and professors while building healthy and productive habits",
+      "Packed full of dorm necessities, this box Includes a popcorn starter set, mini first aid kit, utensils, candy, and other helpful dorm items. Academic coaching cards include how to read a syllabus, creating a roommate contract, and building good habits.",
   },
 
   "Focused achiever|Midterms": {
@@ -293,6 +293,15 @@ addPreviewButton.addEventListener("click", () => {
 
 document.querySelectorAll(".add-product").forEach((button) => {
   button.addEventListener("click", () => addToCart(button.dataset.productId));
+});
+
+document.querySelectorAll(".see-details").forEach((button) => {
+  button.addEventListener("click", () => {
+    const target = document.querySelector("#inside");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  });
 });
 
 document.querySelectorAll("input[name='addon']").forEach((addon) => {

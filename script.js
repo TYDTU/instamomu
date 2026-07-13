@@ -132,9 +132,6 @@ const addonLabels = {
 let cart = [];
 let packageNote = {};
 
-const studentType = document.querySelector("#studentType");
-const momentSelect = document.querySelector("#moment");
-const previewButton = document.querySelector("#previewButton");
 const sliderContainer = document.querySelector(".lineup-slider-container");
 const sliderTrack = document.querySelector("#lineupSliderTrack");
 const prevButton = document.querySelector("#slidePrev");
@@ -158,31 +155,12 @@ function money(value) {
   }).format(value);
 }
 
-function selectedPackage() {
-  const key = `${studentType.value}|${momentSelect.value}`;
-  return packageData[key] || fallbackCopy;
-}
-
 function getSelectedAddons() {
   return [...document.querySelectorAll("input[name='addon']:checked")].map((addon) => ({
     id: addon.value,
     label: addonLabels[addon.value],
     price: Number(addon.dataset.price),
   }));
-}
-
-function updatePreview() {
-  const key = `${studentType.value}|${momentSelect.value}`;
-  
-  // Highlight the card in the slider and scroll to it
-  document.querySelectorAll(".lineup-card").forEach((card) => {
-    if (card.dataset.key === key) {
-      card.classList.add("active");
-      card.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-    } else {
-      card.classList.remove("active");
-    }
-  });
 }
 
 function addToCart(productId) {
@@ -284,12 +262,7 @@ function fakeCheckout() {
   checkoutStatus.textContent = `Fake Shopify checkout ready${noteText}. Add-ons: ${addonText}.`;
 }
 
-previewButton.addEventListener("click", updatePreview);
 
-addPreviewButton.addEventListener("click", () => {
-  const packageInfo = selectedPackage();
-  addToCart(packageInfo.productId);
-});
 
 document.querySelectorAll(".add-product").forEach((button) => {
   button.addEventListener("click", () => addToCart(button.dataset.productId));
@@ -355,14 +328,15 @@ if (sliderTrack) {
   sliderTrack.addEventListener("click", (event) => {
     const card = event.target.closest(".lineup-card");
     if (!card) return;
-    const key = card.dataset.key;
-    const [student, moment] = key.split("|");
-    studentType.value = student;
-    momentSelect.value = moment;
-    updatePreview();
+    
+    // Toggle active class on lineup cards
+    document.querySelectorAll(".lineup-card").forEach((c) => c.classList.remove("active"));
+    card.classList.add("active");
 
-    if (key === "First-year starter|Welcome week") {
-      const targetCard = document.querySelector('.package-card[data-product-id="welcome"]');
+    const key = card.dataset.key;
+    const pkg = packageData[key];
+    if (pkg && pkg.productId) {
+      const targetCard = document.querySelector(`.package-card[data-product-id="${pkg.productId}"]`);
       if (targetCard) {
         targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
       }
@@ -378,7 +352,6 @@ clearCart.addEventListener("click", () => {
 
 // Render and initialize
 renderSlider();
-updatePreview();
 renderCart();
 
 // About Us Modal Logic

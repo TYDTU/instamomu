@@ -7,14 +7,6 @@ const products = {
     copy:
       "Packed full of dorm necessities, this box Includes a popcorn starter set, mini first aid kit, utensils, candy, and other helpful dorm items. Academic coaching cards include how to read a syllabus, creating a roommate contract, and building good habits.",
   },
-  study: {
-    title: "Study Sprint",
-    price: 64,
-    studentType: "Focused achiever",
-    moment: "Midterms",
-    copy:
-      "Satisfying snacks, planning and study tools, and self-care resets.",
-  },
   homesick: {
     title: "Homesick Helper",
     price: 52,
@@ -23,13 +15,45 @@ const products = {
     copy:
       "Comfort staples, familiar treats, and gentle routines for settling in and finding your community.",
   },
-  activity: {
-    title: "Activity Kits",
-    price: 49,
-    studentType: "Club or team rush",
-    moment: "Welcome week",
+  study: {
+    title: "Study Sprint Box",
+    price: 64,
+    studentType: "Focused achiever",
+    moment: "Midterms",
     copy:
-      "Rush week, club fairs, game days, lab-heavy weeks, and athlete-friendly add-ons.",
+      "High-focus supplies, desk snacks, and QR guides for office hours, review planning, and turning a rough grade into a useful signal.",
+  },
+  sick: {
+    title: "Sick Baby Box",
+    price: 48,
+    studentType: "Wellness reset",
+    moment: "Sick day",
+    copy:
+      "Tissues, throat lozenges, hydration powder, soup, tea, and expert tips on when to visit campus health or self-care.",
+  },
+  finals: {
+    title: "Finals Reset Box",
+    price: 64,
+    studentType: "Wellness reset",
+    moment: "Finals",
+    copy:
+      "Sleep-friendly comforts, hydration helpers, calm checklists, and professor-informed tips for finishing strong without running on panic.",
+  },
+  refresh: {
+    title: "Room Refresh",
+    price: 45,
+    studentType: "First-year starter",
+    moment: "Room refresh",
+    copy:
+      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
+  },
+  snack: {
+    title: "Snack Attack",
+    price: 42,
+    studentType: "First-year starter",
+    moment: "Snack attack",
+    copy:
+      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
   },
 };
 
@@ -46,76 +70,32 @@ const packageData = {
     copy:
       "Comfort staples, familiar treats, and gentle routines for settling in and finding your community.",
   },
-
   "Focused achiever|Midterms": {
     productId: "study",
     title: "Study Sprint Box",
     copy:
       "High-focus supplies, desk snacks, and QR guides for office hours, review planning, and turning a rough grade into a useful signal.",
   },
+  "Wellness reset|Sick baby": {
+    productId: "sick",
+    title: "Sick Baby Box",
+    copy:
+      "Tissues, throat lozenges, hydration powder, soup, tea, and expert tips on when to visit campus health or self-care.",
+  },
   "Wellness reset|Finals": {
-    productId: "study",
+    productId: "finals",
     title: "Finals Reset Box",
     copy:
       "Sleep-friendly comforts, hydration helpers, calm checklists, and professor-informed tips for finishing strong without running on panic.",
   },
-
   "First-year starter|Room refresh": {
-    productId: "homesick",
-    title: "Room Refresh",
-    copy:
-      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
-  },
-  "Homesick helper|Room refresh": {
-    productId: "homesick",
-    title: "Room Refresh",
-    copy:
-      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
-  },
-  "Focused achiever|Room refresh": {
-    productId: "homesick",
-    title: "Room Refresh",
-    copy:
-      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
-  },
-  "Wellness reset|Room refresh": {
-    productId: "homesick",
-    title: "Room Refresh",
-    copy:
-      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
-  },
-  "Club or team rush|Room refresh": {
-    productId: "homesick",
+    productId: "refresh",
     title: "Room Refresh",
     copy:
       "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
   },
   "First-year starter|Snack attack": {
-    productId: "welcome",
-    title: "Snack Attack",
-    copy:
-      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
-  },
-  "Homesick helper|Snack attack": {
-    productId: "welcome",
-    title: "Snack Attack",
-    copy:
-      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
-  },
-  "Focused achiever|Snack attack": {
-    productId: "welcome",
-    title: "Snack Attack",
-    copy:
-      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
-  },
-  "Wellness reset|Snack attack": {
-    productId: "welcome",
-    title: "Snack Attack",
-    copy:
-      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
-  },
-  "Club or team rush|Snack attack": {
-    productId: "welcome",
+    productId: "snack",
     title: "Snack Attack",
     copy:
       "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",

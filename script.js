@@ -13,7 +13,7 @@ const products = {
     studentType: "Homesick helper",
     moment: "Welcome week",
     copy:
-      "Comfort staples, familiar treats, and gentle routines for settling in and finding your community.",
+      "Comfort staples, familiar treats, and routines for settling in and finding your community.",
   },
   study: {
     title: "Study Sprint Box",
@@ -76,7 +76,7 @@ const packageData = {
     productId: "homesick",
     title: "Homesick Helper",
     copy:
-      "Comfort staples, familiar treats, and gentle routines for settling in and finding your community.",
+      "Comfort staples, familiar treats, and routines for settling in and finding your community.",
   },
   "Focused achiever|Midterms": {
     productId: "study",

@@ -21,7 +21,7 @@ const products = {
     studentType: "Focused achiever",
     moment: "Midterms",
     copy:
-      "High-focus supplies, desk snacks, and QR guides for office hours, review planning, and turning a rough grade into a useful signal.",
+      "Supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
   },
   sick: {
     title: "Sick Baby Box",
@@ -82,7 +82,7 @@ const packageData = {
     productId: "study",
     title: "Study Sprint Box",
     copy:
-      "High-focus supplies, desk snacks, and QR guides for office hours, review planning, and turning a rough grade into a useful signal.",
+      "Supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
   },
   "Wellness reset|Sick baby": {
     productId: "sick",

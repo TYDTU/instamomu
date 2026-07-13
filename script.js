@@ -82,7 +82,7 @@ const packageData = {
     productId: "study",
     title: "Study Sprint Box",
     copy:
-      "Supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
+      "Everyone hits a rough patch in the transition to college-level work--what matters most is how they handle it. This box includes supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
   },
   "Wellness reset|Sick baby": {
     productId: "sick",

@@ -5,7 +5,7 @@ const products = {
     studentType: "First-year starter",
     moment: "Welcome week",
     copy:
-      "Packed full of dorm necessities, this box Includes a popcorn starter set, mini first aid kit, utensils, candy, and other helpful dorm items. Academic coaching cards include how to read a syllabus, creating a roommate contract, and building good habits.",
+      "Packed full of dorm necessities, including a popcorn starter set, mini first aid kit, utensils, candy, and other practical goodies. Academic coaching cards include how to read a syllabus, creating a roommate contract, and building strong habits.",
   },
   homesick: {
     title: "Homesick Helper",
@@ -106,7 +106,7 @@ const packageData = {
     productId: "snack",
     title: "Snack Attack",
     copy:
-      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
+      "Whether they love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of their favorites.",
   },
   "First-year starter|Holiday": {
     productId: "seasonal",

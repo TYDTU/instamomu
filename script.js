@@ -94,7 +94,7 @@ const packageData = {
     productId: "finals",
     title: "Finals Reset Box",
     copy:
-      "Sleep-friendly comforts, hydration helpers, calm checklists, and professor-informed tips for finishing strong without running on panic.",
+      "Finals week requires a balance of hard work, focus, and intentional self-care. Help them across the finish line with lots of colorful, fun school supplies, snacks for late nights, coaching cards for successful study habits, and tips for finishing strong without running on panic.",
   },
   "First-year starter|Room refresh": {
     productId: "refresh",

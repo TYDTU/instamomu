@@ -70,7 +70,7 @@ const packageData = {
     productId: "welcome",
     title: "Welcome Week Starter",
     copy:
-      "Practical necessities for living in a smaller, shared space, plus coaching to build good habits and strong academic and personal relationships.",
+      "Practical necessities for living in a smaller, shared space (with that tiny microwave!), plus coaching tips for building a strong academic foundation and fulfilling academic and personal relationships.",
   },
   "Homesick helper|Welcome week": {
     productId: "homesick",
@@ -100,7 +100,7 @@ const packageData = {
     productId: "refresh",
     title: "Room Refresh",
     copy:
-      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
+      "Dorms can really stink--theirs doesn't have to. Banish the funk and refresh their space so they can enjoy breathing deeply again.",
   },
   "First-year starter|Snack attack": {
     productId: "snack",
@@ -112,7 +112,7 @@ const packageData = {
     productId: "seasonal",
     title: "Seasonal Celebrations",
     copy:
-      "Holiday themes, finals treats, exam survival kits, and birthday celebration packs customized for the time of year.",
+      "They may not be home to enjoy their favorite seasons, but you can help them celebrate from afar and make their dorm rooms feel festive with this box of seasonal goodies for fall, Christmas, Valentine's Day, birthdays, and other important occasions.",
   },
 };
 

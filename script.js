@@ -70,7 +70,7 @@ const packageData = {
     productId: "welcome",
     title: "Welcome Week Starter",
     copy:
-      "Practical necessities for living in a smaller, shared space; coaching to build good habits along with strong academic and personal relationships.",
+      "Practical necessities for living in a smaller, shared space, plus coaching to build good habits and strong academic and personal relationships.",
   },
   "Homesick helper|Welcome week": {
     productId: "homesick",

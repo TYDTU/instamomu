@@ -24,7 +24,7 @@ const products = {
       "Supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
   },
   sick: {
-    title: "Sick Baby Box",
+    title: "Sickness Comfort",
     price: 48,
     studentType: "Wellness reset",
     moment: "Sick day",
@@ -86,9 +86,9 @@ const packageData = {
   },
   "Wellness reset|Sick baby": {
     productId: "sick",
-    title: "Sick Baby Box",
+    title: "Sickness Comfort",
     copy:
-      "Tissues, throat lozenges, hydration powder, soup, tea, and expert tips on when to visit campus health or self-care.",
+      "College exposes them to new people, new experiences, and new germs. Send healing comfort across the miles with tissues, throat lozenges, hydration packets, soup, and tea, along with tips on utilizing campus resources, making up work and communicating clearly with faculty.",
   },
   "Wellness reset|Finals": {
     productId: "finals",

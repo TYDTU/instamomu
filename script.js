@@ -76,7 +76,7 @@ const packageData = {
     productId: "homesick",
     title: "Homesick Helper",
     copy:
-      "Soon, campus will feel like a second home. To help ease the transition, this box includes comfort staples, familiar treats, and routines for settling in and finding your community.",
+      "Soon, campus will feel like a second home. Until then, help ease the transition with this box of comfort staples, familiar treats, and routines for settling in and finding your community.",
   },
   "Focused achiever|Midterms": {
     productId: "study",

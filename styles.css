@@ -388,6 +388,28 @@ footer {
   background: var(--gold);
 }
 
+.lineup-card .card-moment-tag.coming-soon-tag {
+  color: #cbd5e0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.lineup-card.active .card-moment-tag.coming-soon-tag,
+.lineup-card:hover .card-moment-tag.coming-soon-tag {
+  color: var(--navy);
+  background: #e2e8f0;
+}
+
+.lineup-card .card-moment-tag.seasonal-tag {
+  color: #ffa726;
+  background: rgba(255, 167, 38, 0.15);
+}
+
+.lineup-card.active .card-moment-tag.seasonal-tag,
+.lineup-card:hover .card-moment-tag.seasonal-tag {
+  color: var(--navy);
+  background: #ffa726;
+}
+
 .lineup-card h3 {
   margin: 0;
   font-size: 1.35rem;

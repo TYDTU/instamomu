@@ -55,6 +55,14 @@ const products = {
     copy:
       "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
   },
+  seasonal: {
+    title: "Seasonal Celebrations",
+    price: 68,
+    studentType: "Focused achiever",
+    moment: "Holiday",
+    copy:
+      "Holiday themes, finals treats, exam survival kits, and birthday celebration packs customized for the time of year.",
+  },
 };
 
 const packageData = {
@@ -99,6 +107,12 @@ const packageData = {
     title: "Snack Attack",
     copy:
       "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
+  },
+  "First-year starter|Holiday": {
+    productId: "seasonal",
+    title: "Seasonal Celebrations",
+    copy:
+      "Holiday themes, finals treats, exam survival kits, and birthday celebration packs customized for the time of year.",
   },
 };
 
@@ -288,11 +302,18 @@ function renderSlider() {
   });
 
   sliderTrack.innerHTML = uniquePackages.map((pkg) => {
-    const [student, moment] = pkg.key.split("|");
-    const tagText = pkg.title === "Welcome Week Starter" ? "Pre-Order Now" : `${moment.charAt(0).toUpperCase() + moment.slice(1)} • ${student}`;
+    let tagText = "Coming in September";
+    let tagClass = "card-moment-tag coming-soon-tag";
+    if (pkg.title === "Welcome Week Starter") {
+      tagText = "Pre-Order Now";
+      tagClass = "card-moment-tag";
+    } else if (pkg.title === "Seasonal Celebrations") {
+      tagText = "Seasonal";
+      tagClass = "card-moment-tag seasonal-tag";
+    }
     return `
       <article class="lineup-card" data-key="${pkg.key}">
-        <span class="card-moment-tag">${tagText}</span>
+        <span class="${tagClass}">${tagText}</span>
         <h3>${pkg.title}</h3>
         <p>${pkg.copy}</p>
       </article>

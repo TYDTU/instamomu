@@ -70,7 +70,7 @@ const packageData = {
     productId: "welcome",
     title: "Welcome Week Starter",
     copy:
-      "Practical necessities for living in a smaller, shared space; coaching to build good habits along with strong academic and personal relationships",
+      "Practical necessities for living in a smaller, shared space; coaching to build good habits along with strong academic and personal relationships.",
   },
   "Homesick helper|Welcome week": {
     productId: "homesick",
@@ -304,15 +304,17 @@ function renderSlider() {
   sliderTrack.innerHTML = uniquePackages.map((pkg) => {
     let tagText = "Coming in September";
     let tagClass = "card-moment-tag coming-soon-tag";
-    if (pkg.title === "Welcome Week Starter") {
+    const isClickable = pkg.title === "Welcome Week Starter";
+    if (isClickable) {
       tagText = "Pre-Order Now";
       tagClass = "card-moment-tag";
     } else if (pkg.title === "Seasonal Celebrations") {
       tagText = "Seasonal";
       tagClass = "card-moment-tag seasonal-tag";
     }
+    const cardClass = isClickable ? "lineup-card" : "lineup-card non-clickable";
     return `
-      <article class="lineup-card" data-key="${pkg.key}">
+      <article class="${cardClass}" data-key="${pkg.key}">
         <span class="${tagClass}">${tagText}</span>
         <h3>${pkg.title}</h3>
         <p>${pkg.copy}</p>
@@ -334,7 +336,7 @@ if (prevButton && nextButton && sliderContainer) {
 if (sliderTrack) {
   sliderTrack.addEventListener("click", (event) => {
     const card = event.target.closest(".lineup-card");
-    if (!card) return;
+    if (!card || card.classList.contains("non-clickable")) return;
     
     // Toggle active class on lineup cards
     document.querySelectorAll(".lineup-card").forEach((c) => c.classList.remove("active"));

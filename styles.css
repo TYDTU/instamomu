@@ -371,6 +371,18 @@ footer {
   transform: translateY(-4px);
 }
 
+.lineup-card.non-clickable {
+  cursor: default;
+}
+
+.lineup-card.non-clickable:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(8, 43, 99, 0.85);
+  color: #fff;
+}
+
 .lineup-card .card-moment-tag {
   align-self: flex-start;
   font-size: 0.72rem;

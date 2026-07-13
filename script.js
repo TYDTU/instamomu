@@ -40,6 +40,12 @@ const packageData = {
     copy:
       "Packed full of dorm necessities, this box Includes a popcorn starter set, mini first aid kit, utensils, candy, and other helpful dorm items. Academic coaching cards include how to read a syllabus, creating a roommate contract, and building good habits.",
   },
+  "Homesick helper|Welcome week": {
+    productId: "homesick",
+    title: "Homesick Helper",
+    copy:
+      "Comfort staples, familiar treats, and gentle routines for settling in and finding your community.",
+  },
 
   "Focused achiever|Midterms": {
     productId: "study",

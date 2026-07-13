@@ -62,7 +62,7 @@ const packageData = {
     productId: "welcome",
     title: "Welcome Week Starter",
     copy:
-      "Packed full of dorm necessities, this box Includes a popcorn starter set, mini first aid kit, utensils, candy, and other helpful dorm items. Academic coaching cards include how to read a syllabus, creating a roommate contract, and building good habits.",
+      "Practical necessities for living in a smaller, shared space; coaching to build good habits along with strong academic and personal relationships",
   },
   "Homesick helper|Welcome week": {
     productId: "homesick",

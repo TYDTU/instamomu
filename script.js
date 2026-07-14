@@ -312,9 +312,8 @@ function renderSlider() {
       tagText = "Seasonal";
       tagClass = "card-moment-tag seasonal-tag";
     }
-    const cardClass = isClickable ? "lineup-card" : "lineup-card non-clickable";
     return `
-      <article class="${cardClass}" data-key="${pkg.key}">
+      <article class="lineup-card" data-key="${pkg.key}">
         <span class="${tagClass}">${tagText}</span>
         <h3>${pkg.title}</h3>
         <p>${pkg.copy}</p>
@@ -336,7 +335,7 @@ if (prevButton && nextButton && sliderContainer) {
 if (sliderTrack) {
   sliderTrack.addEventListener("click", (event) => {
     const card = event.target.closest(".lineup-card");
-    if (!card || card.classList.contains("non-clickable")) return;
+    if (!card) return;
     
     // Toggle active class on lineup cards
     document.querySelectorAll(".lineup-card").forEach((c) => c.classList.remove("active"));

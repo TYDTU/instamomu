@@ -20,6 +20,11 @@ const products = {
       "Academic coaching cards for: reading a syllabus, creating a roommate contract, and building a solid foundation of healthy habits"
     ]
   },
+  snacks_cookies: {
+    title: "Extra Snack Sleeve: Cookies",
+    copy:
+      "Includes one to-go cup of Oreos (3.5 oz), one to-go pack of Chips Ahoy (3.5 oz) and five individually-wrapped Biscoff cookies",
+  },
   homesick: {
     title: "Homesick Helper",
     price: 52,
@@ -298,6 +303,13 @@ document.querySelectorAll(".see-details").forEach((button) => {
 
 document.querySelectorAll(".addon-select").forEach((select) => {
   select.addEventListener("change", renderCart);
+});
+
+document.querySelectorAll(".addon-details-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const addonId = btn.dataset.addonId;
+    openPackageModal(addonId);
+  });
 });
 
 cartItems.addEventListener("click", (event) => {

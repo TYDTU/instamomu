@@ -199,43 +199,132 @@
         <form class="interest-form" aria-label="Package customization form">
           <fieldset class="addon-fieldset">
             <legend>Add-ons</legend>
-            <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="laundry" data-price="12">
-              Laundry rescue pack <span>+$12</span>
-            </label>
-            <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="snacks_cookies" data-price="15">
-              Extra snack sleeve: cookies <span>+$15</span>
-            </label>
-            <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="snacks_chips" data-price="10">
-              Extra snack sleeve: chips <span>+$10</span>
-            </label>
-            <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="toilet_paper" data-price="4">
-              roll of two-ply toilet paper (trust us on this one) <span>+$4</span>
-            </label>
-            <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="popcorn_bottle" data-price="7">
-              Extra popcorn -14 oz bottle <span>+$7</span>
-            </label>
-            <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="popcorn_seasoning" data-price="5">
-              Extra mini popcorn seasoning <span>+$5</span>
-            </label>
-            <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="cable_3in1" data-price="15">
-              3.5 foot 3-in-1 charging cable <span>+$15</span>
-            </label>
-            <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="cable_usb_c" data-price="10">
-              10 foot USB-C charging cable <span>+$10</span>
-            </label>
-            <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="personalized_card" data-price="5">
-              Card with your personalized message and 'You Are Loved' sticker <span>+$5</span>
-            </label>
+
+            <div class="addon-row">
+              <span class="addon-name">Laundry rescue pack <span>+$12</span></span>
+              <div class="addon-quantity-wrapper">
+                <span class="addon-qty-label">Qty:</span>
+                <select class="addon-select" data-addon-id="laundry" data-price="12">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="addon-row">
+              <span class="addon-name">Extra snack sleeve: cookies <span>+$15</span></span>
+              <div class="addon-quantity-wrapper">
+                <span class="addon-qty-label">Qty:</span>
+                <select class="addon-select" data-addon-id="snacks_cookies" data-price="15">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="addon-row">
+              <span class="addon-name">Extra snack sleeve: chips <span>+$10</span></span>
+              <div class="addon-quantity-wrapper">
+                <span class="addon-qty-label">Qty:</span>
+                <select class="addon-select" data-addon-id="snacks_chips" data-price="10">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="addon-row">
+              <span class="addon-name">Roll of two-ply toilet paper (trust us on this one) <span>+$4</span></span>
+              <div class="addon-quantity-wrapper">
+                <span class="addon-qty-label">Qty:</span>
+                <select class="addon-select" data-addon-id="toilet_paper" data-price="4">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="addon-row">
+              <span class="addon-name">Extra popcorn -14 oz bottle <span>+$7</span></span>
+              <div class="addon-quantity-wrapper">
+                <span class="addon-qty-label">Qty:</span>
+                <select class="addon-select" data-addon-id="popcorn_bottle" data-price="7">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="addon-row">
+              <span class="addon-name">Extra mini popcorn seasoning <span>+$5</span></span>
+              <div class="addon-quantity-wrapper">
+                <span class="addon-qty-label">Qty:</span>
+                <select class="addon-select" data-addon-id="popcorn_seasoning" data-price="5">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="addon-row">
+              <span class="addon-name">3.5 foot 3-in-1 charging cable <span>+$15</span></span>
+              <div class="addon-quantity-wrapper">
+                <span class="addon-qty-label">Qty:</span>
+                <select class="addon-select" data-addon-id="cable_3in1" data-price="15">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="addon-row">
+              <span class="addon-name">Card with your personalized message and 'You Are Loved' sticker <span>+$5</span></span>
+              <div class="addon-quantity-wrapper">
+                <span class="addon-qty-label">Qty:</span>
+                <select class="addon-select" data-addon-id="personalized_card" data-price="5">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
           </fieldset>
+
+          <div class="roommate-wrap-container">
+            <label for="roommateWrapNotes">Buying an add-on for your student's roommate? You're so kind! If you'd like for us to wrap it separately, please tell us which item(s), and share the roommate's name.</label>
+            <textarea id="roommateWrapNotes" class="roommate-wrap-textarea" placeholder="e.g., Please wrap the extra snacks sleeve separately for roommate Sarah."></textarea>
+          </div>
         </form>
       </section>
 

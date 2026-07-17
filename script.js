@@ -140,11 +140,10 @@ const addonLabels = {
   laundry: "Laundry rescue pack",
   snacks_cookies: "Extra snack sleeve: cookies",
   snacks_chips: "Extra snack sleeve: chips",
-  toilet_paper: "roll of two-ply toilet paper (trust us on this one)",
+  toilet_paper: "Roll of two-ply toilet paper (trust us on this one)",
   popcorn_bottle: "Extra popcorn -14 oz bottle",
   popcorn_seasoning: "Extra mini popcorn seasoning",
   cable_3in1: "3.5 foot 3-in-1 charging cable",
-  cable_usb_c: "10 foot USB-C charging cable",
   personalized_card: "Card with your personalized message and 'You Are Loved' sticker",
 };
 
@@ -174,11 +173,16 @@ function money(value) {
 }
 
 function getSelectedAddons() {
-  return [...document.querySelectorAll("input[name='addon']:checked")].map((addon) => ({
-    id: addon.value,
-    label: addonLabels[addon.value],
-    price: Number(addon.dataset.price),
-  }));
+  return [...document.querySelectorAll(".addon-select")].map((select) => {
+    const qty = Number(select.value);
+    const addonId = select.dataset.addonId;
+    return {
+      id: addonId,
+      label: addonLabels[addonId],
+      price: Number(select.dataset.price),
+      quantity: qty,
+    };
+  }).filter(addon => addon.quantity > 0);
 }
 
 function addToCart(productId) {
@@ -212,7 +216,7 @@ function totals() {
   const packageSubtotal = cart.reduce((sum, line) => {
     return sum + products[line.productId].price * line.quantity;
   }, 0);
-  const selectedAddonTotal = getSelectedAddons().reduce((sum, addon) => sum + addon.price, 0);
+  const selectedAddonTotal = getSelectedAddons().reduce((sum, addon) => sum + (addon.price * addon.quantity), 0);
   return {
     packageSubtotal,
     selectedAddonTotal,
@@ -259,8 +263,16 @@ function fakeCheckout() {
     return;
   }
 
-  const addonText = getSelectedAddons().map((addon) => addon.label).join(", ") || "No add-ons";
-  checkoutStatus.textContent = `Fake Shopify checkout ready. Add-ons: ${addonText}.`;
+  const addonText = getSelectedAddons().map((addon) => {
+    return addon.quantity > 1 ? `${addon.label} (Qty: ${addon.quantity})` : addon.label;
+  }).join(", ") || "No add-ons";
+
+  const roommateWrapInput = document.querySelector("#roommateWrapNotes");
+  const roommateText = roommateWrapInput && roommateWrapInput.value.trim()
+    ? ` Roommate separate wrap request: "${roommateWrapInput.value.trim()}".`
+    : "";
+
+  checkoutStatus.textContent = `Fake Shopify checkout ready. Add-ons: ${addonText}.${roommateText}`;
 }
 
 
@@ -284,8 +296,8 @@ document.querySelectorAll(".see-details").forEach((button) => {
   });
 });
 
-document.querySelectorAll("input[name='addon']").forEach((addon) => {
-  addon.addEventListener("change", renderCart);
+document.querySelectorAll(".addon-select").forEach((select) => {
+  select.addEventListener("change", renderCart);
 });
 
 cartItems.addEventListener("click", (event) => {
@@ -360,6 +372,9 @@ if (sliderTrack) {
 
 clearCart.addEventListener("click", () => {
   cart = [];
+  document.querySelectorAll(".addon-select").forEach(select => select.value = "0");
+  const roommateWrapNotes = document.querySelector("#roommateWrapNotes");
+  if (roommateWrapNotes) roommateWrapNotes.value = "";
   checkoutStatus.textContent = "";
   renderCart();
 });

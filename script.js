@@ -30,6 +30,11 @@ const products = {
     copy:
       "One box of 15 Bounce dryer sheets and one Gain original scent liquid detergent 10 oz/6 loads",
   },
+  snacks_chips: {
+    title: "Extra Snack Sleeve: Chips",
+    copy:
+      "Five Lay's variety snack-sized chips and one mini-can of Pringles Original chips",
+  },
   homesick: {
     title: "Homesick Helper",
     price: 52,
@@ -152,7 +157,7 @@ const addonLabels = {
   snacks_chips: "Extra snack sleeve: chips",
   toilet_paper: "Roll of two-ply toilet paper (trust us on this one)",
   popcorn_bottle: "Extra popcorn -14 oz bottle",
-  popcorn_seasoning: "Extra mini popcorn seasoning",
+  popcorn_seasoning: "Extra mini popcorn seasoning: White Cheddar",
   cable_3in1: "3.5 foot 3-in-1 charging cable",
   personalized_card: "Card with your personalized message and 'You Are Loved' sticker",
 };

@@ -73,7 +73,7 @@ const products = {
     studentType: "First-year starter",
     moment: "Room refresh",
     copy:
-      "Dorms can stink--yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
+      "Dorms can stink—yours doesn't have to. Banish the funk and refresh your space so you can enjoy breathing deeply again.",
   },
   snack: {
     title: "Snack Attack",
@@ -110,7 +110,7 @@ const packageData = {
     productId: "study",
     title: "Study Sprint Box",
     copy:
-      "Everyone hits a rough patch in the transition to college-level work--what matters most is how they handle it. This box includes supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
+      "Everyone hits a rough patch in the transition to college-level work—what matters most is how they handle it. This box includes supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
   },
   "Wellness reset|Sick baby": {
     productId: "sick",
@@ -128,7 +128,7 @@ const packageData = {
     productId: "refresh",
     title: "Room Refresh",
     copy:
-      "Dorms can really stink--theirs doesn't have to. Banish the funk and refresh their space so they can enjoy breathing deeply again.",
+      "Dorms can really stink—theirs doesn't have to. Banish the funk and refresh their space so they can enjoy breathing deeply again.",
   },
   "First-year starter|Snack attack": {
     productId: "snack",

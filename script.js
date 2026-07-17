@@ -25,6 +25,11 @@ const products = {
     copy:
       "Includes one to-go cup of Oreos (3.5 oz), one to-go pack of Chips Ahoy (3.5 oz) and five individually-wrapped Biscoff cookies",
   },
+  laundry: {
+    title: "Laundry Rescue Pack",
+    copy:
+      "One box of 15 bounce dryer sheets and one Gain original scent liquid detergent 10 oz/6 loads",
+  },
   homesick: {
     title: "Homesick Helper",
     price: 52,
@@ -142,7 +147,7 @@ const fallbackCopy = {
 };
 
 const addonLabels = {
-  laundry: "Laundry rescue pack",
+  laundry: "Laundry Rescue Pack",
   snacks_cookies: "Extra snack sleeve: cookies",
   snacks_chips: "Extra snack sleeve: chips",
   toilet_paper: "Roll of two-ply toilet paper (trust us on this one)",

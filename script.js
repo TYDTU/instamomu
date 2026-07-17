@@ -305,13 +305,6 @@ document.querySelectorAll(".addon-select").forEach((select) => {
   select.addEventListener("change", renderCart);
 });
 
-document.querySelectorAll(".addon-details-btn").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const addonId = btn.dataset.addonId;
-    openPackageModal(addonId);
-  });
-});
-
 cartItems.addEventListener("click", (event) => {
   const button = event.target.closest("[data-quantity]");
   if (!button) return;

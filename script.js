@@ -33,7 +33,7 @@ const products = {
   snacks_chips: {
     title: "Extra Snack Sleeve: Chips",
     copy:
-      "Five Lay's variety snack-sized chips and one serving can 2.38 oz of Pringles Original chips",
+      "Five Lay's variety snack-sized chips and Pringles Original chips one-serving can 2.38 oz",
   },
   homesick: {
     title: "Homesick Helper",

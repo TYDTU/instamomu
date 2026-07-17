@@ -9,7 +9,7 @@ const products = {
     image: "assets/welcome_week_box.jpg",
     contents: [
       "Mini popcorn starter set: individual silicone popcorn popper, 4 oz popcorn kernels with wooden scoop, and 0.9 oz popcorn seasoning",
-      "First aid kit: 15 adhesive bandages, two 5x7 cleansing towels, two neosporin packs, and two hydrocortisone packs in a sturdy, re-usable case",
+      "First aid kit: 15 adhesive bandages, two 5x7 cleansing towels, two Neosporin packs, and two hydrocortisone packs in a sturdy, re-usable case",
       "Wheatgrass bowl and plate (microwave safe) with a zippered pouch of stainless steel utensils (fork, butter knife, spoon, chopsticks) and mini salt-and-pepper shakers",
       "Clorox Disinfecting on the go travel wipes",
       "Command strips for hanging posters (4)",

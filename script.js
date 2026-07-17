@@ -155,7 +155,7 @@ const addonLabels = {
   laundry: "Laundry Rescue Pack",
   snacks_cookies: "Extra snack sleeve: cookies",
   snacks_chips: "Extra snack sleeve: chips",
-  toilet_paper: "Roll of two-ply toilet paper (trust us on this one)",
+  toilet_paper: "Roll of two-ply toilet paper (trust us)",
   popcorn_bottle: "Extra popcorn -14 oz bottle",
   popcorn_seasoning: "Extra mini popcorn seasoning: White Cheddar",
   cable_3in1: "3.5 foot 3-in-1 charging cable",

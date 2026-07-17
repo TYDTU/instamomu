@@ -3,7 +3,7 @@
 :root {
   color-scheme: light;
   --ink: #082b63;
-  --muted: #5f6f86;
+  --muted: #2e3d52;
   --paper: #fff2ad;
   --surface: #ffffff;
   --line: #e8d38a;
@@ -32,7 +32,8 @@ body {
   background-color: var(--paper);
   background-image: var(--dot-pattern);
   background-size: 30px 30px;
-  line-height: 1.5;
+  line-height: 1.65;
+  font-weight: 500;
 }
 
 a {
@@ -420,7 +421,7 @@ footer {
 .lineup-card p {
   margin: 0;
   font-size: 0.95rem;
-  line-height: 1.45;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -903,7 +904,8 @@ footer p {
   margin: 0;
   color: var(--muted);
   font-size: 1.05rem;
-  line-height: 1.6;
+  line-height: 1.65;
+  font-weight: 500;
 }
 
 /* Close button */
@@ -1028,7 +1030,7 @@ footer p {
   position: relative;
   padding-left: 28px;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.65;
   color: var(--muted);
   font-weight: 500;
 }
@@ -1107,7 +1109,7 @@ footer p {
 
 .roommate-wrap-container label {
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--muted);
   font-weight: 700;
 }

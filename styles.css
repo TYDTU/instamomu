@@ -1149,3 +1149,51 @@ footer p {
   color: var(--pink);
 }
 
+/* Gives Back Section Layout and Graphic */
+.gives-back-header-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.gives-back-header-row .gives-back-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+  line-height: 1.05;
+  color: var(--navy-dark);
+}
+
+.gives-back-header-row .header-logo-side {
+  height: clamp(45px, 5vw, 65px);
+  width: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 8px rgba(4, 29, 69, 0.12));
+}
+
+.gives-back-graphic {
+  border: 2px solid var(--navy);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 var(--gold);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.gives-back-graphic img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .gives-back-header-row .header-logo-side {
+    display: none;
+  }
+}
+

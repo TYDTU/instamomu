@@ -28,7 +28,7 @@ const products = {
   laundry: {
     title: "Laundry Rescue Pack",
     copy:
-      "One box of 15 Bounce dryer sheets and one Gain original scent liquid detergent 10 oz/6 loads",
+      "One box of 15 Bounce dryer sheets and Travel Size Tide one load liquid detergent (3)",
   },
   snacks_chips: {
     title: "Extra Snack Sleeve: Chips",

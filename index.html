@@ -71,7 +71,7 @@
               <h3>Welcome Week Starter</h3>
               <p>$58</p>
             </div>
-            <p>Packed full of dorm necessities, including a popcorn starter set, mini first aid kit, utensils, candy, and other practical goodies. Academic coaching cards include how to read a syllabus, creating a roommate contract, and building strong habits.</p>
+            <p>Packed full of dorm necessities, including a popcorn starter set, mini first aid kit, utensils, candy, and other practical goodies.</p>
             <div class="card-actions">
               <button type="button" class="secondary-button see-details" data-product-id="welcome">Explore package</button>
               <button type="button" class="add-product" data-product-id="welcome">Add to cart</button>
@@ -197,27 +197,6 @@
           </p>
         </div>
         <form class="interest-form" aria-label="Package customization form">
-          <label>
-            Student name
-            <input type="text" id="studentName" name="studentName" placeholder="Maya">
-          </label>
-          <label>
-            School or campus
-            <input type="text" id="school" name="school" placeholder="Howard University">
-          </label>
-          <label>
-            Delivery window
-            <select id="deliveryWindow" name="deliveryWindow">
-              <option>Welcome week delivery</option>
-              <option>Ship this week</option>
-              <option>Midterm week</option>
-              <option>Finals week</option>
-            </select>
-          </label>
-          <label>
-            What should this package help with?
-            <textarea id="need" name="need" rows="4" placeholder="Getting settled, making friends, talking to professors, and eating something besides cereal."></textarea>
-          </label>
           <fieldset class="addon-fieldset">
             <legend>Add-ons</legend>
             <label class="checkbox-line">
@@ -225,16 +204,38 @@
               Laundry rescue pack <span>+$12</span>
             </label>
             <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="professor" data-price="8">
-              Professor email prompt cards <span>+$8</span>
+              <input type="checkbox" name="addon" value="snacks_cookies" data-price="15">
+              Extra snack sleeve: cookies <span>+$15</span>
             </label>
             <label class="checkbox-line">
-              <input type="checkbox" name="addon" value="snacks" data-price="15">
-              Extra snack sleeve <span>+$15</span>
+              <input type="checkbox" name="addon" value="snacks_chips" data-price="10">
+              Extra snack sleeve: chips <span>+$10</span>
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="addon" value="toilet_paper" data-price="4">
+              roll of two-ply toilet paper (trust us on this one) <span>+$4</span>
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="addon" value="popcorn_bottle" data-price="7">
+              Extra popcorn -14 oz bottle <span>+$7</span>
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="addon" value="popcorn_seasoning" data-price="5">
+              Extra mini popcorn seasoning <span>+$5</span>
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="addon" value="cable_3in1" data-price="15">
+              3.5 foot 3-in-1 charging cable <span>+$15</span>
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="addon" value="cable_usb_c" data-price="10">
+              10 foot USB-C charging cable <span>+$10</span>
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="addon" value="personalized_card" data-price="5">
+              Card with your personalized message and 'You Are Loved' sticker <span>+$5</span>
             </label>
           </fieldset>
-          <button type="button" id="saveInterest">Attach note to cart</button>
-          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
       </section>
 
@@ -290,6 +291,16 @@
         <p>
           Hi, and welcome to InstaMom U! We are Dr. Beth Savage and Dr. Virginia Cylke, former professors with a combined 55 years of experience teaching and mentoring college students. Though we have left the classroom, we want to continue to support students and help them to be confident and successful. So we created the InstaMom model of care packages that nurture the whole person. We hope you find something truly special here for your student!
         </p>
+      </div>
+    </div>
+
+    <div id="packageModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="packageModalTitle">
+      <div class="modal-content">
+        <button type="button" class="close-modal" id="closePackageModal" aria-label="Close modal">&times;</button>
+        <h3 id="packageModalTitle">Package Details</h3>
+        <div id="packageModalBody" class="modal-scrollable-body">
+          <!-- Dynamically populated -->
+        </div>
       </div>
     </div>
 

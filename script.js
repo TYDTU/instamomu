@@ -5,7 +5,20 @@ const products = {
     studentType: "First-year starter",
     moment: "Welcome week",
     copy:
-      "Packed full of dorm necessities, including a popcorn starter set, mini first aid kit, utensils, candy, and other practical goodies. Academic coaching cards include how to read a syllabus, creating a roommate contract, and building strong habits.",
+      "Packed full of dorm necessities, including a popcorn starter set, mini first aid kit, utensils, candy, and other practical goodies.",
+    image: "assets/welcome_week_box.jpg",
+    contents: [
+      "Mini popcorn starter set: silicone popcorn popper, popcorn kernels with mini-scoop, and popcorn seasoning",
+      "First aid kit: 15 adhesive bandages, two 5x7 cleansing towels, two neosporin packs, and two hydrocortisone packs in a sturdy, re-usable case",
+      "A wheatgrass bowl and plate (microwave safe) with a zippered pouch of stainless steel utensils (fork, butter knife, spoon, chopsticks) and a mini salt-and-pepper shaker",
+      "Tide pen",
+      "Four Command strips for hanging posters",
+      "A wallet multi-tool",
+      "An invigorating citrus room and linen spray",
+      "Fidget toy",
+      "Sweet snacks",
+      "Academic coaching cards for: reading a syllabus, creating a roommate contract, and building a solid foundation of healthy habits"
+    ]
   },
   homesick: {
     title: "Homesick Helper",
@@ -125,8 +138,14 @@ const fallbackCopy = {
 
 const addonLabels = {
   laundry: "Laundry rescue pack",
-  professor: "Professor email prompt cards",
-  snacks: "Extra snack sleeve",
+  snacks_cookies: "Extra snack sleeve: cookies",
+  snacks_chips: "Extra snack sleeve: chips",
+  toilet_paper: "roll of two-ply toilet paper (trust us on this one)",
+  popcorn_bottle: "Extra popcorn -14 oz bottle",
+  popcorn_seasoning: "Extra mini popcorn seasoning",
+  cable_3in1: "3.5 foot 3-in-1 charging cable",
+  cable_usb_c: "10 foot USB-C charging cable",
+  personalized_card: "Card with your personalized message and 'You Are Loved' sticker",
 };
 
 let cart = [];
@@ -136,8 +155,7 @@ const sliderContainer = document.querySelector(".lineup-slider-container");
 const sliderTrack = document.querySelector("#lineupSliderTrack");
 const prevButton = document.querySelector("#slidePrev");
 const nextButton = document.querySelector("#slideNext");
-const saveInterest = document.querySelector("#saveInterest");
-const formStatus = document.querySelector("#formStatus");
+
 const cartCount = document.querySelector("#cartCount");
 const cartItems = document.querySelector("#cartItems");
 const subtotal = document.querySelector("#subtotal");
@@ -235,19 +253,6 @@ function renderCart() {
   cartTotal.textContent = money(cartTotals.total);
 }
 
-function savePackageNote() {
-  packageNote = {
-    studentName: document.querySelector("#studentName").value.trim(),
-    school: document.querySelector("#school").value.trim(),
-    deliveryWindow: document.querySelector("#deliveryWindow").value,
-    need: document.querySelector("#need").value.trim(),
-    addons: getSelectedAddons(),
-  };
-
-  formStatus.textContent = "Note attached to this prototype cart.";
-  renderCart();
-}
-
 function fakeCheckout() {
   if (cart.length === 0) {
     checkoutStatus.textContent = "Add at least one package before checkout.";
@@ -255,11 +260,7 @@ function fakeCheckout() {
   }
 
   const addonText = getSelectedAddons().map((addon) => addon.label).join(", ") || "No add-ons";
-  const noteText = packageNote.studentName
-    ? ` for ${packageNote.studentName}`
-    : "";
-
-  checkoutStatus.textContent = `Fake Shopify checkout ready${noteText}. Add-ons: ${addonText}.`;
+  checkoutStatus.textContent = `Fake Shopify checkout ready. Add-ons: ${addonText}.`;
 }
 
 
@@ -270,9 +271,15 @@ document.querySelectorAll(".add-product").forEach((button) => {
 
 document.querySelectorAll(".see-details").forEach((button) => {
   button.addEventListener("click", () => {
-    const target = document.querySelector("#inside");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
+    const productId = button.dataset.productId;
+    const product = products[productId];
+    if (product && product.contents) {
+      openPackageModal(productId);
+    } else {
+      const target = document.querySelector("#inside");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
     }
   });
 });
@@ -287,7 +294,6 @@ cartItems.addEventListener("click", (event) => {
   changeQuantity(button.dataset.quantity, Number(button.dataset.delta));
 });
 
-saveInterest.addEventListener("click", savePackageNote);
 checkoutButton.addEventListener("click", fakeCheckout);
 function renderSlider() {
   if (!sliderTrack) return;
@@ -384,17 +390,80 @@ if (aboutUsBtn && aboutUsModal && closeAboutUs) {
   aboutUsBtn.addEventListener("click", openModal);
   closeAboutUs.addEventListener("click", closeModal);
 
-  // Close modal when clicking outside the modal content card
   aboutUsModal.addEventListener("click", (e) => {
     if (e.target === aboutUsModal) {
       closeModal();
     }
   });
+}
 
-  // Close on Escape key
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && aboutUsModal.classList.contains("active")) {
-      closeModal();
+// Package Details Modal Logic
+const packageModal = document.querySelector("#packageModal");
+const closePackageModal = document.querySelector("#closePackageModal");
+
+function openPackageModal(productId) {
+  const product = products[productId];
+  if (!product || !packageModal) return;
+
+  const modalTitle = document.querySelector("#packageModalTitle");
+  const modalBody = document.querySelector("#packageModalBody");
+
+  if (modalTitle) modalTitle.textContent = product.title;
+
+  if (modalBody) {
+    const contentsHTML = product.contents
+      ? `<ul class="package-contents-list">${product.contents.map((item) => `<li>${item}</li>`).join("")}</ul>`
+      : `<p>${product.copy}</p>`;
+
+    const imageHTML = product.image
+      ? `<div class="modal-image-container"><img class="modal-package-image" src="${product.image}" alt="${product.title}"></div>`
+      : "";
+
+    modalBody.innerHTML = `
+      ${imageHTML}
+      <div class="modal-package-details">
+        <h4>What's Inside:</h4>
+        ${contentsHTML}
+      </div>
+    `;
+    
+    // Scroll body back to top on open
+    modalBody.scrollTop = 0;
+  }
+
+  packageModal.classList.add("active");
+  packageModal.setAttribute("aria-hidden", "false");
+  if (closePackageModal) closePackageModal.focus();
+}
+
+function closePackageModalFunc() {
+  if (!packageModal) return;
+  packageModal.classList.remove("active");
+  packageModal.setAttribute("aria-hidden", "true");
+}
+
+if (closePackageModal) {
+  closePackageModal.addEventListener("click", closePackageModalFunc);
+}
+
+if (packageModal) {
+  packageModal.addEventListener("click", (e) => {
+    if (e.target === packageModal) {
+      closePackageModalFunc();
     }
   });
 }
+
+// Global Modal Escape listener
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (aboutUsModal && aboutUsModal.classList.contains("active")) {
+      aboutUsModal.classList.remove("active");
+      aboutUsModal.setAttribute("aria-hidden", "true");
+      if (aboutUsBtn) aboutUsBtn.focus();
+    }
+    if (packageModal && packageModal.classList.contains("active")) {
+      closePackageModalFunc();
+    }
+  }
+});

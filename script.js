@@ -5,7 +5,7 @@ const products = {
     studentType: "First-year starter",
     moment: "Welcome week",
     copy:
-      "Packed full of dorm necessities, including a popcorn starter set, mini first aid kit, utensils, candy, and other practical goodies.",
+      "Packed full of dorm necessities, including a popcorn starter set, mini first aid kit, utensils, candy, and other practical goodies. Academic coaching offers guidance on new experiences like reading a syllabus and living with a roommate.",
     image: "assets/welcome_week_box.jpg",
     contents: [
       "Mini popcorn starter set: individual silicone popcorn popper, 4 oz popcorn kernels with wooden scoop, and 0.9 oz popcorn seasoning",

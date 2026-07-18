@@ -18,7 +18,8 @@ const products = {
       "Fidget toy",
       "Sweet snacks",
       "and three Crystal Light flavored lemonade packets",
-      "Academic coaching cards for: reading a syllabus, creating a roommate contract, and building a solid foundation of healthy habits"
+      "Academic coaching cards for: reading a syllabus, creating a roommate contract, and building a solid foundation of healthy habits",
+      "Blank roommate contract—includes both hard copy and document link"
     ]
   },
   snacks_cookies: {

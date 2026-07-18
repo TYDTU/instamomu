@@ -70,7 +70,7 @@ const products = {
   },
   refresh: {
     title: "Room Refresh",
-    price: 45,
+    price: 55,
     studentType: "First-year starter",
     moment: "Room refresh",
     copy:

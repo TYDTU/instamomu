@@ -41,7 +41,7 @@ const products = {
     studentType: "Homesick helper",
     moment: "Welcome week",
     copy:
-      "Comfort snacks and calming items to ease the stress of the college transition. A microwavable, stuffed lavender Warmy, perfect for a cozy cuddle. Coaching guidance includes tips for increasing campus engagement and creating new routines that still feel familiar.",
+      "Comfort snacks and calming items to ease the stress of the college transition. A microwavable, stuffed lavender Warmy, perfect for a cozy cuddle. Coaching guidance for increasing campus engagement and finding your people.",
   },
   study: {
     title: "Study Sprint Box",

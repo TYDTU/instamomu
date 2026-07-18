@@ -65,7 +65,7 @@ const products = {
     studentType: "Wellness reset",
     moment: "Finals",
     copy:
-      "Sleep-friendly comforts, hydration helpers, calm checklists, and professor-informed tips for finishing strong without running on panic.",
+      "Self-care goodies like soothing eye masks and stress toys; colorful pens, highlighters, and post-its; and Nerds and Smarties for good measure. Academic coaching helps students replace popular study myths with successful study habits.",
   },
   refresh: {
     title: "Room Refresh",

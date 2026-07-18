@@ -73,7 +73,7 @@ const products = {
     studentType: "First-year starter",
     moment: "Room refresh",
     copy:
-      "If they can smell it, this package can refresh it—the air, the bathroom, their shoes, their laundry, their breath. Air freshener sprays and diffusers, sneaker balls, and mints and gum ensure that they are surrounded by clean, pleasant scents.",
+      "If they can smell it, this package can refresh it—the air, the bathroom, their shoes, their laundry, their breath. Air freshener sprays and diffusers, sneaker balls, and mints and gum will keep their spaces pleasant so they can focus on what matters.",
   },
   snack: {
     title: "Snack Attack",
@@ -128,7 +128,7 @@ const packageData = {
     productId: "refresh",
     title: "Room Refresh",
     copy:
-      "If they can smell it, this package can refresh it—the air, the bathroom, their shoes, their laundry, their breath. Air freshener sprays and diffusers, sneaker balls, and mints and gum ensure that they are surrounded by clean, pleasant scents.",
+      "If they can smell it, this package can refresh it—the air, the bathroom, their shoes, their laundry, their breath. Air freshener sprays and diffusers, sneaker balls, and mints and gum will keep their spaces pleasant so they can focus on what matters.",
   },
   "First-year starter|Snack attack": {
     productId: "snack",

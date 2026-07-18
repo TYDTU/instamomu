@@ -78,11 +78,52 @@ const products = {
   },
   snack: {
     title: "Snack Attack",
-    price: 42,
     studentType: "First-year starter",
     moment: "Snack attack",
     copy:
       "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
+  },
+  snack_cheese: {
+    title: "Snack Attack: Cheese Lovers",
+    price: 40,
+    studentType: "First-year starter",
+    moment: "Snack attack",
+    contents: [
+      "Gourmet white cheddar popcorn (3.5 oz)",
+      "Premium cheese straws (4 oz)",
+      "Whisps cheese crisps (2.12 oz)",
+      "Goldfish cheddar crackers (5 oz)",
+      "Cheez-It snack packs (3)",
+      "Artisan crackers with spreadable cheese"
+    ]
+  },
+  snack_chocolate: {
+    title: "Snack Attack: Chocolate Lovers",
+    price: 45,
+    studentType: "First-year starter",
+    moment: "Snack attack",
+    contents: [
+      "Double chocolate brownie cookies (6 oz)",
+      "Milk chocolate covered pretzels (5 oz)",
+      "Ghirardelli chocolate squares (assorted)",
+      "Nutella & Go breadstick snack pack",
+      "M&Ms chocolate candies family size pack",
+      "Rich hot cocoa mixes (3)"
+    ]
+  },
+  snack_protein: {
+    title: "Snack Attack: Protein Fiend",
+    price: 60,
+    studentType: "First-year starter",
+    moment: "Snack attack",
+    contents: [
+      "Premium beef jerky sticks (4)",
+      "Mixed nuts with sea salt (8 oz)",
+      "High-protein peanut butter squeeze packs (3)",
+      "Protein bars (assorted flavors, 3)",
+      "Roasted chickpeas snack pack (3 oz)",
+      "Sunflower seed packs (2)"
+    ]
   },
   seasonal: {
     title: "Seasonal Celebrations",
@@ -294,7 +335,21 @@ function fakeCheckout() {
 
 
 document.querySelectorAll(".add-product").forEach((button) => {
-  button.addEventListener("click", () => addToCart(button.dataset.productId));
+  button.addEventListener("click", () => {
+    const productId = button.dataset.productId;
+    if (productId === "snack") {
+      openSnackChoiceModal();
+    } else {
+      addToCart(productId);
+    }
+  });
+});
+
+document.querySelectorAll(".snack-sub-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const subId = btn.dataset.subId;
+    openPackageModal(subId);
+  });
 });
 
 document.querySelectorAll(".see-details").forEach((button) => {
@@ -472,6 +527,54 @@ function openPackageModal(productId) {
   packageModal.classList.add("active");
   packageModal.setAttribute("aria-hidden", "false");
   if (closePackageModal) closePackageModal.focus();
+}
+
+function openSnackChoiceModal() {
+  const modalTitle = document.querySelector("#packageModalTitle");
+  const modalBody = document.querySelector("#packageModalBody");
+  if (!modalTitle || !modalBody || !packageModal) return;
+
+  modalTitle.textContent = "Choose Snack Attack Option";
+  modalBody.innerHTML = `
+    <div class="snack-choice-form-container">
+      <p class="snack-choice-intro">Please select which Snack Attack box you would like to add to your cart:</p>
+      <form id="snackChoiceForm" class="snack-choice-form">
+        <label class="choice-label">
+          <input type="radio" name="snack_flavor" value="snack_cheese">
+          <span class="choice-text">Cheese Lovers <strong>$40</strong></span>
+        </label>
+        <label class="choice-label">
+          <input type="radio" name="snack_flavor" value="snack_chocolate">
+          <span class="choice-text">Chocolate Lovers <strong>$45</strong></span>
+        </label>
+        <label class="choice-label">
+          <input type="radio" name="snack_flavor" value="snack_protein">
+          <span class="choice-text">Protein Fiend <strong>$60</strong></span>
+        </label>
+      </form>
+      <div id="snackChoiceError" class="snack-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-top: 10px;">Please select one option before adding to cart.</div>
+      <button type="button" id="confirmSnackAddBtn" class="confirm-snack-add-btn">Add to Cart</button>
+    </div>
+  `;
+
+  // Show modal
+  packageModal.classList.add("active");
+  packageModal.setAttribute("aria-hidden", "false");
+  if (closePackageModal) closePackageModal.focus();
+
+  // Event listener for the confirm button
+  const confirmBtn = document.querySelector("#confirmSnackAddBtn");
+  confirmBtn.addEventListener("click", () => {
+    const selectedRadio = document.querySelector('input[name="snack_flavor"]:checked');
+    if (!selectedRadio) {
+      const errorDiv = document.querySelector("#snackChoiceError");
+      if (errorDiv) errorDiv.style.display = "block";
+      return;
+    }
+    const chosenFlavor = selectedRadio.value;
+    addToCart(chosenFlavor);
+    closePackageModalFunc();
+  });
 }
 
 function closePackageModalFunc() {

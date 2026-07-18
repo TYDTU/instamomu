@@ -1,0 +1,25 @@
+{% comment %}
+  InstaMom University — "What's Inside" checklist for the product page.
+  Reproduces the prototype's package-contents list (the ✓ bullets).
+
+  Data source: a product metafield "custom.whats_inside" of type
+  "List of single line text". Add one list entry per item (see THEME.md).
+
+  Usage — in sections/main-product.liquid (or a custom block), add:
+    {% render 'instamom-whats-inside', product: product %}
+
+  Styling: .instamom-whats-inside / .instamom-contents in assets/instamom.css
+{% endcomment %}
+
+{%- assign items = product.metafields.custom.whats_inside.value -%}
+
+{%- if items != blank and items.size > 0 -%}
+  <div class="instamom-whats-inside">
+    <h4>What's Inside</h4>
+    <ul class="instamom-contents">
+      {%- for item in items -%}
+        <li>{{ item }}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

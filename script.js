@@ -57,7 +57,7 @@ const products = {
     studentType: "Wellness reset",
     moment: "Sick day",
     copy:
-      "Tissues, throat lozenges, hydration powder, soup, tea, and expert tips on when to visit campus health or self-care.",
+      "Soft, gentle tissues, soothing throat drops, soup and crackers, tea, and a mini honey bear whose cuteness is as comforting as its contents. Coaching helps students catch up with work and communicate with professors during and after an illness.",
   },
   finals: {
     title: "Finals Reset Box",

@@ -1199,8 +1199,9 @@ footer p {
   }
 }
 
-/* Snack Attack Subcategory Buttons */
-.snack-subcategories {
+/* Snack & Seasonal Subcategory Buttons */
+.snack-subcategories,
+.seasonal-subcategories {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1208,7 +1209,8 @@ footer p {
   width: 100%;
 }
 
-.snack-sub-btn {
+.snack-sub-btn,
+.seasonal-sub-btn {
   background: var(--surface);
   border: 1.5px solid var(--navy);
   border-radius: 6px;
@@ -1227,32 +1229,37 @@ footer p {
   transition: all 0.2s ease;
 }
 
-.snack-sub-btn span {
+.snack-sub-btn span,
+.seasonal-sub-btn span {
   color: var(--pink);
   font-weight: 800;
 }
 
-.snack-sub-btn:hover {
+.snack-sub-btn:hover,
+.seasonal-sub-btn:hover {
   background: var(--cream);
   border-color: var(--navy-dark);
   transform: translateY(-1px);
 }
 
-/* Snack Choice Modal Form */
-.snack-choice-form-container {
+/* Snack & Seasonal Choice Modal Form */
+.snack-choice-form-container,
+.seasonal-choice-form-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 10px;
 }
 
-.snack-choice-intro {
+.snack-choice-intro,
+.seasonal-choice-intro {
   font-size: 1.05rem;
   color: var(--muted);
   margin: 0;
 }
 
-.snack-choice-form {
+.snack-choice-form,
+.seasonal-choice-form {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -1295,7 +1302,8 @@ footer p {
   color: var(--pink);
 }
 
-.confirm-snack-add-btn {
+.confirm-snack-add-btn,
+.confirm-seasonal-add-btn {
   width: 100%;
   margin-top: 14px;
   min-height: 48px;
@@ -1310,7 +1318,8 @@ footer p {
   transition: all 0.2s ease;
 }
 
-.confirm-snack-add-btn:hover {
+.confirm-snack-add-btn:hover,
+.confirm-seasonal-add-btn:hover {
   transform: translateY(-1px);
   filter: brightness(1.05);
 }

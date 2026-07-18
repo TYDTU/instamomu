@@ -127,11 +127,52 @@ const products = {
   },
   seasonal: {
     title: "Seasonal Celebrations",
-    price: 68,
     studentType: "Focused achiever",
     moment: "Holiday",
     copy:
       "Holiday themes, finals treats, exam survival kits, and birthday celebration packs customized for the time of year.",
+  },
+  seasonal_birthday: {
+    title: "Seasonal: Birthday Box",
+    price: 60,
+    studentType: "Focused achiever",
+    moment: "Holiday",
+    contents: [
+      "Gourmet birthday cake cookies (6 oz)",
+      "Mini birthday cake candle (vanilla scented)",
+      "Colorful festive party blower and hat",
+      "Bite-sized rainbow sprinkle candies",
+      "Custom 'Happy Birthday' greeting card with sticker",
+      "Coaching card: celebrating milestones away from home and building deep connections"
+    ]
+  },
+  seasonal_fall: {
+    title: "Seasonal: Anything But Basic Fall Box",
+    price: 60,
+    studentType: "Focused achiever",
+    moment: "Holiday",
+    contents: [
+      "Pumpkin spice hot cocoa mixes (3)",
+      "Maple leaf cream cookies (7 oz)",
+      "Cozy fuzzy socks (neutral fall tones)",
+      "Cinnamon apple scented soy candle tin",
+      "Gourmet salted caramel popcorn (4 oz)",
+      "Coaching card: overcoming mid-semester slumps and establishing healthy winter routines"
+    ]
+  },
+  seasonal_halloween: {
+    title: "Seasonal: Halloween Box",
+    price: 45,
+    studentType: "Focused achiever",
+    moment: "Holiday",
+    contents: [
+      "Assorted classic fun-size candies (Snickers, Twix, Reese's)",
+      "Glow-in-the-dark stickers and accessories",
+      "Spooky cheddar cheese crackers (4.5 oz)",
+      "Ghost-shaped marshmallow peeps pack",
+      "Halloween theme playing cards",
+      "Coaching card: balance between academic sprints and social celebrations"
+    ]
   },
 };
 
@@ -339,6 +380,8 @@ document.querySelectorAll(".add-product").forEach((button) => {
     const productId = button.dataset.productId;
     if (productId === "snack") {
       openSnackChoiceModal();
+    } else if (productId === "seasonal") {
+      openSeasonalChoiceModal();
     } else {
       addToCart(productId);
     }
@@ -346,6 +389,13 @@ document.querySelectorAll(".add-product").forEach((button) => {
 });
 
 document.querySelectorAll(".snack-sub-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const subId = btn.dataset.subId;
+    openPackageModal(subId);
+  });
+});
+
+document.querySelectorAll(".seasonal-sub-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const subId = btn.dataset.subId;
     openPackageModal(subId);
@@ -568,6 +618,54 @@ function openSnackChoiceModal() {
     const selectedRadio = document.querySelector('input[name="snack_flavor"]:checked');
     if (!selectedRadio) {
       const errorDiv = document.querySelector("#snackChoiceError");
+      if (errorDiv) errorDiv.style.display = "block";
+      return;
+    }
+    const chosenFlavor = selectedRadio.value;
+    addToCart(chosenFlavor);
+    closePackageModalFunc();
+  });
+}
+
+function openSeasonalChoiceModal() {
+  const modalTitle = document.querySelector("#packageModalTitle");
+  const modalBody = document.querySelector("#packageModalBody");
+  if (!modalTitle || !modalBody || !packageModal) return;
+
+  modalTitle.textContent = "Choose Seasonal Celebrations Option";
+  modalBody.innerHTML = `
+    <div class="seasonal-choice-form-container">
+      <p class="seasonal-choice-intro">Please select which Seasonal Celebrations box you would like to add to your cart:</p>
+      <form id="seasonalChoiceForm" class="seasonal-choice-form">
+        <label class="choice-label">
+          <input type="radio" name="seasonal_flavor" value="seasonal_birthday">
+          <span class="choice-text">Birthday Box <strong>$60</strong></span>
+        </label>
+        <label class="choice-label">
+          <input type="radio" name="seasonal_flavor" value="seasonal_fall">
+          <span class="choice-text">Anything But Basic Fall Box <strong>$60</strong></span>
+        </label>
+        <label class="choice-label">
+          <input type="radio" name="seasonal_flavor" value="seasonal_halloween">
+          <span class="choice-text">Halloween Box <strong>$45</strong></span>
+        </label>
+      </form>
+      <div id="seasonalChoiceError" class="seasonal-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-top: 10px;">Please select one option before adding to cart.</div>
+      <button type="button" id="confirmSeasonalAddBtn" class="confirm-seasonal-add-btn">Add to Cart</button>
+    </div>
+  `;
+
+  // Show modal
+  packageModal.classList.add("active");
+  packageModal.setAttribute("aria-hidden", "false");
+  if (closePackageModal) closePackageModal.focus();
+
+  // Event listener for the confirm button
+  const confirmBtn = document.querySelector("#confirmSeasonalAddBtn");
+  confirmBtn.addEventListener("click", () => {
+    const selectedRadio = document.querySelector('input[name="seasonal_flavor"]:checked');
+    if (!selectedRadio) {
+      const errorDiv = document.querySelector("#seasonalChoiceError");
       if (errorDiv) errorDiv.style.display = "block";
       return;
     }

@@ -49,7 +49,7 @@ const products = {
     studentType: "Focused achiever",
     moment: "Midterms",
     copy:
-      "Supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
+      "Heavy on academic coaching, tools for positive reframing, and tips for utilizing academic support resources on campus. Includes study and workload planning supplies, a focus timer, and, of course, a good dose of snacks.",
   },
   sick: {
     title: "Warm Hug from Home",

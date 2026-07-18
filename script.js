@@ -11,13 +11,12 @@ const products = {
       "Mini popcorn starter set: individual silicone popcorn popper, 4 oz popcorn kernels with wooden scoop, and 0.9 oz popcorn seasoning",
       "First aid kit: 15 adhesive bandages, two 5x7 cleansing towels, two Neosporin packs, and two hydrocortisone packs in a sturdy, re-usable case",
       "Microwave-safe (3 minutes) wheat straw bowl (5.5 in) and plate (5.7 in) with a zippered pouch of stainless steel utensils (fork, butter knife, spoon, chopsticks) and mini salt-and-pepper shakers",
-      "Clorox Disinfecting on the go wipes",
+      "Clorox on-the-go disinfecting wipes",
       "Command strips for hanging posters (4)",
       "Stainless steel credit card multi-tool",
       "Invigorating citrus room and linen spray in reusable glass bottle",
       "Fidget toy",
-      "Sweet snacks",
-      "and three Crystal Light flavored lemonade packets",
+      "Sweet snacks and three Crystal Light flavored lemonade packets",
       "Academic coaching cards for: reading a syllabus, creating a roommate contract, and building a solid foundation of healthy habits",
       "Blank roommate contract—includes both hard copy and document link"
     ]

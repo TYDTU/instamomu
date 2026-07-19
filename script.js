@@ -80,6 +80,16 @@ const products = {
     moment: "Room refresh",
     copy:
       "If they can smell it, this package can refresh it—the air, the bathroom, their shoes, their laundry, their breath. Air freshener sprays and diffusers, sneaker balls, and mints and gum will keep their spaces pleasant so they can focus on what matters.",
+    image: "assets/room_refresh.jpg",
+    contents: [
+      "Wood tone essential oil diffuser starter set with LED light and calming essential oil",
+      "Odor-eating sneaker balls (4)",
+      "Poopourri 2 oz travel size",
+      "Febreeze to go 2.8 oz Gain scent",
+      "Fresh linen sachet (2)",
+      "Wet Ones travel body wipes",
+      "Mints and gum"
+    ]
   },
   snack: {
     title: "Snack Attack",
@@ -717,118 +727,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// ==========================================================================
-// WHAT'S INSIDE POP-UP MODAL LOGIC
-// ==========================================================================
-const POPUP_KITS_DATA = {
-  'room-refresh': {
-    title: "Room Refresh Kit",
-    subtitle: "Aromatherapy & Odor Elimination Package",
-    badge: "Room Refresh Essentials",
-    photo: "assets/room_refresh.jpg",
-    items: [
-      { id: 1, text: "Wood tone essential oil diffuser starter set with LED light and calming essential oil", qty: "Starter Set" },
-      { id: 2, text: "Odor-eating sneaker balls (4)", qty: "4 Pack" },
-      { id: 3, text: "Poopourri 2 oz travel size", qty: "2 oz" },
-      { id: 4, text: "Febreeze to go 2.8 oz Gain scent", qty: "2.8 oz" },
-      { id: 5, text: "Fresh linen sachet (2)", qty: "2 Pack" },
-      { id: 6, text: "Wet Ones travel body wipes", qty: "Travel Pack" },
-      { id: 7, text: "Mints and gum", qty: "Assorted" }
-    ]
-  },
-  'welcome-week': {
-    title: "Welcome Week Starter",
-    subtitle: "Dorm Move-In & Campus Survival Kit",
-    badge: "Welcome Package",
-    photo: "assets/instamomu-welcome-care-package.png",
-    items: [
-      { id: 1, text: "Insulated stainless steel campus water bottle (24 oz)", qty: "24 oz" },
-      { id: 2, text: "Spiral notebook & gel pen pack (5-color)", qty: "5 Pack" },
-      { id: 3, text: "High-energy trail mix & snack bar pack", qty: "6 Snacks" },
-      { id: 4, text: "Custom campus lanyard with keycard holder", qty: "1 Unit" },
-      { id: 5, text: "Compact clip-on LED desk study light", qty: "USB" },
-      { id: 6, text: "Command strip picture hanging kit", qty: "8 Pairs" }
-    ]
-  }
-};
 
-const modalBackdrop = document.getElementById('modalBackdrop');
-const closeModalBtn = document.getElementById('closeModalBtn');
-const confirmModalBtn = document.getElementById('confirmModalBtn');
-const copyListBtn = document.getElementById('copyListBtn');
-const modalHeaderImg = document.getElementById('modalHeaderImg');
-const modalHeaderBadge = document.getElementById('modalHeaderBadge');
-const modalHeaderTitle = document.getElementById('modalHeaderTitle');
-const modalHeaderSubtitle = document.getElementById('modalHeaderSubtitle');
-const itemTotalCount = document.getElementById('itemTotalCount');
-const itemsContainer = document.getElementById('itemsContainer');
-
-let currentActiveKitKey = 'room-refresh';
-
-function openPackageModal(kitKey = 'room-refresh') {
-  const kit = POPUP_KITS_DATA[kitKey] || POPUP_KITS_DATA['room-refresh'];
-  currentActiveKitKey = kitKey;
-
-  if (modalHeaderImg) modalHeaderImg.src = kit.photo;
-  if (modalHeaderBadge) modalHeaderBadge.textContent = kit.badge;
-  if (modalHeaderTitle) modalHeaderTitle.textContent = kit.title;
-  if (modalHeaderSubtitle) modalHeaderSubtitle.textContent = kit.subtitle;
-  if (itemTotalCount) itemTotalCount.textContent = kit.items.length;
-
-  if (itemsContainer) {
-    itemsContainer.innerHTML = kit.items.map((item, idx) => `
-      <li class="item-row">
-        <div class="item-icon-box">0${idx + 1}</div>
-        <div class="item-details">
-          <div class="item-text">${item.text}</div>
-          <div class="item-badge-row">
-            <span class="qty-tag">${item.qty}</span>
-          </div>
-        </div>
-      </li>
-    `).join('');
-  }
-
-  if (modalBackdrop) {
-    modalBackdrop.classList.add('active');
-    modalBackdrop.setAttribute('aria-hidden', 'false');
-  }
-}
-
-function closePackageModal() {
-  if (modalBackdrop) {
-    modalBackdrop.classList.remove('active');
-    modalBackdrop.setAttribute('aria-hidden', 'true');
-  }
-}
-
-document.querySelectorAll('.explore-package-btn').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    const kitKey = e.currentTarget.getAttribute('data-kit') || 'room-refresh';
-    openPackageModal(kitKey);
-  });
-});
-
-if (closeModalBtn) closeModalBtn.addEventListener('click', closePackageModal);
-if (confirmModalBtn) confirmModalBtn.addEventListener('click', closePackageModal);
-
-if (modalBackdrop) {
-  modalBackdrop.addEventListener('click', (e) => {
-    if (e.target === modalBackdrop) closePackageModal();
-  });
-}
-
-if (copyListBtn) {
-  copyListBtn.addEventListener('click', () => {
-    const kit = POPUP_KITS_DATA[currentActiveKitKey];
-    if (!kit) return;
-    const textToCopy = `${kit.title} - What's Inside:\n` + kit.items.map((it, i) => `${i + 1}. ${it.text}`).join('\n');
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      const orig = copyListBtn.textContent;
-      copyListBtn.textContent = 'Copied!';
-      setTimeout(() => { copyListBtn.textContent = orig; }, 2000);
-    });
-  });
-}
 
 >>>>>>> Stashed changes

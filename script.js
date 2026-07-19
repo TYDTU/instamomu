@@ -80,14 +80,14 @@ const products = {
     moment: "Room refresh",
     copy:
       "If they can smell it, this package can refresh it—the air, the bathroom, their shoes, their laundry, their breath. Air freshener sprays and diffusers, sneaker balls, and mints and gum will keep their spaces pleasant so they can focus on what matters.",
-    image: "assets/room_refresh.jpg",
+    image: "assets/room_refresh_box.jpg",
     contents: [
-      "Wood tone essential oil diffuser starter set with LED light and calming essential oil",
-      "Odor-eating sneaker balls (4)",
-      "Poopourri 2 oz travel size",
-      "Febreeze to go 2.8 oz Gain scent",
+      "Wood tone diffuser starter kit with LED light and calming essential oil",
+      "Sneaker Balls odor fighters (4)",
+      "Poopourri travel spray 2.5oz",
       "Fresh linen sachet (2)",
       "Wet Ones travel body wipes",
+      "Febreeze to go 2.8oz spray Gain scent",
       "Mints and gum"
     ]
   },

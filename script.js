@@ -43,7 +43,7 @@ const products = {
   },
   homesick: {
     title: "Homesick Helper",
-    price: 52,
+    price: 62,
     studentType: "Homesick helper",
     moment: "Welcome week",
     copy:

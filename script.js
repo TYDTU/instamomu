@@ -94,7 +94,7 @@ const products = {
     studentType: "First-year starter",
     moment: "Snack attack",
     contents: [
-      "3 packs each of:",
+      "3 snack size packs each of",
       "Cheetos",
       "Doritos",
       "Goldfish",
@@ -564,7 +564,7 @@ function openPackageModal(productId) {
 
   if (modalBody) {
     const contentsHTML = product.contents
-      ? `<ul class="package-contents-list">${product.contents.map((item) => item.endsWith(":") ? `<li class="no-check"><strong>${item}</strong></li>` : `<li>${item}</li>`).join("")}</ul>`
+      ? `<ul class="package-contents-list">${product.contents.map((item) => (item.endsWith(":") || item.includes("packs each of")) ? `<li class="no-check"><strong>${item}</strong></li>` : `<li>${item}</li>`).join("")}</ul>`
       : `<p>${product.copy}</p>`;
 
     const imageHTML = product.image

@@ -51,7 +51,7 @@ const products = {
   },
   study: {
     title: "Regroup, Restart, Recover",
-    price: 64,
+    price: 50,
     studentType: "Focused achiever",
     moment: "Midterms",
     copy:

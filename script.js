@@ -421,19 +421,13 @@ document.querySelectorAll(".seasonal-sub-btn").forEach((btn) => {
   });
 });
 
-document.querySelectorAll(".see-details").forEach((button) => {
-  button.addEventListener("click", () => {
-    const productId = button.dataset.productId;
-    const product = products[productId];
-    if (product && (product.contents || product.copy)) {
-      openPackageModal(productId);
-    } else {
-      const target = document.querySelector("#inside");
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  });
+document.addEventListener("click", (event) => {
+  const button = event.target.closest(".see-details");
+  if (!button) return;
+  const productId = button.dataset.productId;
+  if (productId && products[productId]) {
+    openPackageModal(productId);
+  }
 });
 
 document.querySelectorAll(".addon-select").forEach((select) => {

@@ -502,7 +502,7 @@ footer {
   border: 2px solid var(--navy);
   border-radius: 8px;
   background: var(--surface);
-  box-shadow: 8px 8px 0 var(--gold);
+  box-shadow: 0 0 0 2px var(--pink), 8px 8px 0 var(--gold);
 }
 
 .package-card {
@@ -610,9 +610,10 @@ footer {
 
 .interest-form {
   padding: 22px;
+  border: 2px solid var(--navy);
   border-radius: 8px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 0 2px var(--pink), 8px 8px 0 var(--gold);
 }
 
 .form-status {
@@ -668,10 +669,10 @@ footer {
 
 .cart-panel,
 .checkout-panel {
-  border: 1px solid var(--line);
+  border: 2px solid var(--navy);
   border-radius: 8px;
   background: var(--surface);
-  box-shadow: 0 8px 24px rgba(44, 48, 50, 0.07);
+  box-shadow: 0 0 0 2px var(--pink), 8px 8px 0 var(--gold);
 }
 
 .cart-panel {
@@ -879,7 +880,7 @@ footer p {
   border-radius: 12px;
   width: min(500px, calc(100% - 32px));
   padding: 32px 28px 28px;
-  box-shadow: 0 20px 48px rgba(6, 43, 102, 0.3);
+  box-shadow: 0 0 0 2px var(--pink), 12px 12px 0 var(--gold);
   transform: scale(0.9);
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }

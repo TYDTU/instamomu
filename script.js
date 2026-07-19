@@ -90,7 +90,7 @@ const products = {
   },
   snack_cheese: {
     title: "Snack Attack: Cheese Lovers",
-    price: 40,
+    price: 35,
     studentType: "First-year starter",
     moment: "Snack attack",
     contents: [
@@ -564,7 +564,7 @@ function openPackageModal(productId) {
 
   if (modalBody) {
     const contentsHTML = product.contents
-      ? `<ul class="package-contents-list">${product.contents.map((item) => `<li>${item}</li>`).join("")}</ul>`
+      ? `<ul class="package-contents-list">${product.contents.map((item) => item.endsWith(":") ? `<li class="no-check"><strong>${item}</strong></li>` : `<li>${item}</li>`).join("")}</ul>`
       : `<p>${product.copy}</p>`;
 
     const imageHTML = product.image
@@ -600,7 +600,7 @@ function openSnackChoiceModal() {
       <form id="snackChoiceForm" class="snack-choice-form">
         <label class="choice-label">
           <input type="radio" name="snack_flavor" value="snack_cheese">
-          <span class="choice-text">Cheese Lovers <strong>$40</strong></span>
+          <span class="choice-text">Cheese Lovers <strong>$35</strong></span>
         </label>
         <label class="choice-label">
           <input type="radio" name="snack_flavor" value="snack_chocolate">

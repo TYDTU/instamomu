@@ -1052,6 +1052,16 @@ footer p {
   box-shadow: 0 2px 4px rgba(6, 43, 102, 0.08);
 }
 
+.package-contents-list li.no-check {
+  padding-left: 0;
+  font-weight: 700;
+  color: var(--navy-dark);
+}
+
+.package-contents-list li.no-check::before {
+  display: none;
+}
+
 /* Add-ons layout update */
 .addon-row {
   display: flex;

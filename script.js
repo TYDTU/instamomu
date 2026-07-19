@@ -31,6 +31,11 @@ const products = {
     copy:
       "One box of 15 Bounce dryer sheets and Travel Size Tide one load liquid detergent (3)",
   },
+  athlete_recovery: {
+    title: "Athlete Recovery Pack",
+    copy:
+      "One reusable 6\" x 9\" hot/cold gel pack; two Liquid IV hydration packs; one cooling towel; two single-use Biofreeze packets; and one 3in x 5yd compression bandage",
+  },
   snacks_chips: {
     title: "Extra Snack Sleeve: Chips",
     copy:
@@ -236,6 +241,7 @@ const fallbackCopy = {
 
 const addonLabels = {
   laundry: "Laundry Rescue Pack",
+  athlete_recovery: "Athlete Recovery Pack",
   snacks_cookies: "Extra snack sleeve: cookies",
   snacks_chips: "Extra snack sleeve: chips",
   toilet_paper: "Roll of two-ply toilet paper (trust us)",

@@ -162,6 +162,21 @@
             </div>
             <div class="card-actions">
               <button type="button" class="add-product" data-product-id="seasonal">Add to cart</button>
+=======
+            <p>Comfort staples, handwritten notes, familiar treats, and gentle routines for settling in.</p>
+            <button type="button" class="add-product" data-product-id="homesick" style="margin-top: auto;">Add package</button>
+          </article>
+          <article class="package-card" data-product-id="room">
+            <span class="icon" aria-hidden="true">04</span>
+            <div class="card-title-row">
+              <h3>Room Refresh</h3>
+              <p>$56</p>
+            </div>
+            <p>Wood diffuser, odor-eating sneaker balls, Poo-Pourri, Febreze Gain, fresh linen, body wipes, mints & gum.</p>
+            <div class="card-btn-group" style="display: flex; gap: 8px; flex-direction: column; margin-top: auto;">
+              <button type="button" class="explore-package-btn secondary-button" data-kit="room-refresh" style="width: 100%;">Explore Package</button>
+              <button type="button" class="add-product" data-product-id="room" style="width: 100%;">Add package</button>
+>>>>>>> Stashed changes
             </div>
           </article>
         </div>
@@ -405,6 +420,7 @@
       <p>Curated care for the whole person</p>
     </footer>
 
+<<<<<<< Updated upstream
     <div id="aboutUsModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="aboutUsTitle">
       <div class="modal-content">
         <button type="button" class="close-modal" id="closeAboutUs" aria-label="Close modal">&times;</button>
@@ -415,13 +431,41 @@
       </div>
     </div>
 
-    <div id="packageModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="packageModalTitle">
-      <div class="modal-content">
-        <button type="button" class="close-modal" id="closePackageModal" aria-label="Close modal">&times;</button>
-        <h3 id="packageModalTitle">Package Details</h3>
-        <div id="packageModalBody" class="modal-scrollable-body">
-          <!-- Dynamically populated -->
+    <!-- WHAT'S INSIDE POP-UP MODAL -->
+    <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true" role="dialog">
+      <div class="modal-container" id="modalContainer">
+        
+        <!-- Close Button -->
+        <button class="modal-close-btn" id="closeModalBtn" aria-label="Close pop-up">✕</button>
+
+        <!-- Top Photo Header Banner -->
+        <div class="modal-photo-header">
+          <img src="assets/room_refresh.jpg" alt="What's Inside Room Refresh" id="modalHeaderImg" class="header-photo">
+          <div class="header-overlay"></div>
+          <div class="header-content">
+            <div class="header-badge" id="modalHeaderBadge">ROOM REFRESH ESSENTIALS</div>
+            <h2 class="header-title" id="modalHeaderTitle">Room Refresh Kit</h2>
+            <p class="header-subtitle" id="modalHeaderSubtitle">What's Inside Your Package</p>
+          </div>
         </div>
+
+        <!-- Modal Content -->
+        <div class="modal-body">
+          <div class="modal-toolbar">
+            <span class="summary-pill">✓ <span id="itemTotalCount">7</span> Included Items</span>
+          </div>
+
+          <ul class="items-list-view" id="itemsContainer">
+            <!-- Items injected by script.js -->
+          </ul>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="secondary-button" id="copyListBtn" style="min-height: 40px; padding: 0 16px;">Copy List</button>
+          <button type="button" id="confirmModalBtn" style="min-height: 40px; padding: 0 16px;">Done Viewing</button>
+        </div>
+
       </div>
     </div>
 

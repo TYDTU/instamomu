@@ -405,7 +405,14 @@
       <p>Curated care for the whole person</p>
     </footer>
 
-<<<<<<< Updated upstream
+    <div id="packageModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="packageModalTitle">
+      <div class="modal-content">
+        <button type="button" class="close-modal" id="closePackageModal" aria-label="Close modal">&times;</button>
+        <h3 id="packageModalTitle">Package Details</h3>
+        <div id="packageModalBody" class="modal-scrollable-body"></div>
+      </div>
+    </div>
+
     <div id="aboutUsModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="aboutUsTitle">
       <div class="modal-content">
         <button type="button" class="close-modal" id="closeAboutUs" aria-label="Close modal">&times;</button>
@@ -413,44 +420,6 @@
         <p>
           Hi, and welcome to InstaMom U! We are Dr. Beth Savage and Dr. Virginia Cylke, former professors with a combined 55 years of experience teaching and mentoring college students. Though we have left the classroom, we want to continue to support students and help them to be confident and successful. So we created the InstaMom model of care packages that nurture the whole person. We hope you find something truly special here for your student!
         </p>
-      </div>
-    </div>
-
-    <!-- WHAT'S INSIDE POP-UP MODAL -->
-    <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true" role="dialog">
-      <div class="modal-container" id="modalContainer">
-        
-        <!-- Close Button -->
-        <button class="modal-close-btn" id="closeModalBtn" aria-label="Close pop-up">✕</button>
-
-        <!-- Top Photo Header Banner -->
-        <div class="modal-photo-header">
-          <img src="assets/room_refresh.jpg" alt="What's Inside Room Refresh" id="modalHeaderImg" class="header-photo">
-          <div class="header-overlay"></div>
-          <div class="header-content">
-            <div class="header-badge" id="modalHeaderBadge">ROOM REFRESH ESSENTIALS</div>
-            <h2 class="header-title" id="modalHeaderTitle">Room Refresh Kit</h2>
-            <p class="header-subtitle" id="modalHeaderSubtitle">What's Inside Your Package</p>
-          </div>
-        </div>
-
-        <!-- Modal Content -->
-        <div class="modal-body">
-          <div class="modal-toolbar">
-            <span class="summary-pill">✓ <span id="itemTotalCount">7</span> Included Items</span>
-          </div>
-
-          <ul class="items-list-view" id="itemsContainer">
-            <!-- Items injected by script.js -->
-          </ul>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button type="button" class="secondary-button" id="copyListBtn" style="min-height: 40px; padding: 0 16px;">Copy List</button>
-          <button type="button" id="confirmModalBtn" style="min-height: 40px; padding: 0 16px;">Done Viewing</button>
-        </div>
-
       </div>
     </div>
 

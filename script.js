@@ -423,10 +423,11 @@ document.querySelectorAll(".seasonal-sub-btn").forEach((btn) => {
 
 document.addEventListener("click", (event) => {
   const button = event.target.closest(".see-details");
-  if (!button) return;
-  const productId = button.dataset.productId;
-  if (productId && products[productId]) {
-    openPackageModal(productId);
+  if (button) {
+    const productId = button.dataset.productId;
+    if (productId && products[productId]) {
+      openPackageModal(productId);
+    }
   }
 });
 

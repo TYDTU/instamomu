@@ -425,7 +425,7 @@ document.querySelectorAll(".see-details").forEach((button) => {
   button.addEventListener("click", () => {
     const productId = button.dataset.productId;
     const product = products[productId];
-    if (product && product.contents) {
+    if (product && (product.contents || product.copy)) {
       openPackageModal(productId);
     } else {
       const target = document.querySelector("#inside");
@@ -530,7 +530,6 @@ clearCart.addEventListener("click", () => {
 renderSlider();
 renderCart();
 
-<<<<<<< Updated upstream
 // About Us Modal Logic
 const aboutUsBtn = document.querySelector("#aboutUsBtn");
 const aboutUsModal = document.querySelector("#aboutUsModal");
@@ -726,7 +725,3 @@ document.addEventListener("keydown", (e) => {
     }
   }
 });
-
-
-
->>>>>>> Stashed changes

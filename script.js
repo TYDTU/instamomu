@@ -50,7 +50,7 @@ const products = {
       "Comfort snacks and calming items to ease the stress of the college transition. A microwavable, stuffed lavender Warmie, perfect for a cozy cuddle. Coaching guidance for increasing campus engagement and finding their people.",
   },
   study: {
-    title: "Study Sprint Box",
+    title: "Regroup, Reset, Restart",
     price: 64,
     studentType: "Focused achiever",
     moment: "Midterms",
@@ -199,7 +199,7 @@ const packageData = {
   },
   "Focused achiever|Midterms": {
     productId: "study",
-    title: "Study Sprint Box",
+    title: "Regroup, Reset, Restart",
     copy:
       "Everyone hits a rough patch in the transition to college-level work—what matters most is how they handle it. This box includes supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
   },

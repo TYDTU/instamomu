@@ -1243,17 +1243,17 @@ footer p {
 
 .snack-sub-btn,
 .seasonal-sub-btn {
-  background: var(--navy-dark);
-  border: 1.5px solid var(--navy-dark);
+  background: var(--gold);
+  border: 1.5px solid var(--gold);
   border-radius: 6px;
-  color: var(--gold);
+  color: var(--navy-dark);
   font-family: inherit;
   font-size: 0.95rem;
   font-weight: 700;
   text-align: left;
   padding: 10px 14px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(6, 43, 102, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(245, 205, 71, 0.25) !important;
   min-height: auto;
   display: flex;
   justify-content: space-between;
@@ -1263,17 +1263,17 @@ footer p {
 
 .snack-sub-btn span,
 .seasonal-sub-btn span {
-  color: var(--gold);
+  color: var(--navy-dark);
   font-weight: 800;
 }
 
 .snack-sub-btn:hover,
 .seasonal-sub-btn:hover {
-  background: var(--navy);
-  border-color: var(--navy);
-  color: var(--gold);
+  background: #f7d667;
+  border-color: #f7d667;
+  color: var(--navy-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(6, 43, 102, 0.25) !important;
+  box-shadow: 0 6px 16px rgba(245, 205, 71, 0.4) !important;
 }
 
 /* Snack & Seasonal Choice Modal Form */

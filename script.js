@@ -55,7 +55,7 @@ const products = {
     studentType: "Focused achiever",
     moment: "Midterms",
     copy:
-      "Heavy on academic coaching, tools for positive reframing, and tips for utilizing academic support resources on campus. Includes study and workload planning supplies, a focus timer, and—of course!—some tasty snacks.",
+      "Heavy on academic coaching, tools for positive reframing, and tips for utilizing academic support resources on campus. Includes study and workload planning supplies, a focus timer, and—of course!—tasty snacks with staying power.",
   },
   sick: {
     title: "Warm Hug from Home",

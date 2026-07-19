@@ -59,7 +59,7 @@ const products = {
   },
   sick: {
     title: "Warm Hug from Home",
-    price: 48,
+    price: 58,
     studentType: "Wellness reset",
     moment: "Sick day",
     copy:

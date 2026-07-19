@@ -94,12 +94,15 @@ const products = {
     studentType: "First-year starter",
     moment: "Snack attack",
     contents: [
-      "Gourmet white cheddar popcorn (3.5 oz)",
-      "Premium cheese straws (4 oz)",
-      "Whisps cheese crisps (2.12 oz)",
-      "Goldfish cheddar crackers (5 oz)",
-      "Cheez-It snack packs (3)",
-      "Artisan crackers with spreadable cheese"
+      "3 packs each of:",
+      "Cheetos",
+      "Doritos",
+      "Goldfish",
+      "Cheez-Its",
+      "Pringles Cheddar Cheese grab and go",
+      "Ruffles Sour Cream and Cheddar",
+      "Smartfood White Cheddar Popcorn",
+      "Microwave Kraft Mac and Cheese cups"
     ]
   },
   snack_chocolate: {

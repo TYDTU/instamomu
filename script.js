@@ -353,9 +353,10 @@ function getSelectedAddons() {
   }).filter(addon => addon.quantity > 0);
 }
 
-function addToCart(productId, customOption = null) {
+function addToCart(productId, customOption = null, priceOverride = null) {
+  const linePrice = priceOverride !== null ? priceOverride : products[productId].price;
   const existingLine = cart.find(
-    (line) => line.productId === productId && line.customOption === customOption
+    (line) => line.productId === productId && line.customOption === customOption && line.price === linePrice
   );
 
   if (existingLine) {
@@ -364,6 +365,7 @@ function addToCart(productId, customOption = null) {
     cart.push({
       productId,
       customOption,
+      price: linePrice,
       quantity: 1,
     });
   }
@@ -384,7 +386,8 @@ function changeQuantity(index, delta) {
 
 function totals() {
   const packageSubtotal = cart.reduce((sum, line) => {
-    return sum + products[line.productId].price * line.quantity;
+    const unitPrice = line.price !== undefined ? line.price : products[line.productId].price;
+    return sum + unitPrice * line.quantity;
   }, 0);
   const selectedAddonTotal = getSelectedAddons().reduce((sum, addon) => sum + (addon.price * addon.quantity), 0);
   return {
@@ -404,13 +407,14 @@ function renderCart() {
     cartItems.innerHTML = cart
       .map((line, idx) => {
         const product = products[line.productId];
+        const unitPrice = line.price !== undefined ? line.price : product.price;
         const optionBadge = line.customOption ? `<span style="font-size: 0.85rem; font-weight: 700; color: var(--pink); display: block; margin-top: 2px;">${line.customOption}</span>` : "";
         return `
           <article class="cart-line">
             <div>
               <h4>${product.title}</h4>
               ${optionBadge}
-              <p>${product.studentType} / ${product.moment} / ${money(product.price)} each</p>
+              <p>${product.studentType} / ${product.moment} / ${money(unitPrice)} each</p>
             </div>
             <div class="quantity-control" aria-label="${product.title} quantity">
               <button type="button" data-cart-index="${idx}" data-delta="-1">-</button>
@@ -463,7 +467,8 @@ function fakeCheckout() {
   const packageDetails = cart.map(line => {
     const title = products[line.productId].title;
     const opt = line.customOption ? ` [${line.customOption}]` : "";
-    return `${title}${opt} x${line.quantity}`;
+    const unitPrice = line.price !== undefined ? line.price : products[line.productId].price;
+    return `${title}${opt} (${money(unitPrice)}) x${line.quantity}`;
   }).join(", ");
 
   const addonText = getSelectedAddons().map((addon) => {
@@ -497,7 +502,9 @@ document.querySelectorAll(".add-product").forEach((button) => {
     } else if (productId === "seasonal") {
       openSeasonalChoiceModal();
     } else if (productId === "homesick") {
-      openHomesickStateModal();
+      openHomesickModal();
+    } else if (productId === "sick") {
+      openWarmHugModal();
     } else {
       addToCart(productId);
     }
@@ -802,36 +809,59 @@ const usStatesAndTerritories = [
   "West Virginia", "Wisconsin", "Wyoming"
 ];
 
-function openHomesickStateModal() {
+const warmiesOptions = [
+  { id: "bear", name: 'Brown Curly Bear Warmies 13"', extra: 10, label: 'Brown Curly Bear Warmies 13" <strong>(+$10)</strong>' },
+  { id: "dog", name: 'Golden Dog Warmies Junior 9"', extra: 0, label: 'Golden Dog Warmies Junior 9" <strong>(Included)</strong>' },
+  { id: "hamster", name: 'Hamster Warmies Junior 9"', extra: 0, label: 'Hamster Warmies Junior 9" <strong>(Included)</strong>' },
+  { id: "sloth", name: 'Sloth Warmies Junior 9"', extra: 0, label: 'Sloth Warmies Junior 9" <strong>(Included)</strong>' }
+];
+
+function openHomesickModal() {
   const modalTitle = document.querySelector("#packageModalTitle");
   const modalBody = document.querySelector("#packageModalBody");
   if (!modalTitle || !modalBody || !packageModal) return;
 
-  modalTitle.textContent = "Select Home State for Homesick Helper";
+  modalTitle.textContent = "Customize Homesick Helper";
 
-  const optionsHTML = usStatesAndTerritories
+  const stateOptionsHTML = usStatesAndTerritories
     .map((state) => `<option value="${state}">${state}</option>`)
     .join("");
 
+  const warmiesRadioHTML = warmiesOptions
+    .map(
+      (opt) => `
+      <label class="choice-label" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; margin-bottom: 8px; cursor: pointer; background: #ffffff;">
+        <input type="radio" name="homesick_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 18px; height: 18px;">
+        <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark);">${opt.label}</span>
+      </label>
+    `
+    )
+    .join("");
+
   modalBody.innerHTML = `
-    <div class="homesick-state-form-container" style="padding: 10px 0;">
-      <p class="state-choice-intro" style="font-size: 1.05rem; line-height: 1.6; color: var(--navy-dark); margin-bottom: 18px; font-weight: 500;">
-        Homesick Helper includes a custom home state building brick magnet with a movable heart peg. Please select your student's home state or territory:
-      </p>
-      <div class="state-select-wrapper" style="margin-bottom: 20px;">
+    <div class="homesick-customization-container" style="padding: 10px 0;">
+      <div class="state-select-wrapper" style="margin-bottom: 22px;">
         <label for="homesickStateSelect" style="display: block; font-weight: 700; color: var(--navy-dark); margin-bottom: 8px;">
-          Home State / Territory (Required):
+          1. Home State / Territory for Magnet (Required):
         </label>
         <select id="homesickStateSelect" class="state-dropdown" style="width: 100%; padding: 12px 14px; font-size: 1rem; border: 2px solid var(--navy); border-radius: var(--radius-sm); background-color: #ffffff; color: var(--navy-dark); font-weight: 600;">
           <option value="" disabled selected>-- Select State or Territory --</option>
-          ${optionsHTML}
+          ${stateOptionsHTML}
         </select>
       </div>
-      <div id="homesickStateError" class="state-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-bottom: 16px;">
-        Please select a state or territory before adding to cart.
+
+      <div class="warmies-select-wrapper" style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 700; color: var(--navy-dark); margin-bottom: 8px;">
+          2. Choose Your Warmies Plush (Required - Select One):
+        </label>
+        ${warmiesRadioHTML}
       </div>
-      <button type="button" id="confirmHomesickStateBtn" class="confirm-snack-add-btn" style="width: 100%;">
-        Add to Cart ($62)
+
+      <div id="homesickCustomError" class="state-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-bottom: 16px; font-size: 0.9rem;">
+        Please complete both required choices above before adding to cart.
+      </div>
+      <button type="button" id="confirmHomesickBtn" class="confirm-snack-add-btn" style="width: 100%;">
+        Add Homesick Helper to Cart
       </button>
     </div>
   `;
@@ -842,17 +872,96 @@ function openHomesickStateModal() {
   if (closePackageModal) closePackageModal.focus();
 
   // Event listener for confirm button
-  const confirmBtn = document.querySelector("#confirmHomesickStateBtn");
+  const confirmBtn = document.querySelector("#confirmHomesickBtn");
   const stateSelect = document.querySelector("#homesickStateSelect");
-  const errorDiv = document.querySelector("#homesickStateError");
+  const errorDiv = document.querySelector("#homesickCustomError");
 
   confirmBtn.addEventListener("click", () => {
     const chosenState = stateSelect ? stateSelect.value : "";
-    if (!chosenState) {
+    const selectedWarmiesRadio = document.querySelector('input[name="homesick_warmies"]:checked');
+
+    if (!chosenState || !selectedWarmiesRadio) {
+      if (errorDiv) {
+        errorDiv.textContent = !chosenState && !selectedWarmiesRadio
+          ? "Please select both a state and a Warmies plush before adding to cart."
+          : (!chosenState ? "Please select a state or territory." : "Please choose a Warmies plush option.");
+        errorDiv.style.display = "block";
+      }
+      return;
+    }
+
+    const warmiesObj = warmiesOptions.find(opt => opt.id === selectedWarmiesRadio.value);
+    const warmiesName = warmiesObj ? warmiesObj.name : "";
+    const extraPrice = warmiesObj ? warmiesObj.extra : 0;
+    const basePrice = products["homesick"].price; // 62
+    const totalPrice = basePrice + extraPrice;
+
+    addToCart("homesick", `State: ${chosenState} | Warmies: ${warmiesName}`, totalPrice);
+    closePackageModalFunc();
+  });
+}
+
+function openWarmHugModal() {
+  const modalTitle = document.querySelector("#packageModalTitle");
+  const modalBody = document.querySelector("#packageModalBody");
+  if (!modalTitle || !modalBody || !packageModal) return;
+
+  modalTitle.textContent = "Choose Warmies for Warm Hug from Home";
+
+  const warmiesRadioHTML = warmiesOptions
+    .map(
+      (opt) => `
+      <label class="choice-label" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; margin-bottom: 8px; cursor: pointer; background: #ffffff;">
+        <input type="radio" name="warmhug_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 18px; height: 18px;">
+        <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark);">${opt.label}</span>
+      </label>
+    `
+    )
+    .join("");
+
+  modalBody.innerHTML = `
+    <div class="warmhug-customization-container" style="padding: 10px 0;">
+      <p class="warmhug-choice-intro" style="font-size: 1.05rem; line-height: 1.6; color: var(--navy-dark); margin-bottom: 18px; font-weight: 500;">
+        Warm Hug from Home includes a soothing microwavable Warmies plush. Please select your plush choice below (Required - Select One):
+      </p>
+
+      <div class="warmies-select-wrapper" style="margin-bottom: 20px;">
+        ${warmiesRadioHTML}
+      </div>
+
+      <div id="warmhugCustomError" class="state-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-bottom: 16px; font-size: 0.9rem;">
+        Please select a Warmies plush option before adding to cart.
+      </div>
+      <button type="button" id="confirmWarmHugBtn" class="confirm-snack-add-btn" style="width: 100%;">
+        Add Warm Hug from Home to Cart
+      </button>
+    </div>
+  `;
+
+  // Show modal
+  packageModal.classList.add("active");
+  packageModal.setAttribute("aria-hidden", "false");
+  if (closePackageModal) closePackageModal.focus();
+
+  // Event listener for confirm button
+  const confirmBtn = document.querySelector("#confirmWarmHugBtn");
+  const errorDiv = document.querySelector("#warmhugCustomError");
+
+  confirmBtn.addEventListener("click", () => {
+    const selectedWarmiesRadio = document.querySelector('input[name="warmhug_warmies"]:checked');
+
+    if (!selectedWarmiesRadio) {
       if (errorDiv) errorDiv.style.display = "block";
       return;
     }
-    addToCart("homesick", `State: ${chosenState}`);
+
+    const warmiesObj = warmiesOptions.find(opt => opt.id === selectedWarmiesRadio.value);
+    const warmiesName = warmiesObj ? warmiesObj.name : "";
+    const extraPrice = warmiesObj ? warmiesObj.extra : 0;
+    const basePrice = products["sick"].price; // 62
+    const totalPrice = basePrice + extraPrice;
+
+    addToCart("sick", `Warmies: ${warmiesName}`, totalPrice);
     closePackageModalFunc();
   });
 }

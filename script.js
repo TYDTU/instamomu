@@ -84,7 +84,7 @@ const products = {
     studentType: "Wellness reset",
     moment: "Sick day",
     copy:
-      "Soft, gentle tissues, soothing throat drops, soup and crackers, tea, and a mini honey bear whose cuteness is as comforting as its contents. Coaching helps students catch up with work and communicate with professors during and after an illness.",
+      "Soft, gentle tissues, soothing cough drops, soup and crackers, tea, and a mini honey bear whose cuteness is as comforting as its contents. Coaching helps students catch up with work and communicate with professors during and after an illness.",
     image: "assets/warm_hug_from_home_box.jpg",
     contents: [
       "Comforting microwavable lavender Warmie stuffed animal",
@@ -266,7 +266,7 @@ const packageData = {
     productId: "sick",
     title: "Warm Hug from Home",
     copy:
-      "College exposes them to new people, new experiences, and new germs. Send healing comfort across the miles with tissues, throat lozenges, hydration packets, soup, and tea, along with tips on utilizing campus resources, making up work and communicating clearly with faculty.",
+      "College exposes them to new people, new experiences, and new germs. Send healing comfort across the miles with tissues, cough drops, hydration packets, soup, and tea, along with tips on utilizing campus resources, making up work and communicating clearly with faculty.",
   },
   "Wellness reset|Finals": {
     productId: "finals",

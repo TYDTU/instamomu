@@ -84,7 +84,8 @@ const products = {
       "Twinings superblend immune support tea bags (4)",
       "Mini honey bear",
       "Box of comfort touch Kleenex, in addition to individual travel packs (3)",
-      "Purell travel size hand sanitizer with jelly wrap key chain"
+      "Purell travel size hand sanitizer with jelly wrap key chain",
+      "Coaching cards guide students through communicating with faculty during an illness, keeping up with class assignments, utilizing the health center, and priotirizing make-up work when the germs have been vanquished"
     ]
   },
   finals: {

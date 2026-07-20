@@ -110,7 +110,7 @@ const products = {
       "Poopourri travel spray 2.5oz",
       "Fresh linen sachet (2)",
       "Wet Ones travel body wipes",
-      "Febreeze to go 2.8oz spray Gain scent",
+      "Febreze to go 2.8oz spray Gain scent",
       "Mints and gum"
     ]
   },

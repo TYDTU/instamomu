@@ -180,7 +180,7 @@ const products = {
     moment: "Holiday",
     image: "assets/seasonal_birthday_box.jpg",
     contents: [
-      "Vanilla Confetti Celebration Cake Kit (nut free)--includes cake mix, frosting, pop-up baking tray for microwave, sprinkles, candle, and cake topper",
+      "Vanilla Confetti Individual Cake Kit (nut free)--includes cake mix, frosting, pop-up baking tray for microwave, sprinkles, candle, and cake topper",
       "Confetti balloons (6)",
       "Balloon hand pump",
       "Party poppers (4)",

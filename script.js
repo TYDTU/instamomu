@@ -48,6 +48,15 @@ const products = {
     moment: "Welcome week",
     copy:
       "Comfort snacks and calming items to ease the stress of the college transition. A microwavable, stuffed lavender Warmie, perfect for a cozy cuddle. Coaching guidance for increasing campus engagement and finding their people.",
+    image: "assets/homesick_helper_box.jpg",
+    contents: [
+      "Comforting microwavable lavendar Warmy stuffed animal",
+      "Mindfulness journal",
+      "NYT Bestseller mini adult coloring book of stress-reducing patterns",
+      "Goldfaber 12 pack watercolor pencils",
+      "Hot chocolate",
+      "Coaching guidance includes prompts for starting conversations with classmates and dormmates; tips for introverts and extroverts to find like-minded peers on campus; suggestions for joining clubs; and creating new routines in their new home"
+    ]
   },
   study: {
     title: "Regroup, Restart, Recover",

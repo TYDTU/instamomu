@@ -55,6 +55,7 @@ const products = {
       "Mindfulness journal",
       "NYT Bestseller mini adult coloring book of stress-reducing patterns",
       "Goldfaber 12 pack watercolor pencils",
+      "Notecards to write to people they miss",
       "Hot chocolate",
       "Coaching guidance includes prompts for starting conversations with classmates and dormmates; tips for introverts and extroverts to find like-minded peers on campus; suggestions for joining clubs; and creating new routines in their new home"
     ]

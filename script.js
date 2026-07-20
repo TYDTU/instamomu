@@ -278,7 +278,7 @@ const packageData = {
     productId: "refresh",
     title: "Room Refresh",
     copy:
-      "If they can smell it, this package can refresh it—the air, the bathroom, their shoes, their laundry, their breath. Air freshener sprays and diffusers, sneaker balls, and mints and gum will keep their spaces pleasant so they can focus on what matters.",
+      "Dorms can stink--theirs doesn't have to. Air freshener sprays and diffusers, sneaker balls, and mints and gum will keep their spaces pleasant so they can focus on what matters.",
   },
   "First-year starter|Snack attack": {
     productId: "snack",

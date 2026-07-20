@@ -832,7 +832,7 @@ function openHomesickModal() {
       (opt) => `
       <label class="choice-label warmies-choice-card" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 2px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 10px; cursor: pointer; background: #ffffff; transition: all 0.2s ease;">
         <input type="radio" name="homesick_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 20px; height: 20px; flex-shrink: 0;">
-        <img src="${opt.img}" alt="${opt.name}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); flex-shrink: 0;">
+        <img src="${opt.img}" alt="${opt.name}" style="width: 68px; height: 68px; object-fit: contain; background: #ffffff; border-radius: 8px; border: 1.5px solid var(--line); padding: 2px; flex-shrink: 0;">
         <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark); flex-grow: 1;">${opt.label}</span>
       </label>
     `
@@ -914,7 +914,7 @@ function openWarmHugModal() {
       (opt) => `
       <label class="choice-label warmies-choice-card" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 2px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 10px; cursor: pointer; background: #ffffff; transition: all 0.2s ease;">
         <input type="radio" name="warmhug_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 20px; height: 20px; flex-shrink: 0;">
-        <img src="${opt.img}" alt="${opt.name}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); flex-shrink: 0;">
+        <img src="${opt.img}" alt="${opt.name}" style="width: 68px; height: 68px; object-fit: contain; background: #ffffff; border-radius: 8px; border: 1.5px solid var(--line); padding: 2px; flex-shrink: 0;">
         <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark); flex-grow: 1;">${opt.label}</span>
       </label>
     `

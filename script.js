@@ -56,6 +56,7 @@ const products = {
       "NYT Bestseller mini adult coloring book of stress-reducing patterns",
       "Goldfaber 12 pack watercolor pencils",
       "Notecards to write to people they miss",
+      "Your choice of home state building brick magnet with movable heart peg",
       "Hot chocolate",
       "Coaching guidance includes prompts for starting conversations with classmates and dormmates; tips for introverts and extroverts to find like-minded peers on campus; suggestions for joining clubs; and creating new routines in their new home"
     ]
@@ -352,14 +353,17 @@ function getSelectedAddons() {
   }).filter(addon => addon.quantity > 0);
 }
 
-function addToCart(productId) {
-  const existingLine = cart.find((line) => line.productId === productId);
+function addToCart(productId, customOption = null) {
+  const existingLine = cart.find(
+    (line) => line.productId === productId && line.customOption === customOption
+  );
 
   if (existingLine) {
     existingLine.quantity += 1;
   } else {
     cart.push({
       productId,
+      customOption,
       quantity: 1,
     });
   }
@@ -368,14 +372,13 @@ function addToCart(productId) {
   renderCart();
 }
 
-function changeQuantity(productId, delta) {
-  cart = cart
-    .map((line) =>
-      line.productId === productId
-        ? { ...line, quantity: Math.max(0, line.quantity + delta) }
-        : line,
-    )
-    .filter((line) => line.quantity > 0);
+function changeQuantity(index, delta) {
+  if (cart[index]) {
+    cart[index].quantity += delta;
+    if (cart[index].quantity <= 0) {
+      cart.splice(index, 1);
+    }
+  }
   renderCart();
 }
 
@@ -399,18 +402,20 @@ function renderCart() {
     cartItems.innerHTML = '<p class="empty-cart">No packages yet.</p>';
   } else {
     cartItems.innerHTML = cart
-      .map((line) => {
+      .map((line, idx) => {
         const product = products[line.productId];
+        const optionBadge = line.customOption ? `<span style="font-size: 0.85rem; font-weight: 700; color: var(--pink); display: block; margin-top: 2px;">${line.customOption}</span>` : "";
         return `
           <article class="cart-line">
             <div>
               <h4>${product.title}</h4>
+              ${optionBadge}
               <p>${product.studentType} / ${product.moment} / ${money(product.price)} each</p>
             </div>
             <div class="quantity-control" aria-label="${product.title} quantity">
-              <button type="button" data-quantity="${line.productId}" data-delta="-1">-</button>
+              <button type="button" data-cart-index="${idx}" data-delta="-1">-</button>
               <span>${line.quantity}</span>
-              <button type="button" data-quantity="${line.productId}" data-delta="1">+</button>
+              <button type="button" data-cart-index="${idx}" data-delta="1">+</button>
             </div>
           </article>
         `;
@@ -430,6 +435,12 @@ function fakeCheckout() {
     return;
   }
 
+  const packageDetails = cart.map(line => {
+    const title = products[line.productId].title;
+    const opt = line.customOption ? ` [${line.customOption}]` : "";
+    return `${title}${opt} x${line.quantity}`;
+  }).join(", ");
+
   const addonText = getSelectedAddons().map((addon) => {
     return addon.quantity > 1 ? `${addon.label} (Qty: ${addon.quantity})` : addon.label;
   }).join(", ") || "No add-ons";
@@ -439,7 +450,7 @@ function fakeCheckout() {
     ? ` Roommate separate wrap request: "${roommateWrapInput.value.trim()}".`
     : "";
 
-  checkoutStatus.textContent = `Fake Shopify checkout ready. Add-ons: ${addonText}.${roommateText}`;
+  checkoutStatus.textContent = `Fake Shopify checkout ready. Packages: ${packageDetails}. Add-ons: ${addonText}.${roommateText}`;
 }
 
 
@@ -451,6 +462,8 @@ document.querySelectorAll(".add-product").forEach((button) => {
       openSnackChoiceModal();
     } else if (productId === "seasonal") {
       openSeasonalChoiceModal();
+    } else if (productId === "homesick") {
+      openHomesickStateModal();
     } else {
       addToCart(productId);
     }
@@ -504,9 +517,9 @@ document.querySelectorAll(".addon-details-btn").forEach((btn) => {
 });
 
 cartItems.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-quantity]");
+  const button = event.target.closest("[data-cart-index]");
   if (!button) return;
-  changeQuantity(button.dataset.quantity, Number(button.dataset.delta));
+  changeQuantity(Number(button.dataset.cartIndex), Number(button.dataset.delta));
 });
 
 checkoutButton.addEventListener("click", fakeCheckout);
@@ -738,6 +751,74 @@ function openSeasonalChoiceModal() {
     }
     const chosenFlavor = selectedRadio.value;
     addToCart(chosenFlavor);
+    closePackageModalFunc();
+  });
+}
+
+const usStatesAndTerritories = [
+  "Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California",
+  "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia",
+  "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+  "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+  "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+  "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
+  "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+  "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+  "Texas", "U.S. Virgin Islands", "Utah", "Vermont", "Virginia", "Washington",
+  "West Virginia", "Wisconsin", "Wyoming"
+];
+
+function openHomesickStateModal() {
+  const modalTitle = document.querySelector("#packageModalTitle");
+  const modalBody = document.querySelector("#packageModalBody");
+  if (!modalTitle || !modalBody || !packageModal) return;
+
+  modalTitle.textContent = "Select Home State for Homesick Helper";
+
+  const optionsHTML = usStatesAndTerritories
+    .map((state) => `<option value="${state}">${state}</option>`)
+    .join("");
+
+  modalBody.innerHTML = `
+    <div class="homesick-state-form-container" style="padding: 10px 0;">
+      <p class="state-choice-intro" style="font-size: 1.05rem; line-height: 1.6; color: var(--navy-dark); margin-bottom: 18px; font-weight: 500;">
+        Homesick Helper includes a custom home state building brick magnet with a movable heart peg. Please select your student's home state or territory:
+      </p>
+      <div class="state-select-wrapper" style="margin-bottom: 20px;">
+        <label for="homesickStateSelect" style="display: block; font-weight: 700; color: var(--navy-dark); margin-bottom: 8px;">
+          Home State / Territory (Required):
+        </label>
+        <select id="homesickStateSelect" class="state-dropdown" style="width: 100%; padding: 12px 14px; font-size: 1rem; border: 2px solid var(--navy); border-radius: var(--radius-sm); background-color: #ffffff; color: var(--navy-dark); font-weight: 600;">
+          <option value="" disabled selected>-- Select State or Territory --</option>
+          ${optionsHTML}
+        </select>
+      </div>
+      <div id="homesickStateError" class="state-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-bottom: 16px;">
+        Please select a state or territory before adding to cart.
+      </div>
+      <button type="button" id="confirmHomesickStateBtn" class="confirm-snack-add-btn" style="width: 100%;">
+        Add to Cart ($62)
+      </button>
+    </div>
+  `;
+
+  // Show modal
+  packageModal.classList.add("active");
+  packageModal.setAttribute("aria-hidden", "false");
+  if (closePackageModal) closePackageModal.focus();
+
+  // Event listener for confirm button
+  const confirmBtn = document.querySelector("#confirmHomesickStateBtn");
+  const stateSelect = document.querySelector("#homesickStateSelect");
+  const errorDiv = document.querySelector("#homesickStateError");
+
+  confirmBtn.addEventListener("click", () => {
+    const chosenState = stateSelect ? stateSelect.value : "";
+    if (!chosenState) {
+      if (errorDiv) errorDiv.style.display = "block";
+      return;
+    }
+    addToCart("homesick", `State: ${chosenState}`);
     closePackageModalFunc();
   });
 }

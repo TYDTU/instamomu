@@ -484,6 +484,17 @@ document.querySelectorAll(".addon-select").forEach((select) => {
   select.addEventListener("change", renderCart);
 });
 
+const addAddonsToCartBtn = document.querySelector("#addAddonsToCartBtn");
+if (addAddonsToCartBtn) {
+  addAddonsToCartBtn.addEventListener("click", () => {
+    renderCart();
+    const cartSection = document.querySelector("#cart");
+    if (cartSection) {
+      cartSection.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+}
+
 document.querySelectorAll(".addon-details-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const addonId = btn.dataset.addonId;

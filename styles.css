@@ -654,6 +654,32 @@ footer {
   color: var(--pink);
 }
 
+.addon-submit-container {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+}
+
+.add-addons-btn {
+  background: var(--navy);
+  color: #ffffff;
+  font-family: 'Graduate', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 14px 32px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--navy-dark);
+  box-shadow: 0 0 0 2px var(--pink), 4px 4px 0 var(--gold);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-addons-btn:hover {
+  background: var(--navy-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--pink), 6px 6px 0 var(--gold);
+}
+
 .cart-section {
   padding-top: clamp(54px, 8vw, 96px);
   padding-bottom: clamp(54px, 8vw, 96px);

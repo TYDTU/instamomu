@@ -201,6 +201,7 @@ const products = {
       "Birthday cake pretzels",
       "Birthday cake cupcake bites",
       "Birthday cake Kit Kat",
+      "Plush cupcake",
       "Birthday Mad Libs",
       "Faber-Castell Paint by Number Museum Series: The Starry Night"
     ]

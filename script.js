@@ -212,7 +212,7 @@ const products = {
     moment: "Holiday",
     image: "assets/seasonal_birthday_box.jpg",
     contents: [
-      "Vanilla Confetti Individual Cake Kit (nut free)--includes cake mix, frosting, pop-up baking tray for microwave, sprinkles, candle, and cake topper",
+      "Vanilla Confetti Individual Cake Kit (nut free)—includes cake mix, frosting, pop-up baking tray for microwave, sprinkles, candle, and cake topper",
       "Confetti balloons (6)",
       "Balloon hand pump",
       "Party poppers (4)",
@@ -278,7 +278,7 @@ const packageData = {
     productId: "refresh",
     title: "Room Refresh",
     copy:
-      "Dorms can stink--theirs doesn't have to. Banish the funk and refresh their space so they can enjoy breathing deeply again.",
+      "Dorms can stink—theirs doesn't have to. Banish the funk and refresh their space so they can enjoy breathing deeply again.",
   },
   "First-year starter|Snack attack": {
     productId: "snack",
@@ -522,19 +522,8 @@ function renderSlider() {
   });
 
   sliderTrack.innerHTML = uniquePackages.map((pkg) => {
-    let tagText = "Coming in September";
-    let tagClass = "card-moment-tag coming-soon-tag";
-    const isClickable = pkg.title === "Welcome Week Starter";
-    if (isClickable) {
-      tagText = "Pre-Order Now";
-      tagClass = "card-moment-tag";
-    } else if (pkg.title === "Seasonal Celebrations") {
-      tagText = "Seasonal";
-      tagClass = "card-moment-tag seasonal-tag";
-    }
     return `
       <article class="lineup-card" data-key="${pkg.key}">
-        <span class="${tagClass}">${tagText}</span>
         <h3>${pkg.title}</h3>
         <p>${pkg.copy}</p>
       </article>

@@ -1216,6 +1216,10 @@ footer p {
   display: block;
 }
 
+.modal-package-details {
+  text-align: left;
+}
+
 .modal-package-details h4 {
   margin: 0 0 12px;
   font-size: 1.15rem;
@@ -1223,6 +1227,15 @@ footer p {
   color: var(--navy-dark);
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  text-align: left;
+}
+
+.addon-info-text {
+  text-align: left !important;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--navy-dark);
+  margin: 16px 0;
 }
 
 /* Custom checking package contents list */

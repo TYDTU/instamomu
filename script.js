@@ -620,7 +620,9 @@ function openPackageModal(productId) {
     const detailsHeader = product.contents ? "<h4>What's Inside:</h4>" : "";
     const contentsHTML = product.contents
       ? `<ul class="package-contents-list">${product.contents.map((item) => (item.endsWith(":") || item.includes("packs each of")) ? `<li class="no-check"><strong>${item}</strong></li>` : `<li>${item}</li>`).join("")}</ul>`
-      : `<p class="coming-soon-text" style="font-size: 1.35rem; font-weight: 700; color: var(--navy-dark); text-align: center; margin: 32px 0;">${product.copy}</p>`;
+      : (product.copy === "Coming Soon!"
+          ? `<p class="coming-soon-text" style="font-size: 1.35rem; font-weight: 700; color: var(--navy-dark); text-align: center; margin: 32px 0;">${product.copy}</p>`
+          : `<p class="addon-info-text" style="font-size: 1.05rem; font-weight: 500; color: var(--navy-dark); text-align: left; line-height: 1.65; margin: 16px 0;">${product.copy}</p>`);
 
     const imageHTML = product.image
       ? `<div class="modal-image-container"><img class="modal-package-image" src="${product.image}" alt="${product.title}"></div>`

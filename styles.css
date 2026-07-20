@@ -778,7 +778,73 @@ footer {
 .checkout-panel dl {
   display: grid;
   gap: 12px;
-  margin: 0 0 18px;
+  margin: 0 0 14px;
+}
+
+/* Candy Preference Container */
+.allergy-preference-container {
+  border: 2px solid var(--navy);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin: 14px 0;
+  background: #ffffff;
+  box-shadow: 0 0 0 2px var(--pink), 4px 4px 0 var(--gold);
+  transition: all 0.2s ease;
+}
+
+.allergy-preference-container.has-error {
+  border-color: var(--pink) !important;
+  box-shadow: 0 0 0 4px var(--pink), 4px 4px 0 var(--gold) !important;
+  animation: shakeContainer 0.3s ease;
+}
+
+@keyframes shakeContainer {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.allergy-legend {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--navy-dark);
+  padding: 0 6px;
+  font-family: 'Graduate', Georgia, serif;
+}
+
+.allergy-choice-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.allergy-radio-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--navy-dark);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.allergy-radio-label input[type="radio"] {
+  accent-color: var(--navy);
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.allergy-error-msg {
+  display: none;
+  color: var(--pink);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  line-height: 1.4;
 }
 
 .checkout-panel dl div {

@@ -430,10 +430,35 @@ function renderCart() {
 }
 
 function fakeCheckout() {
+  const allergyContainer = document.querySelector("#allergyPreferenceContainer");
+  const allergyErrorMsg = document.querySelector("#allergyErrorMsg");
+  const selectedAllergyRadio = document.querySelector('input[name="allergy_preference"]:checked');
+
   if (cart.length === 0) {
     checkoutStatus.textContent = "Add at least one package before checkout.";
     return;
   }
+
+  // Validate required candy preference
+  if (!selectedAllergyRadio) {
+    if (allergyErrorMsg) allergyErrorMsg.style.display = "block";
+    if (allergyContainer) {
+      allergyContainer.classList.add("has-error");
+      allergyContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    const firstRadio = document.querySelector("#noSnickersReeses");
+    if (firstRadio) firstRadio.focus();
+    checkoutStatus.textContent = "Please select your candy preference above before checking out.";
+    return;
+  }
+
+  // Clear allergy error if valid
+  if (allergyErrorMsg) allergyErrorMsg.style.display = "none";
+  if (allergyContainer) allergyContainer.classList.remove("has-error");
+
+  const candyPrefLabel = selectedAllergyRadio.value === "no_snickers_reeses"
+    ? "No Snickers/Reese's"
+    : "Include Snickers/Reese's";
 
   const packageDetails = cart.map(line => {
     const title = products[line.productId].title;
@@ -450,8 +475,17 @@ function fakeCheckout() {
     ? ` Roommate separate wrap request: "${roommateWrapInput.value.trim()}".`
     : "";
 
-  checkoutStatus.textContent = `Fake Shopify checkout ready. Packages: ${packageDetails}. Add-ons: ${addonText}.${roommateText}`;
+  checkoutStatus.textContent = `Fake Shopify checkout ready. Packages: ${packageDetails}. Candy Pref: "${candyPrefLabel}". Add-ons: ${addonText}.${roommateText}`;
 }
+
+document.querySelectorAll('input[name="allergy_preference"]').forEach((radio) => {
+  radio.addEventListener("change", () => {
+    const allergyContainer = document.querySelector("#allergyPreferenceContainer");
+    const allergyErrorMsg = document.querySelector("#allergyErrorMsg");
+    if (allergyErrorMsg) allergyErrorMsg.style.display = "none";
+    if (allergyContainer) allergyContainer.classList.remove("has-error");
+  });
+});
 
 
 

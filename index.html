@@ -397,6 +397,24 @@
                 <dd id="cartTotal">$0</dd>
               </div>
             </dl>
+
+            <fieldset class="allergy-preference-container" id="allergyPreferenceContainer">
+              <legend class="allergy-legend">Candy Preference (Required):</legend>
+              <div class="allergy-choice-wrapper">
+                <label class="allergy-radio-label">
+                  <input type="radio" name="allergy_preference" value="no_snickers_reeses" id="noSnickersReeses">
+                  <span>Please do not include any Snickers or Reese's to my student's package!</span>
+                </label>
+                <label class="allergy-radio-label">
+                  <input type="radio" name="allergy_preference" value="include_snickers_reeses" id="includeSnickersReeses">
+                  <span>Please include Snickers and Reese's if they are a standard part of the treats in the package I ordered!</span>
+                </label>
+              </div>
+              <div id="allergyErrorMsg" class="allergy-error-msg">
+                ⚠️ Please select one of the candy options above to proceed to checkout!
+              </div>
+            </fieldset>
+
             <button type="button" id="checkoutButton">Fake Shopify checkout</button>
             <p id="checkoutStatus" class="form-status" role="status" aria-live="polite"></p>
           </aside>

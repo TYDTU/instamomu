@@ -810,10 +810,10 @@ const usStatesAndTerritories = [
 ];
 
 const warmiesOptions = [
-  { id: "bear", name: 'Brown Curly Bear Warmies 13"', extra: 10, label: 'Brown Curly Bear Warmies 13" <strong>(+$10)</strong>' },
-  { id: "dog", name: 'Golden Dog Warmies Junior 9"', extra: 0, label: 'Golden Dog Warmies Junior 9" <strong>(Included)</strong>' },
-  { id: "hamster", name: 'Hamster Warmies Junior 9"', extra: 0, label: 'Hamster Warmies Junior 9" <strong>(Included)</strong>' },
-  { id: "sloth", name: 'Sloth Warmies Junior 9"', extra: 0, label: 'Sloth Warmies Junior 9" <strong>(Included)</strong>' }
+  { id: "bear", name: 'Brown Curly Bear Warmies 13"', extra: 10, img: 'assets/warmies_curly_bear.jpg', label: 'Brown Curly Bear Warmies 13" <strong>(+$10)</strong>' },
+  { id: "dog", name: 'Golden Dog Warmies Junior 9"', extra: 0, img: 'assets/warmies_golden_dog.jpg', label: 'Golden Dog Warmies Junior 9" <strong>(Included)</strong>' },
+  { id: "hamster", name: 'Hamster Warmies Junior 9"', extra: 0, img: 'assets/warmies_hamster.jpg', label: 'Hamster Warmies Junior 9" <strong>(Included)</strong>' },
+  { id: "sloth", name: 'Sloth Warmies Junior 9"', extra: 0, img: 'assets/warmies_sloth.jpg', label: 'Sloth Warmies Junior 9" <strong>(Included)</strong>' }
 ];
 
 function openHomesickModal() {
@@ -830,9 +830,10 @@ function openHomesickModal() {
   const warmiesRadioHTML = warmiesOptions
     .map(
       (opt) => `
-      <label class="choice-label" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; margin-bottom: 8px; cursor: pointer; background: #ffffff;">
-        <input type="radio" name="homesick_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 18px; height: 18px;">
-        <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark);">${opt.label}</span>
+      <label class="choice-label warmies-choice-card" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 2px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 10px; cursor: pointer; background: #ffffff; transition: all 0.2s ease;">
+        <input type="radio" name="homesick_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 20px; height: 20px; flex-shrink: 0;">
+        <img src="${opt.img}" alt="${opt.name}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); flex-shrink: 0;">
+        <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark); flex-grow: 1;">${opt.label}</span>
       </label>
     `
     )
@@ -911,9 +912,10 @@ function openWarmHugModal() {
   const warmiesRadioHTML = warmiesOptions
     .map(
       (opt) => `
-      <label class="choice-label" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; margin-bottom: 8px; cursor: pointer; background: #ffffff;">
-        <input type="radio" name="warmhug_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 18px; height: 18px;">
-        <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark);">${opt.label}</span>
+      <label class="choice-label warmies-choice-card" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 2px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 10px; cursor: pointer; background: #ffffff; transition: all 0.2s ease;">
+        <input type="radio" name="warmhug_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 20px; height: 20px; flex-shrink: 0;">
+        <img src="${opt.img}" alt="${opt.name}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); flex-shrink: 0;">
+        <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark); flex-grow: 1;">${opt.label}</span>
       </label>
     `
     )

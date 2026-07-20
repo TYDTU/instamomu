@@ -178,13 +178,20 @@ const products = {
     price: 60,
     studentType: "Focused achiever",
     moment: "Holiday",
+    image: "assets/seasonal_birthday_box.jpg",
     contents: [
-      "Gourmet birthday cake cookies (6 oz)",
-      "Mini birthday cake candle (vanilla scented)",
-      "Colorful festive party blower and hat",
-      "Bite-sized rainbow sprinkle candies",
-      "Custom 'Happy Birthday' greeting card with sticker",
-      "Coaching card: celebrating milestones away from home and building deep connections"
+      "Vanilla Confetti Celebration Cake Kit (nut free)--includes cake mix, frosting, pop-up baking tray for microwave, sprinkles, candle, and cake topper",
+      "Confetti balloons (6)",
+      "Balloon hand pump",
+      "Party poppers (4)",
+      "Birthday horns (4)",
+      "Bubblelick Sour Blue Raspberry Bubbles",
+      "Mini Welch's sparkling white grape juice",
+      "Birthday cake pretzels",
+      "Birthday cake cupcake bites",
+      "Birthday cake Kit Kat",
+      "Birthday Mad Libs",
+      "Faber-Castell Paint by Number Museum Series: The Starry Night"
     ]
   },
   seasonal_fall: {

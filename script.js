@@ -106,6 +106,27 @@ const products = {
     moment: "Finals",
     copy:
       "Self-care goodies like soothing eye masks and stress toys; colorful pens, highlighters, and post-its; and Nerds and Smarties for good measure. Academic coaching helps students replace popular study myths with successful study habits.",
+    image: "assets/finals_reset_box.jpg",
+    contents: [
+      "Set of colorful pens",
+      "Set of colorful highlighters",
+      "Set of colorful mechanical pencils",
+      "Post-it tabs and notes",
+      "Colorful index cards",
+      "Stress toy",
+      "Warmies microwavable eye mask",
+      "Gel cooling mask",
+      "Nerds and Nerds Ropes",
+      "Smarties",
+      "Hershey's Kisses",
+      "Mints",
+      "Snack-sized chips (5)",
+      "Starbucks K-cups (4)",
+      "Liquid IV packets (4)",
+      "Calming lavender and chamomile linen spray",
+      "Balloons to blow up and then pop when a final or paper is complete",
+      "Coaching cards offer guidance on maintaining perspective under stress; balancing rest and wellbeing with working hard; and efficient study tips"
+    ]
   },
   refresh: {
     title: "Room Refresh",

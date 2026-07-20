@@ -74,6 +74,18 @@ const products = {
     moment: "Sick day",
     copy:
       "Soft, gentle tissues, soothing throat drops, soup and crackers, tea, and a mini honey bear whose cuteness is as comforting as its contents. Coaching helps students catch up with work and communicate with professors during and after an illness.",
+    image: "assets/warm_hug_from_home_box.jpg",
+    contents: [
+      "Comforting microwavable lavender Warmie stuffed animal",
+      "Ricola natural cough drops (9 count)",
+      "Microwave chicken noodle soup cups (2)",
+      "Saltine crackers",
+      "EmergenC packets (4)",
+      "Twinings superblend immune support tea bags (4)",
+      "Mini honey bear",
+      "Box of comfort touch Kleenex, in addition to individual travel packs (3)",
+      "Purell travel size hand sanitizer with jelly wrap key chain"
+    ]
   },
   finals: {
     title: "Finals Reset Box",

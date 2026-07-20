@@ -71,11 +71,11 @@ const products = {
       "Colorful and calming focus timer (30-40 minute timer)",
       "Productivity Planner",
       "Gummy stress square",
-      "Color-coded study supplies: 3 highlighters, 3 pens, post-it tabs and post-it notes",
+      "Color-coded study supplies: highlighters, pens, post-it tabs and post-it notes",
       "Lavender Calming Patches",
       "Granola bars",
       "Granola bites",
-      "Coaching cards include: positive reframing; communicating with faculty; utilizing campus resrouces; practicing both time and task management; and sticking to schedules and plans."
+      "Coaching cards include: positive reframing; communicating with faculty; utilizing campus resources; practicing both time and task management; and sticking to schedules and plans."
     ]
   },
   sick: {

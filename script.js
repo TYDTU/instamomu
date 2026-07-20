@@ -66,6 +66,17 @@ const products = {
     moment: "Midterms",
     copy:
       "Heavy on academic coaching, tools for positive reframing, and tips for utilizing academic support resources on campus. Includes study and workload planning supplies, a focus timer, and—of course!—tasty snacks with staying power.",
+    image: "assets/regroup_recover_restart_box.jpg",
+    contents: [
+      "Colorful and calming focus timer (30-40 minute timer)",
+      "Productivity Planner",
+      "Gummy stress square",
+      "Color-coded study supplies: 3 highlighters, 3 pens, post-it tabs and post-it notes",
+      "Lavender Calming Patches",
+      "Granola bars",
+      "Granola bites",
+      "Coaching cards include: positive reframing; communicating with faculty; utilizing campus resrouces; practicing both time and task management; and sticking to schedules and plans."
+    ]
   },
   sick: {
     title: "Warm Hug from Home",

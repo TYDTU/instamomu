@@ -811,9 +811,9 @@ const usStatesAndTerritories = [
 
 const warmiesOptions = [
   { id: "bear", name: 'Brown Curly Bear Warmies 13"', extra: 10, label: 'Brown Curly Bear Warmies 13" <strong>(+$10)</strong>' },
-  { id: "dog", name: 'Golden Dog Warmies Junior 9"', extra: 0, label: 'Golden Dog Warmies Junior 9" <strong>(Included)</strong>' },
-  { id: "hamster", name: 'Hamster Warmies Junior 9"', extra: 0, label: 'Hamster Warmies Junior 9" <strong>(Included)</strong>' },
-  { id: "sloth", name: 'Sloth Warmies Junior 9"', extra: 0, label: 'Sloth Warmies Junior 9" <strong>(Included)</strong>' }
+  { id: "dog", name: 'Golden Dog Warmies Junior 9"', extra: 0, label: 'Golden Dog Warmies Junior 9" <strong>(Included in Package Price)</strong>' },
+  { id: "hamster", name: 'Hamster Warmies Junior 9"', extra: 0, label: 'Hamster Warmies Junior 9" <strong>(Included in Package Price)</strong>' },
+  { id: "sloth", name: 'Sloth Warmies Junior 9"', extra: 0, label: 'Sloth Warmies Junior 9" <strong>(Included in Package Price)</strong>' }
 ];
 
 function openHomesickModal() {

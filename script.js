@@ -1,3 +1,4 @@
+// Version 1.0.8 - Regroup, Recover, Restart
 const products = {
   welcome: {
     title: "Welcome Week Starter",

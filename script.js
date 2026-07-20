@@ -186,7 +186,7 @@ const products = {
   },
   seasonal_birthday: {
     title: "Seasonal: Birthday Box",
-    price: 60,
+    price: 62,
     studentType: "Focused achiever",
     moment: "Holiday",
     image: "assets/seasonal_birthday_box.jpg",

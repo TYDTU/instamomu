@@ -232,28 +232,14 @@ const products = {
     price: 60,
     studentType: "Focused achiever",
     moment: "Holiday",
-    contents: [
-      "Pumpkin spice hot cocoa mixes (3)",
-      "Maple leaf cream cookies (7 oz)",
-      "Cozy fuzzy socks (neutral fall tones)",
-      "Cinnamon apple scented soy candle tin",
-      "Gourmet salted caramel popcorn (4 oz)",
-      "Coaching card: overcoming mid-semester slumps and establishing healthy winter routines"
-    ]
+    copy: "Coming Soon!"
   },
   seasonal_halloween: {
     title: "Seasonal: Halloween Box",
     price: 45,
     studentType: "Focused achiever",
     moment: "Holiday",
-    contents: [
-      "Assorted classic fun-size candies (Snickers, Twix, Reese's)",
-      "Glow-in-the-dark stickers and accessories",
-      "Spooky cheddar cheese crackers (4.5 oz)",
-      "Ghost-shaped marshmallow peeps pack",
-      "Halloween theme playing cards",
-      "Coaching card: balance between academic sprints and social celebrations"
-    ]
+    copy: "Coming Soon!"
   },
 };
 
@@ -631,9 +617,10 @@ function openPackageModal(productId) {
   if (modalTitle) modalTitle.textContent = product.title;
 
   if (modalBody) {
+    const detailsHeader = product.contents ? "<h4>What's Inside:</h4>" : "";
     const contentsHTML = product.contents
       ? `<ul class="package-contents-list">${product.contents.map((item) => (item.endsWith(":") || item.includes("packs each of")) ? `<li class="no-check"><strong>${item}</strong></li>` : `<li>${item}</li>`).join("")}</ul>`
-      : `<p>${product.copy}</p>`;
+      : `<p class="coming-soon-text" style="font-size: 1.35rem; font-weight: 700; color: var(--navy-dark); text-align: center; margin: 32px 0;">${product.copy}</p>`;
 
     const imageHTML = product.image
       ? `<div class="modal-image-container"><img class="modal-package-image" src="${product.image}" alt="${product.title}"></div>`
@@ -642,7 +629,7 @@ function openPackageModal(productId) {
     modalBody.innerHTML = `
       ${imageHTML}
       <div class="modal-package-details">
-        <h4>What's Inside:</h4>
+        ${detailsHeader}
         ${contentsHTML}
       </div>
     `;

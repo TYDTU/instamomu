@@ -808,7 +808,7 @@ footer {
   font-weight: 800;
   font-size: 0.95rem;
   color: var(--navy-dark);
-  padding: 0 6px;
+  margin-bottom: 10px;
   font-family: 'Graduate', Georgia, serif;
 }
 

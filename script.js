@@ -278,7 +278,7 @@ const packageData = {
     productId: "refresh",
     title: "Room Refresh",
     copy:
-      "Dorms can stink--theirs doesn't have to. Banish the funk and refresh your space so they can enjoy breathing deeply again.",
+      "Dorms can stink--theirs doesn't have to. Banish the funk and refresh their space so they can enjoy breathing deeply again.",
   },
   "First-year starter|Snack attack": {
     productId: "snack",

@@ -1512,6 +1512,9 @@ footer p {
 
 .gives-back-content-side .section-kicker {
   margin-bottom: 8px;
+  color: #8c5300;
+  font-weight: 900;
+  letter-spacing: 0.1em;
 }
 
 .gives-back-content-side .gives-back-title {

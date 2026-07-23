@@ -1,0 +1,170 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "instamom_hero": {
+      "type": "instamom-hero",
+      "settings": {
+        "heading": "InstaMom University",
+        "badge_text": "Family Love + Faculty Wisdom",
+        "crest": "shopify://shop_images/instamom-logo-crest-transparent.png"
+      }
+    },
+    "value_props": {
+      "type": "multicolumn",
+      "blocks": {
+        "tip_cards": {
+          "type": "column",
+          "settings": {
+            "title": "Tip cards with QR-linked videos",
+            "text": "<p>Colorful, display-worthy guides to help students live their best college life inside and outside of the classroom\u2014coupled with QR videos to reinforce new habits.</p>"
+          }
+        },
+        "whole_person": {
+          "type": "column",
+          "settings": {
+            "title": "Gifts for the whole person",
+            "text": "<p>Snacks, comfort items, and practical guides to ensure students feel comfortable, confident, and successful.</p>"
+          }
+        },
+        "across_miles": {
+          "type": "column",
+          "settings": {
+            "title": "Care across the miles",
+            "text": "<p>Each box carries the most important reminder for every student: you are loved. Really\u2014it's written right on the box!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tip_cards",
+        "whole_person",
+        "across_miles"
+      ],
+      "settings": {
+        "title": "The comfort of family plus the wisdom of faculty",
+        "heading_size": "h2",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 52,
+        "padding_bottom": 40,
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Customize your student's package with extra treats just for them",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "gives_back": {
+      "type": "rich-text",
+      "blocks": {
+        "caption": {
+          "type": "caption",
+          "settings": {
+            "caption": "Giving Back",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "InstaMom University Gives Back",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We have devoted our lives to education, and we strongly believe in\u2014and have witnessed\u2014its transformative power. We also know that it is incredibly expensive. So we put our money where our values are: for every 1000 boxes sold, we will randomly select the name of one customer (one entry per purchase) to receive a $1000 scholarship from InstaMom U as a token of our appreciation to our customers, and our support for students.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "caption",
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-2",
+        "full_width": true,
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "packages_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Explore our customized packages",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "packages",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "instamom_hero",
+    "packages_collection",
+    "value_props",
+    "featured_collection",
+    "gives_back"
+  ]
+}

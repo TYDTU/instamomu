@@ -1,0 +1,314 @@
+/* ============================================================================
+   InstaMom University — brand overlay for Shopify Dawn
+   Ported from the GitHub Pages prototype (../../styles.css).
+   Load this AFTER Dawn's own CSS by adding this line to layout/theme.liquid,
+   just before </head>:
+
+     {{ 'instamom.css' | asset_url | stylesheet_tag }}
+
+   Selectors below target Dawn's markup. Dawn changes class names occasionally,
+   so if something doesn't take, confirm the class in the theme's Edit-code view.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
+
+:root {
+  --imu-ink: #082b63;
+  --imu-muted: #2e3d52;
+  --imu-paper: #fff2ad;
+  --imu-surface: #ffffff;
+  --imu-line: #e8d38a;
+  --imu-navy: #062b66;
+  --imu-navy-dark: #041d45;
+  --imu-gold: #ffc928;
+  --imu-cream: #fff0b8;
+  --imu-pink: #ed2f89;
+  --imu-dots: radial-gradient(circle at 5px 5px, rgba(6, 43, 102, 0.2) 0 3px, transparent 3.2px);
+}
+
+/* --- Page background: the yellow "paper" with navy dots ------------------- */
+body {
+  background-color: var(--imu-paper);
+  background-image: var(--imu-dots);
+  background-size: 30px 30px;
+  color: var(--imu-ink);
+}
+
+/* Dawn wraps most content in these; keep them transparent so the dots show. */
+.shopify-section,
+main,
+#MainContent {
+  background: transparent;
+}
+
+/* Dawn paints each section's background on its own .color-scheme-N wrapper,
+   which sits above the body and hides the dots. Re-apply the pattern on the
+   paper scheme only — the navy bands (scheme-2/4) stay flat. */
+.color-scheme-1 {
+  background-image: var(--imu-dots);
+  background-size: 30px 30px;
+}
+
+/* --- Typography: Graduate on display headings ---------------------------- */
+h1, h2,
+.h0, .h1, .h2,
+.section-heading,
+.title,
+.card__heading {
+  font-family: 'Graduate', Georgia, serif;
+  letter-spacing: 0.01em;
+  color: var(--imu-navy-dark);
+}
+
+/* The navy bands (scheme-2 / scheme-4) would swallow that hard-coded navy,
+   so let headings there follow the scheme's own foreground colour. */
+.color-scheme-2 :is(h1, h2, .h0, .h1, .h2, .section-heading, .title, .card__heading),
+.color-scheme-4 :is(h1, h2, .h0, .h1, .h2, .section-heading, .title, .card__heading) {
+  color: rgb(var(--color-foreground));
+}
+
+/* --- Buttons: primary pink, secondary gold ------------------------------- */
+.button,
+.button--primary,
+.shopify-payment-button__button--unbranded {
+  background: var(--imu-pink) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  font-weight: 900;
+  box-shadow: 0 10px 26px rgba(237, 47, 137, 0.26);
+  min-height: 48px;
+}
+
+.button:hover,
+.button--primary:hover {
+  filter: brightness(0.96);
+}
+
+.button--secondary {
+  background: var(--imu-gold) !important;
+  color: var(--imu-navy) !important;
+  box-shadow: none;
+}
+
+/* Focus ring in brand gold */
+.button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--imu-gold);
+  outline-offset: 3px;
+}
+
+/* --- Product cards: navy border + the signature gold "hard shadow" --------
+   Dawn renders .card__content (title/price) as a SIBLING of .card, not a
+   child, so painting .card leaves the price strip transparent — the page
+   background shows through. Style the wrapper instead so media and content
+   sit on one surface, then neutralise the inner card's own chrome. */
+.card-wrapper,
+.collection-list__item .card-wrapper {
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  background: var(--imu-surface);
+  box-shadow: 8px 8px 0 var(--imu-gold);
+  overflow: hidden;
+}
+
+.card-wrapper .card,
+.card--standard,
+.collection-list__item .card {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* The wrapper owns the surface now, so inner blocks must not repaint it. */
+.card__content,
+.card__information {
+  background: transparent;
+}
+
+/* --- Multicolumn value-prop cards: same solid treatment as product cards -- */
+.multicolumn-card {
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  background: var(--imu-cream);
+  box-shadow: 8px 8px 0 var(--imu-gold);
+}
+
+.multicolumn-card__info {
+  background: transparent;
+}
+
+.card__inner {
+  border-radius: 6px;
+}
+
+/* Price in brand pink */
+.price,
+.price__regular .price-item,
+.card__information .price-item {
+  color: var(--imu-pink);
+  font-weight: 900;
+}
+
+/* --- Tag-driven status badges (see snippets/instamom-badge.liquid) -------- */
+.instamom-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 99px;
+  color: var(--imu-navy);
+  background: var(--imu-gold);
+}
+
+.instamom-badge--coming-soon {
+  color: #ffffff;
+  background: var(--imu-navy);
+}
+
+.instamom-badge--seasonal {
+  color: #ffffff;
+  background: #ffa726;
+}
+
+/* --- Hero "sticker" banner (see sections/instamom-hero.liquid) ------------ */
+.instamom-hero {
+  position: relative;
+  min-height: 78vh;
+  display: grid;
+  align-items: center;
+  text-align: center;
+  background-color: var(--imu-paper);
+  background-image: radial-gradient(circle at 15px 15px, rgba(6, 43, 102, 0.9) 0 10px, transparent 10.5px);
+  background-size: 60px 60px;
+  overflow: hidden;
+}
+
+.instamom-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 80px;
+}
+
+.instamom-hero__crest {
+  width: clamp(150px, 22vw, 240px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin-block: 18px;
+  filter: drop-shadow(0 16px 26px rgba(0, 0, 0, 0.34));
+}
+
+.instamom-hero__banner {
+  display: inline-block;
+  background-color: var(--imu-navy);
+  padding: 18px clamp(40px, 8vw, 80px);
+  box-shadow: 0 14px 40px rgba(4, 29, 69, 0.4);
+  outline: 2px solid var(--imu-gold);
+  outline-offset: -6px;
+}
+
+.instamom-hero__title {
+  margin: 0;
+  font-family: 'Graduate', Georgia, serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  font-size: clamp(1.8rem, 5.5vw, 4.2rem);
+  line-height: 1;
+  color: var(--imu-gold);
+  text-shadow:
+    -2px -2px 0 var(--imu-navy-dark),
+    2px -2px 0 var(--imu-navy-dark),
+    -2px 2px 0 var(--imu-navy-dark),
+    2px 2px 0 var(--imu-navy-dark);
+}
+
+.instamom-hero__badge {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 12px 30px;
+  background-color: var(--imu-navy);
+  outline: 2px solid var(--imu-gold);
+  outline-offset: -6px;
+  box-shadow: 0 6px 16px rgba(4, 29, 69, 0.2);
+}
+
+.instamom-hero__badge span {
+  color: var(--imu-gold);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: clamp(0.95rem, 2vw, 1.35rem);
+}
+
+/* --- "What's Inside" checklist (see snippets/instamom-whats-inside.liquid) - */
+.instamom-whats-inside h4 {
+  margin: 0 0 12px;
+  font-family: 'Graduate', Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--imu-navy-dark);
+  font-size: 1.15rem;
+}
+
+.instamom-contents {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.instamom-contents li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--imu-muted);
+}
+
+.instamom-contents li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  background: var(--imu-cream);
+  color: var(--imu-navy-dark);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 4px rgba(6, 43, 102, 0.08);
+}
+
+/* --- Utility: navy band with gold top rule (for Rich text / feature rows) - */
+.instamom-band {
+  color: #fff;
+  background: var(--imu-navy);
+  border-top: 8px solid var(--imu-gold);
+}
+.instamom-band h2,
+.instamom-band .h1,
+.instamom-band .h2 { color: #fff; }
+
+/* --- Footer in brand navy ------------------------------------------------- */
+.footer {
+  color: #fff;
+  background: var(--imu-navy-dark);
+  border-top: 8px solid var(--imu-gold);
+}
+.footer a { color: #fff; }

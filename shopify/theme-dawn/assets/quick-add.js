@@ -43,6 +43,13 @@ if (!customElements.get('quick-add-modal')) {
 
             super.show(opener);
           })
+          .catch(() => {
+            // InstaMom: the fetch yields no <product-info> if the request is
+            // bounced (e.g. the storefront password page). Dawn swallows that
+            // and the click appears to do nothing — fall back to the product
+            // page so the button always goes somewhere.
+            window.location.href = opener.getAttribute('data-product-url');
+          })
           .finally(() => {
             opener.removeAttribute('aria-disabled');
             opener.classList.remove('loading');

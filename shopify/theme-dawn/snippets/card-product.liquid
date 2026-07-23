@@ -108,6 +108,57 @@
               </div>
             </div>
           {%- endif -%}
+              {%- comment -%}
+                InstaMom: package cards get a small "+" preview button in the
+                bottom-right of the image, opening Dawn's <quick-add-modal>.
+                Packages only — add-ons don't have contents worth previewing —
+                so it's gated on the `package` tag the CSVs set.
+                Styling: .instamom-preview* in assets/instamom.css
+              {%- endcomment -%}
+              {%- if quick_add == 'standard' and card_product.tags contains 'package' -%}
+                <modal-opener
+                  class="instamom-preview no-js-hidden"
+                  data-modal="#InstamomPreview-{{ card_product.id }}"
+                >
+                  <button
+                    type="button"
+                    class="instamom-preview__button"
+                    aria-haspopup="dialog"
+                    aria-label="Preview {{ card_product.title | escape }}"
+                    data-product-url="{{ card_product.url }}"
+                  >
+                    <span class="instamom-preview__plus" aria-hidden="true">+</span>
+                    {%- render 'loading-spinner' -%}
+                  </button>
+                </modal-opener>
+
+                {%- comment -%}
+                  Outer id is ours so it can't clash with the quick-add modal Dawn
+                  renders for multi-variant products; the inner div must still start
+                  with "QuickAddInfo-" because quick-add.js finds it by that prefix.
+                {%- endcomment -%}
+                <quick-add-modal id="InstamomPreview-{{ card_product.id }}" class="quick-add-modal">
+                  <div
+                    role="dialog"
+                    aria-label="{{ card_product.title | escape }}"
+                    aria-modal="true"
+                    class="quick-add-modal__content global-settings-popup"
+                    tabindex="-1"
+                  >
+                    <button
+                      type="button"
+                      class="quick-add-modal__toggle"
+                      aria-label="{{ 'accessibility.close' | t }}"
+                    >
+                      {{- 'icon-close.svg' | inline_asset_content -}}
+                    </button>
+                    <div
+                      id="QuickAddInfo-preview-{{ card_product.id }}"
+                      class="quick-add-modal__content-info"
+                    ></div>
+                  </div>
+                </quick-add-modal>
+              {%- endif -%}
           <div class="card__content">
             <div class="card__information">
               <h3
@@ -291,25 +342,6 @@
               {%- endif -%}
             </div>
           </div>
-          {%- comment -%}
-            InstaMom: the prototype's package cards carry two stacked actions —
-            a secondary "Explore package" and a primary "Add to cart" (see
-            ../../styles.css .card-actions). Dawn only ships the quick-add, so
-            the secondary is added here as a plain link to the product page.
-            Styling lives in assets/instamom.css (.instamom-card-actions).
-          {%- endcomment -%}
-          {%- if quick_add != blank and quick_add != 'none' -%}
-            <div class="instamom-card-actions">
-              <a
-                href="{{ card_product.url }}"
-                class="button button--full-width button--secondary instamom-preview-button"
-                aria-label="Preview {{ card_product.title | escape }}"
-              >
-                Preview package
-              </a>
-            </div>
-          {%- endif -%}
-
           {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
           {% if quick_add == 'standard' %}
             <div class="quick-add no-js-hidden">
@@ -588,6 +620,7 @@
               </span>
             {%- endif -%}
           </div>
+
         </div>
       </div>
     </div>

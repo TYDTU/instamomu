@@ -337,29 +337,50 @@ textarea:focus-visible {
   color: rgb(var(--color-foreground));
 }
 
-/* --- Package card actions: Preview + Add to cart --------------------------
-   Mirrors the prototype's .card-actions — two full-width buttons stacked
-   with an 8px gap, secondary (gold) above primary (pink). */
-.instamom-card-actions {
-  display: flex;
-  flex-direction: column;
-  padding: 0 1rem;
-  margin-top: auto;
+/* --- Package card "+" preview button -------------------------------------
+   A navy circle with a gold + in the bottom-right of the card image, opening
+   Dawn's quick-add modal. Absolutely positioned inside .card__inner so it
+   sits over the image and never affects card layout on hover. */
+.instamom-preview {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  line-height: 0;
 }
 
-.instamom-preview-button {
-  text-align: center;
-  text-decoration: none;
+.instamom-preview__button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid var(--imu-gold);
+  border-radius: 50%;
+  background: var(--imu-navy);
+  color: var(--imu-gold);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(4, 29, 69, 0.35);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.instamom-preview__button:hover {
+  background: var(--imu-navy-dark);
+  transform: scale(1.06);
+}
+
+.instamom-preview__plus {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  /* nudge the glyph onto the optical centre of the circle */
+  margin-top: -2px;
 }
 
 /* Dawn hard-codes the quick-add button as .button--secondary, which our
-   overlay paints gold — the same as the Preview button above it. The
-   prototype makes "Add to cart" the primary action, so repaint it pink. */
+   overlay paints gold. The prototype makes "Add to cart" the primary
+   action, so repaint the enabled one pink; disabled (sold out) stays muted. */
 .quick-add__submit.button--secondary:not([disabled]) {
   background: var(--imu-pink) !important;
   color: #ffffff !important;
-}
-
-.quick-add {
-  padding-top: 8px;
 }

@@ -41,6 +41,14 @@ main,
   background: transparent;
 }
 
+/* Dawn paints each section's background on its own .color-scheme-N wrapper,
+   which sits above the body and hides the dots. Re-apply the pattern on the
+   paper scheme only — the navy bands (scheme-2/4) stay flat. */
+.color-scheme-1 {
+  background-image: var(--imu-dots);
+  background-size: 30px 30px;
+}
+
 /* --- Typography: Graduate on display headings ---------------------------- */
 h1, h2,
 .h0, .h1, .h2,
@@ -50,6 +58,13 @@ h1, h2,
   font-family: 'Graduate', Georgia, serif;
   letter-spacing: 0.01em;
   color: var(--imu-navy-dark);
+}
+
+/* The navy bands (scheme-2 / scheme-4) would swallow that hard-coded navy,
+   so let headings there follow the scheme's own foreground colour. */
+.color-scheme-2 :is(h1, h2, .h0, .h1, .h2, .section-heading, .title, .card__heading),
+.color-scheme-4 :is(h1, h2, .h0, .h1, .h2, .section-heading, .title, .card__heading) {
+  color: rgb(var(--color-foreground));
 }
 
 /* --- Buttons: primary pink, secondary gold ------------------------------- */
@@ -86,15 +101,44 @@ textarea:focus-visible {
   outline-offset: 3px;
 }
 
-/* --- Product cards: navy border + the signature gold "hard shadow" -------- */
-.card-wrapper .card,
-.card--standard,
-.collection-list__item .card {
+/* --- Product cards: navy border + the signature gold "hard shadow" --------
+   Dawn renders .card__content (title/price) as a SIBLING of .card, not a
+   child, so painting .card leaves the price strip transparent — the page
+   background shows through. Style the wrapper instead so media and content
+   sit on one surface, then neutralise the inner card's own chrome. */
+.card-wrapper,
+.collection-list__item .card-wrapper {
   border: 2px solid var(--imu-navy);
   border-radius: 8px;
   background: var(--imu-surface);
   box-shadow: 8px 8px 0 var(--imu-gold);
-  overflow: visible;
+  overflow: hidden;
+}
+
+.card-wrapper .card,
+.card--standard,
+.collection-list__item .card {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* The wrapper owns the surface now, so inner blocks must not repaint it. */
+.card__content,
+.card__information {
+  background: transparent;
+}
+
+/* --- Multicolumn value-prop cards: same solid treatment as product cards -- */
+.multicolumn-card {
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  background: var(--imu-cream);
+  box-shadow: 8px 8px 0 var(--imu-gold);
+}
+
+.multicolumn-card__info {
+  background: transparent;
 }
 
 .card__inner {

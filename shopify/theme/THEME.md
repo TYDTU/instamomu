@@ -6,11 +6,20 @@ cart, and checkout for free; these files carry the InstaMom identity — the yel
 dotted "paper" background, Graduate headings, gold hard-shadow product cards, the navy
 "sticker" hero, pink/gold buttons, and the tag-driven pre-order badges.
 
-> **Tested?** The **CSS is a direct port** of your `styles.css` and is the reliable
-> core. The **Liquid** (section + snippets) follows Dawn conventions but hasn't been
-> run against a live store (none exists yet) — preview each piece in the theme editor
-> and adjust a selector if Dawn's markup differs in your version. Nothing here touches
-> checkout or payments, so it's safe to iterate on.
+> **Tested?** Yes, as of the Dawn 15.5.0 port on `instamom-university.myshopify.com`.
+> The CSS and the hero section are verified rendering on desktop and mobile. Four CSS
+> bugs found during that pass are already fixed here: card titles going navy-on-navy,
+> the dot pattern never showing (Dawn paints section backgrounds on its
+> `.color-scheme-N` wrappers, above `body`), card price strips staying transparent
+> (Dawn renders `.card__content` as a *sibling* of `.card`), and headings vanishing on
+> the navy bands.
+>
+> **Still unverified:** `instamom-badge` and `instamom-whats-inside` have never
+> rendered visible output — no product carries a `pre-order`/`coming-soon`/`seasonal`
+> tag yet (those live on the packages, which are bundles built in Step 4 of
+> `../MIGRATION.md`), and the `custom.whats_inside` metafield doesn't exist yet. Both
+> snippets fail safe, so nothing breaks meanwhile. Nothing here touches checkout or
+> payments.
 
 ## What's in this folder
 
@@ -58,6 +67,12 @@ yellow-dotted with navy/pink/gold styling.
   `config/color-schemes.json` (scheme-1 = paper page, scheme-2 = navy band, scheme-3 =
   white cards, scheme-4 = footer). The CSS also hard-codes the key brand colors, so
   this step is mostly for native Dawn elements the CSS doesn't reach.
+- ⚠️ **Also point the cards at scheme-3.** Setting the scheme *values* is not enough —
+  Dawn's `card_color_scheme` still defaults to **scheme-2**, which you've just painted
+  navy, and the CSS renders card titles in navy. The result is navy-on-navy and
+  unreadable. In the theme editor this is **Theme settings → Product cards → Color
+  scheme**; in code it's `card_color_scheme` (plus `collection_card_color_scheme` and
+  `blog_card_color_scheme`) in `config/settings_data.json`.
 - **Fonts:** the CSS loads **Graduate** (Google Fonts) for headings automatically. For
   body text, Theme editor → **Typography** → pick **Inter** (or nearest) from Shopify's
   font list. Graduate generally isn't in Shopify's font picker, which is why it's loaded

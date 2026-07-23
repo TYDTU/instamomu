@@ -473,3 +473,195 @@ textarea:focus-visible {
 .instamom-modal__description {
   margin-bottom: 18px;
 }
+
+/* --- Add-ons modal --------------------------------------------------------
+   Offered after a package is added to the cart, and reachable again from the
+   "+ Add-ons" button on a package's cart line. Uses Dawn's <modal-dialog>,
+   which only toggles [open], so the show/hide styling is ours. */
+.instamom-addons {
+  display: none;
+}
+
+.instamom-addons[open] {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(4, 29, 69, 0.55);
+}
+
+.instamom-addons__content {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 28px 24px 24px;
+  border: 2px solid var(--imu-navy);
+  border-radius: 10px;
+  background: var(--imu-surface);
+  box-shadow: 10px 10px 0 var(--imu-gold);
+}
+
+.instamom-addons__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--imu-navy);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.instamom-addons__title {
+  margin: 0 0 6px;
+  font-family: 'Graduate', Georgia, serif;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-addons__intro {
+  margin: 0 0 20px;
+}
+
+.instamom-addons__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 0;
+  margin: 0 0 22px;
+  list-style: none;
+}
+
+.instamom-addons__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  background: var(--imu-cream);
+  text-align: center;
+}
+
+.instamom-addons__image {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.instamom-addons__name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.instamom-addons__price {
+  color: var(--imu-pink);
+  font-weight: 900;
+}
+
+/* push the button to the bottom so uneven titles still line up */
+.instamom-addons__add {
+  margin-top: auto;
+  min-height: 40px;
+  font-size: 0.85rem;
+}
+
+.instamom-addons__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.instamom-addons__cart-link {
+  font-weight: 700;
+}
+
+/* "+ Add-ons" on a cart line */
+.instamom-addons-trigger {
+  margin-top: 6px;
+  padding: 4px 10px;
+  border: 2px solid var(--imu-navy);
+  border-radius: 99px;
+  background: var(--imu-gold);
+  color: var(--imu-navy);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.instamom-addons-trigger:hover {
+  background: var(--imu-navy);
+  color: var(--imu-gold);
+}
+
+/* --- Homepage add-ons listing (sections/instamom-addons-list.liquid) ------ */
+.instamom-addonlist-section {
+  padding: 44px 0 40px;
+}
+
+.instamom-addonlist__heading {
+  margin: 0 0 6px;
+  font-family: 'Graduate', Georgia, serif;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-addonlist__sub {
+  margin: 0 0 24px;
+}
+
+.instamom-addonlist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.instamom-addonlist__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px;
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  background: var(--imu-surface);
+  box-shadow: 6px 6px 0 var(--imu-gold);
+  text-align: center;
+}
+
+.instamom-addonlist__image {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.instamom-addonlist__name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.instamom-addonlist__price {
+  color: var(--imu-pink);
+  font-weight: 900;
+}
+
+.instamom-addonlist__note {
+  margin: 22px 0 0;
+  font-style: italic;
+  opacity: 0.85;
+}

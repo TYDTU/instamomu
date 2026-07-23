@@ -120,6 +120,20 @@
                         -%}
                       </div>
 
+                      {%- comment -%}
+                        InstaMom: packages get a way back into the extras, so
+                        skipping the post-add modal isn't a dead end.
+                      {%- endcomment -%}
+                      {%- if item.product.tags contains 'package' -%}
+                        <button
+                          type="button"
+                          class="instamom-addons-trigger"
+                          aria-haspopup="dialog"
+                        >
+                          + Add-ons
+                        </button>
+                      {%- endif -%}
+
                       {%- if item.original_price != item.final_price -%}
                         <div class="cart-item__discounted-prices">
                           <span class="visually-hidden">

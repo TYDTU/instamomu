@@ -263,18 +263,40 @@ person knows what exists and why.
 
 ## 9. Cut the domain over from GitHub Pages 🛠️
 
-1. Decide the domain. If you already have one (custom domain on Pages), you'll repoint
-   it; if not, buy one (through Shopify or any registrar).
-2. In Shopify: **Settings → Domains → Connect existing domain** (or **Buy new domain**).
-3. At your DNS provider, point the domain at Shopify (A record → Shopify's IP, and
-   `www` CNAME → `shops.myshopify.com`), per the exact values Shopify shows you.
-4. Remove the GitHub Pages custom-domain setting so the two don't fight over DNS.
-5. **Keep the GitHub Pages prototype live until the Shopify store is verified** — it's
-   your fallback. Retire it (or leave it as an archived branch) only after a successful
-   test order.
+✅ **Done** — `instamomuniversity.com` is connected and is now the store's **primary**
+domain. Recorded here because the Cloudflare specifics are easy to get wrong.
 
-The prototype's deploy workflow is `.github/workflows/pages.yml`; you can disable it in
-the repo's **Settings → Pages** once you've cut over.
+The domain is registered at Hover but its DNS is on **Cloudflare** (nameservers
+`edward`/`sloan.ns.cloudflare.com`). Before the cutover all three A records pointed at
+`216.40.34.41` — Hover's parking IP — and were **proxied**, so the domain served a
+Cloudflare `522`.
+
+Final Cloudflare records:
+
+| Type | Name | Content | Proxy |
+| --- | --- | --- | --- |
+| A | `@` | `23.227.38.65` | **DNS only** |
+| CNAME | `www` | `shops.myshopify.com` | **DNS only** |
+| MX | `@` | `mx.hover.com.cust.hostedemail.com` | DNS only *(untouched — this is email)* |
+
+> ⚠️ **The proxy must be off (grey cloud) on both records.** Shopify terminates TLS
+> itself and issues its own Let's Encrypt certificate; leaving Cloudflare's orange
+> cloud on breaks certificate issuance and causes redirect loops. Verified working:
+> the served cert is `issuer=Let's Encrypt, CN=instamomuniversity.com`, i.e. Shopify's,
+> not Cloudflare's.
+
+> ⚠️ **Don't touch the MX record.** Email for the domain runs through Hover; changing
+> or proxying MX would silently break it.
+
+Verified after the change: apex returns `200`, `www` 301s to the apex, both landing on
+the store (currently the password page). A leftover wildcard `*` A record still points
+at Hover's parking IP and is still proxied — harmless for the apex and `www`, which
+have more specific records, but worth deleting when convenient.
+
+**GitHub Pages was never on this domain** (`cname: null`), so there was nothing to
+disconnect and no fallback was lost — the prototype is still at
+`tydtu.github.io/instamomu`. Keep it until a successful test order, then disable
+`.github/workflows/pages.yml` via the repo's **Settings → Pages**.
 
 ---
 

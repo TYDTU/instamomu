@@ -193,8 +193,11 @@ for the brand. Key tokens to reproduce in **Theme editor → Settings**:
 
 Sections to build with Dawn's native blocks (no custom code needed for most):
 
-- **Header:** crest logo (`assets/instamom-logo-crest.png`) + "InstaMom University",
-  nav links About / Packages / Gives Back / Cart.
+- **Header:** crest logo + nav links About Us / Packages / Inside / Gives Back, with
+  Cart automatic. Use `instamom-logo-crest-transparent.png` — the opaque crest renders
+  as a white box on the yellow paper. Note Dawn shows *either* a logo image or the shop
+  name, never both, so setting the crest drops the "InstaMom University" wordmark from
+  the header.
 - **Hero:** banner with the "Family Love + Faculty Wisdom" badge.
 - **Featured collection:** the 8 packages, with the "Pre-Order Now" / "Coming in
   September" tags surfaced as badges.
@@ -228,15 +231,33 @@ app (e.g. Infinite Options) adds text inputs to the product page that flow onto 
 
 ## 8. Pages, navigation, policies 🧑‍💼
 
-- **About Us page:** paste the founders' bio from the prototype's About modal.
-- **InstaMom University Gives Back page:** the scholarship story (1 box in 1,000 →
-  $1,000 scholarship). This is content only — no commerce mechanics.
+✅ **Done** — pages created and the header menu rebuilt. Recorded here so the next
+person knows what exists and why.
+
+- **About Us page** (`/pages/about-us`): the founders' bio, verbatim from the
+  prototype's About modal.
+- **What Makes It InstaMom University** (`/pages/what-makes-it-instamom-university`):
+  the prototype's "#inside" section — the *comfort of family plus wisdom of faculty*
+  intro and the three value props. The homepage still carries the same content as a
+  Multicolumn section, so the two are currently word-for-word duplicates; trim the
+  homepage copy to a teaser if that matters for SEO.
+- **Gives Back** is *not* a page. It's a homepage section, reached by an anchor —
+  the rich-text section has an **Anchor ID** setting (added to
+  `theme/sections/rich-text.liquid`) set to `gives-back`, and the menu item points at
+  `/#gives-back`.
   - ⚠️ A sweepstakes/giveaway can carry legal requirements (official rules, eligibility,
     no-purchase-necessary language) that vary by state. Have someone confirm the rules
     wording before launch.
 - **Policies:** Settings → Policies → generate refund, privacy, terms, shipping.
-- **Navigation:** Online Store → Navigation → rebuild the header menu (About, Packages,
-  Gives Back, Cart is automatic).
+  *(Still outstanding.)*
+- **Navigation:** the header menu is **About Us / Packages / Inside / Gives Back**,
+  with Cart automatic. Packages points at the `packages` collection (an automated
+  collection on the `package` tag, sorted **Manually** into the prototype's order).
+
+> ⚠️ **Adding a new section setting?** Push the Liquid *before* the JSON template.
+> Shopify validates `templates/*.json` against the schema at upload time, so a
+> setting the live schema doesn't know about yet is silently dropped — which is how
+> the `gives-back` anchor first shipped as a dead link.
 
 ---
 

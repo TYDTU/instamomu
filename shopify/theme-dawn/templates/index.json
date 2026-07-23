@@ -72,7 +72,7 @@
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
+        "collection": "add-ons",
         "products_to_show": 8,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
@@ -81,7 +81,7 @@
         "view_all_style": "solid",
         "enable_desktop_slider": false,
         "swipe_on_mobile": false,
-        "image_ratio": "adapt",
+        "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
@@ -128,7 +128,8 @@
         "color_scheme": "scheme-2",
         "full_width": true,
         "padding_top": 56,
-        "padding_bottom": 56
+        "padding_bottom": 56,
+        "anchor_id": "gives-back"
       }
     },
     "packages_collection": {
@@ -148,7 +149,7 @@
         "view_all_style": "solid",
         "enable_desktop_slider": false,
         "swipe_on_mobile": false,
-        "image_ratio": "adapt",
+        "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,

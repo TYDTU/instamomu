@@ -124,14 +124,45 @@ Dawn's defaults; confirm in your version.)
    {% render 'instamom-whats-inside', product: product %}
    ```
 
+## Step 7b — Anchor links to a homepage section
+
+To let a nav item jump to a section (the header's "Gives Back" link does this), add an
+anchor to Dawn's `sections/rich-text.liquid`. Don't rely on Dawn's own
+`shopify-section-…` wrapper id — it embeds a generated template id.
+
+1. Just above the section's outer `<div class="isolate…">`, add:
+   ```liquid
+   {%- if section.settings.anchor_id != blank -%}
+     <span id="{{ section.settings.anchor_id | handleize }}" class="instamom-anchor"></span>
+   {%- endif -%}
+   ```
+2. Add a matching `{"type": "text", "id": "anchor_id", "label": "Anchor ID"}` entry to
+   the top of that section's `settings` array in its `{% schema %}`.
+3. Set the Anchor ID on the section, then point a menu item at `/#your-anchor`.
+
+`.instamom-anchor` in `assets/instamom.css` carries a `scroll-margin-top` so the sticky
+header doesn't cover the heading on arrival.
+
+> ⚠️ **Push the Liquid before the JSON template.** Shopify validates
+> `templates/*.json` against the live schema on upload, so a setting the store doesn't
+> know about yet is silently dropped — which is how this anchor first shipped dead.
+
 ## Step 8 — Images
 
 Upload the brand images (in the repo's `assets/`) via the theme editor / Content →
-Files:
+Files, then point the theme at them:
 
-- `assets/instamom-logo-crest.png` → header logo + hero crest
-- `assets/imu-logo-cap.png` → section accents
+- `assets/instamom-logo-crest-transparent.png` → **header logo + favicon + hero crest**.
+  Use the transparent one; the opaque crest renders as a white box on the yellow paper.
+  Dawn shows a logo image *or* the shop name, never both, so this replaces the
+  "InstaMom University" wordmark in the header.
+- `assets/imu-logo-cap.png`, `assets/instamomu-banner.png` → spare brand art, unused so far
 - `assets/welcome_week_box.jpg` → Welcome Week Starter product photo
+
+> **Product photography:** shoot every box at the same framing and aspect ratio. Mixing
+> a tight 1:1 shot with loose 16:9 ones makes one card's product look much larger than
+> the rest, and no `image_ratio` setting can correct it — the crop disparity is
+> identical in `square` and `portrait`.
 
 ## Step 9 — Check it
 

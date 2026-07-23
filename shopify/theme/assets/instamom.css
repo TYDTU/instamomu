@@ -312,3 +312,11 @@ textarea:focus-visible {
   border-top: 8px solid var(--imu-gold);
 }
 .footer a { color: #fff; }
+
+/* --- Section anchors (see the anchor_id setting on rich-text) -------------
+   Offsets the jump target so a sticky header never covers the heading. */
+.instamom-anchor {
+  display: block;
+  height: 0;
+  scroll-margin-top: 120px;
+}

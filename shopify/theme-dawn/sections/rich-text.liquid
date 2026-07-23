@@ -14,6 +14,16 @@
   }
 {%- endstyle -%}
 
+{%- comment -%}
+  InstaMom: optional anchor so a nav item can jump straight to this section
+  (e.g. a "Gives Back" link pointing at /#gives-back). Dawn's own section
+  wrapper id contains the generated template id, which isn't stable enough
+  to hand-write in a menu URL.
+{%- endcomment -%}
+{%- if section.settings.anchor_id != blank -%}
+  <span id="{{ section.settings.anchor_id | handleize }}" class="instamom-anchor"></span>
+{%- endif -%}
+
 <div class="isolate{% unless section.settings.full_width %} page-width{% endunless %}">
   <div class="rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding">
     <div class="rich-text__wrapper rich-text__wrapper--{{ section.settings.desktop_content_position }}{% if section.settings.full_width %} page-width{% endif %}">
@@ -103,6 +113,12 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Optional. Lets a menu link jump here, e.g. gives-back for a /#gives-back link."
+    },
     {
       "type": "select",
       "id": "desktop_content_position",

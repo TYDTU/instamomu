@@ -108,57 +108,75 @@
               </div>
             </div>
           {%- endif -%}
-              {%- comment -%}
-                InstaMom: package cards get a small "+" preview button in the
-                bottom-right of the image, opening Dawn's <quick-add-modal>.
-                Packages only — add-ons don't have contents worth previewing —
-                so it's gated on the `package` tag the CSVs set.
-                Styling: .instamom-preview* in assets/instamom.css
-              {%- endcomment -%}
-              {%- if quick_add == 'standard' and card_product.tags contains 'package' -%}
-                <modal-opener
-                  class="instamom-preview no-js-hidden"
-                  data-modal="#InstamomPreview-{{ card_product.id }}"
-                >
-                  <button
-                    type="button"
-                    class="instamom-preview__button"
-                    aria-haspopup="dialog"
-                    aria-label="Preview {{ card_product.title | escape }}"
-                    data-product-url="{{ card_product.url }}"
-                  >
-                    <span class="instamom-preview__plus" aria-hidden="true">+</span>
-                    {%- render 'loading-spinner' -%}
-                  </button>
-                </modal-opener>
+          {%- comment -%}
+            InstaMom: package cards get a "+" preview button over the image.
+            Packages only (gated on the `package` tag the CSVs set) — add-ons
+            have nothing worth previewing.
 
-                {%- comment -%}
-                  Outer id is ours so it can't clash with the quick-add modal Dawn
-                  renders for multi-variant products; the inner div must still start
-                  with "QuickAddInfo-" because quick-add.js finds it by that prefix.
-                {%- endcomment -%}
-                <quick-add-modal id="InstamomPreview-{{ card_product.id }}" class="quick-add-modal">
-                  <div
-                    role="dialog"
-                    aria-label="{{ card_product.title | escape }}"
-                    aria-modal="true"
-                    class="quick-add-modal__content global-settings-popup"
-                    tabindex="-1"
+            The modal content is rendered server-side from card_product rather
+            than fetched. Dawn's <quick-add-modal> fetches the product page and
+            digs out <product-info>; if that request is bounced — as it is
+            behind the storefront password — it finds nothing and the click
+            silently dies. Rendering inline has no such failure mode.
+            Styling: .instamom-preview* / .instamom-modal* in assets/instamom.css
+          {%- endcomment -%}
+          {%- if card_product.tags contains 'package' -%}
+            <modal-opener
+              class="instamom-preview no-js-hidden"
+              data-modal="#InstamomPreview-{{ card_product.id }}"
+            >
+              <button
+                type="button"
+                class="instamom-preview__button"
+                aria-haspopup="dialog"
+                aria-label="Preview {{ card_product.title | escape }}"
+              >
+                <span class="instamom-preview__plus" aria-hidden="true">+</span>
+              </button>
+            </modal-opener>
+
+            <modal-dialog id="InstamomPreview-{{ card_product.id }}" class="instamom-modal">
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-label="{{ card_product.title | escape }}"
+                class="instamom-modal__content"
+                tabindex="-1"
+              >
+                <button
+                  id="ModalClose-InstamomPreview-{{ card_product.id }}"
+                  type="button"
+                  class="instamom-modal__close"
+                  aria-label="{{ 'accessibility.close' | t }}"
+                >
+                  {{- 'icon-close.svg' | inline_asset_content -}}
+                </button>
+
+                {%- if card_product.featured_media -%}
+                  <img
+                    class="instamom-modal__image"
+                    src="{{ card_product.featured_media | image_url: width: 800 }}"
+                    alt="{{ card_product.featured_media.alt | escape }}"
+                    loading="lazy"
+                    width="800"
+                    height="800"
                   >
-                    <button
-                      type="button"
-                      class="quick-add-modal__toggle"
-                      aria-label="{{ 'accessibility.close' | t }}"
-                    >
-                      {{- 'icon-close.svg' | inline_asset_content -}}
-                    </button>
-                    <div
-                      id="QuickAddInfo-preview-{{ card_product.id }}"
-                      class="quick-add-modal__content-info"
-                    ></div>
-                  </div>
-                </quick-add-modal>
-              {%- endif -%}
+                {%- endif -%}
+
+                <div class="instamom-modal__body">
+                  <h3 class="instamom-modal__title">{{ card_product.title | escape }}</h3>
+                  <p class="instamom-modal__price">{{ card_product.price | money }}</p>
+                  {%- if card_product.description != blank -%}
+                    <div class="instamom-modal__description rte">{{ card_product.description }}</div>
+                  {%- endif -%}
+                  {%- render 'instamom-whats-inside', product: card_product -%}
+                  <a href="{{ card_product.url }}" class="button button--full-width">
+                    View full details
+                  </a>
+                </div>
+              </div>
+            </modal-dialog>
+          {%- endif -%}
           <div class="card__content">
             <div class="card__information">
               <h3

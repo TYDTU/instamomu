@@ -338,9 +338,9 @@ textarea:focus-visible {
 }
 
 /* --- Package card "+" preview button -------------------------------------
-   A navy circle with a gold + in the bottom-right of the card image, opening
-   Dawn's quick-add modal. Absolutely positioned inside .card__inner so it
-   sits over the image and never affects card layout on hover. */
+   Small navy circle with a gold +, bottom-right of the card image. Sits
+   inside .card__inner (which carries Dawn's .ratio, so it is relative) and
+   is absolutely positioned, so it never affects card layout on hover. */
 .instamom-preview {
   position: absolute;
   right: 10px;
@@ -352,35 +352,111 @@ textarea:focus-visible {
 .instamom-preview__button {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   padding: 0;
   border: 2px solid var(--imu-gold);
   border-radius: 50%;
   background: var(--imu-navy);
   color: var(--imu-gold);
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(4, 29, 69, 0.35);
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 3px 10px rgba(4, 29, 69, 0.35);
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.instamom-preview__button:hover {
-  background: var(--imu-navy-dark);
-  transform: scale(1.06);
+/* Read clearly as a button: invert on hover, lift, and grow slightly. */
+.instamom-preview__button:hover,
+.instamom-preview__button:focus-visible {
+  background: var(--imu-gold);
+  color: var(--imu-navy);
+  transform: scale(1.12);
+  box-shadow: 0 6px 16px rgba(4, 29, 69, 0.45);
+}
+
+.instamom-preview__button:active {
+  transform: scale(1.02);
 }
 
 .instamom-preview__plus {
-  font-size: 1.6rem;
+  font-size: 1.75rem;
   font-weight: 700;
   line-height: 1;
-  /* nudge the glyph onto the optical centre of the circle */
-  margin-top: -2px;
+  /* nudge the glyph onto the circle's optical centre */
+  margin-top: -3px;
 }
 
-/* Dawn hard-codes the quick-add button as .button--secondary, which our
-   overlay paints gold. The prototype makes "Add to cart" the primary
-   action, so repaint the enabled one pink; disabled (sold out) stays muted. */
-.quick-add__submit.button--secondary:not([disabled]) {
-  background: var(--imu-pink) !important;
-  color: #ffffff !important;
+/* --- Preview modal --------------------------------------------------------
+   Uses Dawn's <modal-dialog>, which only toggles the [open] attribute, so
+   the show/hide styling is ours. */
+.instamom-modal {
+  display: none;
+}
+
+.instamom-modal[open] {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(4, 29, 69, 0.55);
+}
+
+.instamom-modal__content {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  border: 2px solid var(--imu-navy);
+  border-radius: 10px;
+  background: var(--imu-surface);
+  box-shadow: 10px 10px 0 var(--imu-gold);
+}
+
+.instamom-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--imu-navy);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.instamom-modal__close .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.instamom-modal__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.instamom-modal__body {
+  padding: 20px 24px 24px;
+}
+
+.instamom-modal__title {
+  margin: 0 0 6px;
+  font-family: 'Graduate', Georgia, serif;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-modal__price {
+  margin: 0 0 14px;
+  color: var(--imu-pink);
+  font-weight: 900;
+  font-size: 1.15rem;
+}
+
+.instamom-modal__description {
+  margin-bottom: 18px;
 }

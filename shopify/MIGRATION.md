@@ -151,10 +151,24 @@ dedicated "Add extras" section (see Step 6, theme).
 
 We're using the **native** approach — no app controlling checkout.
 
-**For a box you want orderable now as a pre-order** (e.g. Welcome Week Starter,
-"Pre-Order Now"):
+> 🛑 **This does not work on the bundles.** Verified on Welcome Week Starter:
+> because it's a Shopify Bundles product, its Inventory panel renders
+> *"Continue selling when out of stock: **No**"* as **read-only text** — there is no
+> checkbox to tick. Bundle availability is derived from component stock, so Shopify
+> won't let you override it on the bundle itself. The steps below only apply to
+> ordinary products such as the add-ons.
+>
+> **To make a bundle purchasable, give its components stock.** A bundle's available
+> quantity is its lowest-stock component, so entering real counts in Step 3c is what
+> turns the boxes on. Welcome Week Starter has 11 components.
+>
+> **If you specifically need pre-orders on the boxes** — sell at zero stock, charge
+> upfront — the native toggle can't deliver it and you'll need a pre-order app
+> (e.g. PreProduct), which was previously listed only as an optional upgrade.
 
-1. Open the bundle/product → the variant → **Inventory**.
+**For an ordinary product you want orderable now as a pre-order:**
+
+1. Open the product → the variant → **Inventory**.
 2. Check **Continue selling when out of stock**.
 3. This lets customers buy and pay upfront even at zero stock. Add a "Pre-order —
    ships September" line to the product description and/or a theme badge so it's clear.

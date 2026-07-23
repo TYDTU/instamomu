@@ -291,6 +291,25 @@
               {%- endif -%}
             </div>
           </div>
+          {%- comment -%}
+            InstaMom: the prototype's package cards carry two stacked actions —
+            a secondary "Explore package" and a primary "Add to cart" (see
+            ../../styles.css .card-actions). Dawn only ships the quick-add, so
+            the secondary is added here as a plain link to the product page.
+            Styling lives in assets/instamom.css (.instamom-card-actions).
+          {%- endcomment -%}
+          {%- if quick_add != blank and quick_add != 'none' -%}
+            <div class="instamom-card-actions">
+              <a
+                href="{{ card_product.url }}"
+                class="button button--full-width button--secondary instamom-preview-button"
+                aria-label="Preview {{ card_product.title | escape }}"
+              >
+                Preview package
+              </a>
+            </div>
+          {%- endif -%}
+
           {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
           {% if quick_add == 'standard' %}
             <div class="quick-add no-js-hidden">

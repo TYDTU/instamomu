@@ -110,6 +110,35 @@ The badge snippet reads the **product tags** already set in the CSVs
 (Exact variable names — `card_product` on cards, `product` on the product page — match
 Dawn's defaults; confirm in your version.)
 
+## Step 6b — Card actions: Preview package + Add to cart
+
+The prototype's package cards carry two stacked full-width buttons — a secondary
+"Explore package" and a primary "Add to cart" (`.card-actions` in `../../styles.css`).
+Dawn ships only a quick-add, so:
+
+1. Turn the quick-add on: **Featured collection → Quick add → Standard** (or
+   `"quick_add": "standard"` in `templates/index.json`).
+2. In `snippets/card-product.liquid`, just above the
+   `{% assign product_form_id = 'quick-add-' ... %}` line, add the secondary button:
+   ```liquid
+   {%- if quick_add != blank and quick_add != 'none' -%}
+     <div class="instamom-card-actions">
+       <a href="{{ card_product.url }}"
+          class="button button--full-width button--secondary instamom-preview-button">
+         Preview package
+       </a>
+     </div>
+   {%- endif -%}
+   ```
+
+Dawn hard-codes its quick-add as `.button--secondary`, which the overlay paints gold —
+the same as the Preview button. `assets/instamom.css` repaints the *enabled* quick-add
+pink so "Add to cart" reads as the primary action, matching the prototype.
+
+> **Out-of-stock products show "Sold out", not "Add to cart".** Dawn renders the
+> quick-add `disabled` when the variant is unavailable. The pink override is scoped
+> `:not([disabled])` so sold-out buttons stay muted rather than looking clickable.
+
 ## Step 7 — "What's Inside" checklist
 
 1. Settings → **Custom data** → **Products** → **Add definition**:

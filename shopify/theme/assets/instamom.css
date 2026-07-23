@@ -336,3 +336,30 @@ textarea:focus-visible {
 .menu-drawer__menu-item:hover {
   color: rgb(var(--color-foreground));
 }
+
+/* --- Package card actions: Preview + Add to cart --------------------------
+   Mirrors the prototype's .card-actions — two full-width buttons stacked
+   with an 8px gap, secondary (gold) above primary (pink). */
+.instamom-card-actions {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  margin-top: auto;
+}
+
+.instamom-preview-button {
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Dawn hard-codes the quick-add button as .button--secondary, which our
+   overlay paints gold — the same as the Preview button above it. The
+   prototype makes "Add to cart" the primary action, so repaint it pink. */
+.quick-add__submit.button--secondary:not([disabled]) {
+  background: var(--imu-pink) !important;
+  color: #ffffff !important;
+}
+
+.quick-add {
+  padding-top: 8px;
+}

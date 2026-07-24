@@ -1,0 +1,30 @@
+{% comment %}
+  InstaMom University — status badge driven by product tags.
+  Renders "Pre-Order Now", "Coming Soon", or "Seasonal" based on the product's
+  tags (pre-order / coming-soon / seasonal), matching the CSVs in ../..
+
+  Usage — inside a product card or product page, pass the product:
+    {% render 'instamom-badge', product: card_product %}
+    {% render 'instamom-badge', product: product %}
+
+  Styling: .instamom-badge* in assets/instamom.css
+{% endcomment %}
+
+{%- liquid
+  assign label = ''
+  assign modifier = ''
+  if product.tags contains 'pre-order'
+    assign label = 'Pre-Order Now'
+    assign modifier = 'preorder'
+  elsif product.tags contains 'coming-soon'
+    assign label = 'Coming Soon'
+    assign modifier = 'coming-soon'
+  elsif product.tags contains 'seasonal'
+    assign label = 'Seasonal'
+    assign modifier = 'seasonal'
+  endif
+-%}
+
+{%- if label != '' -%}
+  <span class="instamom-badge instamom-badge--{{ modifier }}">{{ label }}</span>
+{%- endif -%}

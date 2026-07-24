@@ -1,25 +1,103 @@
 {% comment %}
-  InstaMom University — "What's Inside" checklist for the product page.
-  Reproduces the prototype's package-contents list (the ✓ bullets).
+  InstaMom University — "What's Inside" checklist.
 
-  Data source: a product metafield "custom.whats_inside" of type
-  "List of single line text". Add one list entry per item (see THEME.md).
+  Two modes:
+   - Default (card preview popup): one list from the PRODUCT metafield
+     custom.whats_inside. Multi-variant boxes with no product-level list simply
+     render nothing here (the per-variant lists live on the product page).
+   - variant_toggle: true (product page): if the product's VARIANTS carry their
+     own custom.whats_inside (e.g. Snack Attack: Cheese/Chocolate/Protein), it
+     renders each variant's list and swaps to the selected one as the shopper
+     changes the variant picker. Falls back to the product-level list.
 
-  Usage — in sections/main-product.liquid (or a custom block), add:
-    {% render 'instamom-whats-inside', product: product %}
+  Data: metafield custom.whats_inside, type "List of single line text", on the
+  product and/or its variants (see MIGRATION / run-shopify-store skill).
+
+  Usage:
+    {% render 'instamom-whats-inside', product: product, variant_toggle: true %}
+    {% render 'instamom-whats-inside', product: card_product %}
 
   Styling: .instamom-whats-inside / .instamom-contents in assets/instamom.css
 {% endcomment %}
 
-{%- assign items = product.metafields.custom.whats_inside.value -%}
+{%- liquid
+  assign product_items = product.metafields.custom.whats_inside.value
+  assign has_variant_lists = false
+  if variant_toggle and product.variants.size > 1
+    for v in product.variants
+      if v.metafields.custom.whats_inside.value != blank
+        assign has_variant_lists = true
+        break
+      endif
+    endfor
+  endif
+-%}
 
-{%- if items != blank and items.size > 0 -%}
+{%- if has_variant_lists -%}
+  {%- comment -%} Per-variant lists, toggled client-side by the variant picker. {%- endcomment -%}
+  <div class="instamom-whats-inside" data-whats-inside>
+    <h4>What&rsquo;s Inside</h4>
+    {%- for v in product.variants -%}
+      {%- assign vitems = v.metafields.custom.whats_inside.value -%}
+      {%- if vitems != blank and vitems.size > 0 -%}
+        <ul
+          class="instamom-contents"
+          data-variant-id="{{ v.id }}"
+          {% unless v.id == product.selected_or_first_available_variant.id %}hidden{% endunless %}
+        >
+          {%- for item in vitems -%}<li>{{ item }}</li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <script>
+    (function () {
+      var box = document.currentScript.previousElementSibling;
+      if (!box || !box.hasAttribute('data-whats-inside')) return;
+      // Bind to the stable product-info ancestor: Dawn REPLACES the whole
+      // <variant-selects> element on a variant change, so anything bound to that
+      // element (or a saved reference) goes stale. We re-query fresh each sync.
+      var scope = box.closest('product-info') || document;
+      var lastId;
+
+      // Dawn's own source of truth — the [data-selected-variant] JSON it rewrites
+      // when a variant change finishes — beats reading the transient radio state.
+      function currentVariantId() {
+        var el = scope.querySelector('variant-selects [data-selected-variant]');
+        if (el) {
+          try { var v = JSON.parse(el.textContent); if (v && v.id) return String(v.id); } catch (e) {}
+        }
+        return null;
+      }
+      function sync() {
+        var id = currentVariantId();
+        if (id === lastId) return; // unchanged → don't re-write (avoids observer feedback loop)
+        lastId = id;
+        var shown = false;
+        box.querySelectorAll('[data-variant-id]').forEach(function (ul) {
+          var match = ul.getAttribute('data-variant-id') === id;
+          ul.hidden = !match;
+          if (match) shown = true;
+        });
+        // Hide the whole block (heading included) when the chosen variant has no
+        // list yet — e.g. a "Coming Soon" occasion.
+        box.hidden = !shown;
+      }
+      // Watch the whole product-info: catches Dawn swapping the picker in.
+      new MutationObserver(sync).observe(scope, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+      scope.addEventListener('change', function () { setTimeout(sync, 60); });
+      sync();
+    })();
+  </script>
+{%- elsif product_items != blank and product_items.size > 0 -%}
   <div class="instamom-whats-inside">
-    <h4>What's Inside</h4>
+    <h4>What&rsquo;s Inside</h4>
     <ul class="instamom-contents">
-      {%- for item in items -%}
-        <li>{{ item }}</li>
-      {%- endfor -%}
+      {%- for item in product_items -%}<li>{{ item }}</li>{%- endfor -%}
     </ul>
   </div>
 {%- endif -%}

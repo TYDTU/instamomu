@@ -1,0 +1,126 @@
+{% comment %}
+  InstaMom University — "What makes it InstaMom University?" value-props section.
+
+  Reproduces the prototype's #inside band (../../styles.css / index.html): a
+  small-caps eyebrow, a big navy heading, a short lead line, and three white
+  cards with a fine pink frame — "the exact bold not bold words, because this is
+  what explains us" (owner review, p.5).
+
+  Built as its own section (not Dawn's multicolumn) so the eyebrow and the
+  white/pink-framed cards are exact, matching the hero/lineup custom sections.
+
+  Styling: .instamom-valueprops* in assets/instamom.css
+{% endcomment %}
+
+<div class="instamom-valueprops color-{{ section.settings.color_scheme }}">
+  <div class="instamom-valueprops__inner page-width">
+    <div class="instamom-valueprops__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="instamom-valueprops__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="instamom-valueprops__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.lead != blank -%}
+        <div class="instamom-valueprops__lead rte">{{ section.settings.lead }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="instamom-valueprops__cards">
+        {%- for block in section.blocks -%}
+          <div class="instamom-valueprops__card" {{ block.shopify_attributes }}>
+            {%- if block.settings.title != blank -%}
+              <h3 class="instamom-valueprops__card-title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="instamom-valueprops__card-text rte">{{ block.settings.text }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "InstaMom Value Props",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow (small caps)",
+      "default": "What makes it InstaMom University?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The comfort of family plus the wisdom of faculty"
+    },
+    {
+      "type": "richtext",
+      "id": "lead",
+      "label": "Lead paragraph",
+      "default": "<p>Each box pairs fun and useful items with academic coaching: what to do, how and when to reach out, and how your student can lead their best college life.</p>"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Value card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Card title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Card description.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "InstaMom Value Props",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Tip cards with QR-linked videos",
+            "text": "<p>Colorful, display-worthy guides to help students live their best college life inside and outside of the classroom—coupled with QR videos to reinforce new habits.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Gifts for the whole person",
+            "text": "<p>Snacks, comfort items, and practical guides to ensure students feel comfortable, confident, and successful.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Care across the miles",
+            "text": "<p>Each box carries the most important reminder for every student: you are loved. Really—it's written right on the box!</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

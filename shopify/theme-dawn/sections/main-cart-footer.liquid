@@ -37,6 +37,86 @@
         </cart-note>
       {%- endif -%}
 
+      {%- comment -%}
+        Owner ask (review p.9), flagged "vital": a REQUIRED candy-preference
+        choice so allergy-sensitive boxes never get Snickers/Reese's. Saved as
+        a cart attribute ("Candy preference") via form="cart", so it rides
+        through to the order and shows under the order's Additional details for
+        packers. The radios' `required` gives native enforcement when the
+        checkout button submits the cart form; the script below is a friendly
+        belt-and-suspenders guard. Hidden while the cart is empty.
+      {%- endcomment -%}
+      {%- unless cart == empty -%}
+        {%- assign candy_no = "No Snickers or Reese's (allergy)" -%}
+        {%- assign candy_yes = "Snickers and Reese's OK" -%}
+        <fieldset class="instamom-candy" id="instamom-candy">
+          <legend class="instamom-candy__legend">
+            Candy preference <span class="instamom-candy__req">(required)</span>
+          </legend>
+          <label class="instamom-candy__option">
+            <input
+              type="radio"
+              name="attributes[Candy preference]"
+              value="{{ candy_no }}"
+              form="cart"
+              required
+              {% if cart.attributes['Candy preference'] == candy_no %}checked{% endif %}
+            >
+            <span>Please do <strong>not</strong> include any Snickers or Reese&rsquo;s in my student&rsquo;s package.</span>
+          </label>
+          <label class="instamom-candy__option">
+            <input
+              type="radio"
+              name="attributes[Candy preference]"
+              value="{{ candy_yes }}"
+              form="cart"
+              {% if cart.attributes['Candy preference'] == candy_yes %}checked{% endif %}
+            >
+            <span>Please include Snickers and Reese&rsquo;s if they are a standard part of the treats in the package I ordered.</span>
+          </label>
+          <p class="instamom-candy__error" data-candy-error hidden>Please choose a candy preference before checking out.</p>
+        </fieldset>
+
+        <script>
+          (function () {
+            var group = document.getElementById('instamom-candy');
+            if (!group) return;
+            var error = group.querySelector('[data-candy-error]');
+            function chosen() {
+              return group.querySelector('input[name="attributes[Candy preference]"]:checked');
+            }
+            function guard(event) {
+              if (chosen()) return;
+              event.preventDefault();
+              group.classList.add('instamom-candy--error');
+              if (error) error.hidden = false;
+              group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              var first = group.querySelector('input');
+              if (first) first.focus();
+            }
+            // Guard the cart-page checkout button AND the dynamic checkout
+            // buttons (Shop Pay, etc.) — the latter bypass the cart form.
+            document.addEventListener('click', function (event) {
+              if (event.target.closest('#checkout, .cart__dynamic-checkout-buttons')) guard(event);
+            }, true);
+            group.addEventListener('change', function () {
+              var picked = chosen();
+              if (!picked) return;
+              group.classList.remove('instamom-candy--error');
+              if (error) error.hidden = true;
+              // Persist immediately so the choice rides on the order no matter
+              // which checkout button the shopper uses (the standard button
+              // also submits it via form="cart", but dynamic buttons don't).
+              fetch((window.Shopify && window.Shopify.routes ? window.Shopify.routes.root : '/') + 'cart/update.js', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ attributes: { 'Candy preference': picked.value } }),
+              }).catch(function () { /* the form submit still carries it */ });
+            });
+          })();
+        </script>
+      {%- endunless -%}
+
       <div class="cart__blocks">
         {% for block in section.blocks %}
           {%- case block.type -%}

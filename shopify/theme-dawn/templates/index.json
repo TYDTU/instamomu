@@ -27,24 +27,24 @@
       }
     },
     "value_props": {
-      "type": "multicolumn",
+      "type": "instamom-valueprops",
       "blocks": {
         "tip_cards": {
-          "type": "column",
+          "type": "card",
           "settings": {
             "title": "Tip cards with QR-linked videos",
             "text": "<p>Colorful, display-worthy guides to help students live their best college life inside and outside of the classroom\u2014coupled with QR videos to reinforce new habits.</p>"
           }
         },
         "whole_person": {
-          "type": "column",
+          "type": "card",
           "settings": {
             "title": "Gifts for the whole person",
             "text": "<p>Snacks, comfort items, and practical guides to ensure students feel comfortable, confident, and successful.</p>"
           }
         },
         "across_miles": {
-          "type": "column",
+          "type": "card",
           "settings": {
             "title": "Care across the miles",
             "text": "<p>Each box carries the most important reminder for every student: you are loved. Really\u2014it's written right on the box!</p>"
@@ -57,60 +57,20 @@
         "across_miles"
       ],
       "settings": {
-        "title": "The comfort of family plus the wisdom of faculty",
-        "heading_size": "h2",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "column_alignment": "left",
-        "background_style": "primary",
-        "color_scheme": "scheme-2",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 52,
-        "padding_bottom": 40,
-        "button_label": "",
-        "button_link": ""
+        "eyebrow": "What makes it InstaMom University?",
+        "heading": "The comfort of family plus the wisdom of faculty",
+        "lead": "<p>Each box pairs fun and useful items with academic coaching: what to do, how and when to reach out, and how your student can lead their best college life.</p>",
+        "color_scheme": "scheme-1"
       }
     },
     "gives_back": {
-      "type": "rich-text",
-      "blocks": {
-        "caption": {
-          "type": "caption",
-          "settings": {
-            "caption": "Giving Back",
-            "text_style": "caption-with-letter-spacing",
-            "text_size": "medium"
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "InstaMom University Gives Back",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>We have devoted our lives to education, and we strongly believe in\u2014and have witnessed\u2014its transformative power. We also know that it is incredibly expensive. So we put our money where our values are: for every 1000 boxes sold, we will randomly select the name of one customer (one entry per purchase) to receive a $1000 scholarship from InstaMom U as a token of our appreciation to our customers, and our support for students.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "caption",
-        "heading",
-        "text"
-      ],
+      "type": "instamom-givesback",
       "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-2",
-        "full_width": true,
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "anchor_id": "gives-back"
+        "anchor_id": "gives-back",
+        "kicker": "Giving Back",
+        "heading": "InstaMom University Gives Back",
+        "text": "<p>We have devoted our lives to education, and we strongly believe in\u2014and have witnessed\u2014its transformative power. We also know that it is incredibly expensive. So we put our money where our values are: for every 1000 boxes sold, we will randomly select the name of one customer (one entry per purchase) to receive a $1000 scholarship from InstaMom U as a token of our appreciation to our customers, and our support for students.</p>",
+        "color_scheme": "scheme-1"
       }
     },
     "packages_collection": {

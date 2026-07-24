@@ -170,9 +170,65 @@
                     <div class="instamom-modal__description rte">{{ card_product.description }}</div>
                   {%- endif -%}
                   {%- render 'instamom-whats-inside', product: card_product -%}
-                  <a href="{{ card_product.url }}" class="button button--full-width">
-                    View full details
-                  </a>
+
+                  {%- comment -%}
+                    Owner ask (review p.3): "add to cart on the pop up too."
+                    A real Dawn <product-form> so the add is AJAX and fires the
+                    post-cart add-ons modal, exactly like the grid quick-add.
+                    Coming-soon packages are preview-only — no purchase.
+                  {%- endcomment -%}
+                  {%- assign preview_form_id = 'InstamomPreviewForm-' | append: section_id | append: '-' | append: card_product.id -%}
+                  <div class="instamom-modal__actions">
+                    {%- if card_product.tags contains 'coming-soon' -%}
+                      <p class="instamom-modal__soon">Coming soon — preview only</p>
+                    {%- else -%}
+                      <product-form data-section-id="{{ section_id }}">
+                        {%- form 'product',
+                          card_product,
+                          id: preview_form_id,
+                          class: 'form',
+                          novalidate: 'novalidate',
+                          data-type: 'add-to-cart-form'
+                        -%}
+                          <input
+                            type="hidden"
+                            name="id"
+                            value="{{ card_product.selected_or_first_available_variant.id }}"
+                            class="product-variant-id"
+                            {% if card_product.selected_or_first_available_variant.available == false %}
+                              disabled
+                            {% endif %}
+                          >
+                          <button
+                            id="{{ preview_form_id }}-submit"
+                            type="submit"
+                            name="add"
+                            class="button button--full-width"
+                            aria-live="polite"
+                            data-sold-out-message="true"
+                            {% if card_product.selected_or_first_available_variant.available == false %}
+                              disabled
+                            {% endif %}
+                          >
+                            <span>
+                              {%- if card_product.selected_or_first_available_variant.available -%}
+                                {{ 'products.product.add_to_cart' | t }}
+                              {%- else -%}
+                                {{ 'products.product.sold_out' | t }}
+                              {%- endif -%}
+                            </span>
+                            <span class="sold-out-message hidden">
+                              {{ 'products.product.sold_out' | t }}
+                            </span>
+                            {%- render 'loading-spinner' -%}
+                          </button>
+                        {%- endform -%}
+                      </product-form>
+                    {%- endif -%}
+                    <a href="{{ card_product.url }}" class="button button--full-width button--secondary">
+                      View full details
+                    </a>
+                  </div>
                 </div>
               </div>
             </modal-dialog>
@@ -361,6 +417,16 @@
             </div>
           </div>
           {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
+          {%- comment -%}
+            Owner ask (review p.3): the "Coming Soon" boxes are listed but not
+            purchasable — "still listing products but no way to purchase them.
+            Like a preview." Tag those packages `coming-soon` (the Welcome Week
+            Starter is the only orderable one) and the buy button is replaced by
+            a banner. Preview ("+") still works so shoppers can look inside.
+          {%- endcomment -%}
+          {%- if card_product.tags contains 'coming-soon' -%}
+            <div class="instamom-comingsoon-banner">Coming Soon</div>
+          {%- else -%}
           {% if quick_add == 'standard' %}
             <div class="quick-add no-js-hidden">
               {%- liquid
@@ -620,15 +686,19 @@
               </div>
             {% endif %}
           {% endif %}
+          {%- endif -%}{%- comment -%} end coming-soon guard {%- endcomment -%}
           <div class="card__badge {{ settings.badge_position }}">
             {%- render 'instamom-badge', product: card_product -%}
             {%- if card_product.available == false -%}
+              {%- comment -%}Coming-soon cards carry the "Coming Soon" banner, not a Sold out badge.{%- endcomment -%}
+              {%- unless card_product.tags contains 'coming-soon' -%}
               <span
                 id="Badge-{{ section_id }}-{{ card_product.id }}"
                 class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
               >
                 {{- 'products.product.sold_out' | t -}}
               </span>
+              {%- endunless -%}
             {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
               <span
                 id="Badge-{{ section_id }}-{{ card_product.id }}"

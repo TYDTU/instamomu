@@ -156,7 +156,132 @@ textarea:focus-visible,
   background: transparent;
 }
 
-/* --- Multicolumn value-prop cards: same solid treatment as product cards -- */
+/* --- "What makes it InstaMom University?" value props --------------------
+   (sections/instamom-valueprops.liquid). Prototype #inside band: small-caps
+   eyebrow, big navy heading + lead on the left, three white pink-framed cards
+   on the right. rem stops use the prototype's ×1.6 for Dawn's 10px root. */
+.instamom-valueprops__inner {
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+  padding-block: clamp(40px, 6vw, 64px);
+}
+
+@media screen and (min-width: 990px) {
+  .instamom-valueprops__inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.instamom-valueprops__eyebrow {
+  margin: 0 0 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.25rem;
+  color: var(--imu-pink);
+}
+
+.instamom-valueprops__heading {
+  margin: 0 0 16px;
+  color: var(--imu-navy-dark);
+  font-size: clamp(2.88rem, 3.4vw, 4.48rem);
+  line-height: 1.1;
+}
+
+.instamom-valueprops__lead {
+  color: var(--imu-muted);
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.instamom-valueprops__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* The three white cards with a fine pink frame — "the exact bold not bold
+   words, because this is what explains us" (owner review, p.5). */
+.instamom-valueprops__card {
+  padding: 20px 24px;
+  background: var(--imu-surface);
+  border: 1.5px solid var(--imu-pink);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(6, 43, 102, 0.08);
+}
+
+.instamom-valueprops__card-title {
+  margin: 0 0 6px;
+  color: var(--imu-navy-dark);
+  font-size: 1.92rem;
+  line-height: 1.2;
+}
+
+.instamom-valueprops__card-text {
+  color: var(--imu-muted);
+  font-size: 1.5rem;
+  line-height: 1.55;
+}
+
+/* --- "Gives Back" band (sections/instamom-givesback.liquid) --------------
+   Kicker, the title flanked by the IMU cap logo left + right, paragraph below —
+   matching the prototype's #gives-back (owner review p.6). Logos hide on mobile,
+   like the prototype. rem stops use the prototype's ×1.6 for Dawn's 10px root. */
+.instamom-givesback__inner {
+  padding-block: clamp(40px, 6vw, 64px);
+  text-align: center;
+}
+
+.instamom-givesback__kicker {
+  margin: 0 0 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.25rem;
+  color: var(--imu-pink);
+}
+
+.instamom-givesback__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.instamom-givesback__logo {
+  height: clamp(48px, 5vw, 68px);
+  width: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 8px rgba(4, 29, 69, 0.12));
+}
+
+.instamom-givesback__title {
+  margin: 0;
+  color: var(--imu-navy-dark);
+  font-size: clamp(2.4rem, 3.2vw, 4.2rem);
+  line-height: 1.06;
+}
+
+.instamom-givesback__text {
+  max-width: 68ch;
+  margin: 0 auto;
+  color: var(--imu-muted);
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+/* Prototype hides the flanking logos on small screens (styles.css). */
+@media (max-width: 768px) {
+  .instamom-givesback__logo {
+    display: none;
+  }
+}
+
+/* --- Multicolumn value-prop cards: same solid treatment as product cards --
+   (Superseded on the homepage by .instamom-valueprops; kept for any other
+   Multicolumn section a merchant adds.) */
 .multicolumn-card {
   border: 2px solid var(--imu-navy);
   border-radius: 8px;
@@ -202,6 +327,20 @@ textarea:focus-visible,
 .instamom-badge--seasonal {
   color: #ffffff;
   background: #ffa726;
+}
+
+/* Coming-soon banner that replaces the buy button on preview-only package
+   cards (snippets/card-product.liquid; owner review p.3). */
+.instamom-comingsoon-banner {
+  margin-top: 10px;
+  padding: 12px 14px;
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--imu-navy);
+  border-radius: 8px;
 }
 
 /* --- Hero "sticker" banner (see sections/instamom-hero.liquid) ------------ */
@@ -572,6 +711,32 @@ textarea:focus-visible,
   margin-bottom: 18px;
 }
 
+/* Preview popup actions: "Add to cart" (pink primary) over "View full details"
+   (gold secondary). Owner review p.3 — add to cart in the popup too. */
+.instamom-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.instamom-modal__actions .form,
+.instamom-modal__actions product-form {
+  display: block;
+  width: 100%;
+}
+
+.instamom-modal__soon {
+  margin: 0;
+  padding: 12px 16px;
+  text-align: center;
+  font-weight: 800;
+  color: var(--imu-navy);
+  background: var(--imu-cream);
+  border: 1.5px dashed var(--imu-gold);
+  border-radius: 8px;
+}
+
 /* --- Add-ons modal --------------------------------------------------------
    Offered after a package is added to the cart, and reachable again from the
    "+ Add-ons" button on a package's cart line. Uses Dawn's <modal-dialog>,
@@ -892,7 +1057,8 @@ textarea:focus-visible,
   align-items: flex-start;
   gap: 12px;
   padding: 24px;
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  /* Owner ask (review p.2): "fine yellow line around each box." */
+  border: 1px solid var(--imu-gold);
   border-radius: 12px;
   background: rgba(8, 43, 99, 0.85);
   scroll-snap-align: start;
@@ -946,4 +1112,56 @@ textarea:focus-visible,
 
 .instamom-lineup__empty {
   color: rgba(255, 255, 255, 0.8);
+}
+
+/* --- Candy preference (required) on the cart page ------------------------
+   sections/main-cart-footer.liquid. A pink-framed box matching the
+   prototype's checkout consent (owner review p.9, "vital"). */
+.instamom-candy {
+  margin: 0 0 20px;
+  padding: 14px 20px 18px;
+  border: 1.5px solid var(--imu-pink);
+  border-radius: 10px;
+  background: var(--imu-surface);
+}
+
+.instamom-candy__legend {
+  padding: 0 6px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1.4rem;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-candy__req {
+  color: var(--imu-pink);
+}
+
+.instamom-candy__option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 12px;
+  font-size: 1.5rem;
+  line-height: 1.45;
+  color: var(--imu-muted);
+  cursor: pointer;
+}
+
+.instamom-candy__option input {
+  flex: 0 0 auto;
+  margin-top: 4px;
+  accent-color: var(--imu-pink);
+}
+
+.instamom-candy__error {
+  margin: 12px 0 0;
+  font-weight: 700;
+  color: #c81a63;
+}
+
+.instamom-candy--error {
+  border-color: #c81a63;
+  box-shadow: 0 0 0 3px rgba(237, 47, 137, 0.18);
 }

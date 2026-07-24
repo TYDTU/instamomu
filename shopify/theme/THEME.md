@@ -15,12 +15,45 @@ focus/hover accents, and the tag-driven pre-order badges.
 > (Dawn renders `.card__content` as a *sibling* of `.card`), and headings vanishing on
 > the navy bands.
 >
-> **Still unverified:** `instamom-badge` and `instamom-whats-inside` have never
-> rendered visible output — no product carries a `pre-order`/`coming-soon`/`seasonal`
-> tag yet (those live on the packages, which are bundles built in Step 4 of
-> `../MIGRATION.md`), and the `custom.whats_inside` metafield doesn't exist yet. Both
-> snippets fail safe, so nothing breaks meanwhile. Nothing here touches checkout or
-> payments.
+> **Status (updated):** the packages are now tagged (`pre-order` on Welcome Week
+> Starter, `coming-soon` on the transitional boxes, `seasonal` on Seasonal
+> Celebrations), so `instamom-badge` renders live, and the `coming-soon` boxes
+> show a "Coming Soon" banner instead of a buy button (see the owner-review pass
+> below). The `custom.whats_inside` metafield **is** created and filled for the
+> Welcome Week Starter (its 10-item packing list), so the preview popup's ✓
+> checklist renders for that box; the other boxes' lists are filled as their real
+> packing slips are confirmed. Nothing here touches payments.
+
+## Owner-review pass (2026-07)
+
+Changes made against the owners' "Possible Beth Changes" review, all live on Dawn
+#158107369572 and verified on the storefront:
+
+- **Value props** → dedicated `sections/instamom-valueprops.liquid` (replaces the
+  Multicolumn on the homepage): small-caps eyebrow ("What makes it InstaMom
+  University?"), navy heading + lead, three **white cards with a fine pink frame**.
+- **Current lineup** cards now carry a **fine yellow (gold) border** (was white).
+- **Gives Back** → dedicated `sections/instamom-givesback.liquid` (replaces the
+  rich-text): the title is flanked left + right by the **IMU cap logo**
+  (`imu-logo-cap.png`, not the crest), on the light paper background, matching the
+  prototype's `#gives-back`. Logos hide under 768px; the `gives-back` anchor is kept
+  so the header link still jumps here.
+- **Preview popup** (`snippets/card-product.liquid`) gained a real **Add to cart**
+  `<product-form>` above "View full details", so it adds via AJAX and triggers the
+  post-cart add-ons modal — matching the grid quick-add.
+- **Coming Soon**: `coming-soon`-tagged package cards replace the buy button with a
+  navy "Coming Soon" banner (grid) / "Coming soon — preview only" (popup). Buy stays
+  on the Welcome Week Starter only.
+- **Candy preference (required)** on the cart page (`sections/main-cart-footer.liquid`):
+  a pink-framed radio group saved as the cart attribute **"Candy preference"** (shows
+  on the order for packers). `required` + a JS guard block checkout until chosen, and
+  the choice is persisted via `/cart/update.js` on select so it rides Shop Pay too.
+- **Footer** carries the tagline **"Curated care for the whole person"** (a `text`
+  block in `sections/footer-group.json`).
+
+Still owner/admin tasks (not theme code): store **policies & terms** (Settings →
+Policies), real **inventory counts** to turn the boxes purchasable, and the remaining
+boxes' `custom.whats_inside` packing lists.
 
 ## What's in this folder
 

@@ -19,6 +19,11 @@
     .filter(Boolean);
 
   const open = () => {
+    // If the package was added from its preview popup, close that first so the
+    // add-ons modal doesn't open stacked behind it.
+    document.querySelectorAll('modal-dialog[open]').forEach((other) => {
+      if (other !== modal && typeof other.hide === 'function') other.hide();
+    });
     // ModalDialog.show() expects an opener to return focus to on close.
     modal.show(document.activeElement || document.body);
   };

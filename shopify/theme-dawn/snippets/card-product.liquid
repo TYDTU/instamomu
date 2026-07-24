@@ -120,21 +120,11 @@
             silently dies. Rendering inline has no such failure mode.
             Styling: .instamom-preview* / .instamom-modal* in assets/instamom.css
           {%- endcomment -%}
+          {%- comment -%}
+            The preview popup is opened by the full-width "Explore package" button
+            in the card actions below (not a "+" over the image anymore).
+          {%- endcomment -%}
           {%- if card_product.tags contains 'package' -%}
-            <modal-opener
-              class="instamom-preview no-js-hidden"
-              data-modal="#InstamomPreview-{{ card_product.id }}"
-            >
-              <button
-                type="button"
-                class="instamom-preview__button"
-                aria-haspopup="dialog"
-                aria-label="Preview {{ card_product.title | escape }}"
-              >
-                <span class="instamom-preview__plus" aria-hidden="true">+</span>
-              </button>
-            </modal-opener>
-
             <modal-dialog id="InstamomPreview-{{ card_product.id }}" class="instamom-modal">
               <div
                 role="dialog"
@@ -254,12 +244,15 @@
             <div class="card__badge {{ settings.badge_position }}">
               {%- render 'instamom-badge', product: card_product -%}
               {%- if card_product.available == false -%}
+                {%- comment -%}Coming-soon cards carry the "Coming Soon" badge/banner, not a Sold out badge.{%- endcomment -%}
+                {%- unless card_product.tags contains 'coming-soon' -%}
                 <span
                   id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
                   class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
                 >
                   {{- 'products.product.sold_out' | t -}}
                 </span>
+                {%- endunless -%}
               {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
                 <span
                   id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
@@ -418,12 +411,28 @@
           </div>
           {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
           {%- comment -%}
-            Owner ask (review p.3): the "Coming Soon" boxes are listed but not
-            purchasable — "still listing products but no way to purchase them.
-            Like a preview." Tag those packages `coming-soon` (the Welcome Week
-            Starter is the only orderable one) and the buy button is replaced by
-            a banner. Preview ("+") still works so shoppers can look inside.
+            Owner ask: two stacked full-width pill buttons — a gold "Explore
+            package" (opens the preview popup) above the pink "Add to cart",
+            matching the prototype's .card-actions. Coming-soon boxes are listed
+            but not purchasable: the buy button becomes a "Coming Soon" banner,
+            with the Explore button still there to look inside (review p.3).
           {%- endcomment -%}
+          <div class="instamom-card-actions">
+            {%- if card_product.tags contains 'package' -%}
+              <modal-opener
+                class="instamom-card-actions__explore no-js-hidden"
+                data-modal="#InstamomPreview-{{ card_product.id }}"
+              >
+                <button
+                  type="button"
+                  class="button button--secondary button--full-width instamom-explore-btn"
+                  aria-haspopup="dialog"
+                  aria-label="Explore {{ card_product.title | escape }}"
+                >
+                  Explore package
+                </button>
+              </modal-opener>
+            {%- endif -%}
           {%- if card_product.tags contains 'coming-soon' -%}
             <div class="instamom-comingsoon-banner">Coming Soon</div>
           {%- else -%}
@@ -687,6 +696,7 @@
             {% endif %}
           {% endif %}
           {%- endif -%}{%- comment -%} end coming-soon guard {%- endcomment -%}
+          </div>{%- comment -%} end .instamom-card-actions {%- endcomment -%}
           <div class="card__badge {{ settings.badge_position }}">
             {%- render 'instamom-badge', product: card_product -%}
             {%- if card_product.available == false -%}

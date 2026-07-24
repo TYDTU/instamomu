@@ -659,6 +659,55 @@ textarea:focus-visible,
   margin-top: -3px;
 }
 
+/* --- Package card actions: stacked full-width pill buttons ----------------
+   Gold "Explore package" (opens the preview popup) above the pink "Add to
+   cart", matching the prototype's .card-actions (owner: full width, pill).
+   position/z-index lifts them above Dawn's card-wide overlay link so both are
+   clickable (that link, .card__heading a::after, would otherwise swallow taps). */
+.instamom-card-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+  width: 100%;
+}
+
+.instamom-card-actions__explore {
+  display: block;
+  width: 100%;
+}
+
+/* Full-width, pill-shaped (owner: "full width … pill-shaped"). The global
+   .button radius is 8px !important, so the override needs !important too. */
+.instamom-card-actions .button,
+.instamom-card-actions .quick-add,
+.instamom-card-actions .quick-add__submit {
+  width: 100%;
+  border-radius: 999px !important;
+}
+
+.instamom-explore-btn {
+  min-height: 48px;
+}
+
+/* "Add to cart" must read PINK (owner: "Add to Cart… in the pink box"). Dawn
+   hard-codes the quick-add as .button--secondary (gold) — repaint the ENABLED
+   one pink so "Explore package" (gold) stays the secondary action above it.
+   Sold-out (disabled) buttons stay muted rather than looking clickable. */
+.instamom-card-actions .quick-add__submit:not([disabled]) {
+  background: var(--imu-pink) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 26px rgba(237, 47, 137, 0.26);
+}
+
+/* The Coming Soon banner takes the buy button's place — same pill shape. */
+.instamom-card-actions .instamom-comingsoon-banner {
+  margin-top: 0;
+  border-radius: 999px;
+}
+
 /* --- Preview modal --------------------------------------------------------
    Uses Dawn's <modal-dialog>, which only toggles the [open] attribute, so
    the show/hide styling is ours. */

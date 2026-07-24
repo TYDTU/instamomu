@@ -51,7 +51,7 @@
         {%- assign candy_yes = "Snickers and Reese's OK" -%}
         <fieldset class="instamom-candy" id="instamom-candy">
           <legend class="instamom-candy__legend">
-            Candy preference <span class="instamom-candy__req">(required)</span>
+            Candy Preference <span class="instamom-candy__req">(Required)</span>
           </legend>
           <label class="instamom-candy__option">
             <input
@@ -62,7 +62,7 @@
               required
               {% if cart.attributes['Candy preference'] == candy_no %}checked{% endif %}
             >
-            <span>Please do <strong>not</strong> include any Snickers or Reese&rsquo;s in my student&rsquo;s package.</span>
+            <span>Please do <strong>not</strong> include any Snickers or Reese&rsquo;s in my student&rsquo;s package!</span>
           </label>
           <label class="instamom-candy__option">
             <input
@@ -72,7 +72,7 @@
               form="cart"
               {% if cart.attributes['Candy preference'] == candy_yes %}checked{% endif %}
             >
-            <span>Please include Snickers and Reese&rsquo;s if they are a standard part of the treats in the package I ordered.</span>
+            <span>Please include Snickers and Reese&rsquo;s if they are a standard part of the treats in the package I ordered!</span>
           </label>
           <p class="instamom-candy__error" data-candy-error hidden>Please choose a candy preference before checking out.</p>
         </fieldset>

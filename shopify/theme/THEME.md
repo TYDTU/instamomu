@@ -3,8 +3,9 @@
 This kit reproduces the prototype's look on top of Shopify's free **Dawn** theme,
 rather than hand-building a whole theme from scratch. Dawn gives you the structure,
 cart, and checkout for free; these files carry the InstaMom identity — the yellow
-dotted "paper" background, Graduate headings, gold hard-shadow product cards, the navy
-"sticker" hero, pink/gold buttons, and the tag-driven pre-order badges.
+dotted "paper" background, the navy "sticker" hero in blocky Graduate over Inter
+section/card headings, gold hard-shadow product cards, pink/gold buttons, pink
+focus/hover accents, and the tag-driven pre-order badges.
 
 > **Tested?** Yes, as of the Dawn 15.5.0 port on `instamom-university.myshopify.com`.
 > The CSS and the hero section are verified rendering on desktop and mobile. Four CSS
@@ -73,10 +74,14 @@ yellow-dotted with navy/pink/gold styling.
   unreadable. In the theme editor this is **Theme settings → Product cards → Color
   scheme**; in code it's `card_color_scheme` (plus `collection_card_color_scheme` and
   `blog_card_color_scheme`) in `config/settings_data.json`.
-- **Fonts:** the CSS loads **Graduate** (Google Fonts) for headings automatically. For
-  body text, Theme editor → **Typography** → pick **Inter** (or nearest) from Shopify's
-  font list. Graduate generally isn't in Shopify's font picker, which is why it's loaded
-  in the CSS instead.
+- **Fonts:** matching the prototype, the CSS loads **Graduate** (Google Fonts) for the
+  hero "sticker" title *only*. Every other heading follows Dawn's **body** font, so
+  Theme editor → **Typography** → pick **Inter** (or nearest) as the body font and the
+  section/card headings follow it automatically — the CSS repoints Dawn's
+  `--font-heading-family`/`--font-heading-weight` at the body font, so the *header*-font
+  setting no longer has to match. A couple of serif accents (the preview and add-ons
+  modal titles) use **Georgia**. Graduate generally isn't in Shopify's font picker, which
+  is why it's loaded in the CSS instead.
 
 ## Step 5 — Build the pages with native Dawn sections
 
@@ -195,9 +200,10 @@ Files, then point the theme at them:
 
 ## Step 9 — Check it
 
-Preview at desktop **and** mobile widths. Spot-check: dotted background, Graduate
-headings, pink primary buttons, gold hard-shadow on product cards, a pre-order badge on
-the Welcome box, and the ✓ "What's Inside" list on a product page.
+Preview at desktop **and** mobile widths. Spot-check: dotted background, the Graduate
+hero title over Inter section/card headings, pink primary buttons, a pink focus border
+on form fields, gold hard-shadow on product cards, a pre-order badge on the Welcome box,
+and the ✓ "What's Inside" list on a product page.
 
 ---
 

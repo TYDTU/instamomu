@@ -7,17 +7,22 @@
 
 <div class="instamom-hero">
   <div class="instamom-hero__inner page-width">
+    <div class="instamom-hero__banner">
+      <h1 class="instamom-hero__title">{{ section.settings.heading | escape }}</h1>
+    </div>
+
     {%- comment -%}
       Prefer a merchant-picked image from Content → Files; fall back to the
       crest bundled in the theme's own assets so the hero is never empty.
+      Order matches the prototype: banner first, then crest, then badge.
     {%- endcomment -%}
     {%- if section.settings.crest != blank -%}
       <img
         class="instamom-hero__crest"
-        src="{{ section.settings.crest | image_url: width: 480 }}"
+        src="{{ section.settings.crest | image_url: width: 500 }}"
         alt="{{ section.settings.crest.alt | default: section.settings.heading | escape }}"
-        width="240"
-        height="240"
+        width="250"
+        height="250"
         loading="eager"
       >
     {%- else -%}
@@ -25,15 +30,11 @@
         class="instamom-hero__crest"
         src="{{ 'instamom-logo-crest.png' | asset_url }}"
         alt="{{ section.settings.heading | escape }}"
-        width="240"
-        height="240"
+        width="250"
+        height="250"
         loading="eager"
       >
     {%- endif -%}
-
-    <div class="instamom-hero__banner">
-      <h1 class="instamom-hero__title">{{ section.settings.heading | escape }}</h1>
-    </div>
 
     {%- if section.settings.badge_text != blank -%}
       <div class="instamom-hero__badge">

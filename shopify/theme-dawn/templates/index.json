@@ -17,6 +17,15 @@
         "crest": "shopify://shop_images/instamom-logo-crest-transparent.png"
       }
     },
+    "current_lineup": {
+      "type": "instamom-lineup",
+      "settings": {
+        "kicker": "Current lineup",
+        "heading": "Explore our customized packages",
+        "collection": "packages",
+        "products_to_show": 8
+      }
+    },
     "value_props": {
       "type": "multicolumn",
       "blocks": {
@@ -55,7 +64,7 @@
         "columns_desktop": 3,
         "column_alignment": "left",
         "background_style": "primary",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-2",
         "columns_mobile": "1",
         "swipe_on_mobile": false,
         "padding_top": 52,
@@ -107,7 +116,7 @@
     "packages_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "Explore our customized packages",
+        "title": "Built to give your student whatever they need, wherever they are.",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
@@ -144,6 +153,7 @@
   },
   "order": [
     "instamom_hero",
+    "current_lineup",
     "packages_collection",
     "value_props",
     "addons_list",

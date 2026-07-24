@@ -171,6 +171,8 @@
                 preload: true
             }}
           </div>
+          {%- comment -%} Show the shop name beside the crest (prototype's .brand). {%- endcomment -%}
+          <span class="h2 instamom-wordmark">{{ shop.name }}</span>
         {%- else -%}
           <span class="h2">{{ shop.name }}</span>
         {%- endif -%}

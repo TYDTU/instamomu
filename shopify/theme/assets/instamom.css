@@ -41,29 +41,41 @@ main,
   background: transparent;
 }
 
-/* Dawn paints each section's background on its own .color-scheme-N wrapper,
-   which sits above the body and hides the dots. Re-apply the pattern on the
-   paper scheme only — the navy bands (scheme-2/4) stay flat. */
-.color-scheme-1 {
-  background-image: var(--imu-dots);
-  background-size: 30px 30px;
+/* Matching the prototype, the big dots live in the hero ONLY; every paper
+   section below it is solid paper (prototype `.section` sets a flat
+   background-color). Dawn already paints scheme-1 wrappers solid paper, so we
+   simply DON'T re-apply the dot pattern here. The hero keeps its dots via
+   .instamom-hero, and the header dims that same pattern (see .header-wrapper
+   below). */
+
+/* --- Typography ----------------------------------------------------------
+   The prototype uses Graduate for the hero "sticker" ONLY. Every other
+   heading is Inter (bold, mixed-case, navy), with Georgia on a couple of
+   serif accents (the modal titles, further down). Dawn renders every heading
+   from two custom properties (see base.css: `font-family:
+   var(--font-heading-family); font-weight: var(--font-heading-weight)`), so
+   pointing those at the body font (Inter) converts the whole theme in one
+   move. The hero and modal titles opt back out with their own font-family. */
+:root {
+  --font-heading-family: var(--font-body-family);
+  --font-heading-weight: var(--font-body-weight-bold);
 }
 
-/* --- Typography: Graduate on display headings ---------------------------- */
-h1, h2,
+h1, h2, h3,
 .h0, .h1, .h2,
 .section-heading,
 .title,
-.card__heading {
-  font-family: 'Graduate', Georgia, serif;
-  letter-spacing: 0.01em;
+.card__heading,
+.card__heading a {
+  text-transform: none;
+  letter-spacing: normal;
   color: var(--imu-navy-dark);
 }
 
 /* The navy bands (scheme-2 / scheme-4) would swallow that hard-coded navy,
    so let headings there follow the scheme's own foreground colour. */
-.color-scheme-2 :is(h1, h2, .h0, .h1, .h2, .section-heading, .title, .card__heading),
-.color-scheme-4 :is(h1, h2, .h0, .h1, .h2, .section-heading, .title, .card__heading) {
+.color-scheme-2 :is(h1, h2, h3, .h0, .h1, .h2, .section-heading, .title, .card__heading),
+.color-scheme-4 :is(h1, h2, h3, .h0, .h1, .h2, .section-heading, .title, .card__heading) {
   color: rgb(var(--color-foreground));
 }
 
@@ -91,14 +103,29 @@ h1, h2,
   box-shadow: none;
 }
 
-/* Focus ring in brand gold */
+/* Focus ring in brand gold for buttons and links */
 .button:focus-visible,
-a:focus-visible,
-select:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
+a:focus-visible {
   outline: 3px solid var(--imu-gold);
   outline-offset: 3px;
+}
+
+/* Form fields take a pink focus border, matching the prototype's add-on
+   selects (styles.css `.addon-select:focus`). :focus (not just :focus-visible)
+   so the pink shows on click too, the way the prototype does. */
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+.field__input:focus,
+.field__input:focus-visible,
+.select__select:focus,
+.select__select:focus-visible {
+  outline: 2px solid var(--imu-pink);
+  outline-offset: 1px;
+  border-color: var(--imu-pink);
 }
 
 /* --- Product cards: navy border + the signature gold "hard shadow" --------
@@ -157,7 +184,7 @@ textarea:focus-visible {
 .instamom-badge {
   display: inline-block;
   align-self: flex-start;
-  font-size: 0.72rem;
+  font-size: 1.152rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -200,7 +227,7 @@ textarea:focus-visible {
 }
 
 .instamom-hero__crest {
-  width: clamp(150px, 22vw, 240px);
+  width: clamp(160px, 24vw, 250px);
   aspect-ratio: 1;
   object-fit: contain;
   margin-block: 18px;
@@ -223,7 +250,10 @@ textarea:focus-visible {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   white-space: nowrap;
-  font-size: clamp(1.8rem, 5.5vw, 4.2rem);
+  /* The prototype's clamp(1.8rem, 5.5vw, 4.2rem) assumes a 16px root; Dawn's
+     root is 10px (62.5%), so the rem stops are ×1.6 to hit the same 28.8px–
+     67.2px the prototype renders. The vw stop is root-independent. */
+  font-size: clamp(2.88rem, 5.5vw, 6.72rem);
   line-height: 1;
   color: var(--imu-gold);
   text-shadow:
@@ -248,7 +278,8 @@ textarea:focus-visible {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: clamp(0.95rem, 2vw, 1.35rem);
+  /* ×1.6 for Dawn's 10px root, matching the prototype's 15.2px–21.6px. */
+  font-size: clamp(1.52rem, 2vw, 2.16rem);
 }
 
 /* --- "What's Inside" checklist (see snippets/instamom-whats-inside.liquid) - */
@@ -258,7 +289,7 @@ textarea:focus-visible {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: var(--imu-navy-dark);
-  font-size: 1.15rem;
+  font-size: 1.84rem;
 }
 
 .instamom-contents {
@@ -273,7 +304,7 @@ textarea:focus-visible {
 .instamom-contents li {
   position: relative;
   padding-left: 28px;
-  font-size: 0.95rem;
+  font-size: 1.52rem;
   line-height: 1.65;
   color: var(--imu-muted);
 }
@@ -291,7 +322,7 @@ textarea:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   box-shadow: 0 2px 4px rgba(6, 43, 102, 0.08);
 }
 
@@ -330,11 +361,76 @@ textarea:focus-visible {
 .menu-drawer__menu-item {
   font-weight: 700;
   color: rgba(var(--color-foreground), 0.9);
+  /* Match the prototype's nav: Inter 16px, no extra tracking. Dawn renders
+     it at 14px with ~0.6px letter-spacing. (1.6rem = 16px at Dawn's 10px
+     root.) */
+  font-size: 1.6rem;
+  letter-spacing: normal;
 }
 
 .header__menu-item:hover,
 .menu-drawer__menu-item:hover {
   color: rgb(var(--color-foreground));
+}
+
+/* Cart count: navy pill with a gold number, like the prototype's nav badge
+   (styles.css `nav span`). */
+.cart-count-bubble {
+  background: var(--imu-navy);
+  color: var(--imu-gold);
+}
+
+.cart-count-bubble span {
+  color: var(--imu-gold);
+}
+
+/* --- Header dots: same big pattern as the hero, but dim ------------------
+   The prototype's fixed paper header lets the hero's large dots show through
+   faintly. Dawn paints the header on .header-wrapper.color-scheme-1, which
+   my .color-scheme-1 rule would otherwise give the small 30px body dots. */
+.header-wrapper.color-scheme-1 {
+  background-image: radial-gradient(circle at 15px 15px, rgba(6, 43, 102, 0.2) 0 10px, transparent 10.5px);
+  background-size: 60px 60px;
+}
+
+/* --- Header layout: brand (crest + wordmark) left, nav right -------------
+   The prototype header is brand on the left, nav on the right (styles.css
+   `.site-header`/`.brand`/`nav`). Dawn's middle-left grid packs the nav in
+   next to the logo; push it to the right of the free column instead. */
+@media screen and (min-width: 990px) {
+  .header.header--middle-left {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .header.header--middle-left .header__inline-menu {
+    justify-self: end;
+  }
+}
+
+/* Crest + shop-name wordmark sit side by side (Dawn renders only one). */
+.header__heading-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.instamom-wordmark {
+  margin: 0;
+  font-family: var(--font-body-family);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  /* ~18px — a touch over the prototype's 16px to balance Dawn's larger crest. */
+  font-size: 1.8rem;
+  line-height: 1.05;
+  white-space: nowrap;
+  color: var(--imu-navy-dark);
+}
+
+/* Keep the crest compact next to the wordmark, like the prototype's brand. */
+.header__heading-logo {
+  max-height: 56px;
+  width: auto;
 }
 
 /* --- Package card "+" preview button -------------------------------------
@@ -388,7 +484,7 @@ textarea:focus-visible {
 }
 
 .instamom-preview__plus {
-  font-size: 1.6rem;
+  font-size: 2.56rem;
   font-weight: 700;
   line-height: 1;
   /* nudge the glyph onto the circle's optical centre */
@@ -459,7 +555,9 @@ textarea:focus-visible {
 
 .instamom-modal__title {
   margin: 0 0 6px;
-  font-family: 'Graduate', Georgia, serif;
+  /* Georgia serif — the prototype's package-detail modal title (styles.css
+     `.modal-content h3`). Graduate is reserved for the hero. */
+  font-family: Georgia, 'Times New Roman', serif;
   color: var(--imu-navy-dark);
 }
 
@@ -467,7 +565,7 @@ textarea:focus-visible {
   margin: 0 0 14px;
   color: var(--imu-pink);
   font-weight: 900;
-  font-size: 1.15rem;
+  font-size: 1.84rem;
 }
 
 .instamom-modal__description {
@@ -520,9 +618,34 @@ textarea:focus-visible {
   cursor: pointer;
 }
 
+/* Modal closes turn pink on hover (prototype: styles.css `.close-modal:hover`). */
+.instamom-modal__close:hover,
+.instamom-addons__close:hover {
+  background: var(--imu-pink);
+}
+
+/* Premium pink scrollbar thumb inside the scrollable modals, matching the
+   prototype's `.modal-scrollable-body` treatment. */
+.instamom-modal__content::-webkit-scrollbar,
+.instamom-addons__content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.instamom-modal__content::-webkit-scrollbar-thumb,
+.instamom-addons__content::-webkit-scrollbar-thumb {
+  background: var(--imu-navy);
+  border-radius: 3px;
+}
+
+.instamom-modal__content::-webkit-scrollbar-thumb:hover,
+.instamom-addons__content::-webkit-scrollbar-thumb:hover {
+  background: var(--imu-pink);
+}
+
 .instamom-addons__title {
   margin: 0 0 6px;
-  font-family: 'Graduate', Georgia, serif;
+  /* Georgia serif, matching the sibling preview modal's title. */
+  font-family: Georgia, 'Times New Roman', serif;
   color: var(--imu-navy-dark);
 }
 
@@ -559,7 +682,7 @@ textarea:focus-visible {
 
 .instamom-addons__name {
   font-weight: 700;
-  font-size: 0.92rem;
+  font-size: 1.472rem;
   line-height: 1.25;
 }
 
@@ -572,7 +695,7 @@ textarea:focus-visible {
 .instamom-addons__add {
   margin-top: auto;
   min-height: 40px;
-  font-size: 0.85rem;
+  font-size: 1.36rem;
 }
 
 .instamom-addons__actions {
@@ -596,7 +719,7 @@ textarea:focus-visible {
   background: var(--imu-gold);
   color: var(--imu-navy);
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 1.28rem;
   cursor: pointer;
 }
 
@@ -612,7 +735,8 @@ textarea:focus-visible {
 
 .instamom-addonlist__heading {
   margin: 0 0 6px;
-  font-family: 'Graduate', Georgia, serif;
+  /* Inter (inherited) — a homepage section heading, like the prototype's
+     add-ons live under an Inter heading, not Graduate. */
   color: var(--imu-navy-dark);
 }
 
@@ -651,7 +775,7 @@ textarea:focus-visible {
 
 .instamom-addonlist__name {
   font-weight: 700;
-  font-size: 0.92rem;
+  font-size: 1.472rem;
   line-height: 1.25;
 }
 
@@ -664,4 +788,162 @@ textarea:focus-visible {
   margin: 22px 0 0;
   font-style: italic;
   opacity: 0.85;
+}
+
+/* --- "Current lineup" slider (sections/instamom-lineup.liquid) ------------
+   Navy band with a horizontal, scroll-snapping row of package cards, matching
+   the prototype's intro-band (../../styles.css). rem stops are the prototype's
+   ×1.6 for Dawn's 10px root. */
+.instamom-lineup {
+  color: #fff;
+  background: var(--imu-navy);
+  border-top: 8px solid var(--imu-gold);
+}
+
+.instamom-lineup__inner {
+  padding-block: clamp(40px, 6vw, 64px);
+}
+
+.instamom-lineup__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.instamom-lineup__kicker {
+  margin: 0 0 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.25rem;
+  color: var(--imu-gold);
+}
+
+.instamom-lineup__heading {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.88rem, 3.5vw, 4.8rem);
+  line-height: 1.1;
+}
+
+/* Prev/next carousel controls (prototype .slider-controls / .slider-arrow) */
+.instamom-lineup__controls {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.instamom-lineup__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.instamom-lineup__arrow:hover {
+  background: var(--imu-gold);
+  color: var(--imu-navy);
+  border-color: var(--imu-gold);
+}
+
+.instamom-lineup__arrow[disabled] {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.instamom-lineup__arrow[disabled]:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.instamom-lineup__track {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 4px 4px 12px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.instamom-lineup__track::-webkit-scrollbar {
+  display: none;
+}
+
+.instamom-lineup__card {
+  flex: 0 0 clamp(280px, 80vw, 350px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  background: rgba(8, 43, 99, 0.85);
+  scroll-snap-align: start;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.instamom-lineup__card:hover,
+.instamom-lineup__card:focus-within {
+  transform: translateY(-4px);
+  background: var(--imu-surface);
+  border-color: var(--imu-gold);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
+}
+
+.instamom-lineup__title {
+  margin: 0;
+  /* Georgia serif — the prototype's lineup card titles (.lineup-card h3). */
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.16rem;
+  color: #fff;
+}
+
+.instamom-lineup__copy {
+  margin: 0;
+  font-size: 1.52rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* On hover the card flips to white, so its text goes navy for contrast. */
+.instamom-lineup__card:hover .instamom-lineup__title,
+.instamom-lineup__card:focus-within .instamom-lineup__title {
+  color: var(--imu-navy-dark);
+}
+
+.instamom-lineup__card:hover .instamom-lineup__copy,
+.instamom-lineup__card:focus-within .instamom-lineup__copy {
+  color: var(--imu-muted);
+}
+
+.instamom-lineup__link {
+  margin-top: auto;
+  font-weight: 800;
+  color: var(--imu-gold);
+}
+
+.instamom-lineup__card:hover .instamom-lineup__link,
+.instamom-lineup__card:focus-within .instamom-lineup__link {
+  color: var(--imu-pink);
+}
+
+.instamom-lineup__empty {
+  color: rgba(255, 255, 255, 0.8);
 }

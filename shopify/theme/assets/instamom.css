@@ -225,57 +225,86 @@ textarea:focus-visible,
 }
 
 /* --- "Gives Back" band (sections/instamom-givesback.liquid) --------------
-   Kicker, the title flanked by the IMU cap logo left + right, paragraph below —
-   matching the prototype's #gives-back (owner review p.6). Logos hide on mobile,
-   like the prototype. rem stops use the prototype's ×1.6 for Dawn's 10px root. */
+   The diploma seal on the LEFT, the text block on the RIGHT (left-aligned):
+   "Supporting Our Community" kicker, title, scholarship paragraph — matching
+   the prototype's #gives-back (../../styles.css, owner review p.6). Stacks
+   centered on mobile. rem stops use the prototype's ×1.6 for Dawn's 10px root. */
 .instamom-givesback__inner {
   padding-block: clamp(40px, 6vw, 64px);
-  text-align: center;
 }
 
-.instamom-givesback__kicker {
-  margin: 0 0 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 1.25rem;
-  color: var(--imu-pink);
-}
-
-.instamom-givesback__row {
+.instamom-givesback__container {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  margin-bottom: 20px;
+  gap: 40px;
+  max-width: 1050px;
+  margin: 0 auto;
 }
 
-.instamom-givesback__logo {
-  height: clamp(48px, 5vw, 68px);
-  width: auto;
-  flex-shrink: 0;
-  filter: drop-shadow(0 4px 8px rgba(4, 29, 69, 0.12));
+.instamom-givesback__seal-side {
+  flex: 0 0 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instamom-givesback__seal {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(6, 43, 102, 0.14));
+  transition: transform 0.3s ease;
+}
+
+.instamom-givesback__seal:hover {
+  transform: scale(1.04);
+}
+
+.instamom-givesback__content {
+  flex: 1;
+  text-align: left;
+}
+
+.instamom-givesback__kicker {
+  margin: 0 0 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 1.25rem;
+  /* Darkened gold for contrast on the paper background (prototype commit). */
+  color: #8c5300;
 }
 
 .instamom-givesback__title {
-  margin: 0;
+  margin: 0 0 16px;
   color: var(--imu-navy-dark);
-  font-size: clamp(2.4rem, 3.2vw, 4.2rem);
-  line-height: 1.06;
+  font-size: clamp(2.88rem, 3.2vw, 4.8rem);
+  line-height: 1.1;
 }
 
 .instamom-givesback__text {
-  max-width: 68ch;
-  margin: 0 auto;
-  color: var(--imu-muted);
-  font-size: 1.6rem;
-  line-height: 1.6;
+  margin: 0;
+  color: var(--imu-navy-dark);
+  font-size: 1.68rem;
+  line-height: 1.7;
 }
 
-/* Prototype hides the flanking logos on small screens (styles.css). */
 @media (max-width: 768px) {
-  .instamom-givesback__logo {
-    display: none;
+  .instamom-givesback__container {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .instamom-givesback__content {
+    text-align: center;
+  }
+
+  .instamom-givesback__seal-side {
+    flex: 0 0 auto;
+    width: 180px;
   }
 }
 

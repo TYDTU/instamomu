@@ -2,13 +2,12 @@
   InstaMom University — "Gives Back" band.
 
   Reproduces the prototype's #gives-back section (../../index.html /
-  ../../styles.css): a "Giving Back" kicker, the title flanked left AND right by
-  the IMU grad-cap logo (imu-logo-cap.png), and the scholarship paragraph below.
-  The flanking logos hide on mobile, matching the prototype.
+  ../../styles.css): the diploma seal graphic on the LEFT, and the text block on
+  the RIGHT (left-aligned) — a "Supporting Our Community" kicker, the title, and
+  the scholarship paragraph. Stacks centered on mobile.
 
-  Built as its own section (not Dawn's rich-text) because rich-text stacks its
-  blocks in a column and can't place a logo beside the heading. Owner review p.6:
-  "we do need to put a logo" — the logo is imu-logo-cap.png, not the crest.
+  Owner review p.6: "we do need to put a logo" — the logo is the diploma seal
+  (imu-diploma-seal.png), NOT the crest or the cap logo.
 
   The anchor span keeps the header's "Gives Back" → /#gives-back link working.
   Styling: .instamom-givesback* in assets/instamom.css
@@ -19,32 +18,39 @@
 {%- endif -%}
 
 {%- if section.settings.logo != blank -%}
-  {%- assign logo_src = section.settings.logo | image_url: width: 200 -%}
+  {%- assign seal_src = section.settings.logo | image_url: width: 480 -%}
 {%- else -%}
-  {%- assign logo_src = 'imu-logo-cap.png' | asset_url -%}
+  {%- assign seal_src = 'imu-diploma-seal.png' | asset_url -%}
 {%- endif -%}
 
 <div class="instamom-givesback color-{{ section.settings.color_scheme }}">
   <div class="instamom-givesback__inner page-width">
-    {%- if section.settings.kicker != blank -%}
-      <p class="instamom-givesback__kicker">{{ section.settings.kicker | escape }}</p>
-    {%- endif -%}
+    <div class="instamom-givesback__container">
+      {%- if seal_src != blank -%}
+        <div class="instamom-givesback__seal-side">
+          <img
+            class="instamom-givesback__seal"
+            src="{{ seal_src }}"
+            alt="{{ section.settings.logo.alt | default: 'InstaMom University Seal' | escape }}"
+            width="240"
+            height="240"
+            loading="lazy"
+          >
+        </div>
+      {%- endif -%}
 
-    <div class="instamom-givesback__row">
-      {%- if logo_src != blank -%}
-        <img class="instamom-givesback__logo" src="{{ logo_src }}" alt="" width="130" height="95" loading="lazy" aria-hidden="true">
-      {%- endif -%}
-      {%- if section.settings.heading != blank -%}
-        <h2 class="instamom-givesback__title">{{ section.settings.heading | escape }}</h2>
-      {%- endif -%}
-      {%- if logo_src != blank -%}
-        <img class="instamom-givesback__logo" src="{{ logo_src }}" alt="" width="130" height="95" loading="lazy" aria-hidden="true">
-      {%- endif -%}
+      <div class="instamom-givesback__content">
+        {%- if section.settings.kicker != blank -%}
+          <p class="instamom-givesback__kicker">{{ section.settings.kicker | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="instamom-givesback__title">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="instamom-givesback__text rte">{{ section.settings.text }}</div>
+        {%- endif -%}
+      </div>
     </div>
-
-    {%- if section.settings.text != blank -%}
-      <div class="instamom-givesback__text rte">{{ section.settings.text }}</div>
-    {%- endif -%}
   </div>
 </div>
 
@@ -63,14 +69,14 @@
     {
       "type": "image_picker",
       "id": "logo",
-      "label": "Flanking logo",
-      "info": "Defaults to the IMU cap logo bundled with the theme."
+      "label": "Seal graphic",
+      "info": "Defaults to the IMU diploma seal bundled with the theme."
     },
     {
       "type": "text",
       "id": "kicker",
       "label": "Kicker",
-      "default": "Giving Back"
+      "default": "Supporting Our Community"
     },
     {
       "type": "text",

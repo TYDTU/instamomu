@@ -1,3 +1,4 @@
+// Version 1.0.8 - Regroup, Recover, Restart
 const products = {
   welcome: {
     title: "Welcome Week Starter",
@@ -10,14 +11,15 @@ const products = {
     contents: [
       "Mini popcorn starter set: individual silicone popcorn popper, 4 oz popcorn kernels with wooden scoop, and 0.9 oz popcorn seasoning",
       "First aid kit: 15 adhesive bandages, two 5x7 cleansing towels, two Neosporin packs, and two hydrocortisone packs in a sturdy, re-usable case",
-      "Wheatgrass bowl and plate (microwave safe) with a zippered pouch of stainless steel utensils (fork, butter knife, spoon, chopsticks) and mini salt-and-pepper shakers",
-      "Clorox Disinfecting on the go travel wipes",
+      "Microwave-safe (3 minutes) wheat straw bowl (5.5 in) and plate (5.7 in) with a zippered pouch of stainless steel utensils (fork, butter knife, spoon, chopsticks) and mini salt-and-pepper shakers",
+      "Clorox on-the-go disinfecting wipes",
       "Command strips for hanging posters (4)",
-      "Wallet multi-tool",
-      "Invigorating citrus room and linen spray",
+      "Stainless steel credit card multi-tool",
+      "Invigorating citrus room and linen spray in reusable glass bottle",
       "Fidget toy",
-      "Sweet snacks",
-      "Academic coaching cards for: reading a syllabus, creating a roommate contract, and building a solid foundation of healthy habits"
+      "Sweet snacks and three Crystal Light flavored lemonade packets",
+      "Academic coaching cards for: reading a syllabus, creating a roommate contract, and building a solid foundation of healthy habits",
+      "Blank roommate contract—includes both hard copy and document link"
     ]
   },
   snacks_cookies: {
@@ -30,6 +32,11 @@ const products = {
     copy:
       "One box of 15 Bounce dryer sheets and Travel Size Tide one load liquid detergent (3)",
   },
+  athlete_recovery: {
+    title: "Athlete Recovery Pack",
+    copy:
+      "One reusable 6\" x 9\" hot/cold gel pack; two Liquid IV hydration packs; one cooling towel; two single-use Biofreeze packets; and one 3in x 5yd compression bandage",
+  },
   snacks_chips: {
     title: "Extra Snack Sleeve: Chips",
     copy:
@@ -37,27 +44,62 @@ const products = {
   },
   homesick: {
     title: "Homesick Helper",
-    price: 52,
+    price: 62,
     studentType: "Homesick helper",
     moment: "Welcome week",
     copy:
-      "Comfort snacks and calming items to ease the stress of the college transition. A microwavable, stuffed lavender Warmie, perfect for a cozy cuddle. Coaching guidance for increasing campus engagement and finding their people.",
+      "Comfort snacks and calming items to ease the stress of the college transition. A microwavable, weighted stuffed lavender Warmie, perfect for a cozy cuddle. Coaching guidance for increasing campus engagement and finding their people.",
+    image: "assets/homesick_helper_box.jpg",
+    contents: [
+      "Comforting microwavable lavendar Warmy stuffed animal",
+      "Mindfulness journal",
+      "NYT Bestseller mini adult coloring book of stress-reducing patterns",
+      "Goldfaber 12 pack watercolor pencils",
+      "Notecards to write to people they miss",
+      "Your choice of home state building brick magnet with movable heart peg",
+      "Hot chocolate",
+      "Coaching guidance includes prompts for starting conversations with classmates and dormmates; tips for introverts and extroverts to find like-minded peers on campus; suggestions for joining clubs; and creating new routines in their new home"
+    ]
   },
   study: {
-    title: "Study Sprint Box",
-    price: 64,
+    title: "Regroup, Recover, Restart",
+    price: 52,
     studentType: "Focused achiever",
     moment: "Midterms",
     copy:
-      "Heavy on academic coaching, tools for positive reframing, and tips for utilizing academic support resources on campus. Includes study and workload planning supplies, a focus timer, and—of course!—some tasty snacks.",
+      "Heavy on academic coaching, tools for positive reframing, and tips for utilizing academic support resources on campus. Includes study and workload planning supplies, a focus timer, and—of course!—tasty snacks with staying power.",
+    image: "assets/regroup_recover_restart_box.jpg",
+    contents: [
+      "Colorful and calming focus timer (30-40 minute timer)",
+      "Productivity Planner",
+      "Gummy stress square",
+      "Color-coded study supplies: highlighters, pens, post-it tabs and post-it notes",
+      "Lavender Calming Patches",
+      "Granola bars",
+      "Granola bites",
+      "Coaching cards include: positive reframing; communicating with faculty; utilizing campus resources; practicing both time and task management; and sticking to schedules and plans."
+    ]
   },
   sick: {
     title: "Warm Hug from Home",
-    price: 48,
+    price: 62,
     studentType: "Wellness reset",
     moment: "Sick day",
     copy:
-      "Soft, gentle tissues, soothing throat drops, soup and crackers, tea, and a mini honey bear whose cuteness is as comforting as its contents. Coaching helps students catch up with work and communicate with professors during and after an illness.",
+      "Soft, gentle tissues, soothing cough drops, soup and crackers, tea, and a mini honey bear whose cuteness is as comforting as its contents. Coaching helps students catch up with work and communicate with professors during and after an illness.",
+    image: "assets/warm_hug_from_home_box.jpg",
+    contents: [
+      "Comforting microwavable lavender Warmie stuffed animal",
+      "Ricola natural cough drops (9 count)",
+      "Microwave chicken noodle soup cups (2)",
+      "Saltine crackers",
+      "EmergenC packets (4)",
+      "Twinings superblend immune support tea bags (4)",
+      "Mini honey bear",
+      "Box of comfort touch Kleenex, in addition to individual travel packs (3)",
+      "Purell travel size hand sanitizer with jelly wrap key chain",
+      "Coaching cards guide students through communicating with faculty during an illness, keeping up with class assignments, utilizing the health center, and priotirizing make-up work when the germs have been vanquished"
+    ]
   },
   finals: {
     title: "Finals Reset Box",
@@ -65,31 +107,141 @@ const products = {
     studentType: "Wellness reset",
     moment: "Finals",
     copy:
-      "Sleep-friendly comforts, hydration helpers, calm checklists, and professor-informed tips for finishing strong without running on panic.",
+      "Self-care goodies like soothing eye masks and stress toys; colorful pens, highlighters, and post-its; and Nerds and Smarties for good measure. Academic coaching helps students replace popular study myths with practicing efficient study habits.",
+    image: "assets/finals_reset_box.jpg",
+    contents: [
+      "Set of colorful pens",
+      "Set of colorful highlighters",
+      "Set of colorful mechanical pencils",
+      "Post-it tabs and notes",
+      "Colorful index cards",
+      "Stress toy",
+      "Warmies microwavable eye mask",
+      "Gel cooling mask",
+      "Nerds and Nerds Ropes",
+      "Smarties",
+      "Hershey's Kisses",
+      "Mints",
+      "Snack-sized chips (5)",
+      "Starbucks K-cups (4)",
+      "Liquid IV packets (4)",
+      "Calming lavender and chamomile linen spray",
+      "Balloons to blow up and then pop when a final or paper is complete (so satisfying!)",
+      "Coaching cards offer guidance on maintaining perspective under stress; balancing rest and wellbeing with working hard; and practicing efficient study habits"
+    ]
   },
   refresh: {
     title: "Room Refresh",
-    price: 45,
+    price: 56,
     studentType: "First-year starter",
     moment: "Room refresh",
     copy:
       "If they can smell it, this package can refresh it—the air, the bathroom, their shoes, their laundry, their breath. Air freshener sprays and diffusers, sneaker balls, and mints and gum will keep their spaces pleasant so they can focus on what matters.",
+    image: "assets/room_refresh_box.jpg",
+    contents: [
+      "Wood tone diffuser starter kit with LED light and calming essential oil",
+      "Sneaker Balls odor fighters (4)",
+      "Poopourri travel spray 2.5oz",
+      "Fresh linen sachet (2)",
+      "Wet Ones travel body wipes",
+      "Febreze to go 2.8oz spray Gain scent",
+      "Mints and gum"
+    ]
   },
   snack: {
     title: "Snack Attack",
-    price: 42,
     studentType: "First-year starter",
     moment: "Snack attack",
     copy:
       "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
   },
+  snack_cheese: {
+    title: "Snack Attack: Cheese Lovers",
+    price: 35,
+    studentType: "First-year starter",
+    moment: "Snack attack",
+    contents: [
+      "3 snack size packs each of",
+      "Cheetos",
+      "Doritos",
+      "Goldfish",
+      "Cheez-Its",
+      "Pringles Cheddar Cheese grab and go",
+      "Ruffles Sour Cream and Cheddar",
+      "Smartfood White Cheddar Popcorn",
+      "Microwave Kraft Mac and Cheese cups"
+    ]
+  },
+  snack_chocolate: {
+    title: "Snack Attack: Chocolate Lovers",
+    price: 45,
+    studentType: "First-year starter",
+    moment: "Snack attack",
+    contents: [
+      "Double chocolate brownie cookies (6 oz)",
+      "Milk chocolate covered pretzels (5 oz)",
+      "Ghirardelli chocolate squares (assorted)",
+      "Nutella & Go breadstick snack pack",
+      "M&Ms chocolate candies family size pack",
+      "Rich hot cocoa mixes (3)"
+    ]
+  },
+  snack_protein: {
+    title: "Snack Attack: Protein Fiend",
+    price: 60,
+    studentType: "First-year starter",
+    moment: "Snack attack",
+    contents: [
+      "Premium beef jerky sticks (4)",
+      "Mixed nuts with sea salt (8 oz)",
+      "High-protein peanut butter squeeze packs (3)",
+      "Protein bars (assorted flavors, 3)",
+      "Roasted chickpeas snack pack (3 oz)",
+      "Sunflower seed packs (2)"
+    ]
+  },
   seasonal: {
     title: "Seasonal Celebrations",
-    price: 68,
     studentType: "Focused achiever",
     moment: "Holiday",
     copy:
       "Holiday themes, finals treats, exam survival kits, and birthday celebration packs customized for the time of year.",
+  },
+  seasonal_birthday: {
+    title: "Seasonal: Birthday Box",
+    price: 62,
+    studentType: "Focused achiever",
+    moment: "Holiday",
+    image: "assets/seasonal_birthday_box.jpg",
+    contents: [
+      "Vanilla Confetti Individual Cake Kit (nut free)—includes cake mix, frosting, pop-up baking tray for microwave, sprinkles, candle, and cake topper",
+      "Confetti balloons (6)",
+      "Balloon hand pump",
+      "Party poppers (4)",
+      "Birthday horns (4)",
+      "Bubblelick Sour Blue Raspberry Bubbles",
+      "Mini Welch's sparkling white grape juice",
+      "Birthday cake pretzels",
+      "Birthday cake cupcake bites",
+      "Birthday cake Kit Kat",
+      "Plush cupcake",
+      "Birthday Mad Libs",
+      "Faber-Castell Paint by Number Museum Series: The Starry Night"
+    ]
+  },
+  seasonal_fall: {
+    title: "Seasonal: Anything But Basic Fall Box",
+    price: 60,
+    studentType: "Focused achiever",
+    moment: "Holiday",
+    copy: "Coming Soon!"
+  },
+  seasonal_halloween: {
+    title: "Seasonal: Halloween Box",
+    price: 45,
+    studentType: "Focused achiever",
+    moment: "Holiday",
+    copy: "Coming Soon!"
   },
 };
 
@@ -108,7 +260,7 @@ const packageData = {
   },
   "Focused achiever|Midterms": {
     productId: "study",
-    title: "Study Sprint Box",
+    title: "Regroup, Recover, Restart",
     copy:
       "Everyone hits a rough patch in the transition to college-level work—what matters most is how they handle it. This box includes supplies and tips for improved planning and studying; satisfying snacks; and guidance for turning a rough grade or ineffective habit into a building block for success.",
   },
@@ -116,7 +268,7 @@ const packageData = {
     productId: "sick",
     title: "Warm Hug from Home",
     copy:
-      "College exposes them to new people, new experiences, and new germs. Send healing comfort across the miles with tissues, throat lozenges, hydration packets, soup, and tea, along with tips on utilizing campus resources, making up work and communicating clearly with faculty.",
+      "College exposes them to new people, new experiences, and new germs. Send healing comfort across the miles with tissues, cough drops, hydration packets, soup, and tea, along with tips on utilizing campus resources, making up work and communicating clearly with faculty.",
   },
   "Wellness reset|Finals": {
     productId: "finals",
@@ -128,7 +280,7 @@ const packageData = {
     productId: "refresh",
     title: "Room Refresh",
     copy:
-      "If they can smell it, this package can refresh it—the air, the bathroom, their shoes, their laundry, their breath. Air freshener sprays and diffusers, sneaker balls, and mints and gum will keep their spaces pleasant so they can focus on what matters.",
+      "Dorms can stink—theirs doesn't have to. Banish the funk and refresh their space so they can enjoy breathing deeply again.",
   },
   "First-year starter|Snack attack": {
     productId: "snack",
@@ -153,6 +305,7 @@ const fallbackCopy = {
 
 const addonLabels = {
   laundry: "Laundry Rescue Pack",
+  athlete_recovery: "Athlete Recovery Pack",
   snacks_cookies: "Extra snack sleeve: cookies",
   snacks_chips: "Extra snack sleeve: chips",
   toilet_paper: "Roll of two-ply toilet paper (trust us)",
@@ -200,14 +353,19 @@ function getSelectedAddons() {
   }).filter(addon => addon.quantity > 0);
 }
 
-function addToCart(productId) {
-  const existingLine = cart.find((line) => line.productId === productId);
+function addToCart(productId, customOption = null, priceOverride = null) {
+  const linePrice = priceOverride !== null ? priceOverride : products[productId].price;
+  const existingLine = cart.find(
+    (line) => line.productId === productId && line.customOption === customOption && line.price === linePrice
+  );
 
   if (existingLine) {
     existingLine.quantity += 1;
   } else {
     cart.push({
       productId,
+      customOption,
+      price: linePrice,
       quantity: 1,
     });
   }
@@ -216,20 +374,20 @@ function addToCart(productId) {
   renderCart();
 }
 
-function changeQuantity(productId, delta) {
-  cart = cart
-    .map((line) =>
-      line.productId === productId
-        ? { ...line, quantity: Math.max(0, line.quantity + delta) }
-        : line,
-    )
-    .filter((line) => line.quantity > 0);
+function changeQuantity(index, delta) {
+  if (cart[index]) {
+    cart[index].quantity += delta;
+    if (cart[index].quantity <= 0) {
+      cart.splice(index, 1);
+    }
+  }
   renderCart();
 }
 
 function totals() {
   const packageSubtotal = cart.reduce((sum, line) => {
-    return sum + products[line.productId].price * line.quantity;
+    const unitPrice = line.price !== undefined ? line.price : products[line.productId].price;
+    return sum + unitPrice * line.quantity;
   }, 0);
   const selectedAddonTotal = getSelectedAddons().reduce((sum, addon) => sum + (addon.price * addon.quantity), 0);
   return {
@@ -247,18 +405,21 @@ function renderCart() {
     cartItems.innerHTML = '<p class="empty-cart">No packages yet.</p>';
   } else {
     cartItems.innerHTML = cart
-      .map((line) => {
+      .map((line, idx) => {
         const product = products[line.productId];
+        const unitPrice = line.price !== undefined ? line.price : product.price;
+        const optionBadge = line.customOption ? `<span style="font-size: 0.85rem; font-weight: 700; color: var(--pink); display: block; margin-top: 2px;">${line.customOption}</span>` : "";
         return `
           <article class="cart-line">
             <div>
               <h4>${product.title}</h4>
-              <p>${product.studentType} / ${product.moment} / ${money(product.price)} each</p>
+              ${optionBadge}
+              <p>${product.studentType} / ${product.moment} / ${money(unitPrice)} each</p>
             </div>
             <div class="quantity-control" aria-label="${product.title} quantity">
-              <button type="button" data-quantity="${line.productId}" data-delta="-1">-</button>
+              <button type="button" data-cart-index="${idx}" data-delta="-1">-</button>
               <span>${line.quantity}</span>
-              <button type="button" data-quantity="${line.productId}" data-delta="1">+</button>
+              <button type="button" data-cart-index="${idx}" data-delta="1">+</button>
             </div>
           </article>
         `;
@@ -273,10 +434,42 @@ function renderCart() {
 }
 
 function fakeCheckout() {
+  const allergyContainer = document.querySelector("#allergyPreferenceContainer");
+  const allergyErrorMsg = document.querySelector("#allergyErrorMsg");
+  const selectedAllergyRadio = document.querySelector('input[name="allergy_preference"]:checked');
+
   if (cart.length === 0) {
     checkoutStatus.textContent = "Add at least one package before checkout.";
     return;
   }
+
+  // Validate required candy preference
+  if (!selectedAllergyRadio) {
+    if (allergyErrorMsg) allergyErrorMsg.style.display = "block";
+    if (allergyContainer) {
+      allergyContainer.classList.add("has-error");
+      allergyContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    const firstRadio = document.querySelector("#noSnickersReeses");
+    if (firstRadio) firstRadio.focus();
+    checkoutStatus.textContent = "Please select your candy preference above before checking out.";
+    return;
+  }
+
+  // Clear allergy error if valid
+  if (allergyErrorMsg) allergyErrorMsg.style.display = "none";
+  if (allergyContainer) allergyContainer.classList.remove("has-error");
+
+  const candyPrefLabel = selectedAllergyRadio.value === "no_snickers_reeses"
+    ? "No Snickers/Reese's"
+    : "Include Snickers/Reese's";
+
+  const packageDetails = cart.map(line => {
+    const title = products[line.productId].title;
+    const opt = line.customOption ? ` [${line.customOption}]` : "";
+    const unitPrice = line.price !== undefined ? line.price : products[line.productId].price;
+    return `${title}${opt} (${money(unitPrice)}) x${line.quantity}`;
+  }).join(", ");
 
   const addonText = getSelectedAddons().map((addon) => {
     return addon.quantity > 1 ? `${addon.label} (Qty: ${addon.quantity})` : addon.label;
@@ -287,33 +480,75 @@ function fakeCheckout() {
     ? ` Roommate separate wrap request: "${roommateWrapInput.value.trim()}".`
     : "";
 
-  checkoutStatus.textContent = `Fake Shopify checkout ready. Add-ons: ${addonText}.${roommateText}`;
+  checkoutStatus.textContent = `Fake Shopify checkout ready. Packages: ${packageDetails}. Candy Pref: "${candyPrefLabel}". Add-ons: ${addonText}.${roommateText}`;
 }
+
+document.querySelectorAll('input[name="allergy_preference"]').forEach((radio) => {
+  radio.addEventListener("change", () => {
+    const allergyContainer = document.querySelector("#allergyPreferenceContainer");
+    const allergyErrorMsg = document.querySelector("#allergyErrorMsg");
+    if (allergyErrorMsg) allergyErrorMsg.style.display = "none";
+    if (allergyContainer) allergyContainer.classList.remove("has-error");
+  });
+});
 
 
 
 document.querySelectorAll(".add-product").forEach((button) => {
-  button.addEventListener("click", () => addToCart(button.dataset.productId));
-});
-
-document.querySelectorAll(".see-details").forEach((button) => {
   button.addEventListener("click", () => {
     const productId = button.dataset.productId;
-    const product = products[productId];
-    if (product && product.contents) {
-      openPackageModal(productId);
+    if (productId === "snack") {
+      openSnackChoiceModal();
+    } else if (productId === "seasonal") {
+      openSeasonalChoiceModal();
+    } else if (productId === "homesick") {
+      openHomesickModal();
+    } else if (productId === "sick") {
+      openWarmHugModal();
     } else {
-      const target = document.querySelector("#inside");
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
-      }
+      addToCart(productId);
     }
   });
+});
+
+document.querySelectorAll(".snack-sub-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const subId = btn.dataset.subId;
+    openPackageModal(subId);
+  });
+});
+
+document.querySelectorAll(".seasonal-sub-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const subId = btn.dataset.subId;
+    openPackageModal(subId);
+  });
+});
+
+document.addEventListener("click", (event) => {
+  const button = event.target.closest(".see-details");
+  if (button) {
+    const productId = button.dataset.productId;
+    if (productId && products[productId]) {
+      openPackageModal(productId);
+    }
+  }
 });
 
 document.querySelectorAll(".addon-select").forEach((select) => {
   select.addEventListener("change", renderCart);
 });
+
+const addAddonsToCartBtn = document.querySelector("#addAddonsToCartBtn");
+if (addAddonsToCartBtn) {
+  addAddonsToCartBtn.addEventListener("click", () => {
+    renderCart();
+    const cartSection = document.querySelector("#cart");
+    if (cartSection) {
+      cartSection.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+}
 
 document.querySelectorAll(".addon-details-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -323,9 +558,9 @@ document.querySelectorAll(".addon-details-btn").forEach((btn) => {
 });
 
 cartItems.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-quantity]");
+  const button = event.target.closest("[data-cart-index]");
   if (!button) return;
-  changeQuantity(button.dataset.quantity, Number(button.dataset.delta));
+  changeQuantity(Number(button.dataset.cartIndex), Number(button.dataset.delta));
 });
 
 checkoutButton.addEventListener("click", fakeCheckout);
@@ -342,19 +577,8 @@ function renderSlider() {
   });
 
   sliderTrack.innerHTML = uniquePackages.map((pkg) => {
-    let tagText = "Coming in September";
-    let tagClass = "card-moment-tag coming-soon-tag";
-    const isClickable = pkg.title === "Welcome Week Starter";
-    if (isClickable) {
-      tagText = "Pre-Order Now";
-      tagClass = "card-moment-tag";
-    } else if (pkg.title === "Seasonal Celebrations") {
-      tagText = "Seasonal";
-      tagClass = "card-moment-tag seasonal-tag";
-    }
     return `
       <article class="lineup-card" data-key="${pkg.key}">
-        <span class="${tagClass}">${tagText}</span>
         <h3>${pkg.title}</h3>
         <p>${pkg.copy}</p>
       </article>
@@ -448,9 +672,12 @@ function openPackageModal(productId) {
   if (modalTitle) modalTitle.textContent = product.title;
 
   if (modalBody) {
+    const detailsHeader = product.contents ? "<h4>What's Inside:</h4>" : "";
     const contentsHTML = product.contents
-      ? `<ul class="package-contents-list">${product.contents.map((item) => `<li>${item}</li>`).join("")}</ul>`
-      : `<p>${product.copy}</p>`;
+      ? `<ul class="package-contents-list">${product.contents.map((item) => (item.endsWith(":") || item.includes("packs each of")) ? `<li class="no-check"><strong>${item}</strong></li>` : `<li>${item}</li>`).join("")}</ul>`
+      : (product.copy === "Coming Soon!"
+          ? `<p class="coming-soon-text" style="font-size: 1.35rem; font-weight: 700; color: var(--navy-dark); text-align: center; margin: 32px 0;">${product.copy}</p>`
+          : `<p class="addon-info-text" style="font-size: 1.05rem; font-weight: 500; color: var(--navy-dark); text-align: left; line-height: 1.65; margin: 16px 0;">${product.copy}</p>`);
 
     const imageHTML = product.image
       ? `<div class="modal-image-container"><img class="modal-package-image" src="${product.image}" alt="${product.title}"></div>`
@@ -459,7 +686,7 @@ function openPackageModal(productId) {
     modalBody.innerHTML = `
       ${imageHTML}
       <div class="modal-package-details">
-        <h4>What's Inside:</h4>
+        ${detailsHeader}
         ${contentsHTML}
       </div>
     `;
@@ -471,6 +698,272 @@ function openPackageModal(productId) {
   packageModal.classList.add("active");
   packageModal.setAttribute("aria-hidden", "false");
   if (closePackageModal) closePackageModal.focus();
+}
+
+function openSnackChoiceModal() {
+  const modalTitle = document.querySelector("#packageModalTitle");
+  const modalBody = document.querySelector("#packageModalBody");
+  if (!modalTitle || !modalBody || !packageModal) return;
+
+  modalTitle.textContent = "Choose Snack Attack Option";
+  modalBody.innerHTML = `
+    <div class="snack-choice-form-container">
+      <p class="snack-choice-intro">Please select which Snack Attack box you would like to add to your cart:</p>
+      <form id="snackChoiceForm" class="snack-choice-form">
+        <label class="choice-label">
+          <input type="radio" name="snack_flavor" value="snack_cheese">
+          <span class="choice-text">Cheese Lovers <strong>$35</strong></span>
+        </label>
+        <label class="choice-label">
+          <input type="radio" name="snack_flavor" value="snack_chocolate">
+          <span class="choice-text">Chocolate Lovers <strong>$45</strong></span>
+        </label>
+        <label class="choice-label">
+          <input type="radio" name="snack_flavor" value="snack_protein">
+          <span class="choice-text">Protein Fiend <strong>$60</strong></span>
+        </label>
+      </form>
+      <div id="snackChoiceError" class="snack-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-top: 10px;">Please select one option before adding to cart.</div>
+      <button type="button" id="confirmSnackAddBtn" class="confirm-snack-add-btn">Add to Cart</button>
+    </div>
+  `;
+
+  // Show modal
+  packageModal.classList.add("active");
+  packageModal.setAttribute("aria-hidden", "false");
+  if (closePackageModal) closePackageModal.focus();
+
+  // Event listener for the confirm button
+  const confirmBtn = document.querySelector("#confirmSnackAddBtn");
+  confirmBtn.addEventListener("click", () => {
+    const selectedRadio = document.querySelector('input[name="snack_flavor"]:checked');
+    if (!selectedRadio) {
+      const errorDiv = document.querySelector("#snackChoiceError");
+      if (errorDiv) errorDiv.style.display = "block";
+      return;
+    }
+    const chosenFlavor = selectedRadio.value;
+    addToCart(chosenFlavor);
+    closePackageModalFunc();
+  });
+}
+
+function openSeasonalChoiceModal() {
+  const modalTitle = document.querySelector("#packageModalTitle");
+  const modalBody = document.querySelector("#packageModalBody");
+  if (!modalTitle || !modalBody || !packageModal) return;
+
+  modalTitle.textContent = "Choose Seasonal Celebrations Option";
+  modalBody.innerHTML = `
+    <div class="seasonal-choice-form-container">
+      <p class="seasonal-choice-intro">Please select which Seasonal Celebrations box you would like to add to your cart:</p>
+      <form id="seasonalChoiceForm" class="seasonal-choice-form">
+        <label class="choice-label">
+          <input type="radio" name="seasonal_flavor" value="seasonal_birthday">
+          <span class="choice-text">Birthday Box <strong>$60</strong></span>
+        </label>
+        <label class="choice-label">
+          <input type="radio" name="seasonal_flavor" value="seasonal_fall">
+          <span class="choice-text">Anything But Basic Fall Box <strong>$60</strong></span>
+        </label>
+        <label class="choice-label">
+          <input type="radio" name="seasonal_flavor" value="seasonal_halloween">
+          <span class="choice-text">Halloween Box <strong>$45</strong></span>
+        </label>
+      </form>
+      <div id="seasonalChoiceError" class="seasonal-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-top: 10px;">Please select one option before adding to cart.</div>
+      <button type="button" id="confirmSeasonalAddBtn" class="confirm-seasonal-add-btn">Add to Cart</button>
+    </div>
+  `;
+
+  // Show modal
+  packageModal.classList.add("active");
+  packageModal.setAttribute("aria-hidden", "false");
+  if (closePackageModal) closePackageModal.focus();
+
+  // Event listener for the confirm button
+  const confirmBtn = document.querySelector("#confirmSeasonalAddBtn");
+  confirmBtn.addEventListener("click", () => {
+    const selectedRadio = document.querySelector('input[name="seasonal_flavor"]:checked');
+    if (!selectedRadio) {
+      const errorDiv = document.querySelector("#seasonalChoiceError");
+      if (errorDiv) errorDiv.style.display = "block";
+      return;
+    }
+    const chosenFlavor = selectedRadio.value;
+    addToCart(chosenFlavor);
+    closePackageModalFunc();
+  });
+}
+
+const usStatesAndTerritories = [
+  "Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California",
+  "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia",
+  "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+  "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+  "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+  "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
+  "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+  "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+  "Texas", "U.S. Virgin Islands", "Utah", "Vermont", "Virginia", "Washington",
+  "West Virginia", "Wisconsin", "Wyoming"
+];
+
+const warmiesOptions = [
+  { id: "bear", name: 'Brown Curly Bear Warmies 13"', extra: 10, label: 'Brown Curly Bear Warmies 13" <strong>(+$10)</strong>' },
+  { id: "dog", name: 'Golden Dog Warmies Junior 9"', extra: 0, label: 'Golden Dog Warmies Junior 9" <strong>(Included in Package Price)</strong>' },
+  { id: "hamster", name: 'Hamster Warmies Junior 9"', extra: 0, label: 'Hamster Warmies Junior 9" <strong>(Included in Package Price)</strong>' },
+  { id: "sloth", name: 'Sloth Warmies Junior 9"', extra: 0, label: 'Sloth Warmies Junior 9" <strong>(Included in Package Price)</strong>' }
+];
+
+function openHomesickModal() {
+  const modalTitle = document.querySelector("#packageModalTitle");
+  const modalBody = document.querySelector("#packageModalBody");
+  if (!modalTitle || !modalBody || !packageModal) return;
+
+  modalTitle.textContent = "Customize Homesick Helper";
+
+  const stateOptionsHTML = usStatesAndTerritories
+    .map((state) => `<option value="${state}">${state}</option>`)
+    .join("");
+
+  const warmiesRadioHTML = warmiesOptions
+    .map(
+      (opt) => `
+      <label class="choice-label warmies-choice-card" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 2px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 10px; cursor: pointer; background: #ffffff; transition: all 0.2s ease;">
+        <input type="radio" name="homesick_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 20px; height: 20px; flex-shrink: 0;">
+        <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark); flex-grow: 1;">${opt.label}</span>
+      </label>
+    `
+    )
+    .join("");
+
+  modalBody.innerHTML = `
+    <div class="homesick-customization-container" style="padding: 10px 0;">
+      <div class="state-select-wrapper" style="margin-bottom: 22px;">
+        <label for="homesickStateSelect" style="display: block; font-weight: 700; color: var(--navy-dark); margin-bottom: 8px;">
+          1. Home State / Territory for Magnet (Required):
+        </label>
+        <select id="homesickStateSelect" class="state-dropdown" style="width: 100%; padding: 12px 14px; font-size: 1rem; border: 2px solid var(--navy); border-radius: var(--radius-sm); background-color: #ffffff; color: var(--navy-dark); font-weight: 600;">
+          <option value="" disabled selected>-- Select State or Territory --</option>
+          ${stateOptionsHTML}
+        </select>
+      </div>
+
+      <div class="warmies-select-wrapper" style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 700; color: var(--navy-dark); margin-bottom: 8px;">
+          2. Choose Your Warmies Plush (Required - Select One):
+        </label>
+        ${warmiesRadioHTML}
+      </div>
+
+      <div id="homesickCustomError" class="state-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-bottom: 16px; font-size: 0.9rem;">
+        Please complete both required choices above before adding to cart.
+      </div>
+      <button type="button" id="confirmHomesickBtn" class="confirm-snack-add-btn" style="width: 100%;">
+        Add Homesick Helper to Cart
+      </button>
+    </div>
+  `;
+
+  // Show modal
+  packageModal.classList.add("active");
+  packageModal.setAttribute("aria-hidden", "false");
+  if (closePackageModal) closePackageModal.focus();
+
+  // Event listener for confirm button
+  const confirmBtn = document.querySelector("#confirmHomesickBtn");
+  const stateSelect = document.querySelector("#homesickStateSelect");
+  const errorDiv = document.querySelector("#homesickCustomError");
+
+  confirmBtn.addEventListener("click", () => {
+    const chosenState = stateSelect ? stateSelect.value : "";
+    const selectedWarmiesRadio = document.querySelector('input[name="homesick_warmies"]:checked');
+
+    if (!chosenState || !selectedWarmiesRadio) {
+      if (errorDiv) {
+        errorDiv.textContent = !chosenState && !selectedWarmiesRadio
+          ? "Please select both a state and a Warmies plush before adding to cart."
+          : (!chosenState ? "Please select a state or territory." : "Please choose a Warmies plush option.");
+        errorDiv.style.display = "block";
+      }
+      return;
+    }
+
+    const warmiesObj = warmiesOptions.find(opt => opt.id === selectedWarmiesRadio.value);
+    const warmiesName = warmiesObj ? warmiesObj.name : "";
+    const extraPrice = warmiesObj ? warmiesObj.extra : 0;
+    const basePrice = products["homesick"].price; // 62
+    const totalPrice = basePrice + extraPrice;
+
+    addToCart("homesick", `State: ${chosenState} | Warmies: ${warmiesName}`, totalPrice);
+    closePackageModalFunc();
+  });
+}
+
+function openWarmHugModal() {
+  const modalTitle = document.querySelector("#packageModalTitle");
+  const modalBody = document.querySelector("#packageModalBody");
+  if (!modalTitle || !modalBody || !packageModal) return;
+
+  modalTitle.textContent = "Choose Warmies for Warm Hug from Home";
+
+  const warmiesRadioHTML = warmiesOptions
+    .map(
+      (opt) => `
+      <label class="choice-label warmies-choice-card" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 2px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 10px; cursor: pointer; background: #ffffff; transition: all 0.2s ease;">
+        <input type="radio" name="warmhug_warmies" value="${opt.id}" style="accent-color: var(--navy); width: 20px; height: 20px; flex-shrink: 0;">
+        <span class="choice-text" style="font-size: 0.95rem; font-weight: 600; color: var(--navy-dark); flex-grow: 1;">${opt.label}</span>
+      </label>
+    `
+    )
+    .join("");
+
+  modalBody.innerHTML = `
+    <div class="warmhug-customization-container" style="padding: 10px 0;">
+      <p class="warmhug-choice-intro" style="font-size: 1.05rem; line-height: 1.6; color: var(--navy-dark); margin-bottom: 18px; font-weight: 500;">
+        Warm Hug from Home includes a soothing microwavable Warmies plush. Please select your plush choice below (Required - Select One):
+      </p>
+
+      <div class="warmies-select-wrapper" style="margin-bottom: 20px;">
+        ${warmiesRadioHTML}
+      </div>
+
+      <div id="warmhugCustomError" class="state-choice-error" style="display: none; color: var(--pink); font-weight: 700; margin-bottom: 16px; font-size: 0.9rem;">
+        Please select a Warmies plush option before adding to cart.
+      </div>
+      <button type="button" id="confirmWarmHugBtn" class="confirm-snack-add-btn" style="width: 100%;">
+        Add Warm Hug from Home to Cart
+      </button>
+    </div>
+  `;
+
+  // Show modal
+  packageModal.classList.add("active");
+  packageModal.setAttribute("aria-hidden", "false");
+  if (closePackageModal) closePackageModal.focus();
+
+  // Event listener for confirm button
+  const confirmBtn = document.querySelector("#confirmWarmHugBtn");
+  const errorDiv = document.querySelector("#warmhugCustomError");
+
+  confirmBtn.addEventListener("click", () => {
+    const selectedWarmiesRadio = document.querySelector('input[name="warmhug_warmies"]:checked');
+
+    if (!selectedWarmiesRadio) {
+      if (errorDiv) errorDiv.style.display = "block";
+      return;
+    }
+
+    const warmiesObj = warmiesOptions.find(opt => opt.id === selectedWarmiesRadio.value);
+    const warmiesName = warmiesObj ? warmiesObj.name : "";
+    const extraPrice = warmiesObj ? warmiesObj.extra : 0;
+    const basePrice = products["sick"].price; // 62
+    const totalPrice = basePrice + extraPrice;
+
+    addToCart("sick", `Warmies: ${warmiesName}`, totalPrice);
+    closePackageModalFunc();
+  });
 }
 
 function closePackageModalFunc() {

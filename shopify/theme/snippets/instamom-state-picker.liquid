@@ -1,0 +1,75 @@
+{% comment %}
+  InstaMom University — required "home state / territory" picker.
+
+  Renders for products tagged `needs-state` (the Homesick Helper, whose box
+  includes a home-state building-brick magnet). Captured as the line-item
+  property "Home State" so it rides through to the order for packers.
+
+  Must be rendered INSIDE the product <form> (see snippets/buy-buttons.liquid),
+  so the selection submits with the add-to-cart. Dawn's form is `novalidate`,
+  so the inline script enforces the required selection before add / dynamic
+  checkout.
+
+  Styling: .instamom-state-picker* in assets/instamom.css
+{% endcomment %}
+
+{%- if product.tags contains 'needs-state' -%}
+  {%- assign states = 'Alabama,Alaska,Arizona,Arkansas,California,Colorado,Connecticut,Delaware,Florida,Georgia,Hawaii,Idaho,Illinois,Indiana,Iowa,Kansas,Kentucky,Louisiana,Maine,Maryland,Massachusetts,Michigan,Minnesota,Mississippi,Missouri,Montana,Nebraska,Nevada,New Hampshire,New Jersey,New Mexico,New York,North Carolina,North Dakota,Ohio,Oklahoma,Oregon,Pennsylvania,Rhode Island,South Carolina,South Dakota,Tennessee,Texas,Utah,Vermont,Virginia,Washington,West Virginia,Wisconsin,Wyoming,District of Columbia,Puerto Rico,Guam,U.S. Virgin Islands,American Samoa,Northern Mariana Islands' | split: ',' -%}
+  <div class="instamom-state-picker product-form__input" data-state-picker>
+    <label class="form__label" for="HomeState-{{ product.id }}">
+      Home state or territory for your magnet <span class="instamom-state-picker__req">(required)</span>
+    </label>
+    <div class="select">
+      <select
+        id="HomeState-{{ product.id }}"
+        class="select__select instamom-state-select"
+        name="properties[Home State]"
+        required
+      >
+        <option value="" disabled selected>Select a state or territory…</option>
+        {%- for state in states -%}
+          <option value="{{ state | escape }}">{{ state }}</option>
+        {%- endfor -%}
+      </select>
+      <span class="svg-wrapper">
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </span>
+    </div>
+    <p class="instamom-state-picker__error" data-state-error hidden>
+      Please choose your home state or territory.
+    </p>
+  </div>
+  <script>
+    (function () {
+      var picker = document.currentScript.previousElementSibling;
+      if (!picker || !picker.hasAttribute('data-state-picker')) return;
+      var select = picker.querySelector('.instamom-state-select');
+      var err = picker.querySelector('[data-state-error]');
+      var form = select.form || select.closest('form');
+      if (!form) return;
+      function missing() { return !select.value; }
+      function flag() {
+        if (err) err.hidden = false;
+        select.classList.add('instamom-state-select--error');
+        picker.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        select.focus();
+      }
+      // Block the AJAX add (form submit) …
+      form.addEventListener('submit', function (e) {
+        if (missing()) { e.preventDefault(); e.stopImmediatePropagation(); flag(); }
+      }, true);
+      // … and the dynamic-checkout button (Shop Pay etc.), which bypasses submit.
+      form.addEventListener('click', function (e) {
+        if (e.target.closest('.shopify-payment-button') && missing()) {
+          e.preventDefault(); e.stopImmediatePropagation(); flag();
+        }
+      }, true);
+      select.addEventListener('change', function () {
+        if (!missing()) {
+          if (err) err.hidden = true;
+          select.classList.remove('instamom-state-select--error');
+        }
+      });
+    })();
+  </script>
+{%- endif -%}

@@ -56,6 +56,9 @@
           class="product-variant-id"
         >
 
+        {%- comment -%} InstaMom: required home-state picker for `needs-state` products. {%- endcomment -%}
+        {%- render 'instamom-state-picker', product: product -%}
+
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}

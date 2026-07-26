@@ -197,8 +197,8 @@
         }
       }
     },
-    "logo": "shopify://shop_images/instamom-logo-crest-transparent.png",
-    "favicon": "shopify://shop_images/instamom-logo-crest-transparent.png"
+    "logo": "shopify://shop_images/instamom-logo-crest.png",
+    "favicon": "shopify://shop_images/instamom-logo-crest.png"
   },
   "presets": {
     "Dawn": {

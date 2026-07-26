@@ -1,0 +1,88 @@
+{% comment %}
+  InstaMom University — dynamic add-ons listing for the homepage.
+
+  Replaces the Featured-collection section that presented add-ons as full
+  product cards (with their own quick-add), which framed them as standalone
+  products. Add-ons aren't bought on their own — they're chosen from the
+  post-cart modal — so this just *shows what's available*: a compact,
+  read-only lineup pulled live from the `add-ons` collection.
+
+  Every add-on is listed regardless of stock, so the roster is stable.
+{% endcomment %}
+
+{{ 'instamom.css' | asset_url | stylesheet_tag }}
+
+<div class="color-{{ section.settings.color_scheme }} instamom-addonlist-section">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="instamom-addonlist__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="instamom-addonlist__sub">{{ section.settings.subheading | escape }}</p>
+    {%- endif -%}
+
+    {%- assign addons = collections['add-ons'].products -%}
+    {%- if addons.size > 0 -%}
+      <ul class="instamom-addonlist" role="list">
+        {%- for addon in addons -%}
+          <li class="instamom-addonlist__item">
+            {%- if addon.featured_media -%}
+              <img
+                class="instamom-addonlist__image"
+                src="{{ addon.featured_media | image_url: width: 240 }}"
+                alt="{{ addon.featured_media.alt | escape }}"
+                loading="lazy"
+                width="120"
+                height="120"
+              >
+            {%- endif -%}
+            <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
+            <span class="instamom-addonlist__price">{{ addon.price | money }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if section.settings.note != blank -%}
+        <p class="instamom-addonlist__note">{{ section.settings.note | escape }}</p>
+      {%- endif -%}
+    {%- else -%}
+      <p>No add-ons found. Add products to the “add-ons” collection to list them here.</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "InstaMom Add-ons list",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Available add-ons"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Add any of these extras to a package when you check out."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Footnote",
+      "default": "Choose your extras from the pop-up after you add a package to your cart."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    { "name": "InstaMom Add-ons list" }
+  ]
+}
+{% endschema %}

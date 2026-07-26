@@ -1,0 +1,55 @@
+{
+  "_comment": "InstaMom University color schemes for Dawn. This mirrors the shape of the 'color_schemes' object inside Dawn's config/settings_data.json (Dawn 15.x). Two ways to use it: (1) set each swatch by hand in Theme editor -> Colors using the hex values below, or (2) if you're comfortable editing code, merge these entries into the color_schemes object in settings_data.json. Key names can shift between Dawn versions, so compare against your file before pasting.",
+
+  "scheme-1": {
+    "settings": {
+      "background": "#fff2ad",
+      "background_gradient": "",
+      "text": "#082b63",
+      "button": "#ed2f89",
+      "button_label": "#ffffff",
+      "secondary_button_label": "#062b66",
+      "shadow": "#062b66"
+    },
+    "_note": "Default page scheme: yellow 'paper' background, navy text, pink primary buttons."
+  },
+
+  "scheme-2": {
+    "settings": {
+      "background": "#062b66",
+      "background_gradient": "",
+      "text": "#ffffff",
+      "button": "#ffc928",
+      "button_label": "#062b66",
+      "secondary_button_label": "#ffc928",
+      "shadow": "#041d45"
+    },
+    "_note": "Navy band scheme: for the featured-collection / feature-row bands (gold buttons on navy)."
+  },
+
+  "scheme-3": {
+    "settings": {
+      "background": "#ffffff",
+      "background_gradient": "",
+      "text": "#082b63",
+      "button": "#ed2f89",
+      "button_label": "#ffffff",
+      "secondary_button_label": "#062b66",
+      "shadow": "#ffc928"
+    },
+    "_note": "Card / surface scheme: white background, gold shadow to echo the prototype's hard-shadow cards."
+  },
+
+  "scheme-4": {
+    "settings": {
+      "background": "#041d45",
+      "background_gradient": "",
+      "text": "#ffffff",
+      "button": "#ffc928",
+      "button_label": "#062b66",
+      "secondary_button_label": "#ffc928",
+      "shadow": "#041d45"
+    },
+    "_note": "Footer scheme: darkest navy."
+  }
+}

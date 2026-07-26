@@ -1,0 +1,1245 @@
+/* ============================================================================
+   InstaMom University — brand overlay for Shopify Dawn
+   Ported from the GitHub Pages prototype (../../styles.css).
+   Load this AFTER Dawn's own CSS by adding this line to layout/theme.liquid,
+   just before </head>:
+
+     {{ 'instamom.css' | asset_url | stylesheet_tag }}
+
+   Selectors below target Dawn's markup. Dawn changes class names occasionally,
+   so if something doesn't take, confirm the class in the theme's Edit-code view.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
+
+:root {
+  --imu-ink: #082b63;
+  --imu-muted: #2e3d52;
+  --imu-paper: #fff2ad;
+  --imu-surface: #ffffff;
+  --imu-line: #e8d38a;
+  --imu-navy: #062b66;
+  --imu-navy-dark: #041d45;
+  --imu-gold: #ffc928;
+  --imu-cream: #fff0b8;
+  --imu-pink: #ed2f89;
+  --imu-dots: radial-gradient(circle at 5px 5px, rgba(6, 43, 102, 0.2) 0 3px, transparent 3.2px);
+}
+
+/* --- Page background: the yellow "paper" with navy dots ------------------- */
+body {
+  background-color: var(--imu-paper);
+  background-image: var(--imu-dots);
+  background-size: 30px 30px;
+  color: var(--imu-ink);
+}
+
+/* Dawn wraps most content in these; keep them transparent so the dots show. */
+.shopify-section,
+main,
+#MainContent {
+  background: transparent;
+}
+
+/* Matching the prototype, the big dots live in the hero ONLY; every paper
+   section below it is solid paper (prototype `.section` sets a flat
+   background-color). Dawn already paints scheme-1 wrappers solid paper, so we
+   simply DON'T re-apply the dot pattern here. The hero keeps its dots via
+   .instamom-hero, and the header dims that same pattern (see .header-wrapper
+   below). */
+
+/* --- Typography ----------------------------------------------------------
+   The prototype uses Graduate for the hero "sticker" ONLY. Every other
+   heading is Inter (bold, mixed-case, navy), with Georgia on a couple of
+   serif accents (the modal titles, further down). Dawn renders every heading
+   from two custom properties (see base.css: `font-family:
+   var(--font-heading-family); font-weight: var(--font-heading-weight)`), so
+   pointing those at the body font (Inter) converts the whole theme in one
+   move. The hero and modal titles opt back out with their own font-family. */
+:root {
+  --font-heading-family: var(--font-body-family);
+  --font-heading-weight: var(--font-body-weight-bold);
+}
+
+h1, h2, h3,
+.h0, .h1, .h2,
+.section-heading,
+.title,
+.card__heading,
+.card__heading a {
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--imu-navy-dark);
+}
+
+/* The navy bands (scheme-2 / scheme-4) would swallow that hard-coded navy,
+   so let headings there follow the scheme's own foreground colour. */
+.color-scheme-2 :is(h1, h2, h3, .h0, .h1, .h2, .section-heading, .title, .card__heading),
+.color-scheme-4 :is(h1, h2, h3, .h0, .h1, .h2, .section-heading, .title, .card__heading) {
+  color: rgb(var(--color-foreground));
+}
+
+/* --- Buttons: primary pink, secondary gold ------------------------------- */
+.button,
+.button--primary,
+.shopify-payment-button__button--unbranded {
+  background: var(--imu-pink) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  font-weight: 900;
+  box-shadow: 0 10px 26px rgba(237, 47, 137, 0.26);
+  min-height: 48px;
+}
+
+.button:hover,
+.button--primary:hover {
+  filter: brightness(0.96);
+}
+
+.button--secondary {
+  background: var(--imu-gold) !important;
+  color: var(--imu-navy) !important;
+  box-shadow: none;
+}
+
+/* Focus ring in brand gold for buttons and links */
+.button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--imu-gold);
+  outline-offset: 3px;
+}
+
+/* Form fields take a pink focus border, matching the prototype's add-on
+   selects (styles.css `.addon-select:focus`). :focus (not just :focus-visible)
+   so the pink shows on click too, the way the prototype does. */
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+.field__input:focus,
+.field__input:focus-visible,
+.select__select:focus,
+.select__select:focus-visible {
+  outline: 2px solid var(--imu-pink);
+  outline-offset: 1px;
+  border-color: var(--imu-pink);
+}
+
+/* --- Product cards: navy border + the signature gold "hard shadow" --------
+   Dawn renders .card__content (title/price) as a SIBLING of .card, not a
+   child, so painting .card leaves the price strip transparent — the page
+   background shows through. Style the wrapper instead so media and content
+   sit on one surface, then neutralise the inner card's own chrome. */
+.card-wrapper,
+.collection-list__item .card-wrapper {
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  background: var(--imu-surface);
+  box-shadow: 8px 8px 0 var(--imu-gold);
+  overflow: hidden;
+}
+
+.card-wrapper .card,
+.card--standard,
+.collection-list__item .card {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* The wrapper owns the surface now, so inner blocks must not repaint it. */
+.card__content,
+.card__information {
+  background: transparent;
+}
+
+/* --- "What makes it InstaMom University?" value props --------------------
+   (sections/instamom-valueprops.liquid). Prototype #inside band: small-caps
+   eyebrow, big navy heading + lead on the left, three white pink-framed cards
+   on the right. rem stops use the prototype's ×1.6 for Dawn's 10px root. */
+.instamom-valueprops__inner {
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+  padding-block: clamp(40px, 6vw, 64px);
+}
+
+@media screen and (min-width: 990px) {
+  .instamom-valueprops__inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.instamom-valueprops__eyebrow {
+  margin: 0 0 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.25rem;
+  color: var(--imu-pink);
+}
+
+.instamom-valueprops__heading {
+  margin: 0 0 16px;
+  color: var(--imu-navy-dark);
+  font-size: clamp(2.88rem, 3.4vw, 4.48rem);
+  line-height: 1.1;
+}
+
+.instamom-valueprops__lead {
+  color: var(--imu-muted);
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.instamom-valueprops__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* The three white cards with a fine pink frame — "the exact bold not bold
+   words, because this is what explains us" (owner review, p.5). */
+.instamom-valueprops__card {
+  padding: 20px 24px;
+  background: var(--imu-surface);
+  border: 1.5px solid var(--imu-pink);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(6, 43, 102, 0.08);
+}
+
+.instamom-valueprops__card-title {
+  margin: 0 0 6px;
+  color: var(--imu-navy-dark);
+  font-size: 1.92rem;
+  line-height: 1.2;
+}
+
+.instamom-valueprops__card-text {
+  color: var(--imu-muted);
+  font-size: 1.5rem;
+  line-height: 1.55;
+}
+
+/* --- "Gives Back" band (sections/instamom-givesback.liquid) --------------
+   The diploma seal on the LEFT, the text block on the RIGHT (left-aligned):
+   "Supporting Our Community" kicker, title, scholarship paragraph — matching
+   the prototype's #gives-back (../../styles.css, owner review p.6). Stacks
+   centered on mobile. rem stops use the prototype's ×1.6 for Dawn's 10px root. */
+.instamom-givesback__inner {
+  padding-block: clamp(40px, 6vw, 64px);
+}
+
+.instamom-givesback__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.instamom-givesback__seal-side {
+  flex: 0 0 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instamom-givesback__seal {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(6, 43, 102, 0.14));
+  transition: transform 0.3s ease;
+}
+
+.instamom-givesback__seal:hover {
+  transform: scale(1.04);
+}
+
+.instamom-givesback__content {
+  flex: 1;
+  text-align: left;
+}
+
+.instamom-givesback__kicker {
+  margin: 0 0 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 1.25rem;
+  /* Darkened gold for contrast on the paper background (prototype commit). */
+  color: #8c5300;
+}
+
+.instamom-givesback__title {
+  margin: 0 0 16px;
+  color: var(--imu-navy-dark);
+  font-size: clamp(2.88rem, 3.2vw, 4.8rem);
+  line-height: 1.1;
+}
+
+.instamom-givesback__text {
+  margin: 0;
+  color: var(--imu-navy-dark);
+  font-size: 1.68rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .instamom-givesback__container {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .instamom-givesback__content {
+    text-align: center;
+  }
+
+  .instamom-givesback__seal-side {
+    flex: 0 0 auto;
+    width: 180px;
+  }
+}
+
+/* --- Multicolumn value-prop cards: same solid treatment as product cards --
+   (Superseded on the homepage by .instamom-valueprops; kept for any other
+   Multicolumn section a merchant adds.) */
+.multicolumn-card {
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  background: var(--imu-cream);
+  box-shadow: 8px 8px 0 var(--imu-gold);
+}
+
+.multicolumn-card__info {
+  background: transparent;
+}
+
+.card__inner {
+  border-radius: 6px;
+}
+
+/* Price in brand pink */
+.price,
+.price__regular .price-item,
+.card__information .price-item {
+  color: var(--imu-pink);
+  font-weight: 900;
+}
+
+/* --- Tag-driven status badges (see snippets/instamom-badge.liquid) -------- */
+.instamom-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 1.152rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 99px;
+  color: var(--imu-navy);
+  background: var(--imu-gold);
+}
+
+.instamom-badge--coming-soon {
+  color: #ffffff;
+  background: var(--imu-navy);
+}
+
+.instamom-badge--seasonal {
+  color: #ffffff;
+  background: #ffa726;
+}
+
+/* Coming-soon banner that replaces the buy button on preview-only package
+   cards (snippets/card-product.liquid; owner review p.3). */
+.instamom-comingsoon-banner {
+  margin-top: 10px;
+  padding: 12px 14px;
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--imu-navy);
+  border-radius: 8px;
+}
+
+/* --- Hero "sticker" banner (see sections/instamom-hero.liquid) ------------ */
+.instamom-hero {
+  position: relative;
+  min-height: 78vh;
+  display: grid;
+  align-items: center;
+  text-align: center;
+  background-color: var(--imu-paper);
+  background-image: radial-gradient(circle at 15px 15px, rgba(6, 43, 102, 0.9) 0 10px, transparent 10.5px);
+  background-size: 60px 60px;
+  overflow: hidden;
+}
+
+.instamom-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 80px;
+}
+
+.instamom-hero__crest {
+  width: clamp(160px, 24vw, 250px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin-block: 18px;
+  filter: drop-shadow(0 16px 26px rgba(0, 0, 0, 0.34));
+}
+
+.instamom-hero__banner {
+  display: inline-block;
+  background-color: var(--imu-navy);
+  padding: 18px clamp(40px, 8vw, 80px);
+  box-shadow: 0 14px 40px rgba(4, 29, 69, 0.4);
+  outline: 2px solid var(--imu-gold);
+  outline-offset: -6px;
+}
+
+.instamom-hero__title {
+  margin: 0;
+  font-family: 'Graduate', Georgia, serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  /* The prototype's clamp(1.8rem, 5.5vw, 4.2rem) assumes a 16px root; Dawn's
+     root is 10px (62.5%), so the rem stops are ×1.6 to hit the same 28.8px–
+     67.2px the prototype renders. The vw stop is root-independent. */
+  font-size: clamp(2.88rem, 5.5vw, 6.72rem);
+  line-height: 1;
+  color: var(--imu-gold);
+  text-shadow:
+    -2px -2px 0 var(--imu-navy-dark),
+    2px -2px 0 var(--imu-navy-dark),
+    -2px 2px 0 var(--imu-navy-dark),
+    2px 2px 0 var(--imu-navy-dark);
+}
+
+.instamom-hero__badge {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 12px 30px;
+  background-color: var(--imu-navy);
+  outline: 2px solid var(--imu-gold);
+  outline-offset: -6px;
+  box-shadow: 0 6px 16px rgba(4, 29, 69, 0.2);
+}
+
+.instamom-hero__badge span {
+  color: var(--imu-gold);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  /* ×1.6 for Dawn's 10px root, matching the prototype's 15.2px–21.6px. */
+  font-size: clamp(1.52rem, 2vw, 2.16rem);
+}
+
+/* --- "What's Inside" checklist (see snippets/instamom-whats-inside.liquid) - */
+.instamom-whats-inside h4 {
+  margin: 0 0 12px;
+  font-family: 'Graduate', Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--imu-navy-dark);
+  font-size: 1.84rem;
+}
+
+.instamom-contents {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.instamom-contents li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 1.52rem;
+  line-height: 1.65;
+  color: var(--imu-muted);
+}
+
+.instamom-contents li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  background: var(--imu-cream);
+  color: var(--imu-navy-dark);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 4px rgba(6, 43, 102, 0.08);
+}
+
+/* --- Utility: navy band with gold top rule (for Rich text / feature rows) - */
+.instamom-band {
+  color: #fff;
+  background: var(--imu-navy);
+  border-top: 8px solid var(--imu-gold);
+}
+.instamom-band h2,
+.instamom-band .h1,
+.instamom-band .h2 { color: #fff; }
+
+/* --- Footer in brand navy ------------------------------------------------- */
+.footer {
+  color: #fff;
+  background: var(--imu-navy-dark);
+  border-top: 8px solid var(--imu-gold);
+}
+.footer a { color: #fff; }
+
+/* --- Section anchors (see the anchor_id setting on rich-text) -------------
+   Offsets the jump target so a sticky header never covers the heading. */
+.instamom-anchor {
+  display: block;
+  height: 0;
+  scroll-margin-top: 120px;
+}
+
+/* --- Header nav: bolder links, matching the prototype ---------------------
+   Dawn leaves .header__menu-item at the body weight and fades it to 0.75
+   alpha, so the links read as body copy. The prototype's nav is
+   font-weight 700 at 0.9 opacity (see ../../styles.css `nav`), which is
+   what makes it stand out as navigation. */
+.header__menu-item,
+.menu-drawer__menu-item {
+  font-weight: 700;
+  color: rgba(var(--color-foreground), 0.9);
+  /* Match the prototype's nav: Inter 16px, no extra tracking. Dawn renders
+     it at 14px with ~0.6px letter-spacing. (1.6rem = 16px at Dawn's 10px
+     root.) */
+  font-size: 1.6rem;
+  letter-spacing: normal;
+}
+
+.header__menu-item:hover,
+.menu-drawer__menu-item:hover {
+  color: rgb(var(--color-foreground));
+}
+
+/* Cart count: navy pill with a gold number, like the prototype's nav badge
+   (styles.css `nav span`). */
+.cart-count-bubble {
+  background: var(--imu-navy);
+  color: var(--imu-gold);
+}
+
+.cart-count-bubble span {
+  color: var(--imu-gold);
+}
+
+/* --- Header dots: same big pattern as the hero, but dim ------------------
+   The prototype's fixed paper header lets the hero's large dots show through
+   faintly. Dawn paints the header on .header-wrapper.color-scheme-1, which
+   my .color-scheme-1 rule would otherwise give the small 30px body dots. */
+.header-wrapper.color-scheme-1 {
+  background-image: radial-gradient(circle at 15px 15px, rgba(6, 43, 102, 0.2) 0 10px, transparent 10.5px);
+  background-size: 60px 60px;
+}
+
+/* --- Header layout: brand (crest + wordmark) left, nav right -------------
+   The prototype header is brand on the left, nav on the right (styles.css
+   `.site-header`/`.brand`/`nav`). Dawn's middle-left grid packs the nav in
+   next to the logo; push it to the right of the free column instead. */
+@media screen and (min-width: 990px) {
+  .header.header--middle-left {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .header.header--middle-left .header__inline-menu {
+    justify-self: end;
+  }
+}
+
+/* Crest + shop-name wordmark sit side by side (Dawn renders only one). */
+.header__heading-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.instamom-wordmark {
+  margin: 0;
+  font-family: var(--font-body-family);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  /* ~18px — a touch over the prototype's 16px to balance Dawn's larger crest. */
+  font-size: 1.8rem;
+  line-height: 1.05;
+  white-space: nowrap;
+  color: var(--imu-navy-dark);
+}
+
+/* Keep the crest compact next to the wordmark, like the prototype's brand. */
+.header__heading-logo {
+  max-height: 56px;
+  width: auto;
+}
+
+/* --- Package card "+" preview button -------------------------------------
+   Small navy circle with a gold +, bottom-right of the card image.
+
+   Stacking: the button lives in .card__inner, but Dawn's card-wide overlay
+   link (.card__heading a::after, z-index 1) lives in .card__content — a
+   LATER sibling — so it paints above the whole media box and swallows both
+   the click and the hover. Lifting .card__inner above it fixes that, and
+   pointer-events: none keeps the image itself click-through to the product,
+   with the button re-enabling events for itself. */
+.card__inner {
+  z-index: 2;
+  pointer-events: none;
+}
+
+.card__inner a,
+.card__inner button {
+  pointer-events: auto;
+}
+
+.instamom-preview {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 3;
+  line-height: 0;
+  pointer-events: auto;
+}
+
+.instamom-preview__button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 2px solid var(--imu-gold);
+  border-radius: 50%;
+  background: var(--imu-navy);
+  color: var(--imu-gold);
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(4, 29, 69, 0.35);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.instamom-preview__button:hover,
+.instamom-preview__button:focus-visible {
+  background: var(--imu-gold);
+  color: var(--imu-navy);
+  transform: scale(1.12);
+}
+
+.instamom-preview__plus {
+  font-size: 2.56rem;
+  font-weight: 700;
+  line-height: 1;
+  /* nudge the glyph onto the circle's optical centre */
+  margin-top: -3px;
+}
+
+/* --- Package card actions: stacked full-width pill buttons ----------------
+   Gold "Explore package" (opens the preview popup) above the pink "Add to
+   cart", matching the prototype's .card-actions (owner: full width, pill).
+   position/z-index lifts them above Dawn's card-wide overlay link so both are
+   clickable (that link, .card__heading a::after, would otherwise swallow taps). */
+.instamom-card-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+  width: 100%;
+}
+
+.instamom-card-actions__explore {
+  display: block;
+  width: 100%;
+}
+
+/* Full-width, pill-shaped (owner: "full width … pill-shaped"). The global
+   .button radius is 8px !important, so the override needs !important too. */
+.instamom-card-actions .button,
+.instamom-card-actions .quick-add,
+.instamom-card-actions .quick-add__submit {
+  width: 100%;
+  border-radius: 999px !important;
+}
+
+.instamom-explore-btn {
+  min-height: 48px;
+}
+
+/* "Add to cart" must read PINK (owner: "Add to Cart… in the pink box"). Dawn
+   hard-codes the quick-add as .button--secondary (gold) — repaint the ENABLED
+   one pink so "Explore package" (gold) stays the secondary action above it.
+   Sold-out (disabled) buttons stay muted rather than looking clickable. */
+.instamom-card-actions .quick-add__submit:not([disabled]) {
+  background: var(--imu-pink) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 26px rgba(237, 47, 137, 0.26);
+}
+
+/* The Coming Soon banner takes the buy button's place — same pill shape. */
+.instamom-card-actions .instamom-comingsoon-banner {
+  margin-top: 0;
+  border-radius: 999px;
+}
+
+/* --- Preview modal --------------------------------------------------------
+   Uses Dawn's <modal-dialog>, which only toggles the [open] attribute, so
+   the show/hide styling is ours. */
+.instamom-modal {
+  display: none;
+}
+
+.instamom-modal[open] {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(4, 29, 69, 0.55);
+}
+
+.instamom-modal__content {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  border: 2px solid var(--imu-navy);
+  border-radius: 10px;
+  background: var(--imu-surface);
+  box-shadow: 10px 10px 0 var(--imu-gold);
+}
+
+.instamom-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--imu-navy);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.instamom-modal__close .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.instamom-modal__image {
+  display: block;
+  width: 100%;
+  /* cap it — at full height the photo pushed the price, description and
+     What's Inside list below the fold of the modal */
+  max-height: 240px;
+  object-fit: cover;
+}
+
+.instamom-modal__body {
+  padding: 20px 24px 24px;
+}
+
+.instamom-modal__title {
+  margin: 0 0 6px;
+  /* Georgia serif — the prototype's package-detail modal title (styles.css
+     `.modal-content h3`). Graduate is reserved for the hero. */
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-modal__price {
+  margin: 0 0 14px;
+  color: var(--imu-pink);
+  font-weight: 900;
+  font-size: 1.84rem;
+}
+
+.instamom-modal__description {
+  margin-bottom: 18px;
+}
+
+/* Preview popup actions: "Add to cart" (pink primary) over "View full details"
+   (gold secondary). Owner review p.3 — add to cart in the popup too. */
+.instamom-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.instamom-modal__actions .form,
+.instamom-modal__actions product-form {
+  display: block;
+  width: 100%;
+}
+
+.instamom-modal__soon {
+  margin: 0;
+  padding: 12px 16px;
+  text-align: center;
+  font-weight: 800;
+  color: var(--imu-navy);
+  background: var(--imu-cream);
+  border: 1.5px dashed var(--imu-gold);
+  border-radius: 8px;
+}
+
+/* --- Add-ons modal --------------------------------------------------------
+   Offered after a package is added to the cart, and reachable again from the
+   "+ Add-ons" button on a package's cart line. Uses Dawn's <modal-dialog>,
+   which only toggles [open], so the show/hide styling is ours. */
+.instamom-addons {
+  display: none;
+}
+
+.instamom-addons[open] {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(4, 29, 69, 0.55);
+}
+
+.instamom-addons__content {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 28px 24px 24px;
+  border: 2px solid var(--imu-navy);
+  border-radius: 10px;
+  background: var(--imu-surface);
+  box-shadow: 10px 10px 0 var(--imu-gold);
+}
+
+.instamom-addons__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--imu-navy);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* Modal closes turn pink on hover (prototype: styles.css `.close-modal:hover`). */
+.instamom-modal__close:hover,
+.instamom-addons__close:hover {
+  background: var(--imu-pink);
+}
+
+/* Premium pink scrollbar thumb inside the scrollable modals, matching the
+   prototype's `.modal-scrollable-body` treatment. */
+.instamom-modal__content::-webkit-scrollbar,
+.instamom-addons__content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.instamom-modal__content::-webkit-scrollbar-thumb,
+.instamom-addons__content::-webkit-scrollbar-thumb {
+  background: var(--imu-navy);
+  border-radius: 3px;
+}
+
+.instamom-modal__content::-webkit-scrollbar-thumb:hover,
+.instamom-addons__content::-webkit-scrollbar-thumb:hover {
+  background: var(--imu-pink);
+}
+
+.instamom-addons__title {
+  margin: 0 0 6px;
+  /* Georgia serif, matching the sibling preview modal's title. */
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-addons__intro {
+  margin: 0 0 20px;
+}
+
+.instamom-addons__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 0;
+  margin: 0 0 22px;
+  list-style: none;
+}
+
+.instamom-addons__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  background: var(--imu-cream);
+  text-align: center;
+}
+
+.instamom-addons__image {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.instamom-addons__name {
+  font-weight: 700;
+  font-size: 1.472rem;
+  line-height: 1.25;
+}
+
+.instamom-addons__price {
+  color: var(--imu-pink);
+  font-weight: 900;
+}
+
+/* push the button to the bottom so uneven titles still line up */
+.instamom-addons__add {
+  margin-top: auto;
+  min-height: 40px;
+  font-size: 1.36rem;
+}
+
+.instamom-addons__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.instamom-addons__cart-link {
+  font-weight: 700;
+}
+
+/* "+ Add-ons" on a cart line */
+.instamom-addons-trigger {
+  margin-top: 6px;
+  padding: 4px 10px;
+  border: 2px solid var(--imu-navy);
+  border-radius: 99px;
+  background: var(--imu-gold);
+  color: var(--imu-navy);
+  font-weight: 700;
+  font-size: 1.28rem;
+  cursor: pointer;
+}
+
+.instamom-addons-trigger:hover {
+  background: var(--imu-navy);
+  color: var(--imu-gold);
+}
+
+/* --- Homepage add-ons listing (sections/instamom-addons-list.liquid) ------ */
+.instamom-addonlist-section {
+  padding: 44px 0 40px;
+}
+
+.instamom-addonlist__heading {
+  margin: 0 0 6px;
+  /* Inter (inherited) — a homepage section heading, like the prototype's
+     add-ons live under an Inter heading, not Graduate. */
+  color: var(--imu-navy-dark);
+}
+
+.instamom-addonlist__sub {
+  margin: 0 0 24px;
+}
+
+.instamom-addonlist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.instamom-addonlist__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px;
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  background: var(--imu-surface);
+  box-shadow: 6px 6px 0 var(--imu-gold);
+  text-align: center;
+}
+
+.instamom-addonlist__image {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.instamom-addonlist__name {
+  font-weight: 700;
+  font-size: 1.472rem;
+  line-height: 1.25;
+}
+
+.instamom-addonlist__price {
+  color: var(--imu-pink);
+  font-weight: 900;
+}
+
+.instamom-addonlist__note {
+  margin: 22px 0 0;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+/* --- "Current lineup" slider (sections/instamom-lineup.liquid) ------------
+   Navy band with a horizontal, scroll-snapping row of package cards, matching
+   the prototype's intro-band (../../styles.css). rem stops are the prototype's
+   ×1.6 for Dawn's 10px root. */
+.instamom-lineup {
+  color: #fff;
+  background: var(--imu-navy);
+  border-top: 8px solid var(--imu-gold);
+}
+
+.instamom-lineup__inner {
+  padding-block: clamp(40px, 6vw, 64px);
+}
+
+.instamom-lineup__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.instamom-lineup__kicker {
+  margin: 0 0 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.25rem;
+  color: var(--imu-gold);
+}
+
+.instamom-lineup__heading {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.88rem, 3.5vw, 4.8rem);
+  line-height: 1.1;
+}
+
+/* Prev/next carousel controls (prototype .slider-controls / .slider-arrow) */
+.instamom-lineup__controls {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.instamom-lineup__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.instamom-lineup__arrow:hover {
+  background: var(--imu-gold);
+  color: var(--imu-navy);
+  border-color: var(--imu-gold);
+}
+
+.instamom-lineup__arrow[disabled] {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.instamom-lineup__arrow[disabled]:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.instamom-lineup__track {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 4px 4px 12px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.instamom-lineup__track::-webkit-scrollbar {
+  display: none;
+}
+
+.instamom-lineup__card {
+  flex: 0 0 clamp(280px, 80vw, 350px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px;
+  /* Owner ask (review p.2): "fine yellow line around each box." */
+  border: 1px solid var(--imu-gold);
+  border-radius: 12px;
+  background: rgba(8, 43, 99, 0.85);
+  scroll-snap-align: start;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.instamom-lineup__card:hover,
+.instamom-lineup__card:focus-within {
+  transform: translateY(-4px);
+  background: var(--imu-surface);
+  border-color: var(--imu-gold);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
+}
+
+.instamom-lineup__title {
+  margin: 0;
+  /* Georgia serif — the prototype's lineup card titles (.lineup-card h3). */
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.16rem;
+  color: #fff;
+}
+
+.instamom-lineup__copy {
+  margin: 0;
+  font-size: 1.52rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* On hover the card flips to white, so its text goes navy for contrast. */
+.instamom-lineup__card:hover .instamom-lineup__title,
+.instamom-lineup__card:focus-within .instamom-lineup__title {
+  color: var(--imu-navy-dark);
+}
+
+.instamom-lineup__card:hover .instamom-lineup__copy,
+.instamom-lineup__card:focus-within .instamom-lineup__copy {
+  color: var(--imu-muted);
+}
+
+.instamom-lineup__link {
+  margin-top: auto;
+  font-weight: 800;
+  color: var(--imu-gold);
+}
+
+.instamom-lineup__card:hover .instamom-lineup__link,
+.instamom-lineup__card:focus-within .instamom-lineup__link {
+  color: var(--imu-pink);
+}
+
+.instamom-lineup__empty {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* --- Candy preference (required) on the cart page ------------------------
+   sections/main-cart-footer.liquid. A pink-framed box matching the
+   prototype's checkout consent (owner review p.9, "vital"). */
+.instamom-candy {
+  margin: 0 0 20px;
+  padding: 14px 20px 18px;
+  border: 1.5px solid var(--imu-pink);
+  border-radius: 10px;
+  background: var(--imu-surface);
+}
+
+.instamom-candy__legend {
+  padding: 0 6px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1.4rem;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-candy__req {
+  color: var(--imu-pink);
+}
+
+.instamom-candy__option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 12px;
+  font-size: 1.5rem;
+  line-height: 1.45;
+  color: var(--imu-muted);
+  cursor: pointer;
+}
+
+.instamom-candy__option input {
+  flex: 0 0 auto;
+  margin-top: 4px;
+  accent-color: var(--imu-pink);
+}
+
+.instamom-candy__error {
+  margin: 12px 0 0;
+  font-weight: 700;
+  color: #c81a63;
+}
+
+.instamom-candy--error {
+  border-color: #c81a63;
+  box-shadow: 0 0 0 3px rgba(237, 47, 137, 0.18);
+}

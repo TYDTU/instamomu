@@ -13,16 +13,32 @@
 {{ 'instamom.css' | asset_url | stylesheet_tag }}
 
 <div class="color-{{ section.settings.color_scheme }} instamom-addonlist-section">
-  <div class="page-width">
-    {%- if section.settings.heading != blank -%}
-      <h2 class="instamom-addonlist__heading">{{ section.settings.heading | escape }}</h2>
-    {%- endif -%}
-    {%- if section.settings.subheading != blank -%}
-      <p class="instamom-addonlist__sub">{{ section.settings.subheading | escape }}</p>
-    {%- endif -%}
+  {%- comment -%}
+    Two columns: the heading, subheading and footnote sit to the LEFT of the
+    add-on table, mirroring how instamom-valueprops splits its band. Stacks to
+    one column below 990px.
+  {%- endcomment -%}
+  <div class="page-width instamom-addonlist__layout">
+    <div class="instamom-addonlist__intro">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="instamom-addonlist__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="instamom-addonlist__sub">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.note != blank -%}
+        <p class="instamom-addonlist__note">{{ section.settings.note | escape }}</p>
+      {%- endif -%}
+    </div>
 
     {%- assign addons = collections['add-ons'].products -%}
     {%- if addons.size > 0 -%}
+    {%- comment -%}
+      The table sits on the prototype's raised white panel (`.cart-panel`:
+      navy border, pink ring, gold hard shadow), with the row list inside
+      keeping the finer `.addon-fieldset` border.
+    {%- endcomment -%}
+    <div class="instamom-addonlist__panel">
       {%- comment -%}
         Row layout ported from the prototype's `.addon-row` (styles.css): the
         add-on name on the left, and on the right the slot the prototype used
@@ -59,9 +75,7 @@
           </li>
         {%- endfor -%}
       </ul>
-      {%- if section.settings.note != blank -%}
-        <p class="instamom-addonlist__note">{{ section.settings.note | escape }}</p>
-      {%- endif -%}
+    </div>
     {%- else -%}
       <p>No add-ons found. Add products to the “add-ons” collection to list them here.</p>
     {%- endif -%}

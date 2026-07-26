@@ -1006,8 +1006,37 @@ textarea:focus-visible,
   color: var(--imu-navy-dark);
 }
 
+/* Now the left column of the band, so it takes the value-props lead sizing
+   rather than sitting as a full-width strapline above the table. */
 .instamom-addonlist__sub {
-  margin: 0 0 24px;
+  margin: 0;
+  color: var(--imu-muted);
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+/* Two columns: intro copy left, the add-on table right. Same split and stacking
+   breakpoint as .instamom-valueprops__inner so the two bands agree. */
+.instamom-addonlist__layout {
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+
+@media screen and (min-width: 990px) {
+  .instamom-addonlist__layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* The raised white panel the prototype puts this table on (`.cart-panel`,
+   styles.css:697): navy border, pink ring, gold hard shadow. */
+.instamom-addonlist__panel {
+  padding: 20px;
+  background: var(--imu-surface);
+  border: 2px solid var(--imu-navy);
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px var(--imu-pink), 8px 8px 0 var(--imu-gold);
 }
 
 /* Row layout ported from the prototype's `.addon-row` (styles.css:1380). The

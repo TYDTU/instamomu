@@ -1,0 +1,56 @@
+{% comment %}
+  InstaMom University — "Notify me when it launches" signup for coming-soon boxes.
+
+  Native Shopify customer (newsletter) form. The hidden contact[tags] captures
+  WHICH box the shopper wants — "notify-<handle>" plus a shared
+  "coming-soon-interest" tag — applied to their customer record. The owner then
+  filters Customers by tag to see interest per box and email them at launch.
+  No app required.
+
+  Renders only for products tagged `coming-soon`. The #notify anchor lets the
+  card's "Notify me" button jump straight here.
+
+  Styling: .instamom-notify* in assets/instamom.css
+{% endcomment %}
+
+{%- if product.tags contains 'coming-soon' -%}
+  {%- assign notify_form_id = 'NotifyForm-' | append: product.id -%}
+  <div class="instamom-notify" id="notify">
+    {%- form 'customer', id: notify_form_id, class: 'instamom-notify__form' -%}
+      <input
+        type="hidden"
+        name="contact[tags]"
+        value="notify-{{ product.handle }}, coming-soon-interest"
+      >
+      {%- if form.posted_successfully? -%}
+        <p class="instamom-notify__success">
+          🎉 You&rsquo;re on the list! We&rsquo;ll email you the moment
+          {{ product.title | escape }} launches.
+        </p>
+      {%- else -%}
+        <p class="instamom-notify__label">
+          🔔 Get notified when <strong>{{ product.title | escape }}</strong> launches
+        </p>
+        <div class="instamom-notify__row">
+          <input
+            type="email"
+            name="contact[email]"
+            id="NotifyEmail-{{ product.id }}"
+            class="instamom-notify__email"
+            placeholder="you@email.com"
+            autocorrect="off"
+            autocapitalize="off"
+            {% if form.errors %}aria-invalid="true"{% endif %}
+            required
+          >
+          <button type="submit" class="button instamom-notify__button">Notify me</button>
+        </div>
+        {%- if form.errors -%}
+          <p class="instamom-notify__error">
+            {{- form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email -}}
+          </p>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+{%- endif -%}

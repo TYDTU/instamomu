@@ -434,7 +434,11 @@
               </modal-opener>
             {%- endif -%}
           {%- if card_product.tags contains 'coming-soon' -%}
-            <div class="instamom-comingsoon-banner">Coming Soon</div>
+            {%- comment -%} Coming-soon: link to the product page's "Notify me" email form. {%- endcomment -%}
+            <a
+              href="{{ card_product.url }}#notify"
+              class="instamom-comingsoon-banner instamom-notify-cta"
+            >🔔 Notify me</a>
           {%- else -%}
           {% if quick_add == 'standard' %}
             <div class="quick-add no-js-hidden">

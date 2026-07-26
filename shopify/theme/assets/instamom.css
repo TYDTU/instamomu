@@ -671,6 +671,10 @@ textarea:focus-visible,
   flex-direction: column;
   gap: 8px;
   margin-top: 14px;
+  /* Inset the pills from the card's 2px navy border so they float inside it,
+     matching the title/price inset — not full-bleed to the edges (which read as
+     table-cell borders top/bottom of each pill). */
+  padding: 0 12px 12px;
   width: 100%;
 }
 
@@ -685,6 +689,16 @@ textarea:focus-visible,
 .instamom-card-actions .quick-add,
 .instamom-card-actions .quick-add__submit {
   width: 100%;
+  border-radius: 999px !important;
+}
+
+/* Dawn draws each button's border + hover/focus ring via .button::before /
+   ::after with a SQUARE radius. On our 999px pills that renders as a
+   rectangular box around the pill ("outline box that doesn't follow the pill
+   curves"). Round the pseudo-elements so the ring hugs the pill. (The Notify
+   link isn't a .button, which is why it never showed the box.) */
+.instamom-card-actions .button::before,
+.instamom-card-actions .button::after {
   border-radius: 999px !important;
 }
 
@@ -1242,4 +1256,94 @@ textarea:focus-visible,
 .instamom-candy--error {
   border-color: #c81a63;
   box-shadow: 0 0 0 3px rgba(237, 47, 137, 0.18);
+}
+
+/* --- Required home-state picker (snippets/instamom-state-picker.liquid) ----
+   A required line-item property on the Homesick Helper product page. Reuses
+   Dawn's .select styling; adds the required flag + error state. */
+.instamom-state-picker {
+  margin-block: 16px;
+}
+
+.instamom-state-picker__req {
+  color: var(--imu-pink);
+  font-weight: 800;
+}
+
+.instamom-state-select--error {
+  border-color: #c81a63 !important;
+  box-shadow: 0 0 0 3px rgba(237, 47, 137, 0.18);
+}
+
+.instamom-state-picker__error {
+  margin: 8px 0 0;
+  font-weight: 700;
+  color: #c81a63;
+}
+
+/* --- "Notify me when it launches" for coming-soon boxes -------------------
+   The card's Coming-Soon banner becomes a link to the product page, which
+   shows a native customer (newsletter) form tagging the shopper with the box
+   they want. snippets/instamom-notify-form.liquid + the card banner link. */
+.instamom-notify-cta {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.instamom-notify-cta:hover,
+.instamom-notify-cta:focus-visible {
+  background: var(--imu-pink);
+  color: #fff;
+}
+
+.instamom-notify {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--imu-pink);
+  border-radius: 12px;
+  background: var(--imu-surface);
+}
+
+.instamom-notify__label {
+  margin: 0 0 10px;
+  font-weight: 700;
+  color: var(--imu-navy-dark);
+  font-size: 1.6rem;
+}
+
+.instamom-notify__row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.instamom-notify__email {
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 10px 14px;
+  font-size: 1.5rem;
+  color: var(--imu-ink);
+  background: #fff;
+  border: 1.5px solid var(--imu-line);
+  border-radius: 8px;
+}
+
+.instamom-notify__button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.instamom-notify__success {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-notify__error {
+  margin: 8px 0 0;
+  font-weight: 600;
+  color: #c81a63;
 }

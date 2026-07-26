@@ -1016,11 +1016,17 @@ textarea:focus-visible,
 }
 
 /* Two columns: intro copy left, the add-on table right. Same split and stacking
-   breakpoint as .instamom-valueprops__inner so the two bands agree. */
+   breakpoint as .instamom-valueprops__inner so the two bands agree.
+
+   The navy rule divides this band from the value props above it. It sits on the
+   layout (a .page-width element) rather than on the section wrapper, so it lines
+   up with the content column instead of bleeding to the viewport edges. */
 .instamom-addonlist__layout {
   display: grid;
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
+  border-top: 2px solid var(--imu-navy);
+  padding-top: clamp(30px, 4vw, 48px);
 }
 
 @media screen and (min-width: 990px) {

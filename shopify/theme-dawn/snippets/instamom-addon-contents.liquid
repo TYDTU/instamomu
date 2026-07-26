@@ -39,21 +39,39 @@
   endif
 -%}
 
-{%- if items != blank and items.size > 0 -%}
-  <details class="instamom-addon-contents">
-    <summary class="instamom-addon-contents__toggle">What&rsquo;s inside</summary>
+{%- comment -%}
+  `variant: 'items'` renders ONLY the contents list, with no disclosure wrapper,
+  and renders nothing at all when the add-on has no contents. That lets a caller
+  capture the output, test it for blank, and decide its own layout — which is how
+  sections/instamom-addons-list.liquid knows whether to make a row expandable
+  without duplicating the placeholder-handle list above.
+
+  Any other value renders the standalone "What's inside" disclosure used by the
+  add-ons modal.
+{%- endcomment -%}
+
+{%- capture contents_list -%}
+  {%- if items != blank and items.size > 0 -%}
     <ul class="instamom-addon-contents__list">
       {%- for item in items -%}<li>{{ item }}</li>{%- endfor -%}
     </ul>
-  </details>
-{%- elsif use_placeholder -%}
-  <details class="instamom-addon-contents">
-    <summary class="instamom-addon-contents__toggle">What&rsquo;s inside</summary>
+  {%- elsif use_placeholder -%}
     <ul class="instamom-addon-contents__list">
       <li>Sample item one</li>
       <li>Sample item two</li>
       <li>Sample item three</li>
     </ul>
     <p class="instamom-addon-contents__todo">Placeholder contents &mdash; to be replaced.</p>
-  </details>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- if contents_list != blank -%}
+  {%- if variant == 'items' -%}
+    {{ contents_list }}
+  {%- else -%}
+    <details class="instamom-addon-contents">
+      <summary class="instamom-addon-contents__toggle">What&rsquo;s inside</summary>
+      {{ contents_list }}
+    </details>
+  {%- endif -%}
 {%- endif -%}

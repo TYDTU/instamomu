@@ -75,7 +75,7 @@
               >
             {%- endif -%}
             <span class="instamom-addons__name">{{ addon.title | escape }}</span>
-            <span class="instamom-addons__price">{{ addon.price | money }}</span>
+            <span class="instamom-addons__price">+{{ addon.price | money_without_trailing_zeros }}</span>
             {%- render 'instamom-addon-contents', addon: addon -%}
             <button
               type="button"

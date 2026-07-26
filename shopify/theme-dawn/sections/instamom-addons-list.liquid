@@ -13,54 +13,69 @@
 {{ 'instamom.css' | asset_url | stylesheet_tag }}
 
 <div class="color-{{ section.settings.color_scheme }} instamom-addonlist-section">
-  <div class="page-width">
-    {%- if section.settings.heading != blank -%}
-      <h2 class="instamom-addonlist__heading">{{ section.settings.heading | escape }}</h2>
-    {%- endif -%}
-    {%- if section.settings.subheading != blank -%}
-      <p class="instamom-addonlist__sub">{{ section.settings.subheading | escape }}</p>
-    {%- endif -%}
-
-    {%- assign addons = collections['add-ons'].products -%}
-    {%- if addons.size > 0 -%}
-      <ul class="instamom-addonlist" role="list">
-        {%- for addon in addons -%}
-          <li class="instamom-addonlist__item">
-            {%- if addon.featured_media -%}
-              <img
-                class="instamom-addonlist__image"
-                src="{{ addon.featured_media | image_url: width: 240 }}"
-                alt="{{ addon.featured_media.alt | escape }}"
-                loading="lazy"
-                width="120"
-                height="120"
-              >
-            {%- else -%}
-              {%- comment -%}
-                No add-on currently carries a product photo, which is what made
-                these boxes read as flat (owner review). Fall back to the
-                second-level IMU cap mark instead of an empty card. Swaps itself
-                out automatically once a real photo is uploaded.
-              {%- endcomment -%}
-              <img
-                class="instamom-addonlist__image instamom-addonlist__image--mark"
-                src="{{ 'imu-logo-cap.png' | asset_url }}"
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                width="120"
-                height="120"
-              >
-            {%- endif -%}
-            <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
-            <span class="instamom-addonlist__price">{{ addon.price | money }}</span>
-            {%- render 'instamom-addon-contents', addon: addon -%}
-          </li>
-        {%- endfor -%}
-      </ul>
+  {%- comment -%}
+    Two columns: the heading, subheading and footnote sit to the LEFT of the
+    add-on table, mirroring how instamom-valueprops splits its band. Stacks to
+    one column below 990px.
+  {%- endcomment -%}
+  <div class="page-width instamom-addonlist__layout">
+    <div class="instamom-addonlist__intro">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="instamom-addonlist__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="instamom-addonlist__sub">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
       {%- if section.settings.note != blank -%}
         <p class="instamom-addonlist__note">{{ section.settings.note | escape }}</p>
       {%- endif -%}
+    </div>
+
+    {%- assign addons = collections['add-ons'].products -%}
+    {%- if addons.size > 0 -%}
+    {%- comment -%}
+      The table sits on the prototype's raised white panel (`.cart-panel`:
+      navy border, pink ring, gold hard shadow), with the row list inside
+      keeping the finer `.addon-fieldset` border.
+    {%- endcomment -%}
+    <div class="instamom-addonlist__panel">
+      {%- comment -%}
+        Row layout ported from the prototype's `.addon-row` (styles.css): the
+        add-on name on the left, and on the right the slot the prototype used
+        for its Qty select. Quantity doesn't belong here — add-ons are chosen
+        from the post-cart modal, not bought from this list — so that slot
+        carries the PRICE TAG instead.
+
+        Where an add-on has a contents list, the whole row becomes a <summary>
+        so clicking it expands the contents underneath, and the name carries the
+        prototype's dotted underline to signal it. Add-ons without contents
+        render as a plain, non-interactive row.
+      {%- endcomment -%}
+      <ul class="instamom-addonlist" role="list">
+        {%- for addon in addons -%}
+          {%- capture addon_contents -%}
+            {%- render 'instamom-addon-contents', addon: addon, variant: 'items' -%}
+          {%- endcapture -%}
+          {%- assign addon_contents = addon_contents | strip -%}
+          <li class="instamom-addonlist__item">
+            {%- if addon_contents != blank -%}
+              <details class="instamom-addonlist__disclosure">
+                <summary class="instamom-addonlist__row instamom-addonlist__row--expandable">
+                  <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
+                  <span class="instamom-addonlist__price">+{{ addon.price | money_without_trailing_zeros }}</span>
+                </summary>
+                {{ addon_contents }}
+              </details>
+            {%- else -%}
+              <div class="instamom-addonlist__row">
+                <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
+                <span class="instamom-addonlist__price">+{{ addon.price | money_without_trailing_zeros }}</span>
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
     {%- else -%}
       <p>No add-ons found. Add products to the “add-ons” collection to list them here.</p>
     {%- endif -%}

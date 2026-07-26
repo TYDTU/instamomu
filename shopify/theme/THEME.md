@@ -219,10 +219,23 @@ header doesn't cover the heading on arrival.
 Upload the brand images (in the repo's `assets/`) via the theme editor / Content →
 Files, then point the theme at them:
 
-- `assets/instamom-logo-crest-transparent.png` → **header logo + favicon + hero crest**.
-  Use the transparent one; the opaque crest renders as a white box on the yellow paper.
+- `assets/instamom-logo-crest.png` → **header logo + favicon + hero crest**.
   Dawn shows a logo image *or* the shop name, never both, so this replaces the
   "InstaMom University" wordmark in the header.
+
+  > **Pick by the figures, not the filename.** There are two crest artworks and
+  > they are NOT the same image at different opacities — the people in them
+  > differ. `instamom-logo-crest.png` shows the pair in **graduation caps** with
+  > tassels, hair down; `instamom-logo-crest-transparent.png` shows them with
+  > **hair in buns** and no mortarboards. The owner's review doc ("Wrong
+  > Crest/picture CORRECT BELOW") and the prototype both use the **grad-cap**
+  > version, so that is the approved one.
+  >
+  > An earlier note here said to use the `-transparent` file because "the opaque
+  > crest renders as a white box on the yellow paper". That was wrong on both
+  > counts: `sips -g hasAlpha` reports **yes** for both files, and the grad-cap
+  > one is the larger asset (953×1024 vs 447×447). Picking by the filename is
+  > what put the unapproved artwork on the storefront.
 - `assets/imu-logo-cap.png`, `assets/instamomu-banner.png` → spare brand art, unused so far
 - `assets/welcome_week_box.jpg` → Welcome Week Starter product photo
 

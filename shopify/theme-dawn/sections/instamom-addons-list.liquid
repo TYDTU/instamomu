@@ -62,14 +62,14 @@
               <details class="instamom-addonlist__disclosure">
                 <summary class="instamom-addonlist__row instamom-addonlist__row--expandable">
                   <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
-                  <span class="instamom-addonlist__price">{{ addon.price | money }}</span>
+                  <span class="instamom-addonlist__price">+{{ addon.price | money_without_trailing_zeros }}</span>
                 </summary>
                 {{ addon_contents }}
               </details>
             {%- else -%}
               <div class="instamom-addonlist__row">
                 <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
-                <span class="instamom-addonlist__price">{{ addon.price | money }}</span>
+                <span class="instamom-addonlist__price">+{{ addon.price | money_without_trailing_zeros }}</span>
               </div>
             {%- endif -%}
           </li>

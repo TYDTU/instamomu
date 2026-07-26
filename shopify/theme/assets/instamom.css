@@ -133,12 +133,21 @@ textarea:focus-visible,
    child, so painting .card leaves the price strip transparent — the page
    background shows through. Style the wrapper instead so media and content
    sit on one surface, then neutralise the inner card's own chrome. */
+/* The pink ring (`0 0 0 2px var(--imu-pink)`) before the gold hard shadow is a
+   brand pattern from the prototype — `styles.css` puts it on EVERY raised white
+   surface: package cards, the modal, the cart/checkout panels, the add-ons
+   button. It was added there in 544aeda ("thin pink line matching logo glasses
+   around white boxes before yellow shadow") and never made it into this port,
+   so keep it paired with every gold hard shadow here.
+   Deliberate exception: .instamom-valueprops__card uses a pink BORDER plus soft
+   drop shadows instead, per the owner review ("Add shadows behind the three
+   white boxes ... so it isn't so flat"). Don't "restore" the ring there. */
 .card-wrapper,
 .collection-list__item .card-wrapper {
   border: 2px solid var(--imu-navy);
   border-radius: 8px;
   background: var(--imu-surface);
-  box-shadow: 8px 8px 0 var(--imu-gold);
+  box-shadow: 0 0 0 2px var(--imu-pink), 8px 8px 0 var(--imu-gold);
   overflow: hidden;
 }
 
@@ -315,7 +324,7 @@ textarea:focus-visible,
   border: 2px solid var(--imu-navy);
   border-radius: 8px;
   background: var(--imu-cream);
-  box-shadow: 8px 8px 0 var(--imu-gold);
+  box-shadow: 0 0 0 2px var(--imu-pink), 8px 8px 0 var(--imu-gold);
 }
 
 .multicolumn-card__info {
@@ -747,7 +756,7 @@ textarea:focus-visible,
   border: 2px solid var(--imu-navy);
   border-radius: 10px;
   background: var(--imu-surface);
-  box-shadow: 10px 10px 0 var(--imu-gold);
+  box-shadow: 0 0 0 2px var(--imu-pink), 10px 10px 0 var(--imu-gold);
 }
 
 .instamom-modal__close {
@@ -856,7 +865,7 @@ textarea:focus-visible,
   border: 2px solid var(--imu-navy);
   border-radius: 10px;
   background: var(--imu-surface);
-  box-shadow: 10px 10px 0 var(--imu-gold);
+  box-shadow: 0 0 0 2px var(--imu-pink), 10px 10px 0 var(--imu-gold);
 }
 
 .instamom-addons__close {
@@ -1019,7 +1028,7 @@ textarea:focus-visible,
   border: 2px solid var(--imu-navy);
   border-radius: 8px;
   background: var(--imu-surface);
-  box-shadow: 6px 6px 0 var(--imu-gold);
+  box-shadow: 0 0 0 2px var(--imu-pink), 6px 6px 0 var(--imu-gold);
   text-align: center;
 }
 
@@ -1423,7 +1432,7 @@ textarea:focus-visible,
 .instamom-addonlist__item:hover,
 .instamom-addonlist__item:focus-within {
   transform: translate(-2px, -2px);
-  box-shadow: 8px 8px 0 var(--imu-gold);
+  box-shadow: 0 0 0 2px var(--imu-pink), 8px 8px 0 var(--imu-gold);
 }
 
 /* Review: retain the roommate gift-wrap option in the add-ons modal.

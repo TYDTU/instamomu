@@ -14,7 +14,14 @@
   }
 {%- endstyle -%}
 
-<div class="page-width page-width--narrow section-{{ section.id }}-padding">
+{%- comment -%}
+  InstaMom: the owner review called this page "very bland/basic". Dawn renders a
+  page as a bare .rte dump with no styling hooks, so add one class on the
+  wrapper and let assets/instamom.css give the h3 + p pairs the same framed-card
+  treatment the homepage value props use. Content stays plain rich text, so the
+  page is still editable in the admin without touching markup.
+{%- endcomment -%}
+<div class="page-width page-width--narrow section-{{ section.id }}-padding instamom-page">
   <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     {{ page.title | escape }}
   </h1>

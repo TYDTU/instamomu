@@ -1560,3 +1560,55 @@ textarea:focus-visible,
   font-size: 1.32rem;
   color: var(--imu-muted);
 }
+
+/* --- Content pages (sections/main-page.liquid) ---------------------------
+   Review: "When you click 'inside' in the top right header, the page it goes
+   to looks very bland/basic." Dawn dumps page content into a bare .rte, so
+   every page was unstyled body copy on the cream background.
+
+   The content is plain rich text (h2 intro, then h3 + p pairs), and it has to
+   STAY plain so the owner can edit it in the admin. So rather than requiring
+   wrapper markup, each h3 and the paragraph after it are drawn as the two
+   halves of one framed card: the h3 takes the top border and radius, its
+   paragraph takes the bottom. Visually identical to the homepage value-prop
+   cards. No drop shadow here — split across two elements it would cast a
+   seam between the halves. */
+.instamom-page .rte > h2 {
+  margin: 0 0 10px;
+  color: var(--imu-navy-dark);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.4rem, 2.8vw, 3.2rem);
+  line-height: 1.25;
+}
+
+/* The lead paragraph — the one following the h2, not a card. */
+.instamom-page .rte > h2 + p {
+  margin: 0 0 28px;
+  color: var(--imu-muted);
+  font-size: 1.7rem;
+  line-height: 1.6;
+}
+
+.instamom-page .rte > h3 {
+  margin: 18px 0 0;
+  padding: 16px 20px 0;
+  color: var(--imu-navy-dark);
+  font-size: 1.92rem;
+  line-height: 1.25;
+  background: var(--imu-surface);
+  border: 1.5px solid var(--imu-pink);
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.instamom-page .rte > h3 + p {
+  margin: 0;
+  padding: 6px 20px 18px;
+  color: var(--imu-muted);
+  font-size: 1.5rem;
+  line-height: 1.55;
+  background: var(--imu-surface);
+  border: 1.5px solid var(--imu-pink);
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+}

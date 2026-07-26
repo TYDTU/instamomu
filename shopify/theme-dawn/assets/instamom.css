@@ -994,9 +994,16 @@ textarea:focus-visible,
   color: var(--imu-gold);
 }
 
-/* --- Homepage add-ons listing (sections/instamom-addons-list.liquid) ------ */
+/* --- Homepage add-ons listing (sections/instamom-addons-list.liquid) ------
+   The prototype brackets this band with a heavy navy rule top AND bottom
+   (`.build-section { border-block: 8px solid var(--navy) }`), running the full
+   width of the viewport rather than stopping at the content column. It's the
+   only section treated that way, which is what makes the add-ons read as a
+   distinct block. Padding matches the prototype's section rhythm. */
 .instamom-addonlist-section {
-  padding: 44px 0 40px;
+  padding-top: clamp(54px, 8vw, 96px);
+  padding-bottom: clamp(54px, 8vw, 96px);
+  border-block: 8px solid var(--imu-navy);
 }
 
 .instamom-addonlist__heading {
@@ -1015,23 +1022,20 @@ textarea:focus-visible,
   line-height: 1.6;
 }
 
-/* Two columns: intro copy left, the add-on table right. Same split and stacking
-   breakpoint as .instamom-valueprops__inner so the two bands agree.
-
-   The navy rule divides this band from the value props above it. It sits on the
-   layout (a .page-width element) rather than on the section wrapper, so it lines
-   up with the content column instead of bleeding to the viewport edges. */
+/* Two columns: intro copy left, the add-on table right — the prototype's
+   `.build-section` (styles.css:—): a 0.9fr / 1fr split, not an even one, so the
+   table gets the wider column. The navy rules top and bottom come from the same
+   rule's `border-block: 8px solid var(--navy)` and are on the SECTION wrapper
+   below, deliberately full-bleed. */
 .instamom-addonlist__layout {
   display: grid;
-  gap: clamp(28px, 4vw, 56px);
+  gap: clamp(26px, 6vw, 76px);
   align-items: start;
-  border-top: 2px solid var(--imu-navy);
-  padding-top: clamp(30px, 4vw, 48px);
 }
 
 @media screen and (min-width: 990px) {
   .instamom-addonlist__layout {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(260px, 0.9fr) minmax(280px, 1fr);
   }
 }
 

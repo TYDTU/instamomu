@@ -64,6 +64,19 @@ $D mutate 'mutation Set($mf:[MetafieldsSetInput!]!){metafieldsSet(metafields:$mf
 ```
 A `list.*` metafield's `value` is a **JSON-array string**; a `multi_line_text_field` is a plain string. Product IDs: `execute 'query{ products(first:20,query:"tag:...") { nodes { id title } } }'`.
 
+## Sharing work for owner review
+
+The owner cannot see `theme dev` — `http://127.0.0.1:9292` only resolves on the
+machine running it. To put work in front of her, either push to the live theme (fine
+only while the store is password-gated) or, preferably, publish an **unpublished
+preview theme** and send its `?preview_theme_id=` URL plus the storefront password:
+
+```bash
+shopify theme push --unpublished --theme "Review YYYY-MM-DD" --store instamom-university.myshopify.com
+```
+
+Full workflow, including what the owner needs to do on her side: [`shopify/REVIEWING.md`](../../../REVIEWING.md).
+
 ## Verify a change is live
 
 Push, then load the storefront in a browser (Claude-in-Chrome is already past the gate; or use the `preview` server). Screenshots taken this way confirmed every change this session. To re-pull and confirm a file deployed: `pull-diff <file>` → `NO DRIFT`.

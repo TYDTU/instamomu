@@ -11,6 +11,7 @@ step-by-step guide; the CSVs below are the data it tells you to import.
 | [`products-addons.csv`](products-addons.csv) | The 8 purchasable add-ons. Visible, inventory-tracked, their own cart lines. | 2nd |
 | [`products-packages.csv`](products-packages.csv) | The 8 packages — build sheet for assembling the bundles in the Bundles app. | 3rd (reference) |
 | [`theme/`](theme/THEME.md) | Dawn theme port — CSS + Liquid that reproduces the InstaMom look. Start with [`theme/THEME.md`](theme/THEME.md). | After products |
+| [`REVIEWING.md`](REVIEWING.md) | How the owner views the store (storefront password), and how to deploy or share work for review without clobbering theme-editor edits. | Any time |
 
 ## Decisions baked in
 - **Add-ons** = separate products, added to the box by packers at ship time.

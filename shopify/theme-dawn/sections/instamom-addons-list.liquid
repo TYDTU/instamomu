@@ -35,9 +35,26 @@
                 width="120"
                 height="120"
               >
+            {%- else -%}
+              {%- comment -%}
+                No add-on currently carries a product photo, which is what made
+                these boxes read as flat (owner review). Fall back to the
+                second-level IMU cap mark instead of an empty card. Swaps itself
+                out automatically once a real photo is uploaded.
+              {%- endcomment -%}
+              <img
+                class="instamom-addonlist__image instamom-addonlist__image--mark"
+                src="{{ 'imu-logo-cap.png' | asset_url }}"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                width="120"
+                height="120"
+              >
             {%- endif -%}
             <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
             <span class="instamom-addonlist__price">{{ addon.price | money }}</span>
+            {%- render 'instamom-addon-contents', addon: addon -%}
           </li>
         {%- endfor -%}
       </ul>
@@ -66,7 +83,7 @@
       "type": "text",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Add any of these extras to a package when you check out."
+      "default": "Customize your student's package with extra treats just for them."
     },
     {
       "type": "text",

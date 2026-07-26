@@ -1,0 +1,59 @@
+{% comment %}
+  InstaMom University — "What's inside" disclosure for an ADD-ON.
+
+  Owner review: "Some add-ons need to be clickable to list what they actually
+  include — Extra Snack Sleeve packs, laundry rescue packs. For now it would be
+  fine to just list the same three dummy items for each and we can change in
+  later."
+
+  Data source, in order:
+   1. The add-on's own `custom.whats_inside` metafield (the same list metafield
+      the packages use — see the run-shopify-store skill). Set that and the real
+      contents appear here with no theme change.
+   2. Otherwise, the placeholder below, but ONLY for the add-ons the review
+      named. That keeps the disclosure off the self-explanatory extras (a roll
+      of toilet paper doesn't need a contents list).
+
+  Rendered as a <details> disclosure rather than a nested modal on purpose: this
+  appears INSIDE the add-ons modal, and opening a dialog on top of a dialog
+  traps focus and can't be dismissed cleanly.
+
+  Usage: {% render 'instamom-addon-contents', addon: addon %}
+  Styling: .instamom-addon-contents* in assets/instamom.css
+{% endcomment %}
+
+{%- liquid
+  assign items = addon.metafields.custom.whats_inside.value
+
+  # Handles the review called out. Drop a handle from this list once its real
+  # `custom.whats_inside` metafield is filled in — the metafield wins anyway.
+  assign placeholder_handles = 'addon-snacks-chips,addon-snacks-cookies,addon-laundry,addon-athlete-recovery' | split: ','
+  assign use_placeholder = false
+  if items == blank
+    for handle in placeholder_handles
+      if addon.handle == handle
+        assign use_placeholder = true
+        break
+      endif
+    endfor
+  endif
+-%}
+
+{%- if items != blank and items.size > 0 -%}
+  <details class="instamom-addon-contents">
+    <summary class="instamom-addon-contents__toggle">What&rsquo;s inside</summary>
+    <ul class="instamom-addon-contents__list">
+      {%- for item in items -%}<li>{{ item }}</li>{%- endfor -%}
+    </ul>
+  </details>
+{%- elsif use_placeholder -%}
+  <details class="instamom-addon-contents">
+    <summary class="instamom-addon-contents__toggle">What&rsquo;s inside</summary>
+    <ul class="instamom-addon-contents__list">
+      <li>Sample item one</li>
+      <li>Sample item two</li>
+      <li>Sample item three</li>
+    </ul>
+    <p class="instamom-addon-contents__todo">Placeholder contents &mdash; to be replaced.</p>
+  </details>
+{%- endif -%}

@@ -79,9 +79,46 @@
     }
   });
 
+  // --- roommate gift-wrap instruction --------------------------------------
+  // Persisted as the cart note (see the snippet's comment for why). Saved on
+  // change/blur so it survives the modal closing, and flushed again on skip /
+  // "View cart" in case the shopper never blurred the field.
+  const noteField = modal.querySelector('[data-roommate-note]');
+  const noteSaved = modal.querySelector('[data-roommate-saved]');
+  let lastSavedNote = noteField ? noteField.value : null;
+
+  async function saveRoommateNote() {
+    if (!noteField) return;
+    const value = noteField.value;
+    if (value === lastSavedNote) return; // nothing changed — don't spend a request
+    lastSavedNote = value;
+    try {
+      const res = await fetch(`${window.routes.cart_url}/update.js`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ note: value }),
+      });
+      if (!res.ok) throw new Error('note update failed');
+      if (noteSaved && value.trim()) {
+        noteSaved.hidden = false;
+        setTimeout(() => { noteSaved.hidden = true; }, 2000);
+      }
+    } catch (e) {
+      // Don't block the shopper on this — but do let the next attempt retry.
+      lastSavedNote = null;
+      console.error('InstaMom roommate note save failed', e);
+    }
+  }
+
+  if (noteField) noteField.addEventListener('change', saveRoommateNote);
+
   // --- skip -----------------------------------------------------------------
   modal.addEventListener('click', (event) => {
-    if (event.target.closest('.instamom-addons__skip')) modal.hide();
+    if (event.target.closest('.instamom-addons__skip')) {
+      saveRoommateNote();
+      modal.hide();
+    }
+    if (event.target.closest('.instamom-addons__cart-link')) saveRoommateNote();
   });
 
   // Keep the header cart bubble honest after adding from the modal.

@@ -62,9 +62,21 @@
                 width="150"
                 height="150"
               >
+            {%- else -%}
+              {%- comment -%} Same IMU-cap fallback as the homepage list. {%- endcomment -%}
+              <img
+                class="instamom-addons__image instamom-addons__image--mark"
+                src="{{ 'imu-logo-cap.png' | asset_url }}"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                width="150"
+                height="150"
+              >
             {%- endif -%}
             <span class="instamom-addons__name">{{ addon.title | escape }}</span>
             <span class="instamom-addons__price">{{ addon.price | money }}</span>
+            {%- render 'instamom-addon-contents', addon: addon -%}
             <button
               type="button"
               class="button button--secondary instamom-addons__add"
@@ -82,6 +94,30 @@
           </li>
         {%- endfor -%}
       </ul>
+
+      {%- comment -%}
+        Roommate gift-wrap instruction (owner review). Saved as the CART NOTE
+        rather than a line-item property: the request ("wrap the snack sleeve
+        separately for roommate Sarah") is an instruction to the packers about
+        the order as a whole, and add-ons are added one at a time here, so
+        there's no single line to hang it on. instamom-addons.js persists it on
+        change/blur and again before the modal closes.
+      {%- endcomment -%}
+      <div class="instamom-addons__roommate">
+        <label class="instamom-addons__roommate-label" for="InstamomRoommateNote">
+          Buying an add-on for your student&rsquo;s roommate? You&rsquo;re so kind!
+          If you&rsquo;d like for us to wrap it separately, please tell us which
+          item(s), and share the roommate&rsquo;s name.
+        </label>
+        <textarea
+          id="InstamomRoommateNote"
+          class="instamom-addons__roommate-input"
+          rows="2"
+          data-roommate-note
+          placeholder="e.g., Please wrap the extra snack sleeve separately for roommate Sarah."
+        >{{ cart.note }}</textarea>
+        <span class="instamom-addons__roommate-saved" data-roommate-saved hidden>Saved ✓</span>
+      </div>
 
       <div class="instamom-addons__actions">
         <button type="button" class="button instamom-addons__skip">

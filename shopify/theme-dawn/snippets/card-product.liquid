@@ -155,7 +155,48 @@
 
                 <div class="instamom-modal__body">
                   <h3 class="instamom-modal__title">{{ card_product.title | escape }}</h3>
-                  <p class="instamom-modal__price">{{ card_product.price | money }}</p>
+                  {%- comment -%}
+                    Owner review: "when you explore the packages, it doesn't tell
+                    what the price of each one is." Show "From $x" (matching the
+                    grid card) plus a per-option price list whenever the box has
+                    more than one variant.
+                  {%- endcomment -%}
+                  {%- if card_product.price_varies -%}
+                    <p class="instamom-modal__price">From {{ card_product.price_min | money }}</p>
+                  {%- else -%}
+                    <p class="instamom-modal__price">{{ card_product.price | money }}</p>
+                  {%- endif -%}
+
+                  {%- if card_product.variants.size > 1 -%}
+                    {%- liquid
+                      # Only call out an upcharge when there is a genuine BASE price —
+                      # i.e. several options share the lowest price and one costs more
+                      # (the Warmies: three 9" at $62, the 13" at $72). Where every
+                      # option is its own price (Snack Attack, Seasonal Celebrations) a
+                      # "+$x" would read as a surcharge on a base that doesn't exist.
+                      assign base_count = 0
+                      for v in card_product.variants
+                        if v.price == card_product.price_min
+                          assign base_count = base_count | plus: 1
+                        endif
+                      endfor
+                    -%}
+                    <ul class="instamom-modal__variants" role="list">
+                      {%- for v in card_product.variants -%}
+                        <li class="instamom-modal__variant">
+                          <span class="instamom-modal__variant-name">{{ v.title }}</span>
+                          <span class="instamom-modal__variant-price">
+                            {{- v.price | money -}}
+                            {%- if base_count > 1 and v.price > card_product.price_min -%}
+                              <span class="instamom-modal__variant-delta">
+                                +{{ v.price | minus: card_product.price_min | money }}
+                              </span>
+                            {%- endif -%}
+                          </span>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
                   {%- if card_product.description != blank -%}
                     <div class="instamom-modal__description rte">{{ card_product.description }}</div>
                   {%- endif -%}

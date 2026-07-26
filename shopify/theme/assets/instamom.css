@@ -1347,3 +1347,216 @@ textarea:focus-visible,
   font-weight: 600;
   color: #c81a63;
 }
+
+/* --- Owner review, "Mini tweaks" worksheet -------------------------------
+   Three type/depth notes from the boss's review doc. See that doc for the
+   full punch list; the remaining items are store data, not theme CSS. */
+
+/* Review: "The names of the boxes are kind of crammed up against the left
+   margin and are in a boring font" + "Titles of boxes should be bigger and
+   better font :) Ideally a university type font."
+   Dawn's product-card heading inherits the Inter body face at ~1.6rem and
+   sits flush to the card edge. Move it onto the prototype's serif (the same
+   stack .instamom-lineup__title already uses for the homepage lineup cards)
+   and inset it so it no longer collides with the border. Graduate stays
+   reserved for the hero sticker — at title sizes it reads as all-caps
+   varsity lettering, which is not what the review's own card mockups show. */
+.card__heading,
+.card__heading a {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.08rem, 1.9vw, 2.4rem);
+  line-height: 1.25;
+}
+
+/* Dawn zeroes the padding on the visible .card__information, so the whole
+   text block — title AND price — sat 2px off the card border. Pad both by the
+   same amount so they share one optical margin instead of hugging the edge.
+   (Padding the shared container doesn't work: Dawn's own rule is more
+   specific and wins.) */
+.card__information .card__heading,
+.card__information .price {
+  padding-inline: 14px;
+}
+
+/* Review: "The text that specifically needs a new font is: 'Built to give
+   your student whatever they need, whatever they are'" — that line is the
+   `title` of the featured-collection section above the packages grid
+   (templates/index.json → packages_collection), rendered as
+   .collection__title .title, and it was Inter at 24px. Graduate is the
+   university face already loaded for the hero sticker; this is a short
+   display line, so it carries it without becoming a wall of caps.
+   Scoped to .collection__title so it doesn't restyle every section heading. */
+.collection__title .title {
+  font-family: 'Graduate', Georgia, serif;
+  /* Graduate reads larger and tighter than Inter at a given size, so nudge
+     the scale up only slightly and re-open the leading. */
+  font-size: clamp(2.4rem, 2.6vw, 3.04rem);
+  line-height: 1.3;
+}
+
+/* Review: "Add shadows behind the three white boxes that say QR-linked
+   videos etc so it isn't so flat." They already carried a shadow, but at
+   0.08 alpha it was invisible against the cream page — deepen it and add a
+   second, tighter layer so the cards actually lift off the background. */
+.instamom-valueprops__card {
+  box-shadow:
+    0 2px 4px rgba(6, 43, 102, 0.08),
+    0 10px 28px rgba(6, 43, 102, 0.18);
+}
+
+/* Review: "Can the add-on boxes be more visually interesting? Maybe use our
+   second level logo here?" — the root cause is that NONE of the add-ons has a
+   product photo, so every card was type-only. The liquid now falls back to the
+   IMU cap mark; these rules give it a tinted panel so it reads as deliberate
+   branding rather than a missing image, and add a hover lift to the cards. */
+.instamom-addonlist__image--mark,
+.instamom-addons__image--mark {
+  object-fit: contain;
+  padding: 12px;
+  background: linear-gradient(160deg, rgba(6, 43, 102, 0.06), rgba(247, 201, 72, 0.22));
+}
+
+.instamom-addonlist__item {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.instamom-addonlist__item:hover,
+.instamom-addonlist__item:focus-within {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--imu-gold);
+}
+
+/* Review: retain the roommate gift-wrap option in the add-ons modal.
+   (snippets/instamom-addons-modal.liquid → saved as the cart note.) */
+.instamom-addons__roommate {
+  margin: 20px 0 4px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--imu-gold);
+  border-radius: 12px;
+  background: var(--imu-surface);
+  text-align: left;
+}
+
+.instamom-addons__roommate-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.45;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-addons__roommate-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: var(--imu-ink);
+  background: #fff;
+  border: 1.5px solid var(--imu-line);
+  border-radius: 8px;
+  resize: vertical;
+}
+
+.instamom-addons__roommate-saved {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #1c7c4a;
+}
+
+/* Review: "Some add-ons need to be clickable to list what they actually
+   include." A <details> disclosure inside the card — see
+   snippets/instamom-addon-contents.liquid for why this isn't a nested modal. */
+.instamom-addon-contents {
+  width: 100%;
+  margin-top: 4px;
+  text-align: left;
+}
+
+.instamom-addon-contents__toggle {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.36rem;
+  color: var(--imu-navy-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  list-style: none;
+}
+
+/* Swap the native disclosure triangle for our own, so it matches on all
+   browsers (Safari renders ::-webkit-details-marker, others ::marker). */
+.instamom-addon-contents__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.instamom-addon-contents__toggle::after {
+  content: ' ▾';
+  text-decoration: none;
+  display: inline-block;
+}
+
+.instamom-addon-contents[open] .instamom-addon-contents__toggle::after {
+  content: ' ▴';
+}
+
+.instamom-addon-contents__list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 1.36rem;
+  line-height: 1.5;
+  color: var(--imu-ink);
+}
+
+.instamom-addon-contents__todo {
+  margin: 6px 0 0;
+  font-size: 1.24rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Review: "when you explore the packages, it doesn't tell what the price of
+   each one is." Per-option price list in the Explore-package modal
+   (snippets/card-product.liquid). */
+.instamom-modal__variants {
+  margin: 10px 0 14px;
+  padding: 10px 14px;
+  list-style: none;
+  border: 1.5px solid var(--imu-line);
+  border-radius: 10px;
+  background: var(--imu-surface);
+}
+
+.instamom-modal__variant {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 5px 0;
+}
+
+.instamom-modal__variant + .instamom-modal__variant {
+  border-top: 1px solid var(--imu-line);
+}
+
+.instamom-modal__variant-name {
+  font-size: 1.5rem;
+  line-height: 1.35;
+}
+
+.instamom-modal__variant-price {
+  flex: 0 0 auto;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--imu-pink);
+  white-space: nowrap;
+}
+
+.instamom-modal__variant-delta {
+  margin-left: 6px;
+  font-weight: 700;
+  font-size: 1.32rem;
+  color: var(--imu-muted);
+}

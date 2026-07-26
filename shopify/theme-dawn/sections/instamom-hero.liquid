@@ -26,9 +26,18 @@
         loading="eager"
       >
     {%- else -%}
+      {%- comment -%}
+        Owner review, "Wrong Crest/picture": there are two crest artworks and
+        their FIGURES differ — instamom-logo-crest.png shows the pair in
+        graduation caps and gowns, while instamom-logo-crest-transparent.png
+        (the approved one, and what the header logo/favicon already use) shows
+        them without mortarboards. This fallback pointed at the wrong one, so
+        any hero placed without a crest image would render the unapproved
+        artwork. Point it at the approved file.
+      {%- endcomment -%}
       <img
         class="instamom-hero__crest"
-        src="{{ 'instamom-logo-crest.png' | asset_url }}"
+        src="{{ 'instamom-logo-crest-transparent.png' | asset_url }}"
         alt="{{ section.settings.heading | escape }}"
         width="250"
         height="250"

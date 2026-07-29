@@ -98,6 +98,11 @@ University $1,000 Virginia Sweepstakes"*, and the record-keeping behind it.
 disclosure. Nothing renders it yet; that snippet's header comment has the
 go-live order.
 
+> **The consolidated list of everything still needed from the owner — policy
+> blanks, sweepstakes blanks, and the sweepstakes work that isn't a blank at all
+> — is [OPEN-ITEMS.md](OPEN-ITEMS.md).** This file records what was built; that
+> one records what's missing.
+
 ## Still to do: the 21-page policy suite
 
 `InstaMom Website Policies 2026.pdf` (the "22 page document" from the owner's

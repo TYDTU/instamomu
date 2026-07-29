@@ -314,6 +314,24 @@
                 </li>
               {%- endif -%}
             {%- endfor -%}
+            {%- comment -%}
+              InstaMom: the allergen disclaimer sits with the store policies
+              because that is where a shopper looks for it, but it is a PAGE,
+              not one of Shopify's five built-in policies, so `shop.policies`
+              can't carry it. Appended to the same list instead of relying on
+              the footer menu, which would put it behind a navigation edit in
+              the admin. Renders only once the page exists and is visible, so
+              it can't leave a dead link. Page body source:
+              shopify/content/allergen-disclaimer.html
+            {%- endcomment -%}
+            {%- assign allergen_page = pages['allergen-disclaimer'] -%}
+            {%- if allergen_page != blank -%}
+              <li>
+                <small class="copyright__content"
+                  ><a href="{{ allergen_page.url }}">Allergen disclaimer</a></small
+                >
+              </li>
+            {%- endif -%}
           </ul>
         {%- endif -%}
       </div>

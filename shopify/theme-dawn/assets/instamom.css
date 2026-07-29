@@ -1791,3 +1791,245 @@ textarea:focus-visible,
   border-top: 0;
   border-radius: 0 0 12px 12px;
 }
+
+/* --- Legal / disclosure pages --------------------------------------------
+   The allergen disclaimer and the sweepstakes rules are long, plain rich-text
+   pages created from shopify/content/*.html. They inherit the content-page
+   treatment above (serif h2s, muted lead paragraphs); these classes only cover
+   the few things that treatment has no answer for. */
+
+/* The opening ALLERGEN WARNING / NO PURCHASE NECESSARY paragraph — the one
+   sentence a customer must not scroll past. */
+.instamom-page .rte > .instamom-legal__lede {
+  margin: 0 0 24px;
+  padding: 16px 20px;
+  background: var(--imu-surface);
+  border: 1.5px solid var(--imu-pink);
+  border-left-width: 6px;
+  border-radius: 12px;
+  color: var(--imu-navy-dark);
+  font-size: 1.6rem;
+  line-height: 1.55;
+}
+
+/* "DO NOT CONSUME ANY FOOD PRODUCT IF ..." — reversed out on navy so it reads
+   as a stop sign partway down the page rather than as a second lede. (Cream on
+   cream was invisible here: --imu-cream #fff0b8 against the page's --imu-paper
+   #fff2ad is a 5-point difference.) */
+.instamom-page .rte > .instamom-legal__callout {
+  margin: 24px 0;
+  padding: 18px 22px;
+  background: var(--imu-navy);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1.55;
+}
+
+.instamom-page .rte > .instamom-legal__address {
+  margin: 12px 0 24px;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-page .rte > .instamom-legal__meta {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--imu-line);
+  font-size: 1.45rem;
+  font-style: italic;
+  color: var(--imu-muted);
+}
+
+/* An UNFILLED fact the owner still owes us — legal-entity name, dates, prize
+   payment method. Loud on purpose: these pages must not go live carrying one.
+   Grep for `instamom-legal__todo` to find every outstanding blank. */
+.instamom-legal__todo {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--imu-gold);
+  color: var(--imu-navy-dark);
+  font-weight: 800;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+
+/* --- Sweepstakes free mail-in entry form ---------------------------------
+   pages/sweepstakes-entry-form. Built to be PRINTED: write-on rules rather
+   than inputs, and an @media print block that strips the site chrome so the
+   sheet that comes out of the printer is just the form. */
+.instamom-entryform {
+  max-width: 62rem;
+}
+
+.instamom-entryform__title {
+  margin: 24px 0 6px;
+  color: var(--imu-navy-dark);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.4rem;
+  line-height: 1.3;
+}
+
+.instamom-entryform__title span {
+  font-size: 1.9rem;
+  font-style: italic;
+}
+
+.instamom-entryform__rule {
+  margin: 0 0 24px;
+  color: var(--imu-muted);
+  font-size: 1.45rem;
+  line-height: 1.5;
+}
+
+.instamom-entryform__field {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.instamom-entryform__label {
+  flex: 0 0 auto;
+  color: var(--imu-navy-dark);
+  font-size: 1.4rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* The write-on rule. min-height keeps a usable amount of writing room on
+   paper even though the span has no content. */
+.instamom-entryform__line {
+  flex: 1 1 auto;
+  min-height: 2.6rem;
+  border-bottom: 1.5px solid var(--imu-navy);
+}
+
+.instamom-entryform__line--prefilled {
+  flex: 0 0 5rem;
+  color: var(--imu-navy-dark);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 600px) {
+  .instamom-entryform__field {
+    flex-wrap: wrap;
+  }
+
+  .instamom-entryform__line {
+    flex-basis: 100%;
+  }
+}
+
+.instamom-entryform__declare {
+  margin: 28px 0 24px;
+  padding: 14px 18px;
+  background: var(--imu-surface);
+  border: 1.5px solid var(--imu-pink);
+  border-radius: 12px;
+  color: var(--imu-navy-dark);
+  font-size: 1.45rem;
+  line-height: 1.55;
+}
+
+.instamom-entryform__subhead {
+  margin: 32px 0 8px;
+  color: var(--imu-navy-dark);
+  font-size: 1.8rem;
+}
+
+.instamom-entryform__address {
+  margin: 0 0 20px;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  font-weight: 700;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-entryform__fineprint {
+  margin: 0 0 14px;
+  color: var(--imu-muted);
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+@media print {
+  /* Everything that isn't the form itself. Dawn's header/footer are sections;
+     the on-screen-only intro paragraphs opt out by class. */
+  .header-wrapper,
+  .shopify-section-group-header-group,
+  .shopify-section-group-footer-group,
+  .instamom-entryform__noprint {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    background-image: none !important;
+  }
+
+  .instamom-entryform {
+    max-width: none;
+  }
+
+  .instamom-entryform__declare {
+    border-color: #000;
+  }
+
+  .instamom-entryform__line {
+    border-bottom-color: #000;
+  }
+
+  /* A gold highlight prints as an unreadable grey block, and an unfilled
+     placeholder must stay obvious on paper too. */
+  .instamom-legal__todo {
+    background: transparent;
+    border: 1px solid #000;
+  }
+}
+
+/* --- Short allergen warning above the Checkout button --------------------
+   snippets/instamom-allergen-notice.liquid, rendered in the cart page and the
+   cart drawer. Cream on a navy rule so it reads as a notice rather than as
+   more of Dawn's grey tax/shipping fine print, but kept short enough that it
+   doesn't push the Checkout button off a phone screen. */
+.instamom-allergen-notice {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  background: var(--imu-cream);
+  border: 1.5px solid var(--imu-navy);
+  border-radius: 8px;
+}
+
+.instamom-allergen-notice__body {
+  margin: 0;
+  color: var(--imu-navy-dark);
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.instamom-allergen-notice__link {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--imu-navy-dark);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Required advertising disclosure for the sweepstakes
+   (snippets/instamom-sweepstakes-disclosure.liquid). Fine print by design —
+   it has to be legible, not prominent — so it takes the footer's caption scale
+   rather than the notice treatment used for the allergen warning. */
+.instamom-sweeps-disclosure {
+  margin: 16px 0 0;
+  color: var(--imu-muted);
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.instamom-sweeps-disclosure a {
+  color: inherit;
+  font-weight: 700;
+}

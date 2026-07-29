@@ -102,15 +102,18 @@ legally run. Roughly in order:
 
 ---
 
-## G. Launch-readiness items from the original doc, unchanged
+## G. Launch-readiness items from the original doc
 
-Still outstanding, unrelated to the above — repeated here so one list covers it:
+Checked against the live store on 28 Jul 2026 rather than copied forward.
 
-- 50 Welcome Week boxes in stock (components stocked, not the bundle)
-- Weigh a box and test a real address so shipping rates are real
-- Enable taxes for the states you ship to (Settings → Taxes)
-- Replace the AI product photos with real ones
-- Check ordering on a phone end to end
+| Item | State |
+|---|---|
+| **50 Welcome Week boxes in stock** | ✅ **Done.** All 11 components sit at 50, the bundle relationship is intact, and the box reports 50 available. Nothing needed. |
+| **Every other box shows 0** | Expected — they're marked coming-soon/pre-order. Flagged only so it's a decision and not a surprise: they can't be bought until their components are stocked the same way. |
+| **Weigh a box for real shipping rates** | ❌ **Still needed, and it's the blocking one.** Every package variant has a weight of **0 lb**. Carrier-calculated rates cannot work off zero, so a real weight per box has to be entered before checkout quotes anything meaningful. Give me the weights and I'll set them. |
+| **Enable taxes for the states you ship to** | ❌ Owner — Settings → Taxes. Not visible to me without extra permissions. |
+| **Replace the AI product photos** | ❌ Owner. All 8 boxes have a photo, so nothing is missing — it's a swap, not a gap. None of the 9 add-ons has a photo at all; they fall back to the IMU cap mark. |
+| **Check ordering on a phone end to end** | ❌ Owner. Worth doing by hand: the storefront form submissions hit Shopify's bot check under automation, so I can't complete a real order myself. |
 
 ---
 

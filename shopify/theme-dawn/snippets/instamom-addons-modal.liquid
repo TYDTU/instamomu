@@ -75,6 +75,14 @@
               >
             {%- endif -%}
             <span class="instamom-addons__name">{{ addon.title | escape }}</span>
+            {%- comment -%}
+              The `custom.cute_note` wink ("Trust us!"), kept out of the product
+              title itself — see sections/instamom-addons-list.liquid.
+            {%- endcomment -%}
+            {%- assign cute_note = addon.metafields.custom.cute_note.value -%}
+            {%- if cute_note != blank -%}
+              <span class="instamom-addons__aside">{{ cute_note | escape }}</span>
+            {%- endif -%}
             <span class="instamom-addons__price">+{{ addon.price | money_without_trailing_zeros }}</span>
             {%- render 'instamom-addon-contents', addon: addon -%}
             <button

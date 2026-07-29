@@ -952,6 +952,19 @@ textarea:focus-visible,
   line-height: 1.25;
 }
 
+/* The `custom.cute_note` wink under the add-on's name in the modal — same
+   treatment as .instamom-addonlist__aside on the homepage list. The card is a
+   centred column, so this sits on its own line rather than beside the name. */
+.instamom-addons__aside {
+  margin-top: -2px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.28rem;
+  line-height: 1.3;
+  color: var(--imu-pink);
+}
+
 .instamom-addons__price {
   color: var(--imu-pink);
   font-weight: 900;
@@ -1076,10 +1089,35 @@ textarea:focus-visible,
   font-weight: 700;
 }
 
+/* The left-hand cell: the add-on's catalogue name, plus (optionally) the
+   `custom.cute_note` wink beside it. It's a wrapper so the dotted-underline
+   affordance below can stay on the NAME alone and not drag the note with it. */
+.instamom-addonlist__label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  min-width: 0;
+}
+
 .instamom-addonlist__name {
   font-size: 1.52rem;
   line-height: 1.3;
   color: var(--imu-navy-dark);
+}
+
+/* Review: "'Trust Us!' needs to go as a cute thing after the Roll of Two-Ply
+   Toilet Paper add on." Deliberately NOT styled like the name — lighter weight,
+   italic and pink so it reads as an aside in the brand voice rather than as
+   part of the product's name. */
+.instamom-addonlist__aside {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.36rem;
+  line-height: 1.3;
+  color: var(--imu-pink);
+  white-space: nowrap;
 }
 
 /* The prototype's price tag sits where the Qty select was: same box treatment
@@ -1120,10 +1158,6 @@ textarea:focus-visible,
 
 .instamom-addonlist__disclosure .instamom-addon-contents__list {
   margin: 8px 0 2px;
-  padding-left: 32px;
-}
-
-.instamom-addonlist__disclosure .instamom-addon-contents__todo {
   padding-left: 32px;
 }
 
@@ -1510,9 +1544,10 @@ textarea:focus-visible,
    Scoped to .collection__title so it doesn't restyle every section heading. */
 .collection__title .title {
   font-family: 'Graduate', Georgia, serif;
-  /* Graduate reads larger and tighter than Inter at a given size, so nudge
-     the scale up only slightly and re-open the leading. */
-  font-size: clamp(2.4rem, 2.6vw, 3.04rem);
+  /* Review: "Make font for this bigger." Was clamp(2.4rem, 2.6vw, 3.04rem)
+     (24–30px on Dawn's 10px root), which read as a caption under the navy
+     band above it rather than as the section's headline. */
+  font-size: clamp(2.6rem, 2.9vw, 3.4rem);
   line-height: 1.3;
 }
 
@@ -1550,15 +1585,21 @@ textarea:focus-visible,
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(12px, 2.5vw, 28px);
+  gap: clamp(12px, 2vw, 24px);
   text-align: center;
 }
 
+/* Review: "the smaller hat/woman logo needs to be enlarged on both sides to
+   match the height and prominence of the wording." Sized by HEIGHT rather
+   than width so it tracks the wording directly: the headline sets two lines
+   at 1.3 leading, so the cap is scaled to that two-line block instead of to
+   a single line (it was 44–68px wide / 32–49px tall, i.e. barely one line). */
 .collection__title .title::before,
 .collection__title .title::after {
   content: '';
   flex: 0 0 auto;
-  width: clamp(44px, 5vw, 68px);
+  height: clamp(52px, 6vw, 84px);
+  width: auto;
   aspect-ratio: 1024 / 738;
   background: url('imu-logo-cap.png') center / contain no-repeat;
 }
@@ -1654,12 +1695,6 @@ textarea:focus-visible,
   color: var(--imu-ink);
 }
 
-.instamom-addon-contents__todo {
-  margin: 6px 0 0;
-  font-size: 1.24rem;
-  font-style: italic;
-  opacity: 0.7;
-}
 
 /* Review: "when you explore the packages, it doesn't tell what the price of
    each one is." Per-option price list in the Explore-package modal

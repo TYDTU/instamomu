@@ -12,7 +12,12 @@ and the store copy is created from it.
 | `sweepstakes-official-rules.html` | `sweepstakes-official-rules` | **Hidden.** Draft — see below. |
 | `sweepstakes-entry-form.html` | `sweepstakes-entry-form` | **Hidden.** Draft — see below. |
 
-Source for all three: the owner's *"Mark Final Things Add"* doc, July 2026.
+Source for all three: the owner's *"Mark Final Things Add"* doc, July 2026, each
+reconciled against the client's own PDF of the same document
+(`Candy, Food Allergy, and Dietary Restriction Disclaimer.pdf`,
+`InstaMom University Virginia Sweepstakes Official Rules.pdf`). Where the Google
+Doc and the PDF disagree the **PDF is treated as authoritative**, because the Doc
+copy lost formatting and mangled at least one figure in the process.
 
 ## These files are the source, not a mirror
 
@@ -54,20 +59,36 @@ Outstanding, all of them things only the owner can supply:
 - a **contact email** for winner requests;
 - how the $1,000 prize is **paid** (check or electronic transfer).
 
-Three things were corrected against the owner's draft, because the rules
-contradicted the advertising disclosure that runs on the site:
+### The prize amount is contradicted, and it is the biggest open item
 
-1. every **`$199` is now `$1,000`** — the draft used both figures for the same
-   single prize, including in its own title;
-2. the **odds example** said 1,100 entries gave odds of "1 in 1,000"; it is
-   1 in 1,100;
-3. the free-entry method is now the **printed mail-in form**
-   (`sweepstakes-entry-form.html`) rather than an online form, so the draft's
-   `[FREE ENTRY URL]` placeholder is gone. A web form would have meant
-   collecting names, addresses, phone numbers and dates of birth from
-   non-customers; print-and-mail avoids that entirely. The rules still accept a
-   plain sheet of paper carrying the same details, because requiring a specific
-   form would itself be a barrier to free entry.
+The client's Official Rules PDF says **$199** in all seven places it names the
+prize, including its own title. The Google Doc's *required advertising
+disclosure* — the text meant to run on the website — says **$1,000**.
+
+These pages carry **$1,000**, on instruction, so the rules agree with the
+advertised offer. That is a decision, not a finding: **the owner has to confirm
+which figure is real before either page goes live.** In official rules the prize
+amount is the offer, so this is not a typo to clean up quietly.
+
+Everything else in the rules is the client's own wording, clause by clause. The
+other changes are:
+
+- the free-entry method is the **printed mail-in form**
+  (`sweepstakes-entry-form.html`) rather than the PDF's online form, so its
+  `[FREE ENTRY URL]` placeholder is gone. A web form would have meant collecting
+  names, addresses, phone numbers and dates of birth from non-customers;
+  print-and-mail avoids that entirely. The rules still accept a plain sheet of
+  paper carrying the same details, because requiring a specific form would itself
+  be a barrier to free entry;
+- `[COMPLETE BUSINESS MAILING ADDRESS]`, `[WEBSITE URL]` and
+  `[PRIVACY POLICY URL]` are filled in;
+- `[CITY OR COUNTY]` for venue reads **Lynchburg**, which is *inferred* from the
+  business address rather than given — confirm it.
+
+The PDF's odds example (1,250 entries → 1 in 1,250) is kept exactly as the client
+wrote it. The Google Doc's version of that sentence read "1,100 → 1 in 1,000",
+which is arithmetically wrong; it is a corruption of the PDF, not a revision, so
+it was not carried across.
 
 Still **not built**, and required by section 4 of the rules before the promotion
 can run: the optional cart checkbox reading *"Yes, enter me in the InstaMom
@@ -76,3 +97,42 @@ University $1,000 Virginia Sweepstakes"*, and the record-keeping behind it.
 `snippets/instamom-sweepstakes-disclosure.liquid` holds the required advertising
 disclosure. Nothing renders it yet; that snippet's header comment has the
 go-live order.
+
+## Still to do: the 21-page policy suite
+
+`InstaMom Website Policies 2026.pdf` (the "22 page document" from the owner's
+launch-readiness list) is **not loaded onto the store yet**. It contains four
+policies, each written as website-ready text:
+
+| Policy | Goes where |
+|---|---|
+| Refund, Return & Cancellation | Settings → Policies → Refund policy |
+| Shipping & Delivery | Settings → Policies → Shipping policy |
+| Privacy | Settings → Policies → Privacy policy (**replaces** the generated one currently live) |
+| Terms of Use & Terms of Sale | Settings → Policies → Terms of service |
+
+Shopify's five built-in policies render at `/policies/*` and Dawn already lists
+whichever ones are filled in the footer, so loading them needs no theme change —
+the footer picks them up automatically.
+
+The packet is headed *"Draft for business review before publication"* and its own
+Owner Implementation Notes (p.20) say to replace every bracketed field first.
+The blanks are business facts nobody has supplied yet:
+
+- `[SUPPORT EMAIL]`, `[PRIVACY EMAIL]`, `[LEGAL NOTICE EMAIL]` — the notes say
+  these may all be one monitored inbox at launch;
+- `[EFFECTIVE DATE]` — the date the policies actually go live;
+- `[LEGAL ENTITY NAME, DBA INSTAMOM UNIVERSITY]` — the same blank the sweepstakes
+  rules are waiting on;
+- `[SHOP PLATFORM / PAYMENT / EMAIL / ANALYTICS]` — the real tool list, which the
+  notes stress must describe what the business actually uses, not a generic list.
+
+`[WEBSITE URL]` → `https://instamomuniversity.com` and `[BUSINESS MAILING
+ADDRESS]` → 203 Boston Avenue, Lynchburg, VA 24503 are both known.
+
+The packet also asks for decisions that are not text edits: whether to require
+affirmative agreement to the Terms and Refund Policy at checkout, whether
+international shipping is offered, and whether subscriptions are offered (if not,
+those sections should be deleted rather than left in). Its p.21 note asks for a
+Virginia-licensed attorney to review the warranty disclaimer, the $100 liability
+cap, the coaching language and the allergen scope before publication.

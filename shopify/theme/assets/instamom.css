@@ -1842,6 +1842,19 @@ textarea:focus-visible,
   color: var(--imu-muted);
 }
 
+/* On the legal pages, a section's FIRST paragraph is often the all-caps
+   conspicuous clause (the liability limitations the client's PDF sets that way).
+   `.rte > h2 + p` above treats any paragraph after a heading as a muted lead,
+   which greys those out relative to the identical clause in the paragraph below
+   them. A paragraph that is wholly bold is a conspicuous clause, not a lead —
+   give it the body colour and scale back. */
+.instamom-page .rte > h2 + p:has(> strong:only-child) {
+  color: var(--imu-navy-dark);
+  font-size: 1.6rem;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
 /* An UNFILLED fact the owner still owes us — legal-entity name, dates, prize
    payment method. Loud on purpose: these pages must not go live carrying one.
    Grep for `instamom-legal__todo` to find every outstanding blank. */

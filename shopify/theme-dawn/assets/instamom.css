@@ -233,90 +233,6 @@ textarea:focus-visible,
   line-height: 1.55;
 }
 
-/* --- "Gives Back" band (sections/instamom-givesback.liquid) --------------
-   The diploma seal on the LEFT, the text block on the RIGHT (left-aligned):
-   "Supporting Our Community" kicker, title, scholarship paragraph — matching
-   the prototype's #gives-back (../../styles.css, owner review p.6). Stacks
-   centered on mobile. rem stops use the prototype's ×1.6 for Dawn's 10px root. */
-.instamom-givesback__inner {
-  padding-block: clamp(40px, 6vw, 64px);
-}
-
-.instamom-givesback__container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  max-width: 1050px;
-  margin: 0 auto;
-}
-
-.instamom-givesback__seal-side {
-  flex: 0 0 240px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.instamom-givesback__seal {
-  width: 100%;
-  max-width: 240px;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 10px 24px rgba(6, 43, 102, 0.14));
-  transition: transform 0.3s ease;
-}
-
-.instamom-givesback__seal:hover {
-  transform: scale(1.04);
-}
-
-.instamom-givesback__content {
-  flex: 1;
-  text-align: left;
-}
-
-.instamom-givesback__kicker {
-  margin: 0 0 8px;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 1.25rem;
-  /* Darkened gold for contrast on the paper background (prototype commit). */
-  color: #8c5300;
-}
-
-.instamom-givesback__title {
-  margin: 0 0 16px;
-  color: var(--imu-navy-dark);
-  font-size: clamp(2.88rem, 3.2vw, 4.8rem);
-  line-height: 1.1;
-}
-
-.instamom-givesback__text {
-  margin: 0;
-  color: var(--imu-navy-dark);
-  font-size: 1.68rem;
-  line-height: 1.7;
-}
-
-@media (max-width: 768px) {
-  .instamom-givesback__container {
-    flex-direction: column;
-    text-align: center;
-    gap: 24px;
-  }
-
-  .instamom-givesback__content {
-    text-align: center;
-  }
-
-  .instamom-givesback__seal-side {
-    flex: 0 0 auto;
-    width: 180px;
-  }
-}
-
 /* --- Multicolumn value-prop cards: same solid treatment as product cards --
    (Superseded on the homepage by .instamom-valueprops; kept for any other
    Multicolumn section a merchant adds.) */
@@ -1800,7 +1716,8 @@ textarea:focus-visible,
 
 /* The opening ALLERGEN WARNING / NO PURCHASE NECESSARY paragraph — the one
    sentence a customer must not scroll past. */
-.instamom-page .rte > .instamom-legal__lede {
+.instamom-page .rte > .instamom-legal__lede,
+.shopify-policy__body .rte > .instamom-legal__lede {
   margin: 0 0 24px;
   padding: 16px 20px;
   background: var(--imu-surface);
@@ -1816,7 +1733,8 @@ textarea:focus-visible,
    as a stop sign partway down the page rather than as a second lede. (Cream on
    cream was invisible here: --imu-cream #fff0b8 against the page's --imu-paper
    #fff2ad is a 5-point difference.) */
-.instamom-page .rte > .instamom-legal__callout {
+.instamom-page .rte > .instamom-legal__callout,
+.shopify-policy__body .rte > .instamom-legal__callout {
   margin: 24px 0;
   padding: 18px 22px;
   background: var(--imu-navy);
@@ -1826,14 +1744,16 @@ textarea:focus-visible,
   line-height: 1.55;
 }
 
-.instamom-page .rte > .instamom-legal__address {
+.instamom-page .rte > .instamom-legal__address,
+.shopify-policy__body .rte > .instamom-legal__address {
   margin: 12px 0 24px;
   font-size: 1.6rem;
   line-height: 1.7;
   color: var(--imu-navy-dark);
 }
 
-.instamom-page .rte > .instamom-legal__meta {
+.instamom-page .rte > .instamom-legal__meta,
+.shopify-policy__body .rte > .instamom-legal__meta {
   margin-top: 32px;
   padding-top: 20px;
   border-top: 1px solid var(--imu-line);
@@ -2044,5 +1964,70 @@ textarea:focus-visible,
 
 .instamom-sweeps-disclosure a {
   color: inherit;
+  font-weight: 700;
+}
+
+/* --- Shopify's own /policies/* pages --------------------------------------
+   Refund, Shipping, Privacy and Terms are SHOP POLICIES, not pages: Shopify
+   renders them itself into .shopify-policy__container rather than through a
+   theme template, so none of the content-page styling above reaches them and
+   they arrive as unstyled body copy on the cream background. These are four
+   long documents — give them a readable measure and enough heading rhythm to
+   scan. Bodies are authored in shopify/content/policy-*.html. */
+.shopify-policy__container {
+  max-width: 76rem;
+  padding: clamp(32px, 5vw, 64px) 2rem;
+}
+
+.shopify-policy__title h1 {
+  color: var(--imu-navy-dark);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(3rem, 4vw, 4.4rem);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.shopify-policy__body .rte {
+  color: var(--imu-muted);
+  font-size: 1.55rem;
+  line-height: 1.65;
+  text-align: left;
+}
+
+.shopify-policy__body .rte h2 {
+  margin: 36px 0 10px;
+  color: var(--imu-navy-dark);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 2.2vw, 2.6rem);
+  line-height: 1.25;
+}
+
+.shopify-policy__body .rte h3 {
+  margin: 22px 0 6px;
+  color: var(--imu-navy-dark);
+  font-size: 1.75rem;
+}
+
+.shopify-policy__body .rte p {
+  margin: 0 0 14px;
+}
+
+.shopify-policy__body .rte ul {
+  margin: 0 0 18px;
+  padding-left: 22px;
+}
+
+.shopify-policy__body .rte li {
+  margin-bottom: 7px;
+}
+
+/* The all-caps conspicuous clauses (warranty disclaimer, liability cap) keep
+   the body colour rather than fading into the muted paragraph grey. */
+.shopify-policy__body .rte p > strong:only-child {
+  color: var(--imu-navy-dark);
+}
+
+.shopify-policy__body .rte a {
+  color: var(--imu-navy-dark);
   font-weight: 700;
 }

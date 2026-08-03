@@ -9,8 +9,8 @@ and the store copy is created from it.
 | File | Page handle | Live? |
 |---|---|---|
 | `allergen-disclaimer.html` | `allergen-disclaimer` | **Visible.** Linked from the footer and from the cart notice. |
-| `sweepstakes-official-rules.html` | `sweepstakes-official-rules` | **Hidden.** Draft — see below. |
-| `sweepstakes-entry-form.html` | `sweepstakes-entry-form` | **Hidden.** Draft — see below. |
+| `sweepstakes-official-rules.html` | — | **Shelved.** Page deleted Aug 2026 — see below. |
+| `sweepstakes-entry-form.html` | — | **Shelved.** Page deleted Aug 2026 — see below. |
 
 Source for all three: the owner's *"Mark Final Things Add"* doc, July 2026, each
 reconciled against the client's own PDF of the same document
@@ -39,7 +39,20 @@ $D mutate 'mutation P($page: PageUpdateInput!, $id: ID!){ pageUpdate(id:$id, pag
 is reachable only from the admin. That is deliberate for the two sweepstakes
 pages and must stay that way until the section below is done.
 
-## The sweepstakes is NOT ready to publish
+## The sweepstakes was pulled before launch
+
+**Owner, Aug 2026: "Take out the sweepstakes entirely... ELIMINATE FOR NOW."**
+
+Both Shopify pages are deleted, the homepage "Gives Back" band and its `Giving
+Back` header link are removed, and the advertising-disclosure snippet is gone
+from the theme. Nothing on the store references the promotion.
+
+The two source files stay in this directory, each with a shelf note at the top.
+"For now" isn't "never", and the drafting and reconciliation were the expensive
+part — bringing it back means re-creating two pages from these files. Everything
+below still applies if that happens.
+
+## What was never resolved
 
 Both sweepstakes pages carry unfilled facts, marked in the HTML as
 `<mark class="instamom-legal__todo">`. Grep for it:

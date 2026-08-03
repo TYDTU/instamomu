@@ -98,51 +98,69 @@ Week in Stock" note used the same shorthand for unit counts. But the answers
 table said **30** for both boxes, which is what is set on the store. If `50`
 means fifty ready, both need raising.
 
-## I. Warmies bundles — blocked on app ownership (Aug 2026)
+## I. Warmies bundles — FIXED by rebuilding the two products (Aug 2026)
 
-Every Warm Hug from Home and Homesick Helper variant now has stock and is
-buyable. But **only the Golden Dog variant of each is a real bundle.** The other
-nine variants across the two products are plain variants: selling one decrements
-its own count and *nothing else* — no plush, no soup, tea, tissues, crackers,
-honey bear, throat drops or coaching cards.
+**Every variant of Warm Hug from Home and Homesick Helper is now a real bundle**
+that draws down its own plush, and for Warm Hug the eight consumables as well.
+Selling a Goat box now decrements the goat plush, the soup, the tea, the
+tissues, the crackers, the honey bear, the throat drops and both coaching cards
+— which it did not before.
 
-That is an oversell risk, not a tidiness point. Warm Hug can sell 48 boxes
-against 30 sets of consumables.
+### Why a rebuild was necessary
 
-**What's ready:** a component product now exists for each plush, stocked to
-match the variants —
+Shopify: *"After an app assigns components to a bundle, only that app can manage
+those components."* The Golden Dog bundles were created by a different app, and
+that locks the **whole product** — not just that variant. Confirmed by probing
+both directions: adding components was refused with
+`PRODUCT_EXPANDER_APP_OWNERSHIP_ALREADY_EXISTS`, and so was **removing** them,
+so the ownership could not be released from this side either. There is no scope
+or token that gets around it.
 
-| Component | Qty |
-|---|---|
-| `comp-warmie` — Golden Dog Junior 9" (renamed from the generic "Lavender Warmie") | 30 |
-| `comp-warmie-hamster` | 3 |
-| `comp-warmie-sloth` | 3 |
-| `comp-warmie-bear` — Brown Curly Bear 13" | 3 |
-| `comp-warmie-cow` | 3 |
-| `comp-warmie-bunny` | 3 |
-| `comp-warmie-goat` | 3 |
+The only route to a product this app can own is a product this app created.
 
-**What's blocked:** attaching them. The Admin API refuses with
-`PRODUCT_EXPANDER_APP_OWNERSHIP_ALREADY_EXISTS` — "the product(s) ... are
-already owned by another App". Shopify lets only the app that created a
-product's bundle relationships manage them, and the existing Golden Dog bundles
-were built by a different app than this CLI. Both products are affected.
+### What was done
 
-**So this has to be finished in whichever app owns those bundles** (the one used
-to build the Golden Dog bundles — check Apps in the admin). For each of the nine
-variants, add:
+For each of the two products, in this order so the storefront was never broken:
 
-- its own plush component from the table above, quantity 1; **and**
-- for Warm Hug only, the eight consumables already on its Golden Dog bundle:
-  Coaching Cards — Study Strategies, Coaching Cards — Communicating with
-  Professors, Crackers, Mini Honey Bear, Soft Facial Tissues, Soup, Tea, Throat
-  Drops.
+1. old product renamed to `<handle>-legacy` and set to **DRAFT**;
+2. replacement created on the original handle — same title, description, vendor,
+   type, tags, option, variants, prices;
+3. metafields copied, photo re-uploaded, published to Online Store;
+4. per-variant components attached, which now works.
 
-Homesick Helper's Golden Dog bundle contains *only* the plush, so its other
-three variants need only their plush to match. Worth noting separately that this
-means Homesick Helper's bundle doesn't track its journal, colouring book,
-pencils or notecards for **any** variant — those component products don't exist
-yet.
+The legacy products are **still there as drafts**, retagged
+`legacy-replaced-2026-08` / `do-not-publish` so they drop out of the `packages`
+smart collection. Nothing was deleted. **Delete them once you're happy** — they
+still hold the old direct inventory, which is why the numbers look duplicated in
+the admin.
 
-Once attached, each variant's availability becomes the lowest of its components,
-which is what stops the oversell.
+### Component map
+
+| Variant | Plush component | Plus (Warm Hug only) |
+|---|---|---|
+| Golden Dog Junior 9" | `comp-warmie` (30) | the 8 consumables |
+| Hamster Junior 9" | `comp-warmie-hamster` (3) | ” |
+| Sloth Junior 9" | `comp-warmie-sloth` (3) | ” |
+| Brown Curly Bear 13" | `comp-warmie-bear` (3) | ” |
+| Black & White Cow Junior 9" | `comp-warmie-cow` (3) | ” |
+| Bunny Junior 9" | `comp-warmie-bunny` (3) | ” |
+| Goat Junior 9" | `comp-warmie-goat` (3) | ” |
+
+The 8 consumables are Coaching Cards — Study Strategies, Coaching Cards —
+Communicating with Professors, Crackers, Mini Honey Bear, Soft Facial Tissues,
+Soup, Tea, Throat Drops.
+
+### Two things still open
+
+- **Homesick Helper's bundle is still only the plush.** Its contents list a
+  mindfulness journal, colouring book, watercolour pencils and notecards, and no
+  component products exist for those — so they aren't tracked for any variant.
+  That was true before the rebuild too. `comp-cards-homesick` does exist but sits
+  at 0, and adding it would take the whole box to 0 available, so it was left
+  off deliberately rather than silently killing the listing.
+- **Room Refresh has the same shape of problem** — 2 components against 7 items
+  in its contents list, so the sneaker balls, Poopourri, sachets, Wet Ones and
+  Febreze don't decrement. It's a single-variant product so it isn't the
+  "variant bundle" issue, but fixing it will hit the identical ownership block
+  and need the same rebuild treatment.
+

@@ -50,7 +50,7 @@ Checked against the live store on 28 Jul 2026 rather than copied forward.
 |---|---|
 | **50 Welcome Week boxes in stock** | ✅ **Done.** All 11 components sit at 50, the bundle relationship is intact, and the box reports 50 available. Nothing needed. |
 | **Every other box shows 0** | Expected — they're marked coming-soon/pre-order. Flagged only so it's a decision and not a surprise: they can't be bought until their components are stocked the same way. |
-| **Weigh a box for real shipping rates** | ❌ **Still needed, and it's the blocking one.** Every package variant has a weight of **0 lb**. Carrier-calculated rates cannot work off zero, so a real weight per box has to be entered before checkout quotes anything meaningful. Give me the weights and I'll set them. |
+| **Weigh a box for real shipping rates** | ⚠️ **Welcome Week done (1179 g), seven boxes to go** — and it turns out weight isn't what's blocking rates. See section J. |
 | **Enable taxes for the states you ship to** | ❌ Owner — Settings → Taxes. Not visible to me without extra permissions. |
 | **Replace the AI product photos** | ⚠️ **Partly done, 3 Aug 2026.** All 8 AI renders are deleted and replaced with the owner's real photography. But per her own file naming, only **three are final** — the other five are `Holder`/`Hold` placeholders (see below). Add-ons deliberately have no photos — the owner removed them from the template, so those cards are type-only by design, not by omission. |
 | **Check ordering on a phone end to end** | ❌ Owner. Worth doing by hand: the storefront form submissions hit Shopify's bot check under automation, so I can't complete a real order myself. |
@@ -172,3 +172,52 @@ Soup, Tea, Throat Drops.
   that one item and the box count follows automatically — which is the whole point
   of modelling it this way.
 
+
+## J. Shipping weights and rates — what the first weight revealed (Aug 2026)
+
+**Welcome Week Starter is set to 1179 g** and it flows correctly: the cart
+reports `total_weight: 1179` for the bundle. That settles a question worth
+recording — **for a bundle, Shopify uses the PARENT variant's weight, not the sum
+of its components.** All 11 Welcome Week components are still 0 lb and it makes
+no difference. So weigh and set the *box*, not the contents.
+
+The other seven boxes are still 0. Send weights and they're a one-line change
+each.
+
+### But weight is not currently affecting price
+
+Checkout returns **flat rates: Standard $8.00, Express $15.00**, `source:
+shopify`, and — tested against Virginia, California, Alaska and Hawaii — the
+price is **identical for every destination**. These are manually configured flat
+rates, not carrier-calculated ones. Setting weights changes nothing about what a
+customer is charged until someone switches the shipping profile to
+carrier-calculated rates in **Settings → Shipping and delivery**.
+
+That is a business decision, not a bug: flat-rate shipping is a perfectly normal
+choice, and $8 on a $58 box may well be what's wanted. But it means "weigh a box
+to get real rates" was solving for a mechanism the store isn't using. Worth
+deciding deliberately:
+
+- **Keep flat rates** — then the weights only matter for carrier labels, and
+  there's no rush on the other seven.
+- **Switch to carrier-calculated** — then all eight boxes need real weights
+  first, or customers get quoted off a zero-weight parcel.
+
+### ⚠️ The shipping zone contradicts the published Shipping Policy
+
+**Alaska and Hawaii are quoted rates and can check out.** The Shipping Policy now
+live says, because the owner answered "NO" to shipping there:
+
+> *InstaMom currently ships only within the contiguous United States.* … We do
+> not currently ship to: Alaska or Hawaii; U.S. territories…; APO, FPO or DPO
+> military addresses; P.O. boxes; or any destination outside the United States.
+
+So the store will take an Alaska order that the policy promises won't be
+fulfilled. One of the two has to change, and the zone is the cheaper fix:
+**Settings → Shipping and delivery → edit the shipping zone** so it covers only
+the contiguous states. (Shipping zones aren't reachable from this integration —
+they need `write_shipping` and are admin-side.)
+
+This is exactly the failure the policy packet warned about: *"Do not promise a
+shipping speed, data practice, or refund right the business cannot consistently
+honor."*

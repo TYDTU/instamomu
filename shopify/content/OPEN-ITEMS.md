@@ -52,10 +52,48 @@ Checked against the live store on 28 Jul 2026 rather than copied forward.
 | **Every other box shows 0** | Expected — they're marked coming-soon/pre-order. Flagged only so it's a decision and not a surprise: they can't be bought until their components are stocked the same way. |
 | **Weigh a box for real shipping rates** | ❌ **Still needed, and it's the blocking one.** Every package variant has a weight of **0 lb**. Carrier-calculated rates cannot work off zero, so a real weight per box has to be entered before checkout quotes anything meaningful. Give me the weights and I'll set them. |
 | **Enable taxes for the states you ship to** | ❌ Owner — Settings → Taxes. Not visible to me without extra permissions. |
-| **Replace the AI product photos** | ❌ Owner. All 8 boxes have a photo, so nothing is missing — it's a swap, not a gap. None of the 9 add-ons has a photo at all; they fall back to the IMU cap mark. |
+| **Replace the AI product photos** | ⚠️ **Partly done, 3 Aug 2026.** All 8 AI renders are deleted and replaced with the owner's real photography. But per her own file naming, only **three are final** — the other five are `Holder`/`Hold` placeholders (see below). Add-ons deliberately have no photos — the owner removed them from the template, so those cards are type-only by design, not by omission. |
 | **Check ordering on a phone end to end** | ❌ Owner. Worth doing by hand: the storefront form submissions hit Shopify's bot check under automation, so I can't complete a real order myself. |
 
 ---
 
 *Companion to [README.md](README.md), which records what was built and what was
 changed from the source documents.*
+
+## H. Box photography — what's final and what isn't
+
+Uploaded 3 August 2026 from *Website Display Pics (1)*, one per box. The AI
+renders they replaced are deleted. **The filename is the key** — `Holder Pic` /
+`Hold Pic` means a placeholder, not that box's contents:
+
+| Box | File | Status |
+|---|---|---|
+| Welcome Week Starter | `Welcome Week Pic` | ✅ **Final** — the box with its actual contents laid out |
+| Warm Hug from Home | `Warm Hug From Home 50` | ✅ **Final** — the real contents: sloth Warmie, soup, tea, Emergen-C, Kleenex |
+| Room Refresh | `Room Refresh_Ready 50` | ✅ **Final**, but it's a styled shot of the room spray alone, not the box or its seven items |
+| Homesick Helper | `Homesick Helper Holder Pic` | ⚠️ Placeholder — the Warmies plush range, which is *relevant* but isn't this box |
+| Snack Attack | `Snack Attack Holder Pic` | ⚠️ Placeholder — a box of tissue paper on a chair. No snacks in shot |
+| Seasonal Celebrations | `Celebration Holder Pic` | ⚠️ Placeholder — an open box of tissue paper |
+| Regroup, Recover, Restart | `Regroup, Recover, Restart Holder Pic` | ⚠️ Placeholder — a box lid and tissue paper, shot from above |
+| Finals Reset Box | `Finals Reset Hold Pic` | ⚠️ Placeholder — a closed box with the crest |
+
+**Still wanted: five contents photos**, for the boxes marked ⚠️. They are
+branded, real photography and are a clear improvement on the AI renders, so
+they're fine to launch behind — but four of the five show packaging rather than
+product, and a shopper can't see what they'd receive.
+
+Two smaller things:
+
+- **All eight are 1024×768.** That's fine on the homepage cards (they render at
+  ~267px wide) but soft on the product page, where Dawn will serve up to
+  ~1450px. Higher-resolution originals would sharpen the product pages, if they
+  exist.
+- **Room Refresh and Snack Attack are portrait shots padded to 4:3**, so they
+  carry cream and pale-blue side bars. They read fine in the card crop; worth
+  knowing if the images are ever recut.
+
+⚠️ **A stock discrepancy to settle.** Two filenames end in `50` — `Room
+Refresh_Ready 50` and `Warm Hug From Home 50` — and the earlier "50 Live Welcome
+Week in Stock" note used the same shorthand for unit counts. But the answers
+table said **30** for both boxes, which is what is set on the store. If `50`
+means fifty ready, both need raising.

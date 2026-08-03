@@ -161,9 +161,17 @@ the 14 August date and two of them aren't Welcome boxes.
 
 ### Worth flagging
 
-- **Warm Hug reads 48, she said "30 pieces".** 48 is 30 Golden Dog + 3 each
-  across six other Warmies — the 3s were confirmed earlier. If 30 is the real
-  total, the Golden Dog count or the others need adjusting.
+- ~~Warm Hug reads 48, she said "30 pieces"~~ — **resolved.** There are only
+  **three** Golden Dog plush, not thirty. `comp-warmie` corrected 30 → 3, so all
+  seven Warmies now sit at 3 apiece: **Warm Hug totals 21**, and Homesick Helper,
+  which shares the same plush components, **totals 12**.
+
+  Note this leaves the *consumables* over-stocked relative to the plush: soup,
+  tea, tissues, crackers, honey bear, throat drops and both coaching cards are
+  all at 30, i.e. enough for 30 boxes when only 21 can be built. That is
+  harmless — a bundle's availability is its lowest component, so the plush
+  correctly governs — but it does mean **"30 pieces" in her email describes the
+  consumables, not sellable boxes.**
 - **The Chocolate and Protein lists she sent are the ones deleted earlier** as
   AI-invented placeholders. She has now supplied them as the real contents, so
   they are restored verbatim. That earlier deletion was the right call on the

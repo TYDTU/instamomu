@@ -66,6 +66,63 @@ practice — stays in the repo, unused. **Revisit it if an ad pixel or analytics
 tool is ever added**: at that point the auto policy becomes right by accident,
 and the trade-off changes.
 
+## L. Sales tax — what's set up and what isn't (Aug 2026)
+
+**Nothing is being collected anywhere right now.** Settings → Taxes and duties →
+United States shows *Collecting: —*.
+
+What IS already in place:
+
+- **Shopify Tax is active.** Free until $100,000 in global sales, then 0.35% per
+  transaction. It calculates state *and* local rates automatically, so there are
+  no rate tables to maintain.
+- **Shopify has already detected the nexus.** Tax liability insights shows
+  **Virginia — Action required, "Physical presence threshold met in July 2026."**
+  That's the Lynchburg fulfilment location. It is telling you that you have an
+  obligation in Virginia.
+
+### What has to happen, in this order
+
+1. **Register with Virginia first.** Shopify's own note: *"Register with each
+   state before collecting sales tax."* Collecting before you hold a Certificate
+   of Registration is the wrong way round. Virginia Dept. of Taxation,
+   Form R-1 / online registration.
+2. **Then** Settings → Taxes and duties → United States → **Set up tax
+   collection** on the Virginia row, and enter the sales tax ID. Shopify starts
+   calculating at checkout from that point.
+
+Only Virginia is flagged. Other states need *economic* nexus — typically
+$100k in sales or 200 transactions into that state in a year — which a launching
+store won't have. Shopify will flag them here if they're ever crossed, so this
+page is worth checking periodically rather than guessing.
+
+### Three things to raise with an accountant
+
+I can wire up whatever is decided, but these are judgement calls about the
+business, not Shopify settings, and I'm not qualified to answer them:
+
+- **Food.** Virginia taxes food for home consumption at a reduced rate. These
+  boxes are mostly snacks, mixed with non-food. Gift baskets with mixed contents
+  are treated differently in different states, and every package here is
+  categorised as **Bundles**, which Shopify Tax treats as generally taxable at
+  the full rate. If the reduced grocery rate should apply to some of it, that's a
+  categorisation change.
+- **Tax on shipping.** The store currently has `taxShipping: true`. In Virginia,
+  *separately stated* shipping charges are generally not taxable, while combined
+  "shipping and handling" is. The rates here are stated separately (Standard /
+  Express), so this setting may be charging tax it doesn't need to.
+- **Pre-orders.** Boxes are being sold now and shipping 14 August. Which tax
+  period a pre-order belongs to is a filing question worth asking once.
+
+### Fixed in passing
+
+All 8 packages now carry the **Bundles** product category. Three had lost it —
+`productSet` doesn't copy the category, so the Warm Hug / Homesick / Room Refresh
+rebuilds dropped it — and `regroup-recover-restart` never had one. Product
+category is what Shopify Tax uses to decide taxability, so an unset category is
+not cosmetic. **The 9 add-ons still have no category** and should get one before
+they're sold separately.
+
 ## G. Launch-readiness items from the original doc
 
 Checked against the live store on 28 Jul 2026 rather than copied forward.
@@ -75,7 +132,7 @@ Checked against the live store on 28 Jul 2026 rather than copied forward.
 | **50 Welcome Week boxes in stock** | ✅ **Done.** All 11 components sit at 50, the bundle relationship is intact, and the box reports 50 available. Nothing needed. |
 | **Every other box shows 0** | Expected — they're marked coming-soon/pre-order. Flagged only so it's a decision and not a surprise: they can't be bought until their components are stocked the same way. |
 | **Weigh a box for real shipping rates** | ⚠️ **Welcome Week done (1179 g), seven boxes to go** — and it turns out weight isn't what's blocking rates. See section J. |
-| **Enable taxes for the states you ship to** | ❌ Owner — Settings → Taxes. Not visible to me without extra permissions. |
+| **Enable taxes for the states you ship to** | ❌ Owner — see section L. Shopify has already flagged Virginia as *Action required*. |
 | **Replace the AI product photos** | ⚠️ **Partly done, 3 Aug 2026.** All 8 AI renders are deleted and replaced with the owner's real photography. But per her own file naming, only **three are final** — the other five are `Holder`/`Hold` placeholders (see below). Add-ons deliberately have no photos — the owner removed them from the template, so those cards are type-only by design, not by omission. |
 | **Check ordering on a phone end to end** | ❌ Owner. Worth doing by hand: the storefront form submissions hit Shopify's bot check under automation, so I can't complete a real order myself. |
 

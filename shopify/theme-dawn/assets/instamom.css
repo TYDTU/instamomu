@@ -844,22 +844,20 @@ textarea:focus-visible,
   list-style: none;
 }
 
+/* Type-only cards since the owner removed add-on photos (Aug 2026). Without
+   the 110px image that used to head each card, the name now sets the card's
+   top edge, so it needs a little more room to breathe and the cards need a
+   minimum height or a one-word add-on collapses next to a three-line one. */
 .instamom-addons__item {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 12px;
+  padding: 18px 14px 14px;
+  min-height: 15rem;
   border: 2px solid var(--imu-navy);
   border-radius: 8px;
   background: var(--imu-cream);
   text-align: center;
-}
-
-.instamom-addons__image {
-  width: 100%;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 6px;
 }
 
 .instamom-addons__name {
@@ -1475,20 +1473,6 @@ textarea:focus-visible,
   box-shadow:
     0 2px 4px rgba(6, 43, 102, 0.08),
     0 10px 28px rgba(6, 43, 102, 0.18);
-}
-
-/* Review: "Can the add-on boxes be more visually interesting? Maybe use our
-   second level logo here?" — none of the add-ons has a product photo, so the
-   modal's cards would be type-only. They fall back to the IMU cap mark on a
-   tinted panel so it reads as deliberate branding rather than a missing image.
-
-   The homepage add-ons LIST doesn't use this: it's a row layout with no images
-   at all, and repeating one logo down eight rows read as noise. The cap logo
-   earns its place flanking the packages headline instead (see below). */
-.instamom-addons__image--mark {
-  object-fit: contain;
-  padding: 12px;
-  background: linear-gradient(160deg, rgba(6, 43, 102, 0.06), rgba(247, 201, 72, 0.22));
 }
 
 /* The IMU cap logo flanking "Built to give your student whatever they need,

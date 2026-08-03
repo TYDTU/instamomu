@@ -52,28 +52,19 @@
       <ul class="instamom-addons__grid" role="list">
         {%- for addon in addons -%}
           {%- assign variant = addon.selected_or_first_available_variant | default: addon.variants.first -%}
+          {%- comment -%}
+            No image. Owner, Aug 2026: "Add ons should not have photos, remove
+            them from the template."
+
+            This reverses the earlier review note ("Can the add-on boxes be more
+            visually interesting? Maybe use our second level logo here?"), which
+            is why these cards used to carry the IMU cap mark on a tinted panel
+            as a stand-in for the product photos none of the add-ons has. Don't
+            reinstate it from that older note — the cards are now type-only by
+            request, and repeating one logo down nine cards was reading as noise
+            anyway (the same reason the homepage add-ons LIST never used it).
+          {%- endcomment -%}
           <li class="instamom-addons__item">
-            {%- if addon.featured_media -%}
-              <img
-                class="instamom-addons__image"
-                src="{{ addon.featured_media | image_url: width: 300 }}"
-                alt="{{ addon.featured_media.alt | escape }}"
-                loading="lazy"
-                width="150"
-                height="150"
-              >
-            {%- else -%}
-              {%- comment -%} Same IMU-cap fallback as the homepage list. {%- endcomment -%}
-              <img
-                class="instamom-addons__image instamom-addons__image--mark"
-                src="{{ 'imu-logo-cap.png' | asset_url }}"
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                width="150"
-                height="150"
-              >
-            {%- endif -%}
             <span class="instamom-addons__name">{{ addon.title | escape }}</span>
             {%- comment -%}
               The `custom.cute_note` wink ("Trust us!"), kept out of the product

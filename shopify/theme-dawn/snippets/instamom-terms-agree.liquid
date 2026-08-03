@@ -1,0 +1,93 @@
+{% comment %}
+  InstaMom University — required agreement to the Terms of Service and the
+  Refund, Return & Cancellation Policy before checkout.
+
+  Owner answered YES to "Require customers to tick agreement to the Terms +
+  Refund Policy before purchase?" (policy packet, Owner Implementation Notes
+  p.20: "Require affirmative agreement to the Terms and Refund Policy before
+  purchase where the platform allows it").
+
+  Recorded as the cart attribute "Terms agreement", so the acceptance rides
+  through to the order and is visible under the order's Additional details —
+  an agreement you can't evidence later isn't worth much. Section 1 of the
+  Terms says this tick-box is the agreement, so the two must stay in step: if
+  this control is removed, that sentence has to change too.
+
+  Enforcement mirrors snippets/../sections/main-cart-footer.liquid's
+  candy-preference field: `required` gives native enforcement when the standard
+  Checkout button submits the cart form, and the script guards the dynamic
+  checkout buttons (Shop Pay and friends), which bypass the form entirely.
+
+  This lives on the CART PAGE only, which is safe here because the store runs
+  `cart_type: notification` — adding to cart shows a notification and every
+  checkout goes through the cart page. If the cart DRAWER is ever switched on,
+  this snippet and the candy-preference field both need rendering in
+  snippets/cart-drawer.liquid as well, or the drawer becomes a way to check out
+  without either.
+
+  Styling: .instamom-terms* in assets/instamom.css
+{% endcomment %}
+
+{%- assign agreed_value = 'Agreed to the Terms of Service and Refund Policy' -%}
+
+<div class="instamom-terms" id="instamom-terms">
+  <label class="instamom-terms__option" for="InstamomTermsAgree">
+    <input
+      type="checkbox"
+      id="InstamomTermsAgree"
+      name="attributes[Terms agreement]"
+      value="{{ agreed_value }}"
+      form="cart"
+      required
+      {% if cart.attributes['Terms agreement'] == agreed_value %}checked{% endif %}
+    >
+    <span>
+      I have read and agree to the
+      <a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}" target="_blank" rel="noopener">Terms of Service</a>
+      and the
+      <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}" target="_blank" rel="noopener">Refund, Return &amp; Cancellation Policy</a>.
+    </span>
+  </label>
+  <p class="instamom-terms__error" data-terms-error hidden>
+    Please agree to the Terms and Refund Policy before checking out.
+  </p>
+</div>
+
+<script>
+  (function () {
+    var group = document.getElementById('instamom-terms');
+    if (!group) return;
+    var box = group.querySelector('input[type="checkbox"]');
+    var error = group.querySelector('[data-terms-error]');
+
+    function guard(event) {
+      if (box.checked) return;
+      event.preventDefault();
+      group.classList.add('instamom-terms--error');
+      if (error) error.hidden = false;
+      group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      box.focus();
+    }
+
+    // Same two targets the candy-preference guard covers: the standard checkout
+    // button and the dynamic ones, which don't submit the cart form.
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('#checkout, .cart__dynamic-checkout-buttons')) guard(event);
+    }, true);
+
+    group.addEventListener('change', function () {
+      if (box.checked) {
+        group.classList.remove('instamom-terms--error');
+        if (error) error.hidden = true;
+      }
+      // Persist immediately so the acceptance is recorded on the order whichever
+      // checkout button is used — the form submit only carries it for the
+      // standard one. Unticking clears it rather than leaving a stale "Agreed".
+      fetch((window.Shopify && window.Shopify.routes ? window.Shopify.routes.root : '/') + 'cart/update.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ attributes: { 'Terms agreement': box.checked ? box.value : '' } }),
+      }).catch(function () { /* the form submit still carries it */ });
+    });
+  })();
+</script>

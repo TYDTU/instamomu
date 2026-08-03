@@ -2031,3 +2031,89 @@ textarea:focus-visible,
   color: var(--imu-navy-dark);
   font-weight: 700;
 }
+
+/* --- Required Terms + Refund agreement (snippets/instamom-terms-agree.liquid)
+   Sits between the allergen notice and the Checkout button. Deliberately plain
+   next to the cream allergen notice above it: two boxed callouts stacked on the
+   button read as noise, and this one only needs to be unmissable when it's
+   WRONG (see the error state below). */
+.instamom-terms {
+  margin: 0 0 16px;
+}
+
+.instamom-terms__option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--imu-navy-dark);
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.instamom-terms__option input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--imu-pink);
+  cursor: pointer;
+}
+
+.instamom-terms__option a {
+  color: var(--imu-navy-dark);
+  font-weight: 700;
+}
+
+.instamom-terms--error {
+  padding: 10px 12px;
+  border: 1.5px solid var(--imu-pink);
+  border-radius: 8px;
+  background: var(--imu-surface);
+}
+
+.instamom-terms__error {
+  margin: 8px 0 0;
+  color: var(--imu-pink);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* --- Shipping-window promise under the buy buttons -----------------------
+   snippets/instamom-shipping-note.liquid. The pre-order date is the loud line
+   (it answers "when does this actually arrive?"); the 7–10 day window and the
+   substitution clause sit under it as fine print, because they're commitments
+   rather than news. */
+.instamom-shipnote {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border: 1.5px solid var(--imu-line);
+  border-left: 4px solid var(--imu-gold);
+  border-radius: 8px;
+  background: var(--imu-surface);
+}
+
+.instamom-shipnote__lead {
+  margin: 0 0 6px;
+  color: var(--imu-navy-dark);
+  font-size: 1.4rem;
+  line-height: 1.45;
+}
+
+.instamom-shipnote__body {
+  margin: 0;
+  color: var(--imu-muted);
+  font-size: 1.28rem;
+  line-height: 1.5;
+}
+
+/* --- Newsletter explainer in the footer ---------------------------------
+   sections/footer.liquid. Sits between the heading and the email field, so it
+   is read before the field is filled rather than after. */
+.instamom-newsletter__blurb {
+  margin: 0 0 12px;
+  max-width: 42rem;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}

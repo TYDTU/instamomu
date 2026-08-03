@@ -50,7 +50,15 @@
             {% render 'instamom-badge', product: product %}
             <h3 class="instamom-lineup__title">{{ product.title | escape }}</h3>
             {%- if blurb != blank -%}
-              <p class="instamom-lineup__copy">{{ blurb | strip_html | truncatewords: 45 }}</p>
+              {%- comment -%}
+                Owner: "Regroup, Recover, Restart cuts off." Its blurb was 47
+                words against a 45-word cap. Her shorter first clause brings it
+                to 43, but Finals Reset sits at 44 — one word from the same
+                silent trim — so raise the cap rather than leave the next edit
+                to rediscover this. The cap stays because it's what keeps the
+                cards in the scrolling band a consistent height.
+              {%- endcomment -%}
+              <p class="instamom-lineup__copy">{{ blurb | strip_html | truncatewords: 60 }}</p>
             {%- endif -%}
             <a class="instamom-lineup__link" href="{{ product.url }}">View package &rarr;</a>
           </li>

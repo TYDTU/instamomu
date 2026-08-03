@@ -170,6 +170,21 @@
               {%- if section.settings.newsletter_heading != blank -%}
                 <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
               {%- endif -%}
+              {%- comment -%}
+                Owner: "The box that has a space for their email at the bottom
+                needs a little description of what putting their email in
+                means." An unexplained email field asks for a stranger's address
+                and says nothing about what arrives — so say it, and say they
+                can leave. Kept as a theme string rather than a section setting
+                because it's a privacy statement, not decoration: the Privacy
+                Policy promises consent to marketing isn't a condition of
+                purchase, and this is where that promise is visible.
+              {%- endcomment -%}
+              <p class="instamom-newsletter__blurb">
+                New box launches, restock news, and the occasional care-package
+                idea &mdash; a few emails a year, never your student&rsquo;s
+                details. Unsubscribe any time.
+              </p>
               {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
                 <input type="hidden" name="contact[tags]" value="newsletter">
                 <div class="newsletter-form__field-wrapper">

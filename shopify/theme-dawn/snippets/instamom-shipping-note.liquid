@@ -1,0 +1,51 @@
+{% comment %}
+  InstaMom University — the shipping-window promise, shown under the buy buttons
+  on a product page.
+
+  Owner's launch copy, verbatim:
+    "Orders will ship as soon as possible but no later than 7-10 business days.
+     As supply chains shift some items may be replaced with similar items of
+     equal value."
+    "Pre-order now, all Welcome Boxes begin shipping on Friday August 14th, 2026"
+
+  Both sentences are promises, so they have to agree with the Shipping &
+  Delivery Policy (7–10 business days processing, and the substitution clause in
+  its §8). If one changes, change the other — shopify/content/policy-shipping.html.
+
+  The 14 August date is scoped to `pre-order` + `welcome-week`, which today is
+  the Welcome Week Starter alone. Warm Hug from Home is also pre-order but ships
+  from its own ready stock, so it must NOT inherit a Welcome-box date, and a
+  coming-soon box must not show a ship date at all.
+
+  ⚠ 14 August 2026 is a fixed date in this snippet. Once it passes, the line
+  reads as stale rather than reassuring — remove it, or replace it with the next
+  shipping date.
+
+  Usage: {% render 'instamom-shipping-note', product: product %}
+  Styling: .instamom-shipnote* in assets/instamom.css
+{% endcomment %}
+
+{%- liquid
+  assign is_preorder = false
+  assign is_welcome = false
+  if product.tags contains 'pre-order'
+    assign is_preorder = true
+  endif
+  if product.tags contains 'welcome-week'
+    assign is_welcome = true
+  endif
+-%}
+
+<div class="instamom-shipnote">
+  {%- if is_preorder and is_welcome -%}
+    <p class="instamom-shipnote__lead">
+      <strong>Pre-order now</strong> &mdash; all Welcome Boxes begin shipping on
+      <strong>Friday, August 14, 2026</strong>.
+    </p>
+  {%- endif -%}
+  <p class="instamom-shipnote__body">
+    Orders ship as soon as possible, and no later than 7&ndash;10 business days.
+    As supply chains shift, some items may be replaced with similar items of
+    equal value.
+  </p>
+</div>

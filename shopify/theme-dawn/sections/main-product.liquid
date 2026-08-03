@@ -494,13 +494,32 @@
                     product_form_id: product_form_id
                   %}
                 {%- when 'buy_buttons' -%}
-                  {%- render 'buy-buttons',
-                    block: block,
-                    product: product,
-                    product_form_id: product_form_id,
-                    section_id: section.id,
-                    show_pickup_availability: true
-                  -%}
+                  {%- comment -%}
+                    InstaMom: a `coming-soon` box must not be purchasable, full
+                    stop. snippets/card-product.liquid already suppresses the
+                    add-to-cart in the grid and the preview popup, but the
+                    PRODUCT PAGE used to render the buy buttons regardless and
+                    relied on the box being out of stock to disable them.
+
+                    That is not a safe assumption: these boxes are native
+                    bundles, so their availability is derived from components —
+                    and components are SHARED between boxes. Stocking Warm Hug
+                    from Home in Aug 2026 also put Homesick Helper (which shares
+                    the Lavender Warmie component) at 30 and quietly made a
+                    September box buyable today. Gate on the tag, which is the
+                    thing that actually means "not for sale yet".
+                  {%- endcomment -%}
+                  {%- unless product.tags contains 'coming-soon' -%}
+                    {%- render 'buy-buttons',
+                      block: block,
+                      product: product,
+                      product_form_id: product_form_id,
+                      section_id: section.id,
+                      show_pickup_availability: true
+                    -%}
+                  {%- endunless -%}
+                  {%- comment -%} InstaMom: the shipping-window promise (owner's launch copy). {%- endcomment -%}
+                  {%- render 'instamom-shipping-note', product: product -%}
                   {%- comment -%} InstaMom: coming-soon boxes get a "Notify me" email signup. {%- endcomment -%}
                   {%- render 'instamom-notify-form', product: product -%}
                 {%- when 'rating' -%}

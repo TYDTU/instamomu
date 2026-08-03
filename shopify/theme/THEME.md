@@ -33,11 +33,6 @@ Changes made against the owners' "Possible Beth Changes" review, all live on Daw
   Multicolumn on the homepage): small-caps eyebrow ("What makes it InstaMom
   University?"), navy heading + lead, three **white cards with a fine pink frame**.
 - **Current lineup** cards now carry a **fine yellow (gold) border** (was white).
-- **Gives Back** → dedicated `sections/instamom-givesback.liquid` (replaces the
-  rich-text): the title is flanked left + right by the **IMU cap logo**
-  (`imu-logo-cap.png`, not the crest), on the light paper background, matching the
-  prototype's `#gives-back`. Logos hide under 768px; the `gives-back` anchor is kept
-  so the header link still jumps here.
 - **Preview popup** (`snippets/card-product.liquid`) gained a real **Add to cart**
   `<product-form>` above "View full details", so it adds via AJAX and triggers the
   post-cart add-ons modal — matching the grid quick-add.
@@ -126,7 +121,6 @@ Map each prototype section to a Dawn section in the theme editor:
 | "Explore our packages" lineup | **Featured collection** | Point it at a "Packages" collection. |
 | Package grid | **Featured collection** / **Collection page** | Cards get the gold hard-shadow from the CSS automatically. |
 | "What makes it InstaMom University" (tip cards / whole person / care across miles) | **Multicolumn** | Three columns. |
-| InstaMom University Gives Back | **Rich text** or **Image with text** | Add the CSS class `instamom-band` via the section's custom-CSS field for the navy look. |
 | About Us | **Page** + **Rich text** | Paste the founders' bio. |
 | Footer | Dawn **Footer** | Styled navy by the CSS. |
 
@@ -193,8 +187,8 @@ pink so "Add to cart" reads as the primary action, matching the prototype.
 
 ## Step 7b — Anchor links to a homepage section
 
-To let a nav item jump to a section (the header's "Gives Back" link does this), add an
-anchor to Dawn's `sections/rich-text.liquid`. Don't rely on Dawn's own
+To let a nav item jump to a section, add an anchor to Dawn's
+`sections/rich-text.liquid`. Don't rely on Dawn's own
 `shopify-section-…` wrapper id — it embeds a generated template id.
 
 1. Just above the section's outer `<div class="isolate…">`, add:
@@ -258,3 +252,19 @@ and the ✓ "What's Inside" list on a product page.
 Everything except the badges and "What's Inside" list works from **just Step 1–5**
 (Dawn + `instamom.css` + native sections). The two Liquid snippets are enhancements you
 can add later or hand to a developer — the store is fully functional without them.
+
+## Removed: Gives Back / the scholarship sweepstakes (Aug 2026)
+
+The homepage "InstaMom University Gives Back" band, its `Giving Back` header
+link, and the whole $1,000 Virginia sweepstakes it advertised were **taken out**
+at the owner's request ("Take out the sweepstakes entirely... eliminate for
+now"). Removed: `sections/instamom-givesback.liquid`, its CSS block,
+`snippets/instamom-sweepstakes-disclosure.liquid`, the `gives_back` entry in
+`templates/index.json`, the `Giving Back` main-menu item, and the two
+sweepstakes Shopify pages.
+
+The drafted rules and mail-in entry form are **kept in
+`shopify/content/`** — nothing on the store references them, so bringing the
+promotion back is a matter of re-creating two pages from those files. See
+`shopify/content/README.md` for the blanks that were never filled, including the
+unresolved $199-vs-$1,000 prize amount.

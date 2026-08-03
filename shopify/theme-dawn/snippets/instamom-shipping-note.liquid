@@ -1,0 +1,50 @@
+{% comment %}
+  InstaMom University — the shipping-window promise, shown under the buy buttons
+  on a product page.
+
+  Owner's launch copy, verbatim:
+    "Orders will ship as soon as possible but no later than 7-10 business days.
+     As supply chains shift some items may be replaced with similar items of
+     equal value."
+    "Pre-order now, all Welcome Boxes begin shipping on Friday August 14th, 2026"
+
+  Both sentences are promises, so they have to agree with the Shipping &
+  Delivery Policy (7–10 business days processing, and the substitution clause in
+  its §8). If one changes, change the other — shopify/content/policy-shipping.html.
+
+  The 14 August date is driven by its own `ships-aug-14` tag, NOT by a
+  combination of `pre-order` and `welcome-week`. That combination looked
+  equivalent when only Welcome Week Starter was pre-order — but Homesick Helper
+  also carries `welcome-week`, so the moment it opened for sale it would have
+  silently started promising a 14 August ship date it has no basis for. A ship
+  date is a promise; it gets an explicit tag, and adding a box to that date is a
+  tag away.
+
+  ⚠ 14 August 2026 is a fixed date in this snippet. Once it passes, the line
+  reads as stale rather than reassuring — remove it, or replace it with the next
+  shipping date.
+
+  Usage: {% render 'instamom-shipping-note', product: product %}
+  Styling: .instamom-shipnote* in assets/instamom.css
+{% endcomment %}
+
+{%- liquid
+  assign ships_aug_14 = false
+  if product.tags contains 'ships-aug-14'
+    assign ships_aug_14 = true
+  endif
+-%}
+
+<div class="instamom-shipnote">
+  {%- if ships_aug_14 -%}
+    <p class="instamom-shipnote__lead">
+      <strong>Pre-order now</strong> &mdash; all Welcome Boxes begin shipping on
+      <strong>Friday, August 14, 2026</strong>.
+    </p>
+  {%- endif -%}
+  <p class="instamom-shipnote__body">
+    Orders ship as soon as possible, and no later than 7&ndash;10 business days.
+    As supply chains shift, some items may be replaced with similar items of
+    equal value.
+  </p>
+</div>

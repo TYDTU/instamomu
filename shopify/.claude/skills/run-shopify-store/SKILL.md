@@ -105,6 +105,45 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   - A **bundle's** available qty is its lowest-stock component, so to make a box orderable you stock its *components*, not the box (Welcome's 11 components were set to 30, then to 50 in Jul 2026). Location: `INSTAMOM U` = `gid://shopify/Location/90382762084`.
   - The **bundle's own derived quantity lags** the component write: right after a successful `inventorySetQuantities` the box still reports the OLD `totalInventory` while its components already read the new value, and `quantityAfterChange` comes back `null`. It settles in ~15s — re-query the box before concluding the write failed.
   - Reading component ids/quantities needs **no inventory scope**: `productVariantComponents { productVariant { inventoryQuantity inventoryItem { id } } }` works on `read_products`. Only the write needs `write_inventory`, so stage everything first and re-auth once.
+- **`theme dev` reports every BUNDLE as "already sold out".** Adding a bundle to
+  the cart through `http://127.0.0.1:9292` returns
+  `422 The product '<name>' is already sold out.` while the same add on the real
+  storefront returns 200. Non-bundle products add fine through the proxy, which
+  makes it look like a real, bundle-specific inventory fault. It is not.
+  **Never diagnose purchasability or shipping rates through `theme dev`** — it
+  cost most of an afternoon and nearly caused a correct shipping-zone change to
+  be reverted. Verify cart/checkout behaviour on the live storefront
+  (`https://instamomuniversity.com`), which Claude-in-Chrome can reach; use
+  `theme dev` only for rendering and layout.
+- **Bundle components are owned by the app that created them, and it is absolute.**
+  Shopify: "After an app assigns components to a bundle, only that app can manage
+  those components." The lock is at the **product** level, not the variant, and it
+  blocks **removal as well as addition** — so you cannot release it from this side
+  by deleting the relationships. `productVariantRelationshipBulkUpdate` fails with
+  `PRODUCT_EXPANDER_APP_OWNERSHIP_ALREADY_EXISTS`. No scope fixes this;
+  `read_apps` is not even a valid Shopify access scope, so you cannot identify the
+  owning app from here either — look in the admin.
+  The only route is a product THIS app created. Rebuild: rename the old handle to
+  `<handle>-legacy` + set DRAFT, re-create on the original handle, copy
+  metafields/photo/publications, then attach components. Done for Warm Hug from
+  Home and Homesick Helper in Aug 2026; the script is in that session's
+  scratchpad. Untag the legacy products so they leave any smart collection, and
+  leave them DRAFT rather than deleting until someone has checked the replacement.
+- **Attaching bundle components ZEROES the parent variant's price.** This is the
+  one that will bite you. `productVariantRelationshipBulkUpdate` silently resets
+  the parent to **$0.00**, and returns no userError. Proven the hard way: on Room
+  Refresh the price was set to $56 BEFORE attaching, the mutation reported
+  success, and the variant still came out $0.00 afterwards. (`productSet` also
+  doesn't apply prices at create time, so the two compound.)
+  **Always set prices AFTER components are attached, then re-read to confirm.**
+  Get this wrong and the care packages go live free.
+- **Smart collections re-evaluate asynchronously.** After changing the tag that a
+  smart collection rules on, the collection keeps reporting the old membership for
+  a good 30s. Poll rather than concluding the tag edit failed.
+- **`/cart/add.js` does not enforce stock on this store** — a plain DENY variant
+  with 25 in stock accepts a quantity of 9999 with HTTP 200, and so do bundles.
+  Enforcement happens at checkout. Don't read a successful cart-add as proof that
+  inventory is wired up; verify components through the Admin API instead.
 - **Native bundles** (how the boxes decrement components): attach component variants to the box's variant with `productVariantRelationshipBulkUpdate(input:[{parentProductVariantId, productVariantRelationshipsToCreate:[{id, quantity}]}])`. This flips the parent to `requiresComponents: true` (settles a beat *after* the mutation response — re-query to confirm). Caveat: "only the app that assigned components can manage them" — components set via this CLI app aren't managed by the Shopify **Bundles** app, so verify a bundle expands into components at checkout before selling it. (Regroup, Recover, Restart was built this way.)
 
 ## Troubleshooting

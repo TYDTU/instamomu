@@ -170,6 +170,21 @@
               {%- if section.settings.newsletter_heading != blank -%}
                 <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
               {%- endif -%}
+              {%- comment -%}
+                Owner: "The box that has a space for their email at the bottom
+                needs a little description of what putting their email in
+                means." An unexplained email field asks for a stranger's address
+                and says nothing about what arrives — so say it, and say they
+                can leave. Kept as a theme string rather than a section setting
+                because it's a privacy statement, not decoration: the Privacy
+                Policy promises consent to marketing isn't a condition of
+                purchase, and this is where that promise is visible.
+              {%- endcomment -%}
+              <p class="instamom-newsletter__blurb">
+                New box launches, restock news, and the occasional care-package
+                idea &mdash; a few emails a year, never your student&rsquo;s
+                details. Unsubscribe any time.
+              </p>
               {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
                 <input type="hidden" name="contact[tags]" value="newsletter">
                 <div class="newsletter-form__field-wrapper">
@@ -314,6 +329,24 @@
                 </li>
               {%- endif -%}
             {%- endfor -%}
+            {%- comment -%}
+              InstaMom: the allergen disclaimer sits with the store policies
+              because that is where a shopper looks for it, but it is a PAGE,
+              not one of Shopify's five built-in policies, so `shop.policies`
+              can't carry it. Appended to the same list instead of relying on
+              the footer menu, which would put it behind a navigation edit in
+              the admin. Renders only once the page exists and is visible, so
+              it can't leave a dead link. Page body source:
+              shopify/content/allergen-disclaimer.html
+            {%- endcomment -%}
+            {%- assign allergen_page = pages['allergen-disclaimer'] -%}
+            {%- if allergen_page != blank -%}
+              <li>
+                <small class="copyright__content"
+                  ><a href="{{ allergen_page.url }}">Allergen disclaimer</a></small
+                >
+              </li>
+            {%- endif -%}
           </ul>
         {%- endif -%}
       </div>

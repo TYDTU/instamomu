@@ -1,0 +1,39 @@
+{% comment %}
+  InstaMom University — the short allergen warning, shown immediately above the
+  Checkout button.
+
+  The owner's copy is headed "Short description for checkout". Shopify's actual
+  checkout pages are not themable on this plan (checkout.liquid is Plus-only),
+  so the last surface we control before the shopper leaves for Shopify's
+  checkout is the cart. This renders in BOTH cart surfaces — the cart page
+  (sections/main-cart-footer.liquid) and the cart drawer
+  (snippets/cart-drawer.liquid) — so it can't be skipped by whichever route the
+  shopper takes.
+
+  If a checkout-page notice is wanted as well, that is a store setting, not a
+  theme change: Settings → Checkout → "Additional scripts" / the checkout
+  editor's custom content block.
+
+  Wording is the owner's, verbatim; the full disclaimer it links to is
+  pages/allergen-disclaimer (source: shopify/content/allergen-disclaimer.html).
+
+  Styling: .instamom-allergen-notice* in assets/instamom.css
+{% endcomment %}
+
+<div class="instamom-allergen-notice">
+  <p class="instamom-allergen-notice__body">
+    <strong>ALLERGEN WARNING:</strong> Care packages may contain or come into
+    contact with major food allergens. InstaMom University is not an
+    allergen-free business and cannot guarantee that any product is free from
+    allergens or cross-contact. The purchaser and recipient are responsible for
+    reviewing every manufacturer label before consumption.
+    <strong>
+      To the fullest extent permitted by law, InstaMom University is not
+      responsible for allergic reactions, sensitivities, illness, or injury
+      resulting from consuming included food products.
+    </strong>
+  </p>
+  <a class="instamom-allergen-notice__link" href="{{ pages['allergen-disclaimer'].url | default: '/pages/allergen-disclaimer' }}">
+    Read the full allergen &amp; dietary restriction disclaimer
+  </a>
+</div>

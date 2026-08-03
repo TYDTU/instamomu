@@ -184,6 +184,8 @@
                 </small>
               </div>
             {%- else -%}
+              {%- render 'instamom-allergen-notice' -%}
+              {%- render 'instamom-terms-agree' -%}
               <div class="cart__ctas" {{ block.shopify_attributes }}>
                 <button
                   type="submit"

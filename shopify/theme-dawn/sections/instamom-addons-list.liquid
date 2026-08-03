@@ -57,18 +57,33 @@
             {%- render 'instamom-addon-contents', addon: addon, variant: 'items' -%}
           {%- endcapture -%}
           {%- assign addon_contents = addon_contents | strip -%}
+          {%- comment -%}
+            Review: "'Trust Us!' needs to go as a cute thing AFTER the Roll of
+            Two-Ply Toilet Paper add on" — i.e. not baked into the product title
+            as a parenthetical. It's the `custom.cute_note` metafield, so the
+            owner can hang a wink off any add-on from the admin without a theme
+            change, and the title stays the plain catalogue name everywhere else
+            (cart lines, order confirmations, packing slips).
+          {%- endcomment -%}
+          {%- assign cute_note = addon.metafields.custom.cute_note.value -%}
+          {%- capture addon_name -%}
+            <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
+            {%- if cute_note != blank -%}
+              <span class="instamom-addonlist__aside">{{ cute_note | escape }}</span>
+            {%- endif -%}
+          {%- endcapture -%}
           <li class="instamom-addonlist__item">
             {%- if addon_contents != blank -%}
               <details class="instamom-addonlist__disclosure">
                 <summary class="instamom-addonlist__row instamom-addonlist__row--expandable">
-                  <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
+                  <span class="instamom-addonlist__label">{{ addon_name }}</span>
                   <span class="instamom-addonlist__price">+{{ addon.price | money_without_trailing_zeros }}</span>
                 </summary>
                 {{ addon_contents }}
               </details>
             {%- else -%}
               <div class="instamom-addonlist__row">
-                <span class="instamom-addonlist__name">{{ addon.title | escape }}</span>
+                <span class="instamom-addonlist__label">{{ addon_name }}</span>
                 <span class="instamom-addonlist__price">+{{ addon.price | money_without_trailing_zeros }}</span>
               </div>
             {%- endif -%}

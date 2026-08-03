@@ -2,17 +2,18 @@
   InstaMom University — "What's inside" disclosure for an ADD-ON.
 
   Owner review: "Some add-ons need to be clickable to list what they actually
-  include — Extra Snack Sleeve packs, laundry rescue packs. For now it would be
-  fine to just list the same three dummy items for each and we can change in
-  later."
+  include — Extra Snack Sleeve packs, laundry rescue packs."
 
-  Data source, in order:
-   1. The add-on's own `custom.whats_inside` metafield (the same list metafield
-      the packages use — see the run-shopify-store skill). Set that and the real
-      contents appear here with no theme change.
-   2. Otherwise, the placeholder below, but ONLY for the add-ons the review
-      named. That keeps the disclosure off the self-explanatory extras (a roll
-      of toilet paper doesn't need a contents list).
+  The contents come from the add-on's own `custom.whats_inside` metafield (the
+  same list metafield the packages use — see the run-shopify-store skill). Fill
+  it and the disclosure appears; leave it empty and the add-on renders as a
+  plain row, which is what the self-explanatory extras want (a roll of toilet
+  paper doesn't need a contents list). No handle is named here, so adding a
+  contents list to a NEW add-on is a metafield edit, not a theme change.
+
+  (The four dummy-item placeholders this snippet used to carry — chips, cookies,
+  laundry, athlete recovery — were replaced with the owner's real contents in
+  Jul 2026, so the placeholder branch is gone.)
 
   Rendered as a <details> disclosure rather than a nested modal on purpose: this
   appears INSIDE the add-ons modal, and opening a dialog on top of a dialog
@@ -22,22 +23,7 @@
   Styling: .instamom-addon-contents* in assets/instamom.css
 {% endcomment %}
 
-{%- liquid
-  assign items = addon.metafields.custom.whats_inside.value
-
-  # Handles the review called out. Drop a handle from this list once its real
-  # `custom.whats_inside` metafield is filled in — the metafield wins anyway.
-  assign placeholder_handles = 'addon-snacks-chips,addon-snacks-cookies,addon-laundry,addon-athlete-recovery' | split: ','
-  assign use_placeholder = false
-  if items == blank
-    for handle in placeholder_handles
-      if addon.handle == handle
-        assign use_placeholder = true
-        break
-      endif
-    endfor
-  endif
--%}
+{%- assign items = addon.metafields.custom.whats_inside.value -%}
 
 {%- comment -%}
   `variant: 'items'` renders ONLY the contents list, with no disclosure wrapper,
@@ -55,13 +41,6 @@
     <ul class="instamom-addon-contents__list">
       {%- for item in items -%}<li>{{ item }}</li>{%- endfor -%}
     </ul>
-  {%- elsif use_placeholder -%}
-    <ul class="instamom-addon-contents__list">
-      <li>Sample item one</li>
-      <li>Sample item two</li>
-      <li>Sample item three</li>
-    </ul>
-    <p class="instamom-addon-contents__todo">Placeholder contents &mdash; to be replaced.</p>
   {%- endif -%}
 {%- endcapture -%}
 

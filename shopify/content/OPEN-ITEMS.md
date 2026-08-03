@@ -158,9 +158,17 @@ Soup, Tea, Throat Drops.
   That was true before the rebuild too. `comp-cards-homesick` does exist but sits
   at 0, and adding it would take the whole box to 0 available, so it was left
   off deliberately rather than silently killing the listing.
-- **Room Refresh has the same shape of problem** — 2 components against 7 items
-  in its contents list, so the sneaker balls, Poopourri, sachets, Wet Ones and
-  Febreze don't decrement. It's a single-variant product so it isn't the
-  "variant bundle" issue, but fixing it will hit the identical ownership block
-  and need the same rebuild treatment.
+- ~~Room Refresh~~ — **FIXED, same rebuild.** All seven of its contents now have
+  components and decrement. Three had never existed and were created
+  (`comp-poopourri`, `comp-linen-sachet`, `comp-body-wipes`), and the generic
+  `comp-air-spray` placeholder was renamed to the Febreze To Go it actually
+  represents. Note `comp-wipes` was NOT reused — that's Clorox Disinfecting
+  Travel Wipes and belongs to Welcome Week; Room Refresh's Wet Ones body wipes
+  are a different product.
+
+  **Component stock was derived, not counted.** The owner said "Room Refresh 30
+  in stock"; a bundle's stock IS its components, so each of the seven was set to
+  30 (Sneaker Balls was already 60). If any single item is actually short, correct
+  that one item and the box count follows automatically — which is the whole point
+  of modelling it this way.
 

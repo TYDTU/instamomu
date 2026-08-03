@@ -203,7 +203,29 @@ deciding deliberately:
 - **Switch to carrier-calculated** — then all eight boxes need real weights
   first, or customers get quoted off a zero-weight parcel.
 
-### ⚠️ The shipping zone contradicts the published Shipping Policy
+### ✅ The shipping zone now matches the Shipping Policy (fixed 3 Aug 2026)
+
+The zone was **United States (62 of 62)** — every state, territory, armed-forces
+address and freely-associated state. It is now **49 of 62: the 48 contiguous
+states plus the District of Columbia.**
+
+Removed: Alaska, Hawaii, Puerto Rico, Guam, American Samoa, Northern Mariana
+Islands, U.S. Virgin Islands, Armed Forces Americas/Europe/Pacific, Marshall
+Islands, Micronesia, Palau.
+
+Verified on the **live** storefront with a real cart:
+
+| Destination | Result |
+|---|---|
+| Virginia, California, New York | ✓ Standard $8.00 / Express $15.00 |
+| Alaska, Hawaii, Puerto Rico | ✗ no rates — cannot check out |
+
+Which is exactly what the Shipping Policy promises. Note P.O. boxes are **not**
+a shipping-zone setting — Shopify has no switch for them, so that part of the
+policy relies on order review rather than enforcement.
+
+<details>
+<summary>What this used to say</summary>
 
 **Alaska and Hawaii are quoted rates and can check out.** The Shipping Policy now
 live says, because the owner answered "NO" to shipping there:
@@ -218,6 +240,7 @@ fulfilled. One of the two has to change, and the zone is the cheaper fix:
 the contiguous states. (Shipping zones aren't reachable from this integration —
 they need `write_shipping` and are admin-side.)
 
-This is exactly the failure the policy packet warned about: *"Do not promise a
+This was exactly the failure the policy packet warned about: *"Do not promise a
 shipping speed, data practice, or refund right the business cannot consistently
 honor."*
+</details>

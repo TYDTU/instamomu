@@ -105,6 +105,16 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   - A **bundle's** available qty is its lowest-stock component, so to make a box orderable you stock its *components*, not the box (Welcome's 11 components were set to 30, then to 50 in Jul 2026). Location: `INSTAMOM U` = `gid://shopify/Location/90382762084`.
   - The **bundle's own derived quantity lags** the component write: right after a successful `inventorySetQuantities` the box still reports the OLD `totalInventory` while its components already read the new value, and `quantityAfterChange` comes back `null`. It settles in ~15s — re-query the box before concluding the write failed.
   - Reading component ids/quantities needs **no inventory scope**: `productVariantComponents { productVariant { inventoryQuantity inventoryItem { id } } }` works on `read_products`. Only the write needs `write_inventory`, so stage everything first and re-auth once.
+- **`theme dev` reports every BUNDLE as "already sold out".** Adding a bundle to
+  the cart through `http://127.0.0.1:9292` returns
+  `422 The product '<name>' is already sold out.` while the same add on the real
+  storefront returns 200. Non-bundle products add fine through the proxy, which
+  makes it look like a real, bundle-specific inventory fault. It is not.
+  **Never diagnose purchasability or shipping rates through `theme dev`** — it
+  cost most of an afternoon and nearly caused a correct shipping-zone change to
+  be reverted. Verify cart/checkout behaviour on the live storefront
+  (`https://instamomuniversity.com`), which Claude-in-Chrome can reach; use
+  `theme dev` only for rendering and layout.
 - **Bundle components are owned by the app that created them, and it is absolute.**
   Shopify: "After an app assigns components to a bundle, only that app can manage
   those components." The lock is at the **product** level, not the variant, and it

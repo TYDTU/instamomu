@@ -126,7 +126,7 @@ policies, each written as website-ready text:
 |---|---|
 | Refund, Return & Cancellation | Settings → Policies → Refund policy |
 | Shipping & Delivery | Settings → Policies → Shipping policy |
-| Privacy | Settings → Policies → Privacy policy (**replaces** the generated one currently live) |
+| ~~Privacy~~ | **Not loaded** — the owner chose to keep Shopify's auto-managed policy. See `policy-privacy.html`. |
 | Terms of Use & Terms of Sale | Settings → Policies → Terms of service |
 
 Shopify's five built-in policies render at `/policies/*` and Dawn already lists

@@ -42,6 +42,30 @@ Nothing in either group can be published until its section here is complete.
 Pulled entirely before launch. The $199-vs-$1,000 question never had to be
 answered. See [README.md](README.md).
 
+## K. Privacy Policy — settled, Aug 2026
+
+**The store keeps Shopify's auto-managed Privacy Policy.** Owner's call. It was
+the one policy the API refused to overwrite ("Automatic management for Privacy
+Policy must be turned off in order to make changes"), and rather than turn that
+off, we're leaving it — Shopify's version updates itself as privacy law changes,
+where a hand-written one silently goes stale.
+
+Checked on the live page: it renders cleanly, and it picks up the
+`.shopify-policy` styling, so it looks consistent beside Refund, Shipping and
+Terms. No contradiction with any of them.
+
+One inaccuracy worth knowing rather than fixing: it says personal information is
+shared *"with business and marketing partners to provide marketing services and
+advertising"*. This store uses **Shopify and nothing else** — no analytics suite,
+no email tool, no Meta Pixel, no Google Ads. So it describes **more** sharing
+than actually happens. Over-disclosure isn't the dangerous direction, but it
+isn't true of this business.
+
+`shopify/content/policy-privacy.html` — the version written to match actual
+practice — stays in the repo, unused. **Revisit it if an ad pixel or analytics
+tool is ever added**: at that point the auto policy becomes right by accident,
+and the trade-off changes.
+
 ## G. Launch-readiness items from the original doc
 
 Checked against the live store on 28 Jul 2026 rather than copied forward.

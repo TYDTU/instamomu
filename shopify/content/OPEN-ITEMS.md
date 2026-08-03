@@ -123,6 +123,52 @@ category is what Shopify Tax uses to decide taxability, so an unset category is
 not cosmetic. **The 9 add-ons still have no category** and should get one before
 they're sold separately.
 
+## M. Snack Attack components + status changes (Virginia's 3 Aug email)
+
+From *"I THINK This is what we need"*, cylke@lynchburg.edu, 3 Aug 2026.
+
+**Snack Attack is now three real bundles.** 20 component products created from
+her lists and attached per variant — Cheese Lovers 8, Chocolate Lovers 6,
+Protein Fiend 6 — with her wording as the customer-facing "What's Inside".
+
+Required the same rebuild as the Warmies products (app ownership), and it was
+overdue: Cheese Lovers' four existing components were **a Blank Roommate
+Contract, a Citrus Room & Linen Spray, Comfort Snacks and Assorted Snack
+Selection** — a roommate contract and room spray in a cheese snack box. Nothing
+worth keeping. `snack-attack-legacy` is parked as a DRAFT.
+
+Status changes, all three from her numbered list:
+
+| Product | Change |
+|---|---|
+| Homesick Helper | pre-order → **coming-soon** ("NO Homesick Helper Pre-Order Now Coming Soon") |
+| Room Refresh | coming-soon → **pre-order**, ships 14 Aug ("at 30 Shippable Now Aug 14th") |
+| Warm Hug from Home | ships 14 Aug added ("Shipping August 14th") |
+
+The pre-order line no longer reads "all Welcome Boxes" — three products now share
+the 14 August date and two of them aren't Welcome boxes.
+
+### Two judgement calls to confirm
+
+- **Component quantities are 1 per box, with counts kept in the component
+  name** — "Premium Beef Jerky Sticks (4)", "Cheetos (3 snack-size packs)". Her
+  Cheese list is headed *"3 snack size packs each of"*, and this carries that
+  into the names rather than setting a bundle quantity of 3. It counts the way a
+  packer counts, and matches how Room Refresh was already built. If stock is
+  actually tracked as loose units, the quantities need changing.
+- **Snack Attack components are all at 0 stock**, so the box stays at 0 and
+  coming-soon. She gave no counts, so none were invented.
+
+### Worth flagging
+
+- **Warm Hug reads 48, she said "30 pieces".** 48 is 30 Golden Dog + 3 each
+  across six other Warmies — the 3s were confirmed earlier. If 30 is the real
+  total, the Golden Dog count or the others need adjusting.
+- **The Chocolate and Protein lists she sent are the ones deleted earlier** as
+  AI-invented placeholders. She has now supplied them as the real contents, so
+  they are restored verbatim. That earlier deletion was the right call on the
+  information available and is simply superseded.
+
 ## G. Launch-readiness items from the original doc
 
 Checked against the live store on 28 Jul 2026 rather than copied forward.

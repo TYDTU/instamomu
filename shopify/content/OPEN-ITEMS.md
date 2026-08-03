@@ -97,3 +97,52 @@ Refresh_Ready 50` and `Warm Hug From Home 50` — and the earlier "50 Live Welco
 Week in Stock" note used the same shorthand for unit counts. But the answers
 table said **30** for both boxes, which is what is set on the store. If `50`
 means fifty ready, both need raising.
+
+## I. Warmies bundles — blocked on app ownership (Aug 2026)
+
+Every Warm Hug from Home and Homesick Helper variant now has stock and is
+buyable. But **only the Golden Dog variant of each is a real bundle.** The other
+nine variants across the two products are plain variants: selling one decrements
+its own count and *nothing else* — no plush, no soup, tea, tissues, crackers,
+honey bear, throat drops or coaching cards.
+
+That is an oversell risk, not a tidiness point. Warm Hug can sell 48 boxes
+against 30 sets of consumables.
+
+**What's ready:** a component product now exists for each plush, stocked to
+match the variants —
+
+| Component | Qty |
+|---|---|
+| `comp-warmie` — Golden Dog Junior 9" (renamed from the generic "Lavender Warmie") | 30 |
+| `comp-warmie-hamster` | 3 |
+| `comp-warmie-sloth` | 3 |
+| `comp-warmie-bear` — Brown Curly Bear 13" | 3 |
+| `comp-warmie-cow` | 3 |
+| `comp-warmie-bunny` | 3 |
+| `comp-warmie-goat` | 3 |
+
+**What's blocked:** attaching them. The Admin API refuses with
+`PRODUCT_EXPANDER_APP_OWNERSHIP_ALREADY_EXISTS` — "the product(s) ... are
+already owned by another App". Shopify lets only the app that created a
+product's bundle relationships manage them, and the existing Golden Dog bundles
+were built by a different app than this CLI. Both products are affected.
+
+**So this has to be finished in whichever app owns those bundles** (the one used
+to build the Golden Dog bundles — check Apps in the admin). For each of the nine
+variants, add:
+
+- its own plush component from the table above, quantity 1; **and**
+- for Warm Hug only, the eight consumables already on its Golden Dog bundle:
+  Coaching Cards — Study Strategies, Coaching Cards — Communicating with
+  Professors, Crackers, Mini Honey Bear, Soft Facial Tissues, Soup, Tea, Throat
+  Drops.
+
+Homesick Helper's Golden Dog bundle contains *only* the plush, so its other
+three variants need only their plush to match. Worth noting separately that this
+means Homesick Helper's bundle doesn't track its journal, colouring book,
+pencils or notecards for **any** variant — those component products don't exist
+yet.
+
+Once attached, each variant's availability becomes the lowest of its components,
+which is what stops the oversell.

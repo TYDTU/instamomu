@@ -256,9 +256,11 @@ the Aug 2026 session scratchpad.
 
 ### Open, in rough priority order
 
-1. **8 of the 9 add-ons are sold out.** Only the Personalized Message Card has
-   stock. The add-ons pop-up is a main upsell and it is currently almost entirely
-   dead — every other row says Sold out.
+1. **7 of the 9 add-ons are sold out.** Buyable: Personalized Message Card (25)
+   and Laundry Rescue Pack (28). Still at zero: Athlete Recovery Pack, charging
+   cable, popcorn bottle, popcorn seasoning, toilet paper, snack sleeve chips,
+   snack sleeve cookies. The add-ons pop-up is a main upsell, so each one stocked
+   is money back on the table.
 2. ~~Sales tax is not being collected~~ — **done, collecting in Virginia.**
    Add-ons are now categorised too. Remaining: confirm the tax line on a real
    order, and settle `taxShipping` + the reduced food rate with an accountant.
@@ -291,7 +293,14 @@ Hug from Home and Room Refresh.
 the `ships-aug-14` tag from the three products, or replace both with the next
 date.
 
-**Homesick Helper's price is hidden**, via a `hide-price` tag guarded inside
+**Homesick Helper's price is showing again** — the `hide-price` tag was removed
+once the price was settled, and it reads **From $62.00**. The 9" Juniors are $62
+and the 13" Brown Curly Bear is $72, identical to Warm Hug from Home and
+consistent with the earlier owner decision that *"the 13\" warmie should add $10
+to the cost, because those are more expensive. The 9\" ones are included in the
+price."* If the 13" should now also be $62, that's a one-line change.
+
+The mechanism stays in the theme for reuse: a `hide-price` tag guarded inside
 `snippets/price.liquid`. Guarding the snippet rather than the five call sites
 (four in card-product, one in main-product) means the grid, the preview popup
 and the product page can't drift apart, and applying it elsewhere is a tag

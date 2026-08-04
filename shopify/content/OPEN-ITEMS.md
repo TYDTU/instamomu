@@ -275,6 +275,39 @@ the Aug 2026 session scratchpad.
 7. **`taxShipping` is on** while Virginia generally doesn't tax separately
    stated shipping (section L).
 
+## O. "Ships August 14th" badge + hidden price (Aug 2026)
+
+**The badge now reads "Ships August 14th"** instead of "Pre-Order Now" — owner's
+call, and a better one: a date tells a shopper how long they'll wait, where
+"pre-order" only tells them that they will.
+
+Driven by the **`ships-aug-14`** tag, not `pre-order`, so a future pre-order
+product without a known date still falls back to "Pre-Order Now" rather than
+promising a date it has no basis for. Currently on Welcome Week Starter, Warm
+Hug from Home and Room Refresh.
+
+⚠ **14 August 2026 is hard-coded in two places** — `instamom-badge.liquid` and
+`instamom-shipping-note.liquid`. Once the date passes both read as stale. Remove
+the `ships-aug-14` tag from the three products, or replace both with the next
+date.
+
+**Homesick Helper's price is hidden**, via a `hide-price` tag guarded inside
+`snippets/price.liquid`. Guarding the snippet rather than the five call sites
+(four in card-product, one in main-product) means the grid, the preview popup
+and the product page can't drift apart, and applying it elsewhere is a tag
+rather than a theme edit.
+
+### A bug this surfaced
+
+Homesick Helper was showing **$0.00**, not $62. Detaching its bundle components
+zeroed the variant prices — the same behaviour as *attaching* them, which is
+already recorded in SKILL.md, but it applies in both directions. Prices restored
+to $62 / $62 / $62 / $72.
+
+Worth being blunt about the near-miss: had the box ever become purchasable while
+in that state, it would have sold for nothing. **Any time components are attached
+OR detached, re-read the prices.**
+
 ## G. Launch-readiness items from the original doc
 
 Checked against the live store on 28 Jul 2026 rather than copied forward.

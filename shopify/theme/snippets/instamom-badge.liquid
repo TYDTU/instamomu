@@ -1,7 +1,20 @@
 {% comment %}
   InstaMom University — status badge driven by product tags.
-  Renders "Pre-Order Now", "Coming Soon", or "Seasonal" based on the product's
-  tags (pre-order / coming-soon / seasonal), matching the CSVs in ../..
+  Renders "Ships August 14th", "Pre-Order Now", "Coming Soon", or "Seasonal"
+  based on the product's tags, matching the CSVs in ../..
+
+  Owner, Aug 2026: "Instead of pre order now banners, let's make the banner read
+  'Ships August 14th'." A concrete date beats "pre-order", which tells a shopper
+  they'll wait without saying how long.
+
+  The date comes from the `ships-aug-14` tag, NOT from `pre-order`, so a
+  pre-order product WITHOUT a known ship date still falls back to "Pre-Order
+  Now" rather than promising a date it has no basis for. Same reasoning as
+  snippets/instamom-shipping-note.liquid.
+
+  ⚠ 14 August 2026 is hard-coded here and in the shipping note. Once it passes,
+  the badge reads as stale — remove the `ships-aug-14` tag from the products, or
+  replace both with the next date.
 
   Usage — inside a product card or product page, pass the product:
     {% render 'instamom-badge', product: card_product %}
@@ -13,7 +26,10 @@
 {%- liquid
   assign label = ''
   assign modifier = ''
-  if product.tags contains 'pre-order'
+  if product.tags contains 'ships-aug-14'
+    assign label = 'Ships August 14th'
+    assign modifier = 'preorder'
+  elsif product.tags contains 'pre-order'
     assign label = 'Pre-Order Now'
     assign modifier = 'preorder'
   elsif product.tags contains 'coming-soon'

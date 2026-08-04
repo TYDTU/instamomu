@@ -129,14 +129,16 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   Home and Homesick Helper in Aug 2026; the script is in that session's
   scratchpad. Untag the legacy products so they leave any smart collection, and
   leave them DRAFT rather than deleting until someone has checked the replacement.
-- **Attaching bundle components ZEROES the parent variant's price.** This is the
+- **Attaching OR DETACHING bundle components ZEROES the parent variant's price.** This is the
   one that will bite you. `productVariantRelationshipBulkUpdate` silently resets
   the parent to **$0.00**, and returns no userError. Proven the hard way: on Room
   Refresh the price was set to $56 BEFORE attaching, the mutation reported
   success, and the variant still came out $0.00 afterwards. (`productSet` also
   doesn't apply prices at create time, so the two compound.)
-  **Always set prices AFTER components are attached, then re-read to confirm.**
-  Get this wrong and the care packages go live free.
+  **Detaching does it too** — removing Homesick Helper's components left all four
+  variants at $0.00, and it was only caught because the storefront grid showed
+  "$0.00 USD". **Always set prices AFTER any component change, attach or detach,
+  then re-read to confirm.** Get this wrong and the care packages go live free.
 - **Smart collections re-evaluate asynchronously.** After changing the tag that a
   smart collection rules on, the collection keeps reporting the old membership for
   a good 30s. Poll rather than concluding the tag edit failed.

@@ -177,6 +177,59 @@ the 14 August date and two of them aren't Welcome boxes.
   they are restored verbatim. That earlier deletion was the right call on the
   information available and is simply superseded.
 
+## N. Store-open readiness check (3 Aug 2026)
+
+**The store is already open.** The password gate is off — no `storefront_digest`
+cookie is needed to reach instamomuniversity.com, and a real mobile order has
+gone through. Everything below is a live-store finding, not a pre-launch one.
+
+### Working, verified on the live site
+
+- Homepage, all 8 boxes, nav (About Us / Packages / Inside), no Gives Back remnant
+- All four policies + the allergen disclaimer render and are linked in the footer
+- About Us, Inside, Contact all render; the sweepstakes URLs correctly 404
+- Cart: required candy preference, required Terms + Refund tick-box, allergen
+  notice above Check out
+- Shipping rates quote for contiguous states ($8 / $15) and are refused for
+  Alaska, Hawaii and Puerto Rico, matching the Shipping Policy
+- No drift between the repo and the live theme
+- All 4 legacy products are drafts and out of the packages collection
+
+### Homesick Helper can no longer eat Warm Hug's stock
+
+It shares plush components with Warm Hug, so while it was a bundle it held a
+claim on the same 21 units. Its components are now detached and its variants are
+back to tracked/DENY at 0, so it reads **`available: false`** while still showing
+as **Coming Soon** with the notify form. Warm Hug keeps all 21.
+
+⚠ Two caveats. Detaching components silently set the variants to **untracked**,
+which Shopify treats as *unlimited* — worse than before — so tracking had to be
+turned back on explicitly; check that if this is ever repeated. And
+`/cart/add.js` on this store enforces no stock at all (a plain variant with 25
+accepted a quantity of 9999), so add-to-cart is not proof of anything;
+`available: false` is the meaningful signal and Shopify enforces at checkout.
+**Re-attach the components when Homesick Helper launches** — the script is in
+the Aug 2026 session scratchpad.
+
+### Open, in rough priority order
+
+1. **8 of the 9 add-ons are sold out.** Only the Personalized Message Card has
+   stock. The add-ons pop-up is a main upsell and it is currently almost entirely
+   dead — every other row says Sold out.
+2. **Sales tax is not being collected.** Virginia is flagged *Action required*.
+   Register with Virginia, then switch collection on. See section L.
+3. **Seven of eight boxes have no weight.** Only Welcome Week (1179 g). Harmless
+   while rates are flat, needed for carrier labels or if rates ever go
+   carrier-calculated.
+4. **Store contact email is `savageandsilkystudios@gmail.com`** while every
+   policy tells customers to write to `instamomuniversity@gmail.com`. Order
+   confirmations and replies will go to the wrong inbox.
+5. **The 9 add-ons have no product category**, which is what Shopify Tax uses to
+   decide taxability. The packages are all set to Bundles; the add-ons are unset.
+6. **Five boxes still on placeholder photos** (section H).
+7. **`taxShipping` is on** while Virginia generally doesn't tax separately
+   stated shipping (section L).
+
 ## G. Launch-readiness items from the original doc
 
 Checked against the live store on 28 Jul 2026 rather than copied forward.

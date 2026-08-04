@@ -83,8 +83,33 @@ and the trade-off changes.
 > waiting to be accepted or rejected. Of those 74 the ones that matter are the
 > **9 add-ons**, which are sold to customers as their own line items; the ~65
 > component products never appear on an order, so their category is
-> inconsequential. Two products have no suggestion and need picking by hand:
-> **Athlete Recovery Pack** and **Blank Roommate Contract**.
+> inconsequential.
+>
+> **Done 3 Aug 2026 — all 9 add-ons are categorised**, chosen from the real
+> Shopify taxonomy rather than Shopify's bulk auto-suggestions:
+>
+> | Add-on | Category |
+> |---|---|
+> | Extra Snack Sleeve: Chips | Food Items > Snack Foods > Chips |
+> | Extra Snack Sleeve: Cookies | Food Items > Bakery > Cookies |
+> | Extra Popcorn — 14 oz Bottle | Food Items > Snack Foods > Popcorn |
+> | Extra Mini Popcorn Seasoning | Snack Foods > Popcorn > Popcorn Seasonings & Mixes |
+> | Roll of Two-Ply Toilet Paper | Household Supplies > Household Paper Products > Toilet Paper |
+> | Laundry Rescue Pack | Household Supplies > Laundry Supplies |
+> | 3-in-1 Charging Cable | Electronics Accessories > Cables > USB Cables |
+> | Personalized Message Card | Party & Celebration > Gift Giving > Greeting Cards |
+> | Athlete Recovery Pack | Bundles — genuinely mixed (hot/cold pack, Liquid I.V., cooling towels, Biofreeze, bandage wrap), so no single food or health category is honest |
+>
+> **Every customer-facing product now has a category** — 9 add-ons and 9
+> packages. This matters beyond tidiness: the four food add-ons are now
+> classified as food, which is what lets Shopify Tax apply Virginia's reduced
+> grocery rate if it applies. Previously they were uncategorised and treated as
+> generally taxable.
+>
+> The remaining "uncategorized" count is components and the parked legacy
+> products. Neither ever appears as a line item on an order, so neither affects
+> tax. **Blank Roommate Contract** is one of those — it's a component, so its
+> lack of a suggestion doesn't matter.
 
 **Nothing was being collected anywhere before this.** Settings → Taxes and duties →
 United States showed *Collecting: —*.
@@ -235,9 +260,9 @@ the Aug 2026 session scratchpad.
    stock. The add-ons pop-up is a main upsell and it is currently almost entirely
    dead — every other row says Sold out.
 2. ~~Sales tax is not being collected~~ — **done, collecting in Virginia.**
-   Remaining: categorise the **9 add-ons** for rate accuracy, confirm the tax
-   line on a real order, and settle `taxShipping` + the reduced food rate with an
-   accountant. See section L.
+   Add-ons are now categorised too. Remaining: confirm the tax line on a real
+   order, and settle `taxShipping` + the reduced food rate with an accountant.
+   See section L.
 3. **Seven of eight boxes have no weight.** Only Welcome Week (1179 g). Harmless
    while rates are flat, needed for carrier labels or if rates ever go
    carrier-calculated.

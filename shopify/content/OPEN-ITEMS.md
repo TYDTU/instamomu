@@ -68,8 +68,26 @@ and the trade-off changes.
 
 ## L. Sales tax — what's set up and what isn't (Aug 2026)
 
-**Nothing is being collected anywhere right now.** Settings → Taxes and duties →
-United States shows *Collecting: —*.
+> **UPDATE 3 Aug 2026 — collection is ON.** Settings → Taxes and duties → United
+> States now lists **Virginia** under "States you're collecting in", and the
+> Virginia *Action required* warning is replaced by *"You're all set. You'll be
+> notified when a state approaches or meets a tax collection threshold."*
+> The steps below are kept as the record of what was done.
+>
+> Not verified: the actual amount charged. Confirming that needs a draft-order
+> calculation (`write_draft_orders`, which this integration doesn't have) or a
+> real checkout — **worth eyeballing the tax line on the next test order.**
+>
+> Shopify also surfaces the categorisation gap on that page: **"Tax rate
+> management → Uncategorized products: 74"**, with auto-suggested categories
+> waiting to be accepted or rejected. Of those 74 the ones that matter are the
+> **9 add-ons**, which are sold to customers as their own line items; the ~65
+> component products never appear on an order, so their category is
+> inconsequential. Two products have no suggestion and need picking by hand:
+> **Athlete Recovery Pack** and **Blank Roommate Contract**.
+
+**Nothing was being collected anywhere before this.** Settings → Taxes and duties →
+United States showed *Collecting: —*.
 
 What IS already in place:
 
@@ -216,8 +234,10 @@ the Aug 2026 session scratchpad.
 1. **8 of the 9 add-ons are sold out.** Only the Personalized Message Card has
    stock. The add-ons pop-up is a main upsell and it is currently almost entirely
    dead — every other row says Sold out.
-2. **Sales tax is not being collected.** Virginia is flagged *Action required*.
-   Register with Virginia, then switch collection on. See section L.
+2. ~~Sales tax is not being collected~~ — **done, collecting in Virginia.**
+   Remaining: categorise the **9 add-ons** for rate accuracy, confirm the tax
+   line on a real order, and settle `taxShipping` + the reduced food rate with an
+   accountant. See section L.
 3. **Seven of eight boxes have no weight.** Only Welcome Week (1179 g). Harmless
    while rates are flat, needed for carrier labels or if rates ever go
    carrier-calculated.

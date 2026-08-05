@@ -112,13 +112,21 @@
 
   if (noteField) noteField.addEventListener('change', saveRoommateNote);
 
-  // --- skip -----------------------------------------------------------------
-  modal.addEventListener('click', (event) => {
-    if (event.target.closest('.instamom-addons__skip')) {
-      saveRoommateNote();
-      modal.hide();
-    }
-    if (event.target.closest('.instamom-addons__cart-link')) saveRoommateNote();
+  // --- the way out ----------------------------------------------------------
+  // Off a product page this goes to the CART rather than just closing, so the
+  // shopper lands somewhere with a Checkout button instead of back on the box
+  // they just added. See the snippet's comment for why it isn't /checkout.
+  // Opened from a cart line there's nowhere to go, so it only closes.
+  modal.addEventListener('click', async (event) => {
+    const skip = event.target.closest('.instamom-addons__skip');
+    if (!skip) return;
+
+    // Await the save before navigating — fire-and-forget dies with the page,
+    // which is how the roommate note used to get lost on the way to the cart.
+    await saveRoommateNote();
+
+    if (skip.hasAttribute('data-close-only')) modal.hide();
+    else window.location.href = window.routes.cart_url;
   });
 
   // Keep the header cart bubble honest after adding from the modal.

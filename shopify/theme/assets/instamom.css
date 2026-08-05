@@ -329,8 +329,11 @@ textarea:focus-visible,
 
 .instamom-hero__banner {
   display: inline-block;
+  max-width: 100%;
   background-color: var(--imu-navy);
-  padding: 18px clamp(40px, 8vw, 80px);
+  /* The 40px floor cost more than it was worth on a phone: it bound below a
+     500px viewport, where the horizontal padding alone ate 80 of 375px. */
+  padding: 18px clamp(20px, 8vw, 80px);
   box-shadow: 0 14px 40px rgba(4, 29, 69, 0.4);
   outline: 2px solid var(--imu-gold);
   outline-offset: -6px;
@@ -345,8 +348,18 @@ textarea:focus-visible,
   white-space: nowrap;
   /* The prototype's clamp(1.8rem, 5.5vw, 4.2rem) assumes a 16px root; Dawn's
      root is 10px (62.5%), so the rem stops are ×1.6 to hit the same 28.8px–
-     67.2px the prototype renders. The vw stop is root-independent. */
-  font-size: clamp(2.88rem, 5.5vw, 6.72rem);
+     67.2px the prototype renders. The vw stop is root-independent.
+
+     The FLOOR is 1.7rem rather than the ported 2.88rem. A clamp floor wins
+     whenever it exceeds the preferred value, so 28.8px governed every viewport
+     under ~523px — and this title is `nowrap`, so at 375px it measured 374px on
+     its own and forced .instamom-hero__inner to 484px inside a 375px parent.
+     Everything in the hero centres on that inner, so the banner, crest and
+     badge all sat 55px right of where they belonged: (484 - 375) / 2. The hero
+     clips with overflow:hidden, which is why it read as "off-centre" rather
+     than as a scrollbar. Above ~523px the 5.5vw term still governs, so nothing
+     about the desktop hero changes. */
+  font-size: clamp(1.7rem, 5.5vw, 6.72rem);
   line-height: 1;
   color: var(--imu-gold);
   text-shadow:
@@ -358,8 +371,11 @@ textarea:focus-visible,
 
 .instamom-hero__badge {
   display: inline-block;
+  /* Without these the badge sizes to its text and becomes the next thing to
+     push the hero wider than the phone once the title stops doing it. */
+  max-width: 100%;
   margin-top: 22px;
-  padding: 12px 30px;
+  padding: 12px clamp(16px, 4vw, 30px);
   background-color: var(--imu-navy);
   outline: 2px solid var(--imu-gold);
   outline-offset: -6px;
@@ -524,6 +540,22 @@ textarea:focus-visible,
 .header__heading-logo {
   max-height: 56px;
   width: auto;
+}
+
+@media screen and (max-width: 749px) {
+  /* Crest only on a phone. Dawn's mobile header is a three-column grid —
+     menu | title | icons — and the middle column takes its width from this
+     content. The wordmark is `nowrap`, so beside the 56px crest it measured
+     241px, making the row 417px wide inside a 375px viewport: the cart icon
+     ran off the right edge and was partly untappable.
+
+     Stock Dawn shows the logo OR the shop name, never both, so dropping the
+     text here is a return to its behaviour rather than a loss. The link keeps
+     its accessible name from the crest's alt, which falls back to shop.name
+     (see sections/header.liquid), so nothing is lost to a screen reader. */
+  .instamom-wordmark {
+    display: none;
+  }
 }
 
 /* --- Package card "+" preview button -------------------------------------
@@ -2061,6 +2093,32 @@ textarea:focus-visible,
   color: var(--imu-pink);
   font-size: 1.25rem;
   font-weight: 700;
+}
+
+/* --- Express wallet gate (snippets/instamom-wallet-gate.liquid) -------------
+   Shop Pay and friends render inside iframes, so the candy/terms click guards
+   can't reach them. They're hidden outright until both answers are given, and
+   this note explains the absence — an express button that silently isn't there
+   reads as a broken storefront. */
+.instamom-wallets-locked .cart__dynamic-checkout-buttons {
+  display: none;
+}
+
+.instamom-wallet-gate {
+  display: none;
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border: 1.5px dashed var(--imu-line);
+  border-radius: 8px;
+  background: var(--imu-surface);
+  color: var(--imu-muted);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.instamom-wallets-locked .instamom-wallet-gate {
+  display: block;
 }
 
 /* --- Gift message for the student (snippets/instamom-gift-message.liquid) --

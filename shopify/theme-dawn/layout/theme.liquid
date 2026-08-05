@@ -321,6 +321,25 @@
     </script>
 
     {{ 'instamom.css' | asset_url | stylesheet_tag }}
+    {%- comment -%}
+      Loaded globally, alongside the add-ons script that depends on it.
+
+      Stock Dawn loads product-form.js per section, and only when that section's
+      quick-add setting is on — but snippets/card-product.liquid renders a
+      <product-form> in its package preview popup UNCONDITIONALLY (owner ask:
+      "add to cart on the pop up too"). So on any page whose section doesn't
+      happen to load the script — the packages collection, which runs
+      `quick_add: none`, plus search results, related products and collage —
+      that custom element never upgraded, the form fell back to a native POST,
+      and the add landed on /cart with a full page reload. No AJAX meant no
+      cartUpdate event, so the add-ons modal never opened.
+
+      Loading it here ties the script to the markup instead of to a per-section
+      setting, so the popup keeps working wherever that card is rendered.
+      product-form.js self-guards with `if (!customElements.get('product-form'))`,
+      so the sections that still load it themselves are harmless duplicates.
+    {%- endcomment -%}
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'instamom-addons.js' | asset_url }}" defer="defer"></script>
   </head>
 

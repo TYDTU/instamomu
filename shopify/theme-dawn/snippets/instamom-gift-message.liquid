@@ -1,0 +1,317 @@
+{% comment %}
+  InstaMom University — gift message for the student, on the cart page above
+  the Checkout button.
+
+  Every package ships with a complimentary printed gift note, so the fields are
+  always available; the $5 "Personalized Message Card + 'You Are Loved' sticker"
+  add-on (handle `addon-personalized-card`, the Fancy Card) upgrades that note
+  to a handwritten card, which is why it also buys a longer message: 150
+  characters without it, 1,000 with it.
+
+  Saved as the cart attributes "Gift message to" / "Gift message" /
+  "Gift message from", the same mechanism the candy preference and the terms
+  agreement use: `form="cart"` carries them when the standard Checkout button
+  submits the cart form, and the script writes them to /cart/update.js as the
+  shopper types so they also ride on the dynamic checkout buttons (Shop Pay and
+  friends), which bypass the form. They then show under the order's Additional
+  details for whoever writes the card.
+
+  The message survives quantity changes for free: Dawn's cart.js only re-renders
+  `.js-contents` inside #main-cart-footer (the subtotal block), and this snippet
+  sits outside it. Adding or removing the Fancy Card therefore doesn't re-render
+  these fields either, so the script re-reads the cart and switches the limit
+  itself.
+
+  Removing the Fancy Card never truncates what was already typed — the text is
+  kept and the shopper is asked to shorten it or add the card back (that prompt
+  opens the existing add-ons modal, which is where the card is sold). Checkout
+  is blocked while the message is over the limit, because the alternative is
+  quietly shipping a note that isn't the one they wrote.
+
+  Cart page only, which is safe while the store runs `cart_type: notification` —
+  see the same caveat in snippets/instamom-terms-agree.liquid. If the cart
+  DRAWER is ever switched on, render this there too.
+
+  Styling: .instamom-giftmsg* in assets/instamom.css
+{% endcomment %}
+
+{%- assign fancy_card_handle = 'addon-personalized-card' -%}
+{%- assign limit_short = 150 -%}
+{%- assign limit_long = 1000 -%}
+{%- comment -%} The counter reads "0/1000"; prose gets the comma. {%- endcomment -%}
+{%- assign limit_long_prose = '1,000' -%}
+
+{%- assign has_fancy_card = false -%}
+{%- for line_item in cart.items -%}
+  {%- if line_item.product.handle == fancy_card_handle -%}
+    {%- assign has_fancy_card = true -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if has_fancy_card -%}
+  {%- assign limit = limit_long -%}
+{%- else -%}
+  {%- assign limit = limit_short -%}
+{%- endif -%}
+
+{%- assign message = cart.attributes['Gift message'] | default: '' -%}
+
+<div
+  class="instamom-giftmsg{% if has_fancy_card %} instamom-giftmsg--long{% endif %}"
+  id="instamom-giftmsg"
+  data-fancy-handle="{{ fancy_card_handle }}"
+  data-limit-short="{{ limit_short }}"
+  data-limit-long="{{ limit_long }}"
+>
+  <h2 class="instamom-giftmsg__title">Message for Your Student</h2>
+
+  <div class="instamom-giftmsg__field">
+    <label class="instamom-giftmsg__label" for="InstamomGiftTo">To:</label>
+    <input
+      type="text"
+      id="InstamomGiftTo"
+      class="instamom-giftmsg__input"
+      name="attributes[Gift message to]"
+      form="cart"
+      maxlength="80"
+      autocomplete="off"
+      placeholder="Student&rsquo;s name"
+      value="{{ cart.attributes['Gift message to'] | escape }}"
+      data-gift-to
+    >
+  </div>
+
+  <div class="instamom-giftmsg__field">
+    <label class="instamom-giftmsg__label" for="InstamomGiftBody">Message:</label>
+    <textarea
+      id="InstamomGiftBody"
+      class="instamom-giftmsg__textarea"
+      name="attributes[Gift message]"
+      form="cart"
+      rows="3"
+      aria-describedby="InstamomGiftHint InstamomGiftCount"
+      data-gift-body
+    >{{ message | escape }}</textarea>
+
+    <div class="instamom-giftmsg__meta">
+      <p class="instamom-giftmsg__hint" id="InstamomGiftHint" data-gift-hint>
+        {%- if has_fancy_card -%}
+          Your message will be handwritten inside your Fancy Card.
+        {%- else -%}
+          A complimentary gift note is included with every package.
+        {%- endif -%}
+      </p>
+      <span
+        class="instamom-giftmsg__count{% if message.size > limit %} instamom-giftmsg__count--over{% endif %}"
+        id="InstamomGiftCount"
+        aria-live="polite"
+        data-gift-count
+      >
+        {{- message.size }}/{{ limit -}}
+      </span>
+    </div>
+
+    <p class="instamom-giftmsg__error" data-gift-error {% unless message.size > limit %}hidden{% endunless %}>
+      <span data-gift-error-text>
+        Your message is {{ message.size }} characters &mdash;
+        {%- if has_fancy_card %} your Fancy Card fits {{ limit_long_prose }}.
+        {%- else %} the complimentary gift note fits {{ limit_short }}.
+        {%- endif -%}
+      </span>
+      <span data-gift-error-fix {% if has_fancy_card %}hidden{% endif %}>
+        Shorten it, or
+        <button type="button" class="instamom-addons-trigger instamom-giftmsg__addcard">
+          add the Fancy Card back
+        </button>
+        for up to {{ limit_long_prose }} characters.
+      </span>
+      <span data-gift-error-shorten {% unless has_fancy_card %}hidden{% endunless %}>
+        Please shorten it before checking out.
+      </span>
+    </p>
+  </div>
+
+  <div class="instamom-giftmsg__field">
+    <label class="instamom-giftmsg__label" for="InstamomGiftFrom">From:</label>
+    <input
+      type="text"
+      id="InstamomGiftFrom"
+      class="instamom-giftmsg__input"
+      name="attributes[Gift message from]"
+      form="cart"
+      maxlength="80"
+      autocomplete="off"
+      placeholder="Mom, Dad, Grandma, etc."
+      value="{{ cart.attributes['Gift message from'] | escape }}"
+      data-gift-from
+    >
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('instamom-giftmsg');
+    if (!root) return;
+
+    var fancyHandle = root.dataset.fancyHandle;
+    var limitShort = parseInt(root.dataset.limitShort, 10);
+    var limitLong = parseInt(root.dataset.limitLong, 10);
+
+    var to = root.querySelector('[data-gift-to]');
+    var body = root.querySelector('[data-gift-body]');
+    var from = root.querySelector('[data-gift-from]');
+    var hint = root.querySelector('[data-gift-hint]');
+    var count = root.querySelector('[data-gift-count]');
+    var error = root.querySelector('[data-gift-error]');
+    var errorText = root.querySelector('[data-gift-error-text]');
+    var errorFix = root.querySelector('[data-gift-error-fix]');
+    var errorShorten = root.querySelector('[data-gift-error-shorten]');
+
+    var hasFancyCard = root.classList.contains('instamom-giftmsg--long');
+    var saveTimer = null;
+    var lastSaved = serialize();
+
+    function root_() {
+      return (window.Shopify && window.Shopify.routes ? window.Shopify.routes.root : '/');
+    }
+
+    function limit() {
+      return hasFancyCard ? limitLong : limitShort;
+    }
+
+    function overBy() {
+      return body.value.length - limit();
+    }
+
+    function serialize() {
+      return JSON.stringify([to.value, body.value, from.value]);
+    }
+
+    // --- display ------------------------------------------------------------
+    function render() {
+      var length = body.value.length;
+      var over = length > limit();
+
+      count.textContent = length + '/' + limit();
+      count.classList.toggle('instamom-giftmsg__count--over', over);
+      hint.textContent = hasFancyCard
+        ? 'Your message will be handwritten inside your Fancy Card.'
+        : 'A complimentary gift note is included with every package.';
+      root.classList.toggle('instamom-giftmsg--long', hasFancyCard);
+
+      if (over) {
+        errorText.textContent =
+          'Your message is ' + length + ' characters — ' +
+          (hasFancyCard
+            ? 'your Fancy Card fits ' + limitLong.toLocaleString('en-US') + '.'
+            : 'the complimentary gift note fits ' + limitShort + '.');
+        errorFix.hidden = hasFancyCard;
+        errorShorten.hidden = !hasFancyCard;
+      }
+      error.hidden = !over;
+      root.classList.toggle('instamom-giftmsg--error', over);
+    }
+
+    // --- persistence --------------------------------------------------------
+    // Written as the shopper types (debounced) so the message is already on the
+    // cart whichever checkout button they use, and so it comes back if they
+    // reload or wander off and return.
+    function save() {
+      var payload = serialize();
+      if (payload === lastSaved) return;
+      lastSaved = payload;
+      fetch(root_() + 'cart/update.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          attributes: {
+            'Gift message to': to.value,
+            'Gift message': body.value,
+            'Gift message from': from.value,
+          },
+        }),
+      }).catch(function () {
+        // Let the next attempt retry; the cart form still carries the fields
+        // when the standard Checkout button is used.
+        lastSaved = null;
+      });
+    }
+
+    function queueSave() {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(save, 500);
+    }
+
+    [to, body, from].forEach(function (field) {
+      field.addEventListener('input', function () {
+        if (field === body) render();
+        queueSave();
+      });
+      field.addEventListener('change', function () {
+        clearTimeout(saveTimer);
+        save();
+      });
+    });
+
+    // --- Fancy Card in the cart or not --------------------------------------
+    // Neither adding nor removing the card re-renders this snippet, so re-read
+    // the cart and switch the limit here. The message itself is never touched:
+    // dropping the card leaves a long message in place and asks for a fix.
+    function setFancyCard(present) {
+      if (present === hasFancyCard) return;
+      hasFancyCard = present;
+      render();
+    }
+
+    function fromCartData(cart) {
+      if (!cart || !cart.items) return;
+      setFancyCard(cart.items.some(function (item) { return item.handle === fancyHandle; }));
+    }
+
+    function refreshFromCart() {
+      fetch(root_() + 'cart.js', { headers: { Accept: 'application/json' } })
+        .then(function (res) { return res.json(); })
+        .then(fromCartData)
+        .catch(function () { /* keep the current limit */ });
+    }
+
+    // Dawn publishes this on every line-item change on the cart page. Wait for
+    // DOMContentLoaded before subscribing: pubsub.js is a deferred script in
+    // the head, so `subscribe` doesn't exist yet while this inline script runs.
+    function subscribeToCart() {
+      if (typeof subscribe !== 'function' || typeof PUB_SUB_EVENTS === 'undefined') return;
+      subscribe(PUB_SUB_EVENTS.cartUpdate, function (event) {
+        if (event && event.cartData) fromCartData(event.cartData);
+        else refreshFromCart();
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', subscribeToCart);
+    } else {
+      subscribeToCart();
+    }
+
+    // The add-ons modal adds straight to /cart/add.js without publishing, so
+    // catch the card being bought from there too.
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('.instamom-addons__add')) setTimeout(refreshFromCart, 800);
+    });
+
+    // --- checkout guard -----------------------------------------------------
+    // Same two targets the candy-preference and terms guards cover.
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('#checkout, .cart__dynamic-checkout-buttons')) return;
+      clearTimeout(saveTimer);
+      save();
+      if (overBy() <= 0) return;
+      event.preventDefault();
+      render();
+      root.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      body.focus();
+    }, true);
+
+    render();
+  })();
+</script>

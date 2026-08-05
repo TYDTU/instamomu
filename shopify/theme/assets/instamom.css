@@ -2063,6 +2063,141 @@ textarea:focus-visible,
   font-weight: 700;
 }
 
+/* --- Gift message for the student (snippets/instamom-gift-message.liquid) --
+   Sits above the allergen notice on the cart page. Gold-framed like the
+   add-ons modal's roommate field rather than pink-framed like the candy
+   preference: this is a nice extra, not a required answer, and the pink frame
+   is what the cart uses to mean "you must deal with this". It only turns pink
+   when the message is too long for the note it's going on. */
+.instamom-giftmsg {
+  margin: 0 0 20px;
+  padding: 16px 18px 18px;
+  border: 1.5px solid var(--imu-gold);
+  border-radius: 12px;
+  background: var(--imu-surface);
+}
+
+.instamom-giftmsg__title {
+  margin: 0 0 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1.4rem;
+  line-height: 1.3;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-giftmsg__field + .instamom-giftmsg__field {
+  margin-top: 14px;
+}
+
+.instamom-giftmsg__label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--imu-navy-dark);
+}
+
+.instamom-giftmsg__input,
+.instamom-giftmsg__textarea {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  font-family: inherit;
+  /* 16px on the phone keeps iOS Safari from zooming the page on focus. */
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: var(--imu-ink);
+  background: #fff;
+  border: 1.5px solid var(--imu-line);
+  border-radius: 8px;
+}
+
+.instamom-giftmsg__input:focus,
+.instamom-giftmsg__textarea:focus {
+  outline: none;
+  border-color: var(--imu-navy);
+  box-shadow: 0 0 0 3px rgba(6, 43, 102, 0.12);
+}
+
+.instamom-giftmsg__textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+/* With the Fancy Card the allowance jumps to 1,000 characters, so give the box
+   room to match — a long message typed through a 3-line slot is miserable. */
+.instamom-giftmsg--long .instamom-giftmsg__textarea {
+  min-height: 180px;
+}
+
+.instamom-giftmsg__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.instamom-giftmsg__hint {
+  margin: 0;
+  flex: 1 1 200px;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--imu-muted);
+}
+
+.instamom-giftmsg__count {
+  flex: 0 0 auto;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--imu-muted);
+}
+
+.instamom-giftmsg__count--over {
+  color: var(--imu-pink);
+}
+
+.instamom-giftmsg__error {
+  margin: 10px 0 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-weight: 700;
+  color: var(--imu-pink);
+}
+
+/* A link-shaped button so "add the Fancy Card back" reads as part of the
+   sentence — it opens the same add-ons modal the cart lines already use. */
+.instamom-giftmsg__addcard {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--imu-pink);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.instamom-giftmsg--error {
+  border-color: var(--imu-pink);
+  box-shadow: 0 0 0 3px rgba(237, 47, 137, 0.18);
+}
+
+@media screen and (max-width: 749px) {
+  .instamom-giftmsg {
+    padding: 14px 14px 16px;
+  }
+
+  /* Stacked on a phone the counter under a wrapped hint looks orphaned; put it
+     on its own line, right-aligned, where it stays findable. */
+  .instamom-giftmsg__count {
+    margin-left: auto;
+  }
+}
+
 /* --- Shipping-window promise under the buy buttons -----------------------
    snippets/instamom-shipping-note.liquid. The pre-order date is the loud line
    (it answers "when does this actually arrive?"); the 7–10 day window and the

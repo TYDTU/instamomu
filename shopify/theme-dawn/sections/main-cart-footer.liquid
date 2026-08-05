@@ -184,6 +184,9 @@
                 </small>
               </div>
             {%- else -%}
+              {%- unless cart == empty -%}
+                {%- render 'instamom-gift-message' -%}
+              {%- endunless -%}
               {%- render 'instamom-allergen-notice' -%}
               {%- render 'instamom-terms-agree' -%}
               <div class="cart__ctas" {{ block.shopify_attributes }}>

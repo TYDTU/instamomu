@@ -2236,3 +2236,8 @@ textarea:focus-visible,
   line-height: 1.5;
   opacity: 0.9;
 }
+
+/* Asset revision marker. The CDN object for a given instamom.css is keyed by
+   the content-derived ?v= hash, so when one goes bad the only way to mint a
+   fresh URL is to change the bytes. Bumping this is that lever.
+   rev 2 — 2026-08-04 */

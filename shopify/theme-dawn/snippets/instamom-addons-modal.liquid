@@ -118,11 +118,34 @@
         <span class="instamom-addons__roommate-saved" data-roommate-saved hidden>Saved ✓</span>
       </div>
 
+      {%- comment -%}
+        The way out has to move the shopper FORWARD. This button used to read
+        "No thanks, continue" and only call modal.hide(), which dropped them
+        back on the product page they came from with no checkout in sight — the
+        add-to-cart notification that carries Dawn's "Check out" button is
+        underneath this modal and gone by the time it closes. Shoppers read
+        "continue" as "continue to checkout", hit it, landed back on the box,
+        and went round again.
+
+        It goes to the CART, not straight to /checkout, because the cart page
+        is where the required candy preference and Terms agreement live (see
+        sections/main-cart-footer.liquid and snippets/instamom-terms-agree.liquid).
+        Jumping the shopper past those would skip the allergy answer and the
+        agreement the Terms themselves say is given by ticking that box.
+
+        Opened from a cart line's "+ Add-ons" trigger there's nowhere to go, so
+        the button just closes — hence the two labels.
+      {%- endcomment -%}
       <div class="instamom-addons__actions">
-        <button type="button" class="button instamom-addons__skip">
-          No thanks, continue
-        </button>
-        <a href="{{ routes.cart_url }}" class="instamom-addons__cart-link">View cart</a>
+        {%- if template.name == 'cart' -%}
+          <button type="button" class="button instamom-addons__skip" data-close-only>
+            Done
+          </button>
+        {%- else -%}
+          <button type="button" class="button instamom-addons__skip">
+            No thanks, take me to my cart
+          </button>
+        {%- endif -%}
       </div>
     </div>
   </modal-dialog>

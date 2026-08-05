@@ -32,14 +32,29 @@
   <div class="page-width">
     <div class="title-wrapper-with-link">
       <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">
+      {%- comment -%}
+        Shown only when the cart HAS something in it. Same destination as the
+        empty-cart button below, so "continue shopping" means one thing on this
+        page wherever you click it — the lineup, not Dawn's /collections/all.
+      {%- endcomment -%}
+      <a href="{{ collections['packages'].url | default: routes.all_products_collection_url }}" class="underlined-link">
         {{- 'general.continue_shopping' | t -}}
       </a>
     </div>
 
     <div class="cart__warnings">
       <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="button">
+      {%- comment -%}
+        The packages collection, not Dawn's default
+        `routes.all_products_collection_url` — that is /collections/all, an
+        alphabetical dump of every package, component and add-on with no sense
+        of what the store actually sells. Someone with an empty cart wants the
+        lineup, which is exactly what this collection is.
+
+        Falls back to /collections/all if the collection is ever renamed, so a
+        broken handle degrades to Dawn's behaviour rather than a dead link.
+      {%- endcomment -%}
+      <a href="{{ collections['packages'].url | default: routes.all_products_collection_url }}" class="button">
         {{ 'general.continue_shopping' | t }}
       </a>
 

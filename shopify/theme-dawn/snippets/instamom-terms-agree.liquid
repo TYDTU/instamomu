@@ -29,6 +29,16 @@
 {% endcomment %}
 
 {%- assign agreed_value = 'Agreed to the Terms of Service and Refund Policy' -%}
+{%- comment -%}
+  Shopify returns cart attributes HTML-escaped, so the saved value is compared
+  against the escaped literal as well as the raw one. This wording has no
+  apostrophe today and so matches either way — the candy preference next door
+  did not, and silently failed to restore for months. Comparing both ways here
+  means a future rewording ("Refund & Returns Policy", a curly quote) can't
+  quietly break it. See sections/main-cart-footer.liquid.
+{%- endcomment -%}
+{%- assign terms_saved = cart.attributes['Terms agreement'] -%}
+{%- assign agreed_cmp = agreed_value | escape -%}
 
 <div class="instamom-terms" id="instamom-terms">
   <label class="instamom-terms__option" for="InstamomTermsAgree">
@@ -39,7 +49,7 @@
       value="{{ agreed_value }}"
       form="cart"
       required
-      {% if cart.attributes['Terms agreement'] == agreed_value %}checked{% endif %}
+      {% if terms_saved == agreed_cmp or terms_saved == agreed_value %}checked{% endif %}
     >
     <span>
       I have read and agree to the

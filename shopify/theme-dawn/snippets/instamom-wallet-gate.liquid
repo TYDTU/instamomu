@@ -1,0 +1,70 @@
+{% comment %}
+  InstaMom University — hold the express wallet buttons (Shop Pay, Apple Pay,
+  Google Pay) until the required candy preference and Terms agreement are given.
+
+  WHY THIS EXISTS RATHER THAN A CLICK GUARD
+
+  The candy-preference and terms guards stop the standard Checkout button by
+  listening for clicks on `#checkout, .cart__dynamic-checkout-buttons`. That
+  works for the standard button, and it worked for the product page's Shop Pay
+  button, which was ordinary DOM. It does NOT work here: Shopify renders the
+  cart's accelerated checkout as <shopify-accelerated-checkout-cart>, whose
+  buttons live inside two IFRAMES. Clicks inside an iframe never reach this
+  document, so there is nothing for a guard to intercept — a shopper could skip
+  the allergy answer and the Terms tick-box entirely and still check out.
+
+  So instead of trying to catch the click, the buttons aren't there to click.
+  #main-cart-footer carries `instamom-wallets-locked` until both answers are
+  given, and the CSS hides the wallet row while that class is present.
+
+  The lock is rendered SERVER-SIDE from the cart attributes, so it is already in
+  place before this script runs — otherwise there'd be a window on every page
+  load where the wallets were live and unguarded.
+
+  With JavaScript off the wallets stay hidden, which is the safe direction to
+  fail: the standard Checkout button still works, carries both answers via
+  form="cart", and enforces them with the inputs' own `required`.
+
+  Styling: .instamom-wallet-gate* in assets/instamom.css
+{% endcomment %}
+
+<p class="instamom-wallet-gate" data-wallet-gate>
+  Choose a candy preference and agree to the Terms above to pay with Shop&nbsp;Pay
+  or another express wallet. You can also use the Checkout button.
+</p>
+
+<script>
+  (function () {
+    var footer = document.getElementById('main-cart-footer');
+    if (!footer) return;
+
+    function candyChosen() {
+      return !!document.querySelector('input[name="attributes[Candy preference]"]:checked');
+    }
+
+    function termsAgreed() {
+      var box = document.getElementById('InstamomTermsAgree');
+      return !!box && box.checked;
+    }
+
+    function sync() {
+      footer.classList.toggle('instamom-wallets-locked', !(candyChosen() && termsAgreed()));
+    }
+
+    // Both controls live in sibling snippets, so listen at the document rather
+    // than reaching into either one.
+    document.addEventListener('change', function (event) {
+      if (!event.target.closest) return;
+      if (event.target.closest('#instamom-candy, #instamom-terms')) sync();
+    });
+
+    // The candy radios and the terms box are restored from cart attributes on
+    // load, so re-check once the DOM is parsed rather than trusting the class
+    // Liquid rendered — they can disagree if an attribute was cleared.
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', sync);
+    } else {
+      sync();
+    }
+  })();
+</script>

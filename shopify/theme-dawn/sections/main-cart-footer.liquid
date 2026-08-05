@@ -17,8 +17,19 @@
   }
 {%- endstyle -%}
 
+{%- comment -%}
+  The express wallet buttons are held back until the required candy preference
+  and Terms agreement are given — their iframes make a click guard impossible.
+  Decided server-side so the lock is in place before any script runs; see
+  snippets/instamom-wallet-gate.liquid for the whole story.
+{%- endcomment -%}
+{%- assign wallets_locked = true -%}
+{%- if cart.attributes['Candy preference'] != blank and cart.attributes['Terms agreement'] != blank -%}
+  {%- assign wallets_locked = false -%}
+{%- endif -%}
+
 <div
-  class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
+  class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}{% if wallets_locked %} instamom-wallets-locked{% endif %}"
   id="main-cart-footer"
   data-id="{{ section.id }}"
 >
@@ -49,6 +60,23 @@
       {%- unless cart == empty -%}
         {%- assign candy_no = "No Snickers or Reese's (allergy)" -%}
         {%- assign candy_yes = "Snickers and Reese's OK" -%}
+        {%- comment -%}
+          Compare against the ESCAPED literals. Shopify hands cart attributes
+          back HTML-escaped, so the saved value is
+          `No Snickers or Reese&#39;s (allergy)` — 36 characters against the
+          literal's 32. The apostrophe in "Reese's" therefore never matched, and
+          the shopper's answer silently failed to restore on every page load:
+          they had to re-pick the allergy preference each time they returned to
+          the cart. (The Terms tick-box escaped this only because its wording
+          happens to contain no apostrophe — it is compared the same way below
+          so that a future wording change can't reintroduce this.)
+
+          The `value` attributes stay RAW: that is what the browser submits and
+          what Shopify stores. Only the read-back is escaped.
+        {%- endcomment -%}
+        {%- assign candy_saved = cart.attributes['Candy preference'] -%}
+        {%- assign candy_no_cmp = candy_no | escape -%}
+        {%- assign candy_yes_cmp = candy_yes | escape -%}
         <fieldset class="instamom-candy" id="instamom-candy">
           <legend class="instamom-candy__legend">
             Candy Preference <span class="instamom-candy__req">(Required)</span>
@@ -60,7 +88,7 @@
               value="{{ candy_no }}"
               form="cart"
               required
-              {% if cart.attributes['Candy preference'] == candy_no %}checked{% endif %}
+              {% if candy_saved == candy_no_cmp or candy_saved == candy_no %}checked{% endif %}
             >
             <span>Please do <strong>not</strong> include any Snickers or Reese&rsquo;s in my student&rsquo;s package!</span>
           </label>
@@ -70,7 +98,7 @@
               name="attributes[Candy preference]"
               value="{{ candy_yes }}"
               form="cart"
-              {% if cart.attributes['Candy preference'] == candy_yes %}checked{% endif %}
+              {% if candy_saved == candy_yes_cmp or candy_saved == candy_yes %}checked{% endif %}
             >
             <span>Please include Snickers and Reese&rsquo;s if they are a standard part of the treats in the package I ordered!</span>
           </label>
@@ -205,6 +233,9 @@
               </div>
 
               {%- if additional_checkout_buttons -%}
+                {%- unless cart == empty -%}
+                  {%- render 'instamom-wallet-gate' -%}
+                {%- endunless -%}
                 <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
                   {{ content_for_additional_checkout_buttons }}
                 </div>

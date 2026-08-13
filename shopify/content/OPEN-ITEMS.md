@@ -277,21 +277,32 @@ the Aug 2026 session scratchpad.
 7. **`taxShipping` is on** while Virginia generally doesn't tax separately
    stated shipping (section L).
 
-## O. "Ships August 14th" badge + hidden price (Aug 2026)
+## O. "Now Shipping" badge + hidden price (Aug 2026)
 
-**The badge now reads "Ships August 14th"** instead of "Pre-Order Now" — owner's
-call, and a better one: a date tells a shopper how long they'll wait, where
-"pre-order" only tells them that they will.
+**The badge reads "Now Shipping"** (resolved 13 Aug 2026). It went
+"Pre-Order Now" → "Ships August 14th" → "Now Shipping": the date was the right
+call while it was still in the future, because a date tells a shopper how long
+they'll wait where "pre-order" only tells them that they will. On the eve of that
+date the owner replaced it again — once the day arrives, the useful thing to say
+is that the wait is over.
 
-Driven by the **`ships-aug-14`** tag, not `pre-order`, so a future pre-order
-product without a known date still falls back to "Pre-Order Now" rather than
-promising a date it has no basis for. Currently on Welcome Week Starter, Warm
-Hug from Home and Room Refresh.
+**The hard-coded-date risk logged here is closed.** No date remains in
+`instamom-badge.liquid` or `instamom-shipping-note.liquid`, so neither can go
+stale on a calendar again. The shipping note's lead changed with the badge, not
+separately: both render on the same product page, and a "NOW SHIPPING" badge over
+a "Pre-order now, begins shipping Friday August 14" note is the store
+contradicting itself.
 
-⚠ **14 August 2026 is hard-coded in two places** — `instamom-badge.liquid` and
-`instamom-shipping-note.liquid`. Once the date passes both read as stale. Remove
-the `ships-aug-14` tag from the three products, or replace both with the next
-date.
+Still driven by the **`ships-aug-14`** tag, not `pre-order`, so a future
+pre-order product without a confirmed date still falls back to "Pre-Order Now"
+rather than claiming to ship. On Welcome Week Starter, Warm Hug from Home and
+Room Refresh.
+
+⚠ **The tag name is now historical** — read `ships-aug-14` as "in the 14 August
+wave", i.e. shipping. It was deliberately not renamed: that is a write to three
+live products, not a theme edit, and the tag is load-bearing in two snippets. If
+it is ever renamed, both snippets change in the same breath. A product that
+should stop reading as shipping loses the tag.
 
 **Homesick Helper's price is showing again** — the `hide-price` tag was removed
 once the price was settled, and it reads **From $62.00**. The 9" Juniors are $62

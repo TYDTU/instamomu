@@ -1,20 +1,25 @@
 {% comment %}
   InstaMom University — status badge driven by product tags.
-  Renders "Ships August 14th", "Pre-Order Now", "Coming Soon", or "Seasonal"
+  Renders "Now Shipping", "Pre-Order Now", "Coming Soon", or "Seasonal"
   based on the product's tags, matching the CSVs in ../..
 
   Owner, Aug 2026: "Instead of pre order now banners, let's make the banner read
   'Ships August 14th'." A concrete date beats "pre-order", which tells a shopper
-  they'll wait without saying how long.
+  they'll wait without saying how long. Owner again on 13 Aug 2026, the eve of
+  that date: change it to "now shipping". The date had done its job — once it
+  arrives the useful thing to say is that the wait is over, not how long it was.
+  So the hard-coded date is gone from here and from the shipping note, and
+  neither can go stale again.
 
-  The date comes from the `ships-aug-14` tag, NOT from `pre-order`, so a
-  pre-order product WITHOUT a known ship date still falls back to "Pre-Order
-  Now" rather than promising a date it has no basis for. Same reasoning as
-  snippets/instamom-shipping-note.liquid.
+  The label still hangs off the `ships-aug-14` TAG, whose NAME is now historical
+  — read it as "in the 14 August wave", i.e. shipping. Renaming it is a write to
+  three live products (Welcome Week Starter, Warm Hug from Home, Room Refresh),
+  not a theme edit, so it was left alone deliberately. The same tag drives
+  snippets/instamom-shipping-note.liquid; the two must keep agreeing.
 
-  ⚠ 14 August 2026 is hard-coded here and in the shipping note. Once it passes,
-  the badge reads as stale — remove the `ships-aug-14` tag from the products, or
-  replace both with the next date.
+  The label comes from that tag, NOT from `pre-order`, so a pre-order product
+  without a confirmed ship date still falls back to "Pre-Order Now" rather than
+  claiming to ship. Same reasoning as the shipping note.
 
   Usage — inside a product card or product page, pass the product:
     {% render 'instamom-badge', product: card_product %}
@@ -27,7 +32,7 @@
   assign label = ''
   assign modifier = ''
   if product.tags contains 'ships-aug-14'
-    assign label = 'Ships August 14th'
+    assign label = 'Now Shipping'
     assign modifier = 'preorder'
   elsif product.tags contains 'pre-order'
     assign label = 'Pre-Order Now'

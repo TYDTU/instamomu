@@ -8,25 +8,34 @@
      equal value."
     "Pre-order now, all Welcome Boxes begin shipping on Friday August 14th, 2026"
 
-  The wording is no longer "all Welcome Boxes": Virginia's 3 Aug email put Warm
-  Hug from Home and Room Refresh on the same 14 August date, and neither is a
-  Welcome box. Same date, three products, so the line is now product-neutral.
+  That pre-order line is retired. Owner, 13 Aug 2026 — the eve of that date —
+  asked for "now shipping" instead, so the lead now says the wait is over rather
+  than naming a date. Changed here as well as on the badge because the two render
+  on the same product page: a "NOW SHIPPING" badge above a "Pre-order now, begins
+  shipping Friday August 14" note is the store contradicting itself.
+
+  (The earlier wording was "all Welcome Boxes"; Virginia's 3 Aug email put Warm
+  Hug from Home and Room Refresh on the same date and neither is a Welcome box,
+  so the line went product-neutral.)
 
   Both sentences are promises, so they have to agree with the Shipping &
   Delivery Policy (7–10 business days processing, and the substitution clause in
   its §8). If one changes, change the other — shopify/content/policy-shipping.html.
 
-  The 14 August date is driven by its own `ships-aug-14` tag, NOT by a
-  combination of `pre-order` and `welcome-week`. That combination looked
-  equivalent when only Welcome Week Starter was pre-order — but Homesick Helper
-  also carries `welcome-week`, so the moment it opened for sale it would have
-  silently started promising a 14 August ship date it has no basis for. A ship
-  date is a promise; it gets an explicit tag, and adding a box to that date is a
-  tag away.
+  The lead is driven by its own `ships-aug-14` tag, NOT by a combination of
+  `pre-order` and `welcome-week`. That combination looked equivalent when only
+  Welcome Week Starter was pre-order — but Homesick Helper also carries
+  `welcome-week`, so the moment it opened for sale it would have silently started
+  claiming a ship status it has no basis for. Shipping is a promise; it gets an
+  explicit tag, and adding a box to it is a tag away.
 
-  ⚠ 14 August 2026 is a fixed date in this snippet. Once it passes, the line
-  reads as stale rather than reassuring — remove it, or replace it with the next
-  shipping date.
+  The tag NAME is historical now that the date is gone from the copy — read it as
+  "in the 14 August wave", i.e. shipping. It was not renamed because that is a
+  write to three live products, not a theme edit. Keep it in step with
+  snippets/instamom-badge.liquid, which keys off the same tag.
+
+  No date is hard-coded here any more, so nothing in this snippet goes stale on a
+  calendar. A product that should NOT read as shipping loses the tag.
 
   Usage: {% render 'instamom-shipping-note', product: product %}
   Styling: .instamom-shipnote* in assets/instamom.css
@@ -42,8 +51,8 @@
 <div class="instamom-shipnote">
   {%- if ships_aug_14 -%}
     <p class="instamom-shipnote__lead">
-      <strong>Pre-order now</strong> &mdash; begins shipping on
-      <strong>Friday, August 14, 2026</strong>.
+      <strong>Now shipping.</strong> No pre-order wait &mdash; orders go out on
+      the schedule below.
     </p>
   {%- endif -%}
   <p class="instamom-shipnote__body">

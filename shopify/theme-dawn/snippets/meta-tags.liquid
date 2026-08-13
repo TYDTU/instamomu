@@ -11,7 +11,28 @@
   elsif request.page_type == 'password'
     assign og_url = request.origin
   endif
+
+  # InstaMom: pages whose handle starts with `guide-` are UNLISTED insert-card
+  # landing pages — published so the QR code on the printed card in a care
+  # package resolves, but linked from nothing on the store. "Not linked" is not
+  # "not findable": Shopify's sitemap lists every published page, so without the
+  # robots tag below they would surface in search and be read by people who
+  # never bought a box. Keep the handle prefix and this rule together — see
+  # shopify/content/README.md.
+  # `slice`, not `contains`: `contains` would also match a normal, listed page
+  # called something like `move-in-guide-tips`.
+  assign is_unlisted_guide = false
+  if request.page_type == 'page'
+    assign handle_prefix = page.handle | slice: 0, 6
+    if handle_prefix == 'guide-'
+      assign is_unlisted_guide = true
+    endif
+  endif
 %}
+
+{%- if is_unlisted_guide -%}
+  <meta name="robots" content="noindex, nofollow">
+{%- endif -%}
 
 <meta property="og:site_name" content="{{ shop.name }}">
 <meta property="og:url" content="{{ og_url }}">

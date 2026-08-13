@@ -1,0 +1,73 @@
+<!-- Body of the Shopify page "College Success Videos" (handle:
+     guide-college-success-videos). UNLISTED, same rules as the other guide-*
+     pages: published so the QR code on the printed card resolves, linked from
+     nothing on the store. The `guide-` prefix earns it the noindex tag in
+     snippets/meta-tags.liquid — keep it.
+
+     ============================================================
+     THE HANDLE IS PRINTED ON A CARD. This page's URL went to the
+     printers, which makes `guide-college-success-videos` FROZEN.
+     Renaming the page in the Shopify admin rewrites the handle and
+     every printed card scans to a 404. Change the title if you
+     like — the handle is a separate field and must not follow it.
+     ============================================================
+
+     NO VIDEOS EXIST YET. The page ships with a placeholder where the first one
+     goes. It carried a "Ready right now" section linking to the two PDF guides
+     as well, but the owner cut it (Aug 2026) as not relevant to this page — so
+     until a video is published this page is deliberately near-empty. Don't
+     re-add cross-links here without asking.
+
+     This page is a LIBRARY — plural, unlike guide-syllabus-decoder-video, which
+     holds exactly one. The `SWAP ME` comment below carries the repeatable block
+     for adding each video. See shopify/content/README.md. -->
+
+<h2>Your video library</h2>
+
+<p>
+  Short videos on the parts of college nobody hands you a manual for. There's no
+  order to follow &mdash; watch one when the thing it's about actually comes up,
+  and ignore the rest until it does.
+</p>
+
+<!-- SWAP ME. Videos go here. For EACH one, add this pair — a titled heading and
+     its player — putting the video's ID after `/embed/` and its real title in
+     both the <h3> and the iframe's `title` attribute:
+
+<h3 class="instamom-guide__video-title">What the video is called</h3>
+<div class="instamom-guide__video">
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+    title="InstaMom University — what the video is called"
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  ></iframe>
+</div>
+
+     Repeat that pair per video. Four things about it, all deliberate:
+     - the h3 MUST carry `instamom-guide__video-title`. A bare <h3> on these
+       pages is styled as the top half of a framed card and expects a <p> to
+       close it; followed by a video it renders as an open-bottomed box.
+     - `youtube-nocookie.com`, not `youtube.com` — YouTube's privacy-enhanced
+       host. It doesn't set tracking cookies until someone presses play, which
+       keeps this page out of the store's cookie-consent surface.
+     - the `title` attribute is not optional; it is what a screen reader
+       announces for the frame. "YouTube video player" is what you get without it.
+     - `loading="lazy"` — each embed is ~1 MB of YouTube's player, and a library
+       page loads all of them. These pages are opened on phones on dorm wifi.
+     Once the first video is in, delete the placeholder <div> below and the
+     "nothing to watch yet" wording with it, and update
+     shopify/content/README.md. -->
+
+<div class="instamom-guide__video-pending">
+  <strong>The first videos are on their way.</strong> Nothing to watch just yet
+  &mdash; this is where they'll be.
+</div>
+
+<p class="instamom-guide__note">
+  Bookmark this page. More goes up here over the semester, and the link on your
+  card always points at the current list &mdash; so it's worth coming back to
+  even when you've already watched everything on it.
+</p>

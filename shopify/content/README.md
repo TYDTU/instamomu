@@ -12,8 +12,8 @@ kept here, and the store copy is created from it.
 | `allergen-disclaimer.html` | `allergen-disclaimer` | **Visible.** Linked from the footer and from the cart notice. |
 | `guide-roommate-agreement.html` | `guide-roommate-agreement` | **Unlisted.** Published, linked from nothing — QR code only. See below. |
 | `guide-syllabus-decoder.html` | `guide-syllabus-decoder` | **Unlisted.** Same — QR code only. |
-| `guide-syllabus-decoder-video.html` | `guide-syllabus-decoder-video` | **Unlisted, and the video is not in it yet** — see below. |
-| `guide-college-success-videos.html` | `guide-college-success-videos` | **Unlisted, video library, none published yet. Handle is FROZEN — printed.** |
+| `guide-syllabus-decoder-video.html` | `guide-syllabus-decoder-video` | **Unlisted.** Video embedded Aug 2026. |
+| `guide-college-success-videos.html` | `guide-college-success-videos` | **Unlisted** video library, one video in it. Handle is FROZEN — printed. |
 | `sweepstakes-official-rules.html` | — | **Shelved.** Page deleted Aug 2026 — see below. |
 | `sweepstakes-entry-form.html` | — | **Shelved.** Page deleted Aug 2026 — see below. |
 
@@ -56,8 +56,8 @@ should never be.
 |---|---|---|
 | `guide-roommate-agreement` | `gid://shopify/Page/128300875876` | `Editable_PDF_Roommate_Agreement.pdf` — 8 pp, 81 KB |
 | `guide-syllabus-decoder` | `gid://shopify/Page/128301236324` | `Syllabus_Decoder_PDF.pdf` — 10 pp, 248 KB |
-| `guide-syllabus-decoder-video` | `gid://shopify/Page/128307495012` | same PDF; **video pending** |
-| `guide-college-success-videos` | `gid://shopify/Page/128311427172` | video library; **empty, and its handle is printed** |
+| `guide-syllabus-decoder-video` | `gid://shopify/Page/128307495012` | same PDF; video `DHU6QYAI6yg` |
+| `guide-college-success-videos` | `gid://shopify/Page/128311427172` | video library; 1 video (`CeWQzMt3Qd8`), **handle is printed** |
 
 Both PDFs are real AcroForms (52 and 127 text fields respectively), which is why
 the pages say "fillable" — check that before writing the same claim about a new
@@ -76,20 +76,32 @@ If a handle ever *has* to change, the old one needs a URL redirect
 (`urlRedirectCreate`, Online Store → Navigation → URL Redirects) created in the
 same breath, or the printed cards die.
 
-### Two pages are live with a placeholder where video goes
+### The two video pages
 
 `guide-syllabus-decoder-video` holds exactly one video; `guide-college-success-videos`
-is a library and holds several. Neither has a video in it yet.
+is a library and holds several. As of Aug 2026 both have their first video in:
 
-Both carry a `.instamom-guide__video-pending` panel — a dashed box saying the
-video is coming. `guide-syllabus-decoder-video` also carries the PDF download and
-a link across to `guide-syllabus-decoder`, so it stands on its own meanwhile.
+| Page | Video | YouTube ID |
+|---|---|---|
+| `guide-syllabus-decoder-video` | Syllabus Decoder walkthrough | `DHU6QYAI6yg` |
+| `guide-college-success-videos` | Welcome Week | `CeWQzMt3Qd8` |
 
-`guide-college-success-videos` does **not**. It shipped with a "Ready right now"
-section linking to the two PDF guides; the owner cut it in Aug 2026 as not
-relevant to that page. So until a video goes up it is deliberately near-empty —
-an intro line, the placeholder, and a closing note. That is a known and accepted
-state, not an oversight; don't re-add cross-links there without asking.
+Both embeds go through `youtube-nocookie.com`, carry a real `title`, and are
+`loading="lazy"` — see the `SWAP ME` section below for why each of those matters.
+
+The dashed `.instamom-guide__video-pending` stand-in is gone from both pages. Its
+CSS rule is deliberately left in `assets/instamom.css`: nothing uses it today, but
+it is the documented furniture for the next guide page that ships ahead of its
+video, and removing it would mean pushing the stylesheet to the live theme for no
+visible gain.
+
+`guide-college-success-videos` is still a thin page — an intro line, one video,
+and a closing note. It shipped with a "Ready right now" section linking to the two
+PDF guides; the owner cut it in Aug 2026 as not relevant to that page. That is a
+known and accepted state, not an oversight; don't re-add cross-links there without
+asking. The intro copy ("There's no order to follow — watch one when the thing
+it's about actually comes up") is written for the library it will become, and
+reads a little ahead of itself with a single video in place.
 
 **Adding a video to the library page: the `<h3>` must carry
 `instamom-guide__video-title`.** This is the one way to get it visibly wrong. A
@@ -101,10 +113,12 @@ rendered and compared before shipping — the broken one is not hypothetical.
 
 ### The `SWAP ME` comments
 
-On both video pages, directly above the placeholder, the body carries an HTML
-comment marked **`SWAP ME`** holding the exact `<iframe>` markup to paste in —
-only the video ID and the title need filling. The library page's version is a
-repeatable `<h3>` + player pair, to be added once per video.
+`guide-college-success-videos` still carries an HTML comment marked **`SWAP ME`**
+holding the exact `<h3>` + `<iframe>` pair to paste in — only the video ID and the
+title need filling. It is a repeatable block, added once per video, and it stays
+in the body for as long as the library keeps growing. `guide-syllabus-decoder-video`
+had the single-video version of the same comment; it was deleted when that video
+went in, because that page takes only the one.
 
 That comment is deliberately left in the *uploaded* page body, not stripped like
 the file-header comments. The swap will most likely happen in the Shopify admin,
@@ -116,10 +130,10 @@ pages out of the store's cookie-consent surface), a real `title` attribute
 `loading="lazy"` (each embed is ~1 MB of YouTube's player, and a library page
 loads all of them, on dorm wifi).
 
-Swapping one in: replace the placeholder `<div>` with the block from the comment,
-delete the comment, and re-upload the body with `pageUpdate`. Both
-`.instamom-guide__video` and `.instamom-guide__video-title` are already styled and
-pushed, so no theme change is needed.
+Adding one: paste the block from the comment in above the closing
+`.instamom-guide__note`, fill in the ID and title, and re-upload the body with
+`pageUpdate`. Both `.instamom-guide__video` and `.instamom-guide__video-title` are
+already styled and pushed, so no theme change is needed.
 
 Where guide pages do cross-link, that is safe — they are all unlisted and
 noindexed, so linking one to another exposes none of them.

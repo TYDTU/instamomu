@@ -12,11 +12,12 @@
      like — the handle is a separate field and must not follow it.
      ============================================================
 
-     NO VIDEOS EXIST YET. The page ships with a placeholder where the first one
-     goes. It carried a "Ready right now" section linking to the two PDF guides
-     as well, but the owner cut it (Aug 2026) as not relevant to this page — so
-     until a video is published this page is deliberately near-empty. Don't
-     re-add cross-links here without asking.
+     ONE VIDEO IS IN (Aug 2026): Welcome Week, youtu.be/CeWQzMt3Qd8. The dashed
+     `instamom-guide__video-pending` placeholder it replaced is gone; the
+     `SWAP ME` comment STAYS, because this page is a library and the next video
+     is added the same way. The page also carried a "Ready right now" section
+     linking to the two PDF guides, but the owner cut it (Aug 2026) as not
+     relevant here — don't re-add cross-links without asking.
 
      This page is a LIBRARY — plural, unlike guide-syllabus-decoder-video, which
      holds exactly one. The `SWAP ME` comment below carries the repeatable block
@@ -57,13 +58,19 @@
        announces for the frame. "YouTube video player" is what you get without it.
      - `loading="lazy"` — each embed is ~1 MB of YouTube's player, and a library
        page loads all of them. These pages are opened on phones on dorm wifi.
-     Once the first video is in, delete the placeholder <div> below and the
-     "nothing to watch yet" wording with it, and update
-     shopify/content/README.md. -->
+     Add each new video ABOVE the closing note, and update
+     shopify/content/README.md with what is now on the page. -->
 
-<div class="instamom-guide__video-pending">
-  <strong>The first videos are on their way.</strong> Nothing to watch just yet
-  &mdash; this is where they'll be.
+<h3 class="instamom-guide__video-title">Welcome Week</h3>
+<div class="instamom-guide__video">
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/CeWQzMt3Qd8"
+    title="InstaMom University &mdash; Welcome Week"
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  ></iframe>
 </div>
 
 <p class="instamom-guide__note">

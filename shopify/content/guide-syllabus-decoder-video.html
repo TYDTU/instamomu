@@ -4,12 +4,11 @@
      nothing on the store. The `guide-` prefix earns it the noindex tag in
      snippets/meta-tags.liquid — keep it.
 
-     ============================================================
-     THE VIDEO DOES NOT EXIST YET. This page ships with a
-     placeholder in its place — see the block marked
-     `instamom-guide__video-pending` below, and the swap
-     instructions sitting right above it.
-     ============================================================
+     The video is IN (Aug 2026): youtu.be/DHU6QYAI6yg, embedded below off
+     youtube-nocookie.com. The `SWAP ME` comment and the dashed
+     `instamom-guide__video-pending` placeholder that stood in for it are both
+     gone. This page holds exactly one video and is not a library — a second one
+     goes on `guide-college-success-videos`, not here.
 
      Companion to `guide-syllabus-decoder`, which is the page that carries the
      PDF and the full per-device fill-in instructions. This page deliberately
@@ -29,35 +28,15 @@
   workbook makes sense on its own.
 </p>
 
-<!-- SWAP ME. When the video is up, replace the whole
-     `instamom-guide__video-pending` block below with this, putting the video's
-     ID after `/embed/` and its real title in the `title` attribute:
-
 <div class="instamom-guide__video">
   <iframe
-    src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
-    title="InstaMom University — Syllabus Decoder walkthrough"
+    src="https://www.youtube-nocookie.com/embed/DHU6QYAI6yg"
+    title="InstaMom University &mdash; Syllabus Decoder walkthrough"
     loading="lazy"
     referrerpolicy="strict-origin-when-cross-origin"
     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     allowfullscreen
   ></iframe>
-</div>
-
-     Three things about that markup, all deliberate:
-     - `youtube-nocookie.com`, not `youtube.com` — YouTube's privacy-enhanced
-       host. It doesn't set tracking cookies until someone actually presses play,
-       which keeps this page out of the store's cookie-consent surface.
-     - the `title` attribute is not optional; it is what a screen reader
-       announces for the frame. "YouTube video player" is what you get without it.
-     - `loading="lazy"` — the embed is ~1 MB of YouTube's player. These pages are
-       opened on phones on dorm wifi.
-     Then delete the `<p>` after the placeholder ("We'll add the video here…"),
-     and update the note in shopify/content/README.md. -->
-
-<div class="instamom-guide__video-pending">
-  <strong>The video is on its way.</strong> It isn't published yet &mdash; but
-  everything below works without it, so start there.
 </div>
 
 <h2>Start with the workbook</h2>

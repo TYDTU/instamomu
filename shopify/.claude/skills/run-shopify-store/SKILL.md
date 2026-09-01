@@ -129,6 +129,26 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   Home and Homesick Helper in Aug 2026; the script is in that session's
   scratchpad. Untag the legacy products so they leave any smart collection, and
   leave them DRAFT rather than deleting until someone has checked the replacement.
+  Done a third time for **Seasonal Celebrations on 1 Sep 2026** (to attach the
+  Birthday Box's 12 components) — assume any product from the original migration
+  import is owned by the other app until a mutation proves otherwise, and budget
+  for the rebuild rather than discovering it halfway. Two extras that only show
+  up on a MULTI-VARIANT rebuild:
+  - `productCreate` with several `productOptions` values creates **only the first
+    variant** (the rest are silently skipped). Add the others with
+    `productVariantsBulkCreate`, passing `optionValues:[{optionName, name}]`.
+  - The component attach zeroes the price on **every** variant of the product,
+    not just the parent you attached to — so set all prices in one
+    `productVariantsBulkUpdate` at the very end, after the attach, and re-read.
+- **`coming-soon` gates the whole PRODUCT, not the variant.** The buy-button
+  gate in `sections/main-product.liquid` and the notify form in
+  `snippets/instamom-notify-form.liquid` both test `product.tags`. So on a
+  multi-variant box you cannot sell one occasion while the others stay
+  "Coming Soon" — dropping the tag un-gates all of them. The others fall back to
+  a disabled "Sold out" button (safe: they sit at 0/`DENY`), but they lose the
+  Notify-me email capture. Owner accepted that trade for Seasonal Celebrations in
+  Sep 2026 so the Birthday Box could ship; the alternative is splitting the
+  occasion into its own product.
 - **Attaching OR DETACHING bundle components ZEROES the parent variant's price.** This is the
   one that will bite you. `productVariantRelationshipBulkUpdate` silently resets
   the parent to **$0.00**, and returns no userError. Proven the hard way: on Room

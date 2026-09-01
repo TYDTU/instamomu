@@ -410,6 +410,17 @@ textarea:focus-visible,
   gap: 12px;
 }
 
+/* The per-variant lists in snippets/instamom-whats-inside.liquid are toggled by
+   setting `hidden` on the <ul>. The browser's own `[hidden] { display: none }`
+   comes from the UA stylesheet, so the `display: flex` above beats it and EVERY
+   variant's list renders at once — the product page shows Birthday's items and
+   Fall's items stacked together. Author-level rule needed to win it back.
+   Reported on Seasonal Celebrations, 1 Sep 2026; affects any multi-variant box
+   (Snack Attack renders the same way). */
+.instamom-contents[hidden] {
+  display: none;
+}
+
 .instamom-contents li {
   position: relative;
   padding-left: 28px;

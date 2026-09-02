@@ -129,6 +129,26 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   Home and Homesick Helper in Aug 2026; the script is in that session's
   scratchpad. Untag the legacy products so they leave any smart collection, and
   leave them DRAFT rather than deleting until someone has checked the replacement.
+  Done a third time for **Seasonal Celebrations on 1 Sep 2026** (to attach the
+  Birthday Box's 12 components) — assume any product from the original migration
+  import is owned by the other app until a mutation proves otherwise, and budget
+  for the rebuild rather than discovering it halfway. Two extras that only show
+  up on a MULTI-VARIANT rebuild:
+  - `productCreate` with several `productOptions` values creates **only the first
+    variant** (the rest are silently skipped). Add the others with
+    `productVariantsBulkCreate`, passing `optionValues:[{optionName, name}]`.
+  - The component attach zeroes the price on **every** variant of the product,
+    not just the parent you attached to — so set all prices in one
+    `productVariantsBulkUpdate` at the very end, after the attach, and re-read.
+- **`coming-soon` gates the whole PRODUCT, not the variant.** The buy-button
+  gate in `sections/main-product.liquid` and the notify form in
+  `snippets/instamom-notify-form.liquid` both test `product.tags`. So on a
+  multi-variant box you cannot sell one occasion while the others stay
+  "Coming Soon" — dropping the tag un-gates all of them. The others fall back to
+  a disabled "Sold out" button (safe: they sit at 0/`DENY`), but they lose the
+  Notify-me email capture. Owner accepted that trade for Seasonal Celebrations in
+  Sep 2026 so the Birthday Box could ship; the alternative is splitting the
+  occasion into its own product.
 - **Attaching OR DETACHING bundle components ZEROES the parent variant's price.** This is the
   one that will bite you. `productVariantRelationshipBulkUpdate` silently resets
   the parent to **$0.00**, and returns no userError. Proven the hard way: on Room
@@ -147,6 +167,35 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   Enforcement happens at checkout. Don't read a successful cart-add as proof that
   inventory is wired up; verify components through the Admin API instead.
 - **Native bundles** (how the boxes decrement components): attach component variants to the box's variant with `productVariantRelationshipBulkUpdate(input:[{parentProductVariantId, productVariantRelationshipsToCreate:[{id, quantity}]}])`. This flips the parent to `requiresComponents: true` (settles a beat *after* the mutation response — re-query to confirm). Caveat: "only the app that assigned components can manage them" — components set via this CLI app aren't managed by the Shopify **Bundles** app, so verify a bundle expands into components at checkout before selling it. (Regroup, Recover, Restart was built this way.)
+- **Uploading a LOCAL image takes three mutations, not one.** `productCreateMedia`
+  only accepts a URL in `originalSource`, so a file on disk has to be staged first:
+  1. `stagedUploadsCreate(input:[{filename, mimeType, resource:IMAGE, httpMethod:POST, fileSize}])`
+     — `fileSize` is a **string** of bytes.
+  2. `curl -X POST <target.url>` with every `target.parameters` name/value as `-F`,
+     then `-F file=@<path>` **last**. Expect HTTP **201**.
+  3. `productCreateMedia(productId, media:[{originalSource:<target.resourceUrl>, alt, mediaContentType:IMAGE}])`,
+     then `productVariantAppendMedia(productId, variantMedia:[{variantId, mediaIds}])`
+     to hang it on one variant.
+  `image` comes back `null` on the create — the media is still processing. Re-query
+  `media{ ... on MediaImage{ status image{width height} } }` until `status: READY`.
+- **iPhone photos upload SIDEWAYS, and it looks fine locally right up until it doesn't.**
+  A HEIC off an iPhone stores **landscape pixels plus an EXIF orientation tag**. macOS
+  honours the tag, so Preview, Quick Look and the Read tool all show it upright; Shopify
+  applies the tag at ingest and serves the rotated result. Worse, `sips -r 90` only
+  **rewrites the tag** — it does not touch the pixels — and `sips` carries that tag
+  through every later conversion while **not** listing it under `sips -g all`. So the
+  file measures 1536x2048 locally and Shopify still stores 2048x1536.
+  The reliable recipe, used for the Birthday Box photo on 1 Sep 2026:
+  1. `sips -r 90 in.png --out rot.png` — rotate **as PNG**. PNG has no orientation
+     tag, so this is the step that actually bakes the pixels. Confirm by checking the
+     dimensions actually swapped.
+  2. `sips -Z 2048 -s format jpeg -s formatOptions 88 rot.png --out out.jpg`
+  3. **Strip the EXIF** — drop the `APP1` segment whose payload starts `Exif\0\0`
+     (walk the JPEG markers; leave `APP2`/ICC alone so colour survives). Otherwise the
+     inherited Apple tag rides along and re-rotates it server-side.
+  Verify on the **live storefront**, not locally: `image{width height}` from the Admin
+  API, or `naturalWidth`/`naturalHeight` on the rendered `<img>`. A local preview
+  proves nothing here.
 
 ## Troubleshooting
 
@@ -161,3 +210,5 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
 - **`The @idempotent directive is required for this mutation`** (inventory): add `@idempotent(key:$idempotencyKey)` to the mutation field and pass a UUID `idempotencyKey` variable.
 - **`InventoryChangeInput/InventorySetQuantityInput must include the following argument: changeFromQuantity`**: add each item's current quantity as `changeFromQuantity`.
 - **`The specified quantity name is invalid`** or **`A ledger document URI is required except when adjusting available`**: set `name: "available"` (not `on_hand`).
+- **An uploaded photo renders rotated on the storefront** (but looks upright in Preview / Read): EXIF orientation. Don't re-run `sips -r` — it only rewrites the tag. Rotate via a PNG intermediate, then strip the `APP1`/Exif segment. See the iPhone-photos gotcha above.
+- **`productCreateMedia` returns `image: null`**: not an error — the media is still processing. Poll `media{ ... on MediaImage{ status image{width height} } }` for `status: READY`.

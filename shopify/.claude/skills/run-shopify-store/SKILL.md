@@ -149,6 +149,26 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   Notify-me email capture. Owner accepted that trade for Seasonal Celebrations in
   Sep 2026 so the Birthday Box could ship; the alternative is splitting the
   occasion into its own product.
+- **Per-variant status needs a VARIANT metafield, not a tag.** Tags are a
+  product-level fact, so the tag-driven mechanisms (`instamom-badge`,
+  `instamom-shipping-note`) cannot say different things about two variants of the
+  same box. When Seasonal Celebrations needed "Ships September 22nd" on the Fall
+  Box in Sep 2026 while the Birthday Box was already shipping, a `ships-sep-22`
+  tag would have printed that date on **both**. A ship date is a promise; on the
+  wrong variant it is a false one.
+  The path that works — `snippets/instamom-ship-note.liquid`, built for this:
+  set `custom.ship_note` (single line text, the whole sentence) on the variant,
+  and the snippet renders it and swaps with the picker, the same way
+  `instamom-whats-inside` does for contents lists. Retiring a note is deleting
+  the metafield value — store data, no deploy. Nothing is date-hard-coded in the
+  theme, so this cannot go stale on a calendar the way the `ships-aug-14` copy
+  did. Reuse it for the next seasonal variant rather than adding another tag.
+  - **Any per-variant toggle needs an `[hidden]` CSS guard.** These snippets hide
+    variants by setting `hidden`, which is only the *UA stylesheet's*
+    `display: none` — any author-level `display` on the same element beats it and
+    every variant renders at once. That shipped once on `.instamom-contents`
+    (fixed Sep 2026) and the same guard is in `.instamom-shipdate`. Adding a
+    `display` to one of these rules without an `[hidden]` companion re-breaks it.
 - **Attaching OR DETACHING bundle components ZEROES the parent variant's price.** This is the
   one that will bite you. `productVariantRelationshipBulkUpdate` silently resets
   the parent to **$0.00**, and returns no userError. Proven the hard way: on Room

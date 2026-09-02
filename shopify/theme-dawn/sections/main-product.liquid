@@ -518,6 +518,9 @@
                       show_pickup_availability: true
                     -%}
                   {%- endunless -%}
+                  {%- comment -%} InstaMom: per-variant ship date, when a variant carries one. Above the
+                      general promise so the specific case is read first. {%- endcomment -%}
+                  {%- render 'instamom-ship-note', product: product -%}
                   {%- comment -%} InstaMom: the shipping-window promise (owner's launch copy). {%- endcomment -%}
                   {%- render 'instamom-shipping-note', product: product -%}
                   {%- comment -%} InstaMom: coming-soon boxes get a "Notify me" email signup. {%- endcomment -%}

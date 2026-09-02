@@ -1,0 +1,104 @@
+{% comment %}
+  InstaMom University — a PER-VARIANT ship-date note, shown above the general
+  shipping-window promise on a product page.
+
+  Why this exists at all. Every other status mechanism on this store keys off
+  `product.tags` — snippets/instamom-badge.liquid and
+  snippets/instamom-shipping-note.liquid both do. Tags are a PRODUCT-level fact,
+  and that is fine right up until one product sells two things on different
+  schedules.
+
+  Seasonal Celebrations, Sep 2026, is exactly that: the Birthday Box was shipping
+  while the Anything But Basic Fall Box was still three weeks out. Tagging the
+  product `ships-sep-22` would have printed that date on the Birthday Box too,
+  telling a shopper they had a wait they did not have. A shipping date is a
+  promise; a promise on the wrong variant is worse than no promise.
+
+  So this reads a VARIANT metafield and swaps with the picker, the same way
+  snippets/instamom-whats-inside.liquid handles per-variant contents lists.
+
+  DATA, NOT CODE. The note text lives in `custom.ship_note` on the variant
+  (single line text, e.g. "Ships September 22nd"). Nothing is hard-coded here, so
+  no date in this file can go stale — the same lesson the badge learned in Aug
+  2026, applied one level up. Retiring a note is deleting the metafield value on
+  that variant, which is a store-data write and needs no deploy.
+
+  Phrase the value as the whole sentence you want on the page. The theme does not
+  add "Ships" or a full stop, because the next one might be "Back in stock
+  October 6th" and a theme that assumes the word "ships" would be in the way.
+
+  A variant with no `custom.ship_note` renders nothing, which is the common case.
+  If NO variant has one, the whole block is absent from the DOM.
+
+  Usage — product page only, inside the product-info scope:
+    {% render 'instamom-ship-note', product: product %}
+
+  Styling: .instamom-shipdate* in assets/instamom.css
+{% endcomment %}
+
+{%- liquid
+  assign has_notes = false
+  for v in product.variants
+    if v.metafields.custom.ship_note != blank
+      assign has_notes = true
+      break
+    endif
+  endfor
+-%}
+
+{%- if has_notes -%}
+  <div class="instamom-shipdate" data-ship-note>
+    {%- for v in product.variants -%}
+      {%- assign note = v.metafields.custom.ship_note.value -%}
+      {%- if note != blank -%}
+        <p
+          class="instamom-shipdate__note"
+          data-variant-id="{{ v.id }}"
+          {% unless v.id == product.selected_or_first_available_variant.id %}hidden{% endunless %}
+        >
+          {{ note }}
+        </p>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <script>
+    (function () {
+      var box = document.currentScript.previousElementSibling;
+      if (!box || !box.hasAttribute('data-ship-note')) return;
+      // Same binding strategy as instamom-whats-inside: Dawn REPLACES the whole
+      // <variant-selects> element on a variant change, so anything bound to it
+      // goes stale. Bind to the stable product-info ancestor and re-query.
+      var scope = box.closest('product-info') || document;
+      var lastId;
+
+      function currentVariantId() {
+        var el = scope.querySelector('variant-selects [data-selected-variant]');
+        if (el) {
+          try { var v = JSON.parse(el.textContent); if (v && v.id) return String(v.id); } catch (e) {}
+        }
+        return null;
+      }
+      function sync() {
+        var id = currentVariantId();
+        if (id === lastId) return; // unchanged → don't re-write (avoids observer feedback loop)
+        lastId = id;
+        var shown = false;
+        box.querySelectorAll('[data-variant-id]').forEach(function (p) {
+          var match = p.getAttribute('data-variant-id') === id;
+          p.hidden = !match;
+          if (match) shown = true;
+        });
+        // No note for this variant → hide the container, not just the paragraph,
+        // so it leaves no empty gap above the shipping note.
+        box.hidden = !shown;
+      }
+      new MutationObserver(sync).observe(scope, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+      scope.addEventListener('change', function () { setTimeout(sync, 60); });
+      sync();
+    })();
+  </script>
+{%- endif -%}

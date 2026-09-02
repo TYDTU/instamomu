@@ -2295,6 +2295,42 @@ textarea:focus-visible,
   line-height: 1.5;
 }
 
+/* --- Per-variant ship-date note -----------------------------------------
+   snippets/instamom-ship-note.liquid. Sits directly above .instamom-shipnote,
+   so it reads as the specific promise ahead of the general one. Pink rather
+   than the shipnote's gold: it is the exception on the page, and the two stack.
+
+   The [hidden] guards below are LOAD-BEARING, not defensive. The snippet toggles
+   variants by setting `hidden`, and the browser's own `[hidden] { display: none }`
+   comes from the UA stylesheet — any author-level `display` here beats it and
+   EVERY variant's note renders at once. That exact bug shipped once already on
+   .instamom-contents (see the note at line ~414); don't remove these, and don't
+   add a `display` to either rule without one. */
+.instamom-shipdate {
+  margin: 14px 0 0;
+}
+
+.instamom-shipdate[hidden] {
+  display: none;
+}
+
+.instamom-shipdate__note {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1.5px solid var(--imu-line);
+  border-left: 4px solid var(--imu-pink);
+  border-radius: 8px;
+  background: var(--imu-surface);
+  color: var(--imu-navy-dark);
+  font-size: 1.36rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.instamom-shipdate__note[hidden] {
+  display: none;
+}
+
 /* --- Newsletter explainer in the footer ---------------------------------
    sections/footer.liquid. Sits between the heading and the email field, so it
    is read before the field is filled rather than after. */

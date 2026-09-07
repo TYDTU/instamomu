@@ -200,10 +200,16 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   above: all six boxes appear in the Bundles app with correct prices, and they group
   correctly in the confirmation email. "Only the app that assigned components can
   manage them" limits *editing the components*, not recognition of the bundle.
-- **The driver's token is `write_products,read_products` only.** `orders` and
-  `appInstallations` both return `ACCESS_DENIED`, so order-level debugging has to
-  happen in the admin UI unless you widen the scopes on the `auth` line in
-  `driver.sh` and have the owner re-run `$D auth`.
+- **The driver has no order or app scopes.** `driver.sh auth` requests only
+  `write_products,read_products`, though the installed grant is actually five —
+  `currentAppInstallation { accessScopes }` reports `write_products`,
+  `read_products`, `read_inventory`, `write_inventory`, `read_locations`. Either
+  way there is nothing for orders or apps, so `orders` and `appInstallations` both
+  return `ACCESS_DENIED` and order-level debugging has to happen in the admin UI
+  unless you widen the `auth` line and have the owner re-run `$D auth`. The driver
+  authenticates as the **Shopify CLI Connector App**, and `shopify store execute`
+  targets the latest stable Admin API version (2026-07 as of Sep 2026) unless you
+  pass `--version`.
 - **Uploading a LOCAL image takes three mutations, not one.** `productCreateMedia`
   only accepts a URL in `originalSource`, so a file on disk has to be staged first:
   1. `stagedUploadsCreate(input:[{filename, mimeType, resource:IMAGE, httpMethod:POST, fileSize}])`

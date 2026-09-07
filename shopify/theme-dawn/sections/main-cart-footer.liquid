@@ -18,13 +18,14 @@
 {%- endstyle -%}
 
 {%- comment -%}
-  The express wallet buttons are held back until the required candy preference
-  and Terms agreement are given — their iframes make a click guard impossible.
+  The express wallet buttons are held back until the required candy preference,
+  fun-extras profanity preference, and Terms agreement are given — their
+  iframes make a click guard impossible.
   Decided server-side so the lock is in place before any script runs; see
   snippets/instamom-wallet-gate.liquid for the whole story.
 {%- endcomment -%}
 {%- assign wallets_locked = true -%}
-{%- if cart.attributes['Candy preference'] != blank and cart.attributes['Terms agreement'] != blank -%}
+{%- if cart.attributes['Candy preference'] != blank and cart.attributes['Fun extras profanity preference'] != blank and cart.attributes['Terms agreement'] != blank -%}
   {%- assign wallets_locked = false -%}
 {%- endif -%}
 
@@ -143,6 +144,8 @@
             });
           })();
         </script>
+
+        {%- render 'instamom-profanity-preference' -%}
       {%- endunless -%}
 
       <div class="cart__blocks">

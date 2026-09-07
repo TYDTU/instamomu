@@ -1,21 +1,24 @@
 {% comment %}
   InstaMom University — hold the express wallet buttons (Shop Pay, Apple Pay,
-  Google Pay) until the required candy preference and Terms agreement are given.
+  Google Pay) until the required candy preference, fun-extras profanity
+  preference, and Terms agreement are given.
 
   WHY THIS EXISTS RATHER THAN A CLICK GUARD
 
-  The candy-preference and terms guards stop the standard Checkout button by
+  The candy-preference, profanity-preference, and terms guards stop the standard Checkout button by
   listening for clicks on `#checkout, .cart__dynamic-checkout-buttons`. That
   works for the standard button, and it worked for the product page's Shop Pay
   button, which was ordinary DOM. It does NOT work here: Shopify renders the
   cart's accelerated checkout as <shopify-accelerated-checkout-cart>, whose
   buttons live inside two IFRAMES. Clicks inside an iframe never reach this
   document, so there is nothing for a guard to intercept — a shopper could skip
-  the allergy answer and the Terms tick-box entirely and still check out.
+  the allergy answer, fun-extras answer, and Terms tick-box entirely and still
+  check out.
 
   So instead of trying to catch the click, the buttons aren't there to click.
-  #main-cart-footer carries `instamom-wallets-locked` until both answers are
-  given, and the CSS hides the wallet row while that class is present.
+  #main-cart-footer carries `instamom-wallets-locked` until both preferences
+  and the Terms agreement are given, and the CSS hides the wallet row while
+  that class is present.
 
   The lock is rendered SERVER-SIDE from the cart attributes, so it is already in
   place before this script runs — otherwise there'd be a window on every page
@@ -29,8 +32,9 @@
 {% endcomment %}
 
 <p class="instamom-wallet-gate" data-wallet-gate>
-  Choose a candy preference and agree to the Terms above to pay with Shop&nbsp;Pay
-  or another express wallet. You can also use the Checkout button.
+  Choose your candy and fun-extras preferences, then agree to the Terms above,
+  to pay with Shop&nbsp;Pay or another express wallet. You can also use the
+  Checkout button.
 </p>
 
 <script>
@@ -47,19 +51,23 @@
       return !!box && box.checked;
     }
 
-    function sync() {
-      footer.classList.toggle('instamom-wallets-locked', !(candyChosen() && termsAgreed()));
+    function profanityChosen() {
+      return !!document.querySelector('input[name="attributes[Fun extras profanity preference]"]:checked');
     }
 
-    // Both controls live in sibling snippets, so listen at the document rather
-    // than reaching into either one.
+    function sync() {
+      footer.classList.toggle('instamom-wallets-locked', !(candyChosen() && profanityChosen() && termsAgreed()));
+    }
+
+    // All three controls live in sibling snippets, so listen at the document
+    // rather than reaching into any one of them.
     document.addEventListener('change', function (event) {
       if (!event.target.closest) return;
-      if (event.target.closest('#instamom-candy, #instamom-terms')) sync();
+      if (event.target.closest('#instamom-candy, #instamom-profanity, #instamom-terms')) sync();
     });
 
-    // The candy radios and the terms box are restored from cart attributes on
-    // load, so re-check once the DOM is parsed rather than trusting the class
+    // The preference radios and the terms box are restored from cart attributes
+    // on load, so re-check once the DOM is parsed rather than trusting the class
     // Liquid rendered — they can disagree if an attribute was cleared.
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', sync);

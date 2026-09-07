@@ -180,6 +180,21 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   order data, not a template bug: nothing in the theme, the notification templates,
   or the store settings changes it. Verify WHICH document a pricing complaint is
   about before hunting for a template — the email and the Shop app disagree by design.
+- **The printed Invoice template DID itemise components — and that one is
+  fixable.** Settings → Shipping and delivery → **Templates** holds three printed
+  documents (Pick list, Packing Slip, Invoice), separate from the notification
+  templates and equally absent from the Admin API. Stock `Invoice` loops
+  `order.line_items` with no bundle handling, so it printed all eleven $5.27
+  components. Fixed Sep 2026 by grouping on `line_item.groups`, which these
+  templates expose and which the Packing Slip already used:
+  `deliverable? == false` is a real bundle (collapse the components into one row
+  at the summed allocation), `deliverable? == true` is a separately-shipped add-on
+  (leave it alone). Sum the existing allocations — never recalculate — or the
+  Subtotal drifts away from the Total. The **Packing Slip has no price column at
+  all**, so nothing priced goes inside a gift box; leave it stock. Copy lives in
+  `shopify/print-templates/`, and the template editor's preview ships with sample
+  data containing BOTH group shapes, so grouping logic can be exercised before
+  saving. There is no API to deploy these — paste by hand.
 - **Notification templates are admin-UI-only — invisible to both git and the Admin
   API.** Settings → Notifications → Customer notifications → *(template)* → Edit code.
   Introspection confirms the Admin GraphQL schema has no notification-template type:

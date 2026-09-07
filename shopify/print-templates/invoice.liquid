@@ -1,0 +1,250 @@
+<div>
+<div class="columns">
+   <h1>Invoice</h1>
+   <div>
+      <p style="text-align: right; margin: 0;">
+         Order {{ order.order_name }}<br />
+         {% if order.po_number %}PO # {{ order.po_number }}<br />{% endif %}
+         {{ order.created_at | date: "%B %e, %Y" }}
+      </p>
+   </div>
+</div>
+<div class="columns" style="margin-top: 1.5em;">
+   <div class="address">
+      <strong>From</strong><br/>
+      {{ shop.name }}<br/>
+      {{ shop_address | format_address }}
+      {% if shop.phone %}{{ shop.phone }}{% endif %}
+   </div>
+   {% if billing_address %}
+   <div class="address">
+      <strong>Bill to</strong>
+      {{ billing_address | format_address  }}
+   </div>
+   {% endif %}
+   {% if shipping_address %}
+   <div class="address">
+      <strong>Ship to</strong>
+      {{ shipping_address | format_address  }}
+      {% if shipping_address.phone %}{{ shipping_address.phone }}{% endif %}
+   </div>
+   {% endif %}
+</div>
+<hr />
+<h2>Order Details</h2>
+<table class="table-tabular" style="margin: 1em 0 0 0;">
+   <thead>
+      <tr>
+         <th>Qty</th>
+         <th>Item</th>
+         <th style="text-align: right;">Price</th>
+      </tr>
+   </thead>
+   <tbody>
+      {%- assign seen_groups = "" -%}
+      {% for line_item in order.line_items %}
+      {%- assign bundle_group = nil -%}
+      {%- for g in line_item.groups -%}
+        {%- unless g.deliverable? -%}{%- assign bundle_group = g -%}{%- endunless -%}
+      {%- endfor -%}
+      {%- assign skip_row = false -%}
+      {%- assign row_title = line_item.title -%}
+      {%- assign row_quantity = line_item.quantity -%}
+      {%- assign row_price = line_item.final_price -%}
+      {%- assign row_original = line_item.original_price -%}
+      {%- if bundle_group -%}
+        {%- assign gkey = "[[" | append: bundle_group.title | append: "]]" -%}
+        {%- if seen_groups contains gkey -%}
+          {%- assign skip_row = true -%}
+        {%- else -%}
+          {%- assign seen_groups = seen_groups | append: gkey -%}
+          {%- assign gp = 0 -%}
+          {%- assign go = 0 -%}
+          {%- for li in order.line_items -%}
+            {%- for g2 in li.groups -%}
+              {%- unless g2.deliverable? -%}
+                {%- if g2.title == bundle_group.title -%}
+                  {%- assign gp = gp | plus: li.final_price -%}
+                  {%- assign go = go | plus: li.original_price -%}
+                {%- endif -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          {%- endfor -%}
+          {%- assign row_title = bundle_group.title -%}
+          {%- assign row_quantity = bundle_group.quantity | default: line_item.quantity -%}
+          {%- assign row_price = gp -%}
+          {%- assign row_original = go -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- unless skip_row -%}
+      <tr>
+         <td>{{ row_quantity }}</td>
+         <td>{{ row_title }}
+            {% if bundle_group == nil and line_item.line_level_discount_allocations.size > 0 %}
+            <span class="subduedText">
+            {% for discount_allocation in line_item.line_level_discount_allocations %}
+            <br>{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})
+            {% endfor %}
+            </span>
+            {% endif %}
+         </td>
+         <td style="text-align: right;">
+            {% if row_original != row_price %}
+            <span class="subduedText"><s>{{ row_original | money }}</s></span>
+            {% endif %}
+            {{ row_price | money }}
+         </td>
+      </tr>
+      {%- endunless -%}
+      {% endfor %}
+      <tr>
+         <td colspan="2" style="text-align: right;">Subtotal</td>
+         <td style="text-align: right;">{{ order.line_items_subtotal_price | money }}</td>
+      </tr>
+      {% assign shipping_discount_total = order.shipping_price | minus: order.shipping_price %}
+      {% for discount_application in order.discount_applications %}
+      {% if discount_application.target_type == 'shipping_line' %}
+      {% assign shipping_discount_total = shipping_discount_total | plus: discount_application.total_allocated_amount %}
+      {% endif %}
+      {% if discount_application.target_selection == 'all' and discount_application.target_type != 'shipping_line' %}
+      <tr>
+         <td colspan="2" style="text-align: right;">{% if discount_application.title %}<span class="subduedText">{{ discount_application.title }}</span>{% endif %}</td>
+         <td style="text-align: right;">-{{ discount_application.total_allocated_amount | money }}</td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+      {% assign discounted_shipping_price = order.shipping_price | minus: shipping_discount_total %}
+      <tr>
+         <td colspan="2" style="text-align: right;">Tax</td>
+         <td style="text-align: right;">{{ order.tax_price | money }}</td>
+      </tr>
+      {% if order.shipping_address %}
+      {% assign discounted_shipping_price_abs = discounted_shipping_price | abs %}
+      <tr>
+         <td colspan="2" style="text-align: right;">Shipping</td>
+         <td style="text-align: right;">{% if discounted_shipping_price_abs < 1 %}FREE{% else %}{{ discounted_shipping_price | money }}{% endif %}</td>
+      </tr>
+      {% endif %}
+      <tr>
+         <td colspan="2" style="text-align: right;"><strong>Total</strong></td>
+         <td style="text-align: right;"><strong>{{ order.total_price | money }}</strong></td>
+      </tr>
+      {% if order.net_payment != order.total_net_amount %}
+      <tr>
+         <td colspan="2" style="text-align: right;">Total Paid</td>
+         <td style="text-align: right;">{{ order.net_payment | money }}</td>
+      </tr>
+      {% endif %}
+      {% if order.total_refunded_amount > 0 %}
+      <tr>
+         <td colspan="2" style="text-align: right;">Total Refunded</td>
+         <td style="text-align: right;">-{{ order.total_refunded_amount | money }}</td>
+      </tr>
+      {% endif %}
+      {% if order.net_payment != order.total_net_amount %}
+      <tr>
+         <td colspan="2" style="text-align: right;"><strong>Outstanding Amount</strong></td>
+         <td style="text-align: right;"><strong>{{ order.total_net_amount | minus: order.net_payment | money }}</strong></td>
+      </tr>
+      {% endif %}
+   </tbody>
+</table>
+{% if transactions.size > 1 %}
+<h2>Transaction Details</h2>
+<table class="table-tabular" style="margin: 0 0 1.5em 0;">
+   <thead>
+      <tr>
+         <th>Type</th>
+         <th>Amount</th>
+         <th>Kind</th>
+         <th>Status</th>
+      </tr>
+   </thead>
+   <tbody>
+      {% for transaction in transactions %}
+      <tr>
+         <td>{{ transaction.gateway_display_name }}</td>
+         <td>{{ transaction.amount | money }}</td>
+         <td>{{ transaction.kind }}</td>
+         <td>{{ transaction.status }}</td>
+      </tr>
+      {% endfor %}
+   </tbody>
+</table>
+{% endif %}
+{% if order.note %}
+<h2>Note</h2>
+<p>{{ order.note }}</p>
+{% endif %}
+<p style="margin-bottom: 0;">If you have any questions, please send an email to {{ shop.email }}</p>
+</div>
+<style type="text/css">
+  :root {
+    --font-size: 11px;
+    --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --h1-font-size: 1.25rem;
+    --h2-font-size: 0.75rem;
+    --h3-font-size: 0.75rem;
+    --table-border-color: #e3e3e3;
+    --table-tfoot-border-color: #000;
+    --table-cell-padding: 0.5em;
+    --hr-color: #000;
+  }
+  html { margin: 0; padding: 0; }
+  body {
+    font-size: var(--font-size);
+    line-height: normal;
+    background: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+  }
+  h1 { font-size: var(--h1-font-size); margin: 0; }
+  h2, h3 { font-weight: bold; }
+  h2, h3, p { margin: 1rem 0 0.5rem 0; }
+  h2 { font-size: var(--h2-font-size); }
+  h3 { font-size: var(--h3-font-size); }
+  .address p { margin: 0; }
+  b, strong { font-weight: bold; }
+  .columns {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    word-break: break-word;
+  }
+  hr {
+    clear: both;
+    overflow: hidden;
+    margin: 1.5em 0;
+    border-top: 1px solid var(--hr-color);
+    border-bottom: none;
+  }
+  .header-row + .row { margin-top: 0; }
+  .header-row { display: none !important; }
+  .subduedText { color: #616161; }
+  table, td, th {
+    width: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: 1em;
+  }
+  td, th { border-bottom: none; }
+  .table-tabular {
+    border: 1px solid var(--table-border-color);
+    margin: 0;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  .table-tabular th, .table-tabular td { padding: var(--table-cell-padding); }
+  .table-tabular th {
+    text-align: left;
+    border-bottom: 1px solid var(--table-border-color);
+  }
+  .table-tabular td { border-bottom: 1px solid var(--table-border-color); }
+  .table-tabular tfoot td {
+    border-bottom-width: 0;
+    border-top: 1px solid var(--table-tfoot-border-color);
+    padding-top: 1em;
+  }
+</style>

@@ -167,6 +167,43 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   Enforcement happens at checkout. Don't read a successful cart-add as proof that
   inventory is wired up; verify components through the Admin API instead.
 - **Native bundles** (how the boxes decrement components): attach component variants to the box's variant with `productVariantRelationshipBulkUpdate(input:[{parentProductVariantId, productVariantRelationshipsToCreate:[{id, quantity}]}])`. This flips the parent to `requiresComponents: true` (settles a beat *after* the mutation response — re-query to confirm). Caveat: "only the app that assigned components can manage them" — components set via this CLI app aren't managed by the Shopify **Bundles** app, so verify a bundle expands into components at checkout before selling it. (Regroup, Recover, Restart was built this way.)
+- **A bundle order's line items carry ALLOCATED prices — the box price split
+  across its components.** Order #1007 (Welcome Week Starter, $58.00) is stored as
+  **11 separate line items of $5.27 each**, every one badged "Part of: Welcome Week
+  Starter" — NOT as one $58.00 parent line with $0.00 components, even though the
+  component *products* are all $0.00. `58 / 11 = 5.2727`. The admin order page and
+  the **Shop app** both render those raw line items, so the customer sees the box
+  price broken down across its contents. The **order confirmation email does not** —
+  Shopify's grouped view rebuilds it as "Welcome Week Starter × 1 — $58.00" with the
+  components nested beneath as name + quantity only, no money. So a report that "the
+  invoice itemises every component's price" is the Shop app faithfully rendering real
+  order data, not a template bug: nothing in the theme, the notification templates,
+  or the store settings changes it. Verify WHICH document a pricing complaint is
+  about before hunting for a template — the email and the Shop app disagree by design.
+- **Notification templates are admin-UI-only — invisible to both git and the Admin
+  API.** Settings → Notifications → Customer notifications → *(template)* → Edit code.
+  Introspection confirms the Admin GraphQL schema has no notification-template type:
+  no query, no mutation, nothing. Nothing about them lives in `theme-dawn/` either.
+  And **the editor is disabled until the sender email is verified** — every template
+  greys out behind "Before you can edit notifications, you need to review and verify
+  your sender email." `instamomuniversity@gmail.com` was Unverified until the owner
+  cleared it in Sep 2026; if that ever lapses, this is why the editor is dead.
+  Mechanism, verified by reading the live 3,837-line Order confirmation template:
+  component prices sit inside `{% if line_item_group.deliverable? %}` →
+  `<td class="order-list__price-cell">` — nine copies of it, one per
+  delivery-agreement branch. When `deliverable?` is **false** the template instead
+  sums `component.final_line_price` into one parent row, which is the grouped
+  "$58.00 once" output. These bundles have no `parent_sales_line_item`, so they
+  always take the false branch. The email is structurally safe, not luckily safe —
+  don't "fix" it.
+- **The Shopify Bundles app DOES list the CLI-created bundles.** Refines the caveat
+  above: all six boxes appear in the Bundles app with correct prices, and they group
+  correctly in the confirmation email. "Only the app that assigned components can
+  manage them" limits *editing the components*, not recognition of the bundle.
+- **The driver's token is `write_products,read_products` only.** `orders` and
+  `appInstallations` both return `ACCESS_DENIED`, so order-level debugging has to
+  happen in the admin UI unless you widen the scopes on the `auth` line in
+  `driver.sh` and have the owner re-run `$D auth`.
 - **Uploading a LOCAL image takes three mutations, not one.** `productCreateMedia`
   only accepts a URL in `originalSource`, so a file on disk has to be staged first:
   1. `stagedUploadsCreate(input:[{filename, mimeType, resource:IMAGE, httpMethod:POST, fileSize}])`

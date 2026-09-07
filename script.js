@@ -208,7 +208,7 @@ const products = {
       "Holiday themes, finals treats, exam survival kits, and birthday celebration packs customized for the time of year.",
   },
   seasonal_birthday: {
-    title: "Seasonal: Birthday Box",
+    title: "Birthday Box",
     price: 62,
     studentType: "Focused achiever",
     moment: "Holiday",
@@ -230,14 +230,14 @@ const products = {
     ]
   },
   seasonal_fall: {
-    title: "Seasonal: Anything But Basic Fall Box",
+    title: "Anything But Basic Fall Box",
     price: 60,
     studentType: "Focused achiever",
     moment: "Holiday",
     copy: "Coming Soon!"
   },
   seasonal_halloween: {
-    title: "Seasonal: Halloween Box",
+    title: "Halloween Box",
     price: 45,
     studentType: "Focused achiever",
     moment: "Holiday",
@@ -289,8 +289,8 @@ const packageData = {
       "Whether they love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of their favorites.",
   },
   "First-year starter|Holiday": {
-    productId: "seasonal",
-    title: "Seasonal Celebrations",
+    productId: "seasonal_birthday",
+    title: "Birthday Box & Seasonal",
     copy:
       "They may not be home to enjoy their favorite seasons, but you can help them celebrate from afar and make their dorm rooms feel festive with this box of seasonal goodies for fall, Christmas, Valentine's Day, birthdays, and other important occasions.",
   },

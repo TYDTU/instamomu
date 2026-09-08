@@ -16,6 +16,7 @@ kept here, and the store copy is created from it.
 | `guide-college-success-videos.html` | `guide-college-success-videos` | **Unlisted** video library, one video in it. Handle is FROZEN — printed. |
 | `guide-homesick-video.html` | `guide-homesick-video` | **Unlisted.** Video placeholder; awaiting the final YouTube ID. |
 | `guide-find-your-logical-family.html` | `guide-find-your-logical-family` | **Unlisted.** Video placeholder; awaiting the final YouTube ID. |
+| `guide-building-a-comfy-college-life.html` | `guide-building-a-comfy-college-life` | **Unlisted.** Video placeholder; awaiting the final YouTube ID. |
 | `sweepstakes-official-rules.html` | — | **Shelved.** Page deleted Aug 2026 — see below. |
 | `sweepstakes-entry-form.html` | — | **Shelved.** Page deleted Aug 2026 — see below. |
 
@@ -62,6 +63,7 @@ should never be.
 | `guide-college-success-videos` | `gid://shopify/Page/128311427172` | video library; 1 video (`CeWQzMt3Qd8`), **handle is printed** |
 | `guide-homesick-video` | `gid://shopify/Page/129328447588` | video placeholder; awaiting the final YouTube ID |
 | `guide-find-your-logical-family` | `gid://shopify/Page/129328578660` | video placeholder; awaiting the final YouTube ID |
+| `guide-building-a-comfy-college-life` | `gid://shopify/Page/129328906340` | video placeholder; awaiting the final YouTube ID |
 
 Both PDFs are real AcroForms (52 and 127 text fields respectively), which is why
 the pages say "fillable" — check that before writing the same claim about a new
@@ -93,16 +95,16 @@ is a library and holds several. As of Aug 2026 both have their first video in:
 Both embeds go through `youtube-nocookie.com`, carry a real `title`, and are
 `loading="lazy"` — see the `SWAP ME` section below for why each of those matters.
 
-`guide-homesick-video` and `guide-find-your-logical-family` mirror the same
-presentation but currently carry the dashed `.instamom-guide__video-pending`
-stand-in. When each final YouTube ID is available, replace its block with the
-same privacy-enhanced, titled, lazy-loaded embed used by the other video pages,
-then record the ID here.
+`guide-homesick-video`, `guide-find-your-logical-family`, and
+`guide-building-a-comfy-college-life` mirror the same presentation but currently
+carry the dashed `.instamom-guide__video-pending` stand-in. When each final
+YouTube ID is available, replace its block with the same privacy-enhanced,
+titled, lazy-loaded embed used by the other video pages, then record the ID here.
 
 The dashed `.instamom-guide__video-pending` stand-in is gone from the two pages
-whose videos are embedded and is used by the two pages whose videos are pending.
-Its CSS rule lives in `assets/instamom.css` and is the documented furniture for
-any guide page that ships ahead of its video.
+whose videos are embedded and is used by the three pages whose videos are
+pending. Its CSS rule lives in `assets/instamom.css` and is the documented
+furniture for any guide page that ships ahead of its video.
 
 `guide-college-success-videos` is still a thin page — an intro line, one video,
 and a closing note. It shipped with a "Ready right now" section linking to the two

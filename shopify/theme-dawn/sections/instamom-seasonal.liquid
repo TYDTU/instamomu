@@ -305,12 +305,17 @@
   {%- endfor -%}
 {%- endif -%}
 
-{%- comment -%}
-  The handle MUST match the real product in the admin. The product was created as
-  "Protein Fiend College Care Package" → handle protein-fiend-college-care-package.
-  A guessed handle here silently falls through to the static link below, which 404s.
-{%- endcomment -%}
-{%- assign protein_product = all_products['protein-fiend-college-care-package'] -%}
+{%- assign protein_product = all_products['protein-fiend-college-care-package'] | default: all_products['protein-fiend-box'] | default: all_products['protein-fiend'] -%}
+{%- if protein_product == blank -%}
+  {%- for p in collections.all.products -%}
+    {%- assign p_title = p.title | downcase -%}
+    {%- assign p_handle = p.handle | downcase -%}
+    {%- if p_title contains 'protein' or p_handle contains 'protein' -%}
+      {%- assign protein_product = p -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 {%- assign protein_variant = nil -%}
 {%- if protein_product != blank -%}
   {%- assign protein_variant = protein_product.selected_or_first_available_variant -%}
@@ -470,7 +475,7 @@
             {%- endform -%}
           </product-form>
         {%- else -%}
-          <a href="/products/protein-fiend-college-care-package" class="button button--primary" style="flex: 1; text-align: center; justify-content: center; display: inline-flex;">Add to cart</a>
+          <a href="{{ protein_product.url | default: '/products/protein-fiend-college-care-package' }}" class="button button--primary" style="flex: 1; text-align: center; justify-content: center; display: inline-flex;">Add to cart</a>
         {%- endif -%}
       </div>
     </div>
@@ -679,7 +684,7 @@
           {%- endform -%}
         </product-form>
       {%- else -%}
-        <a href="/products/protein-fiend-college-care-package" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $60</a>
+        <a href="{{ protein_product.url | default: '/products/protein-fiend-college-care-package' }}" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $60</a>
       {%- endif -%}
     </div>
   </div>

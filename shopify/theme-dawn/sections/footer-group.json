@@ -34,10 +34,18 @@
             "heading": "Curated care for the whole person",
             "subtext": "<p>Family love + faculty wisdom, delivered to your student wherever they are.</p>"
           }
+        },
+        "helpful_links": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Helpful links",
+            "menu": "footer"
+          }
         }
       },
       "block_order": [
-        "tagline"
+        "tagline",
+        "helpful_links"
       ]
     }
   },

@@ -29,6 +29,7 @@
   {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {%- endunless -%}
 {%- if card_product and card_product != empty -%}
+  {%- unless card_product.handle == 'seasonal-celebrations' or card_product.handle == 'seasonal' -%}
   {%- liquid
     assign ratio = 1
     if card_product.featured_media and media_aspect_ratio == 'portrait'
@@ -167,12 +168,12 @@
                     <p class="instamom-modal__price">{{ card_product.price | money }}</p>
                   {%- endif -%}
 
-                  {%- if card_product.variants.size > 1 -%}
+                  {%- if card_product.variants.size > 1 and card_product.handle != 'seasonal-celebrations' -%}
                     {%- liquid
                       # Only call out an upcharge when there is a genuine BASE price —
                       # i.e. several options share the lowest price and one costs more
                       # (the Warmies: three 9" at $62, the 13" at $72). Where every
-                      # option is its own price (Snack Attack, Seasonal Celebrations) a
+                      # option is its own price (Seasonal Celebrations) a
                       # "+$x" would read as a surcharge on a base that doesn't exist.
                       assign base_count = 0
                       for v in card_product.variants
@@ -768,6 +769,7 @@
       </div>
     </div>
   </product-component>
+  {%- endunless -%}
 {%- else -%}
   {%- liquid
     assign ratio = 1

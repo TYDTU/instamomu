@@ -1,0 +1,769 @@
+{% comment %}
+  InstaMom University — "Limited Time Only Seasonal Boxes" section with dedicated description modals.
+{% endcomment %}
+
+<style>
+  .instamom-seasonal {
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
+
+  .instamom-seasonal__header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .instamom-seasonal__heading {
+    font-family: 'Graduate', Georgia, serif;
+    font-size: clamp(2.6rem, 2.9vw, 3.4rem);
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--imu-navy-dark, #041d45);
+    margin: 0;
+  }
+
+  .instamom-seasonal__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .instamom-seasonal__card {
+    background: #ffffff;
+    border: 2px solid rgba(4, 29, 69, 0.12);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 24px rgba(4, 29, 69, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .instamom-seasonal__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(4, 29, 69, 0.12);
+  }
+
+  .instamom-seasonal__image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  .instamom-seasonal__badge-wrapper {
+    margin-bottom: 12px;
+  }
+
+  .instamom-seasonal__card-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+  }
+
+  .instamom-seasonal__title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.08rem, 1.9vw, 2.4rem);
+    line-height: 1.25;
+    font-weight: 800;
+    color: var(--imu-navy-dark, #041d45);
+    margin: 0;
+  }
+
+  .instamom-seasonal__price {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--imu-pink, #ed2f89);
+    margin: 0;
+  }
+
+  .instamom-seasonal__card-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  .instamom-seasonal__card-actions .button {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  /* Dedicated Modal Dialogs */
+  .instamom-seasonal-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(4, 29, 69, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .instamom-seasonal-modal.is-open {
+    display: flex;
+  }
+
+  .instamom-seasonal-modal__content {
+    background: #ffffff;
+    border-radius: 20px;
+    max-width: 620px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 32px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(4, 29, 69, 0.25);
+  }
+
+  .instamom-seasonal-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--imu-navy-dark, #041d45);
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .instamom-seasonal-modal__image {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+
+  .instamom-seasonal-modal__title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+  }
+
+  .instamom-seasonal-modal__title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--imu-navy-dark, #041d45);
+    margin: 0;
+  }
+
+  .instamom-seasonal-modal__price {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--imu-pink, #ed2f89);
+    margin: 0;
+  }
+
+  .instamom-seasonal-modal__subtitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--imu-navy-dark, #041d45);
+    margin-top: 16px;
+    margin-bottom: 10px;
+  }
+
+  .instamom-seasonal-modal__list {
+    margin: 0 0 24px 0;
+    padding-left: 20px;
+    color: var(--imu-muted, #2e3d52);
+    line-height: 1.6;
+  }
+
+  .instamom-seasonal-modal__list li {
+    margin-bottom: 6px;
+  }
+
+  /* Create your own box card */
+  .instamom-create-box {
+    margin-top: 40px;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .instamom-create-box__card {
+    background: #ffffff;
+    border: 2px solid rgba(4, 29, 69, 0.12);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+    box-shadow: 0 8px 24px rgba(4, 29, 69, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .instamom-create-box__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(4, 29, 69, 0.12);
+  }
+
+  .instamom-create-box__image-wrapper {
+    flex: 0 0 280px;
+    max-width: 280px;
+    width: 100%;
+  }
+
+  .instamom-create-box__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+  }
+
+  .instamom-create-box__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .instamom-create-box__title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.08rem, 1.9vw, 2.4rem);
+    line-height: 1.25;
+    font-weight: 800;
+    color: var(--imu-navy-dark, #041d45);
+    margin: 0 0 12px 0;
+  }
+
+  .instamom-create-box__description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--imu-muted, #2e3d52);
+    margin: 0 0 20px 0;
+  }
+
+  .instamom-create-box__action {
+    margin-top: auto;
+  }
+
+  .instamom-create-box__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .instamom-create-box__card {
+      flex-direction: column;
+      padding: 24px;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .instamom-create-box__image-wrapper {
+      flex: 0 0 auto;
+      max-width: 100%;
+    }
+
+    .instamom-create-box__content {
+      align-items: center;
+    }
+
+    .instamom-create-box__title {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+{%- assign seasonal_product = all_products['seasonal-celebrations'] -%}
+{%- assign birthday_variant = nil -%}
+{%- assign fall_variant = nil -%}
+{%- if seasonal_product != blank -%}
+  {%- for v in seasonal_product.variants -%}
+    {%- assign v_title = v.title | downcase -%}
+    {%- if v_title contains 'birthday' -%}
+      {%- assign birthday_variant = v -%}
+    {%- elsif v_title contains 'fall' -%}
+      {%- assign fall_variant = v -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- comment -%}
+  The handle MUST match the real product in the admin. The product was created as
+  "Protein Fiend College Care Package" → handle protein-fiend-college-care-package.
+  A guessed handle here silently falls through to the static link below, which 404s.
+{%- endcomment -%}
+{%- assign protein_product = all_products['protein-fiend-college-care-package'] -%}
+{%- assign protein_variant = nil -%}
+{%- if protein_product != blank -%}
+  {%- assign protein_variant = protein_product.selected_or_first_available_variant -%}
+{%- endif -%}
+
+<div class="instamom-seasonal page-width">
+  <div class="instamom-seasonal__header">
+    <h2 class="instamom-seasonal__heading">{{ section.settings.heading | default: 'Limited Time Only Seasonal Boxes' | escape }}</h2>
+  </div>
+
+  <div class="instamom-seasonal__grid">
+    <!-- Birthday Box -->
+    <div class="instamom-seasonal__card">
+      <div class="instamom-seasonal__badge-wrapper">
+        {% render 'instamom-badge', modifier: 'seasonal', label: 'Seasonal' %}
+      </div>
+      <div class="instamom-seasonal__image-slider-wrapper">
+        <div class="instamom-seasonal__image-slider" data-birthday-slider>
+          <img src="{{ 'instamom-birthday-box-real.jpg' | asset_url }}" alt="Birthday Box Photo 1" class="instamom-seasonal__image" loading="lazy">
+          <img src="{{ 'instamom-birthday-box-2.jpg' | asset_url }}" alt="Birthday Box Photo 2" class="instamom-seasonal__image" loading="lazy">
+          <img src="{{ 'instamom-birthday-box-3.jpg' | asset_url }}" alt="Birthday Box Photo 3" class="instamom-seasonal__image" loading="lazy">
+        </div>
+        <div class="instamom-seasonal__slider-dots">
+          <span class="instamom-seasonal__dot is-active"></span>
+          <span class="instamom-seasonal__dot"></span>
+          <span class="instamom-seasonal__dot"></span>
+        </div>
+        <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--prev" onclick="scrollSeasonalSlider('birthday', -1)" aria-label="Previous photo">&lsaquo;</button>
+        <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--next" onclick="scrollSeasonalSlider('birthday', 1)" aria-label="Next photo">&rsaquo;</button>
+      </div>
+      <div class="instamom-seasonal__card-title-row">
+        <h3 class="instamom-seasonal__title">Birthday Box</h3>
+        <p class="instamom-seasonal__price">$62</p>
+      </div>
+      <div class="instamom-seasonal__card-actions">
+        <button type="button" class="button button--secondary" onclick="openSeasonalModal('modal-birthday')">Explore package</button>
+        {%- if birthday_variant != blank -%}
+          <product-form data-section-id="{{ section.id }}" style="flex: 1;">
+            {%- form 'product',
+              seasonal_product,
+              id: 'card-birthday-form',
+              class: 'form',
+              novalidate: 'novalidate',
+              data-type: 'add-to-cart-form'
+            -%}
+              <input type="hidden" name="id" value="{{ birthday_variant.id }}">
+              <button
+                type="submit"
+                name="add"
+                class="button button--primary"
+                style="width: 100%; text-align: center; justify-content: center; display: inline-flex;"
+              >
+                <span>Add to cart</span>
+                {%- render 'loading-spinner' -%}
+              </button>
+            {%- endform -%}
+          </product-form>
+        {%- else -%}
+          <a href="/products/seasonal-celebrations" class="button button--primary">Add to cart</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- Anything But Basic Fall Box -->
+    <div class="instamom-seasonal__card">
+      <div class="instamom-seasonal__badge-wrapper">
+        {% render 'instamom-badge', modifier: 'seasonal', label: 'Seasonal' %}
+      </div>
+      <div class="instamom-seasonal__image-slider-wrapper">
+        <div class="instamom-seasonal__image-slider" data-fall-slider>
+          <img src="{{ 'instamom-fall-box-1.jpg' | asset_url }}" alt="Anything But Basic Fall Box Photo 1" class="instamom-seasonal__image" loading="lazy">
+          <img src="{{ 'instamom-fall-box-2.jpg' | asset_url }}" alt="Anything But Basic Fall Box Photo 2" class="instamom-seasonal__image" loading="lazy">
+        </div>
+        <div class="instamom-seasonal__slider-dots">
+          <span class="instamom-seasonal__dot is-active"></span>
+          <span class="instamom-seasonal__dot"></span>
+        </div>
+        <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--prev" onclick="scrollSeasonalSlider('fall', -1)" aria-label="Previous photo">&lsaquo;</button>
+        <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--next" onclick="scrollSeasonalSlider('fall', 1)" aria-label="Next photo">&rsaquo;</button>
+      </div>
+      <div class="instamom-seasonal__card-title-row">
+        <h3 class="instamom-seasonal__title">Anything But Basic Fall Box</h3>
+        <p class="instamom-seasonal__price">$64</p>
+      </div>
+      <div class="instamom-seasonal__card-actions">
+        <button type="button" class="button button--secondary" onclick="openSeasonalModal('modal-fall')">Explore package</button>
+        {%- if fall_variant != blank -%}
+          <product-form data-section-id="{{ section.id }}" style="flex: 1;">
+            {%- form 'product',
+              seasonal_product,
+              id: 'card-fall-form',
+              class: 'form',
+              novalidate: 'novalidate',
+              data-type: 'add-to-cart-form'
+            -%}
+              <input type="hidden" name="id" value="{{ fall_variant.id }}">
+              <button
+                type="submit"
+                name="add"
+                class="button button--primary"
+                style="width: 100%; text-align: center; justify-content: center; display: inline-flex;"
+              >
+                <span>Add to cart</span>
+                {%- render 'loading-spinner' -%}
+              </button>
+            {%- endform -%}
+          </product-form>
+        {%- else -%}
+          <a href="/products/seasonal-celebrations" class="button button--primary">Add to cart</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <!-- Just The Snacks, Ma'am Subheader & Section -->
+  <div class="instamom-seasonal__header" style="margin-top: 56px; margin-bottom: 28px;">
+    <h2 class="instamom-seasonal__heading">Just The Snacks, Ma'am</h2>
+  </div>
+
+  <div class="instamom-seasonal__grid" style="max-width: 440px; margin: 0 auto;">
+    <!-- Protein Fiend Box -->
+    <div class="instamom-seasonal__card">
+      <div class="instamom-seasonal__badge-wrapper">
+        {% render 'instamom-badge', modifier: 'now-shipping', label: 'Now Shipping' %}
+      </div>
+      <div class="instamom-seasonal__image-wrapper">
+        <img src="{{ 'instamom-protein-fiend-box.jpg' | asset_url }}" alt="Protein Fiend Box" class="instamom-seasonal__image" loading="lazy" style="height: 240px; object-fit: cover; width: 100%; border-radius: 12px; margin-bottom: 16px;">
+      </div>
+      <div class="instamom-seasonal__card-title-row">
+        <h3 class="instamom-seasonal__title">Protein Fiend Box</h3>
+        <p class="instamom-seasonal__price">$60</p>
+      </div>
+      <div style="background: rgba(237, 47, 137, 0.08); border: 1.5px solid #ed2f89; color: #ed2f89; padding: 8px 12px; border-radius: 8px; font-weight: 700; font-size: 1.3rem; margin-bottom: 14px; text-align: center;">
+        🎁 Bundle Deal: Use code <strong>STRONG5</strong> to get $5 OFF the Athlete Recovery Pack with this box!
+      </div>
+      <div class="instamom-seasonal__card-actions">
+        <button type="button" class="button button--secondary" onclick="openSeasonalModal('modal-protein-fiend')">Explore package</button>
+        {%- if protein_variant != blank -%}
+          <product-form data-section-id="{{ section.id }}" style="flex: 1;">
+            {%- form 'product',
+              protein_product,
+              id: 'card-protein-form',
+              class: 'form',
+              novalidate: 'novalidate',
+              data-type: 'add-to-cart-form'
+            -%}
+              <input type="hidden" name="id" value="{{ protein_variant.id }}">
+              <button
+                type="submit"
+                name="add"
+                class="button button--primary"
+                style="width: 100%; text-align: center; justify-content: center; display: inline-flex;"
+              >
+                <span>Add to cart</span>
+                {%- render 'loading-spinner' -%}
+              </button>
+            {%- endform -%}
+          </product-form>
+        {%- else -%}
+          <a href="/products/protein-fiend-college-care-package" class="button button--primary" style="flex: 1; text-align: center; justify-content: center; display: inline-flex;">Add to cart</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Your Own Box -->
+  <div class="instamom-create-box">
+    <div class="instamom-create-box__card">
+      <div class="instamom-create-box__image-wrapper">
+        <img src="{{ 'instamom-create-your-own-box.jpg' | asset_url }}" alt="Create your own box — your box, your choice!" class="instamom-create-box__image" loading="lazy">
+      </div>
+      <div class="instamom-create-box__content">
+        <h3 class="instamom-create-box__title">Create your own box</h3>
+        <p class="instamom-create-box__description">
+          See some things you like, but no box seems to fit just right? Customize your own box from any items on the site, and we will price, package, and send it for you!
+        </p>
+        <div class="instamom-create-box__action">
+          <a href="mailto:instamomuniversity@gmail.com?subject=Custom%20Box%20Request" class="button button--primary instamom-create-box__btn">
+            Contact us to customize
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 1: Birthday Box Only -->
+<div id="modal-birthday" class="instamom-seasonal-modal" onclick="closeSeasonalModalOnOverlay(event, 'modal-birthday')">
+  <div class="instamom-seasonal-modal__content">
+    <button type="button" class="instamom-seasonal-modal__close" onclick="closeSeasonalModal('modal-birthday')">&times;</button>
+    <div class="instamom-seasonal__image-slider-wrapper instamom-seasonal-modal__image-slider-wrapper">
+      <div class="instamom-seasonal__image-slider instamom-seasonal-modal__image-slider" data-birthday-modal-slider>
+        <img src="{{ 'instamom-birthday-box-real.jpg' | asset_url }}" alt="Birthday Box Photo 1" class="instamom-seasonal-modal__image" loading="lazy">
+        <img src="{{ 'instamom-birthday-box-2.jpg' | asset_url }}" alt="Birthday Box Photo 2" class="instamom-seasonal-modal__image" loading="lazy">
+        <img src="{{ 'instamom-birthday-box-3.jpg' | asset_url }}" alt="Birthday Box Photo 3" class="instamom-seasonal-modal__image" loading="lazy">
+      </div>
+      <div class="instamom-seasonal__slider-dots">
+        <span class="instamom-seasonal__dot is-active"></span>
+        <span class="instamom-seasonal__dot"></span>
+        <span class="instamom-seasonal__dot"></span>
+      </div>
+      <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--prev" onclick="scrollSeasonalSlider('birthday-modal', -1)" aria-label="Previous photo">&lsaquo;</button>
+      <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--next" onclick="scrollSeasonalSlider('birthday-modal', 1)" aria-label="Next photo">&rsaquo;</button>
+    </div>
+    <div class="instamom-seasonal-modal__title-row">
+      <h3 class="instamom-seasonal-modal__title">Birthday Box</h3>
+      <p class="instamom-seasonal-modal__price">$62</p>
+    </div>
+    <h4 class="instamom-seasonal-modal__subtitle">What's Inside:</h4>
+    <ul class="instamom-seasonal-modal__list">
+      <li>Celebration mug cake</li>
+      <li>Mini Piñata filled with festive surprises</li>
+      <li>Confetti balloons (6)</li>
+      <li>Birthday horns (4)</li>
+      <li>Bubblelick Sour Blue Raspberry Bubbles</li>
+      <li>Mini Welch's sparkling white grape juice</li>
+      <li>Birthday cake pretzels & Birthday cake Kit Kat</li>
+      <li>Birthday cake cupcake bites</li>
+      <li>Plush cupcake</li>
+      <li>3D cupcake puzzle</li>
+    </ul>
+    <div style="margin-top: 24px;">
+      {%- if birthday_variant != blank -%}
+        <product-form data-section-id="{{ section.id }}">
+          {%- form 'product',
+            seasonal_product,
+            id: 'modal-birthday-form',
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input type="hidden" name="id" value="{{ birthday_variant.id }}">
+            <button
+              type="submit"
+              name="add"
+              class="button button--primary"
+              onclick="closeSeasonalModal('modal-birthday')"
+              style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px;"
+            >
+              <span>Add to cart — {{ birthday_variant.price | money_without_trailing_zeros }}</span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+      {%- else -%}
+        <a href="/products/seasonal-celebrations" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $62</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Anything But Basic Fall Box Only -->
+<div id="modal-fall" class="instamom-seasonal-modal" onclick="closeSeasonalModalOnOverlay(event, 'modal-fall')">
+  <div class="instamom-seasonal-modal__content">
+    <button type="button" class="instamom-seasonal-modal__close" onclick="closeSeasonalModal('modal-fall')">&times;</button>
+    <div class="instamom-seasonal__image-slider-wrapper instamom-seasonal-modal__image-slider-wrapper">
+      <div class="instamom-seasonal__image-slider instamom-seasonal-modal__image-slider" data-fall-modal-slider>
+        <img src="{{ 'instamom-fall-box-1.jpg' | asset_url }}" alt="Anything But Basic Fall Box Photo 1" class="instamom-seasonal-modal__image" loading="lazy">
+        <img src="{{ 'instamom-fall-box-2.jpg' | asset_url }}" alt="Anything But Basic Fall Box Photo 2" class="instamom-seasonal-modal__image" loading="lazy">
+      </div>
+      <div class="instamom-seasonal__slider-dots">
+        <span class="instamom-seasonal__dot is-active"></span>
+        <span class="instamom-seasonal__dot"></span>
+      </div>
+      <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--prev" onclick="scrollSeasonalSlider('fall-modal', -1)" aria-label="Previous photo">&lsaquo;</button>
+      <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--next" onclick="scrollSeasonalSlider('fall-modal', 1)" aria-label="Next photo">&rsaquo;</button>
+    </div>
+    <div class="instamom-seasonal-modal__title-row">
+      <h3 class="instamom-seasonal-modal__title">Anything But Basic Fall Box</h3>
+      <p class="instamom-seasonal-modal__price">$64</p>
+    </div>
+    <h4 class="instamom-seasonal-modal__subtitle">What's Inside:</h4>
+    <ul class="instamom-seasonal-modal__list">
+      <li>Cozy throw blanket</li>
+      <li>Kodiak pumpkin chocolate chip muffin</li>
+      <li>Apple cider k-cup pods (2)</li>
+      <li>Cinnamon roll cookie with buttercream icing</li>
+      <li>Pumpkin shower steamer</li>
+      <li>Pumpkin spice caramels</li>
+      <li>Pumpkin spice latte lollipop</li>
+      <li>Fall leaves sachet</li>
+      <li>Fuzzy socks</li>
+      <li>Caramel hot chocolate</li>
+      <li>Bath and Body Works Fall mini hand sanitizer</li>
+      <li>Mini knit pumpkin</li>
+      <li>Caramel apple</li>
+    </ul>
+    <div style="margin-top: 24px;">
+      {%- if fall_variant != blank -%}
+        <product-form data-section-id="{{ section.id }}">
+          {%- form 'product',
+            seasonal_product,
+            id: 'modal-fall-form',
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input type="hidden" name="id" value="{{ fall_variant.id }}">
+            <button
+              type="submit"
+              name="add"
+              class="button button--primary"
+              onclick="closeSeasonalModal('modal-fall')"
+              style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px;"
+            >
+              <span>Add to cart — {{ fall_variant.price | money_without_trailing_zeros }}</span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+      {%- else -%}
+        <a href="/products/seasonal-celebrations" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $64</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<!-- Modal 3: Protein Fiend Box Only -->
+<div id="modal-protein-fiend" class="instamom-seasonal-modal" onclick="closeSeasonalModalOnOverlay(event, 'modal-protein-fiend')">
+  <div class="instamom-seasonal-modal__content">
+    <button type="button" class="instamom-seasonal-modal__close" onclick="closeSeasonalModal('modal-protein-fiend')">&times;</button>
+    <img src="{{ 'instamom-protein-fiend-box.jpg' | asset_url }}" alt="Protein Fiend Box" class="instamom-seasonal-modal__image" loading="lazy" style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 12px; margin-bottom: 20px;">
+    <div class="instamom-seasonal-modal__title-row">
+      <h3 class="instamom-seasonal-modal__title">Protein Fiend Box</h3>
+      <p class="instamom-seasonal-modal__price">$60</p>
+    </div>
+    <div style="background: rgba(237, 47, 137, 0.08); border: 1.5px solid #ed2f89; color: #ed2f89; padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 1.4rem; margin: 12px 0 16px; text-align: center;">
+      🎁 Bundle Special: Use promo code <strong>STRONG5</strong> at checkout to get $5 OFF the Athlete Recovery Pack!
+    </div>
+    <h4 class="instamom-seasonal-modal__subtitle">What's Inside:</h4>
+    <ul class="instamom-seasonal-modal__list">
+      <li>Fairlife 30g Protein Shakes (2)</li>
+      <li>Quest Tortilla Style Protein Chips (2)</li>
+      <li>Quest Bake Shop Frosted Cookies, 2 pack (2)</li>
+      <li>Righteous Felon Craft Jerky (2)</li>
+      <li>Barebells Protein Bar</li>
+      <li>Legendary Foods Protein Pastry</li>
+      <li>Kodiak Microwavable Protein Brownie</li>
+      <li>Magic Spoon Protein Cereal Bar</li>
+      <li>Nature Valley Protein Bar</li>
+      <li>Shameless Snacks Low-Sugar Gummies</li>
+      <li>Rice Krispies Treats</li>
+      <li>"Do You Even Lift Bro?" Gym Keychain & Fun Desk Buddy</li>
+    </ul>
+    <div style="margin-top: 24px;">
+      {%- if protein_variant != blank -%}
+        <product-form data-section-id="{{ section.id }}">
+          {%- form 'product',
+            protein_product,
+            id: 'modal-protein-form',
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input type="hidden" name="id" value="{{ protein_variant.id }}">
+            <button
+              type="submit"
+              name="add"
+              class="button button--primary"
+              onclick="closeSeasonalModal('modal-protein-fiend')"
+              style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px;"
+            >
+              <span>Add to cart — {{ protein_variant.price | money_without_trailing_zeros | default: '$60' }}</span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+      {%- else -%}
+        <a href="/products/protein-fiend-college-care-package" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $60</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  function openSeasonalModal(id) {
+    var modal = document.getElementById(id);
+    if (modal) modal.classList.add('is-open');
+  }
+
+  function closeSeasonalModal(id) {
+    var modal = document.getElementById(id);
+    if (modal) modal.classList.remove('is-open');
+  }
+
+  function closeSeasonalModalOnOverlay(e, id) {
+    if (e.target.id === id) {
+      closeSeasonalModal(id);
+    }
+  }
+
+  function scrollSeasonalSlider(prefix, direction) {
+    var slider = document.querySelector('[data-' + prefix + '-slider]');
+    if (!slider) return;
+    var width = slider.clientWidth;
+    slider.scrollBy({ left: direction * width, behavior: 'smooth' });
+  }
+
+  function initSeasonalSliderDots(prefix) {
+    var slider = document.querySelector('[data-' + prefix + '-slider]');
+    if (!slider) return;
+    var wrapper = slider.closest('.instamom-seasonal__image-slider-wrapper');
+    if (!wrapper) return;
+    var dots = wrapper.querySelectorAll('.instamom-seasonal__dot');
+
+    function sync() {
+      var width = slider.clientWidth;
+      if (!width) return;
+      var index = Math.round(slider.scrollLeft / width);
+      dots.forEach(function (dot, i) {
+        if (i === index) {
+          dot.classList.add('is-active');
+        } else {
+          dot.classList.remove('is-active');
+        }
+      });
+    }
+
+    slider.addEventListener('scroll', sync, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      initSeasonalSliderDots('birthday');
+      initSeasonalSliderDots('birthday-modal');
+      initSeasonalSliderDots('fall');
+      initSeasonalSliderDots('fall-modal');
+    });
+  } else {
+    initSeasonalSliderDots('birthday');
+    initSeasonalSliderDots('birthday-modal');
+    initSeasonalSliderDots('fall');
+    initSeasonalSliderDots('fall-modal');
+  }
+</script>
+
+{% schema %}
+{
+  "name": "InstaMom Seasonal Boxes",
+  "tag": "section",
+  "class": "section-instamom-seasonal",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Limited Time Only Seasonal Boxes"
+    }
+  ],
+  "presets": [
+    {
+      "name": "InstaMom Seasonal Boxes"
+    }
+  ]
+}
+{% endschema %}

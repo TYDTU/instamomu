@@ -72,11 +72,11 @@
         "show_description": false,
         "description_style": "body",
         "collection": "packages",
-        "products_to_show": 8,
-        "columns_desktop": 4,
+        "products_to_show": 7,
+        "columns_desktop": 3,
         "color_scheme": "scheme-1",
         "full_width": false,
-        "show_view_all": true,
+        "show_view_all": false,
         "view_all_style": "solid",
         "enable_desktop_slider": false,
         "swipe_on_mobile": false,
@@ -89,6 +89,12 @@
         "columns_mobile": "2",
         "padding_top": 44,
         "padding_bottom": 36
+      }
+    },
+    "seasonal_packages_collection": {
+      "type": "instamom-seasonal",
+      "settings": {
+        "heading": "Limited Time Only Seasonal Boxes"
       }
     },
     "addons_list": {
@@ -105,6 +111,7 @@
     "instamom_hero",
     "current_lineup",
     "packages_collection",
+    "seasonal_packages_collection",
     "value_props",
     "addons_list"
   ]

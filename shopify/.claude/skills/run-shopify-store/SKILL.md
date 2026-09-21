@@ -188,6 +188,14 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   `discountCodeBxgyUpdate(id, bxgyCodeDiscount:{endsAt:null, customerBuys:{items:{products:{productsToAdd:[…]}}}})`
   and re-read to confirm `status: ACTIVE`. Checkout application still has to be
   exercised by a human in a real browser (bot challenge).
+- **`pull-diff assets/instamom.css` always reports the WHOLE file as drift.** The
+  live copy carries CRLF line endings on every line (something upstream rewrote
+  it), so `diff` sees 2,600 changed lines even when the content is identical.
+  Strip them before judging: `shopify theme pull --only assets/instamom.css --path
+  <tmp>` then `tr -d '\r' < <tmp>/assets/instamom.css | diff - assets/instamom.css`.
+  Also: a branch cut before the seasonal/protein CSS landed (Sep 2026) is ~140
+  lines behind live on this file — merge `main` in before pushing it, or the
+  push silently reverts the homepage styling.
 - **Smart collections re-evaluate asynchronously.** After changing the tag that a
   smart collection rules on, the collection keeps reporting the old membership for
   a good 30s. Poll rather than concluding the tag edit failed.

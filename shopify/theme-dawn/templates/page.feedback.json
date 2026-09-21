@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "report_card": {
+      "type": "instamom-report-card",
+      "settings": {}
+    }
+  },
+  "order": [
+    "report_card"
+  ]
+}

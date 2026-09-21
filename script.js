@@ -212,12 +212,11 @@ const products = {
     price: 62,
     studentType: "Focused achiever",
     moment: "Holiday",
-    image: "assets/seasonal_birthday_box.jpg",
+    image: "assets/instamom-birthday-box-real.jpg",
     contents: [
-      "Vanilla Confetti Individual Cake Kit (nut free)—includes cake mix, frosting, pop-up baking tray for microwave, sprinkles, candle, and cake topper",
+      "Celebration mug cake",
+      "Mini Piñata filled with festive surprises",
       "Confetti balloons (6)",
-      "Balloon hand pump",
-      "Party poppers (4)",
       "Birthday horns (4)",
       "Bubblelick Sour Blue Raspberry Bubbles",
       "Mini Welch's sparkling white grape juice",
@@ -225,16 +224,30 @@ const products = {
       "Birthday cake cupcake bites",
       "Birthday cake Kit Kat",
       "Plush cupcake",
-      "Birthday Mad Libs",
-      "Faber-Castell Paint by Number Museum Series: The Starry Night"
+      "3D cupcake puzzle"
     ]
   },
   seasonal_fall: {
     title: "Anything But Basic Fall Box",
-    price: 60,
+    price: 64,
     studentType: "Focused achiever",
     moment: "Holiday",
-    copy: "Coming Soon!"
+    image: "assets/instamom-fall-box-crest.jpg",
+    contents: [
+      "Cozy throw blanket",
+      "Kodiak pumpkin chocolate chip muffin",
+      "Apple cider k-cup pods (2)",
+      "Cinnamon roll cookie with buttercream icing",
+      "Pumpkin shower steamer",
+      "Pumpkin spice caramels",
+      "Pumpkin spice latte lollipop",
+      "Fall leaves sachet",
+      "Fuzzy socks",
+      "Caramel hot chocolate",
+      "Bath and Body Works Fall mini hand sanitizer",
+      "Mini knit pumpkin",
+      "Caramel apple"
+    ]
   },
   seasonal_halloween: {
     title: "Halloween Box",

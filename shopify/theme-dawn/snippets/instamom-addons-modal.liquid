@@ -71,7 +71,10 @@
               title itself — see sections/instamom-addons-list.liquid.
             {%- endcomment -%}
             {%- assign cute_note = addon.metafields.custom.cute_note.value -%}
-            {%- if cute_note != blank -%}
+            {%- assign addon_title_lower = addon.title | downcase -%}
+            {%- if addon_title_lower contains 'athlete' -%}
+              <span class="instamom-addons__aside" style="color: var(--imu-pink, #ed2f89); font-weight: 700;">🎁 $5 OFF ($15) with Protein Fiend Box</span>
+            {%- elsif cute_note != blank -%}
               <span class="instamom-addons__aside">{{ cute_note | escape }}</span>
             {%- endif -%}
             <span class="instamom-addons__price">+{{ addon.price | money_without_trailing_zeros }}</span>

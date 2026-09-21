@@ -305,7 +305,18 @@
   {%- endfor -%}
 {%- endif -%}
 
-{%- assign protein_product = all_products['protein-fiend-box'] | default: all_products['protein-fiend'] | default: all_products['protein-fiend-box-1'] -%}
+{%- assign protein_product = nil -%}
+{%- for p in collections.all.products -%}
+  {%- assign p_title = p.title | downcase -%}
+  {%- assign p_handle = p.handle | downcase -%}
+  {%- if p_title contains 'protein' or p_handle contains 'protein' -%}
+    {%- assign protein_product = p -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if protein_product == blank -%}
+  {%- assign protein_product = all_products['protein-fiend-box'] | default: all_products['protein-fiend'] | default: all_products['protein-fiend-box-1'] -%}
+{%- endif -%}
 {%- assign protein_variant = nil -%}
 {%- if protein_product != blank -%}
   {%- assign protein_variant = protein_product.selected_or_first_available_variant -%}

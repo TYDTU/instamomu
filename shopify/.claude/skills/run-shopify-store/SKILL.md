@@ -169,6 +169,15 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   Read the handle from the admin (or `products(query:"title:*…*"){handle}`) before
   wiring a section to it, and grep the live HTML for `href="/products/` to confirm
   the form rendered rather than the fallback.
+- **The homepage grid's `products_to_show` is counted BEFORE the seasonal skip.**
+  `sections/featured-collection.liquid` loops `collection.products limit: n` and
+  then `continue`s past `seasonal-celebrations`, so if that product sits inside the
+  first *n* of the `packages` collection's MANUAL order, one card silently vanishes
+  (7 configured → 6 rendered, and the newest package is the one dropped). Keep
+  `seasonal-celebrations` LAST in the collection order (`collectionReorderProducts`,
+  0-based `newPosition`, runs as an async job) and set `products_to_show` to the
+  number of visible packages. Draft products in the collection don't count on the
+  storefront. Adding the `package` tag is all a product needs to enter the grid.
 - **Smart collections re-evaluate asynchronously.** After changing the tag that a
   smart collection rules on, the collection keeps reporting the old membership for
   a good 30s. Poll rather than concluding the tag edit failed.

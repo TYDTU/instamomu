@@ -148,44 +148,7 @@ const products = {
       "Mints and gum"
     ]
   },
-  snack: {
-    title: "Snack Attack",
-    studentType: "First-year starter",
-    moment: "Snack attack",
-    copy:
-      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
-  },
-  snack_cheese: {
-    title: "Snack Attack: Cheese Lovers",
-    price: 35,
-    studentType: "First-year starter",
-    moment: "Snack attack",
-    contents: [
-      "3 snack size packs each of",
-      "Cheetos",
-      "Doritos",
-      "Goldfish",
-      "Cheez-Its",
-      "Pringles Cheddar Cheese grab and go",
-      "Ruffles Sour Cream and Cheddar",
-      "Smartfood White Cheddar Popcorn",
-      "Microwave Kraft Mac and Cheese cups"
-    ]
-  },
-  snack_chocolate: {
-    title: "Snack Attack: Chocolate Lovers",
-    price: 45,
-    studentType: "First-year starter",
-    moment: "Snack attack",
-    contents: [
-      "Double chocolate brownie cookies (6 oz)",
-      "Milk chocolate covered pretzels (5 oz)",
-      "Ghirardelli chocolate squares (assorted)",
-      "Nutella & Go breadstick snack pack",
-      "M&Ms chocolate candies family size pack",
-      "Rich hot cocoa mixes (3)"
-    ]
-  },
+
   snack_protein: {
     title: "Snack Attack: Protein Fiend",
     price: 60,

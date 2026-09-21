@@ -305,13 +305,11 @@
   {%- endfor -%}
 {%- endif -%}
 
-{%- assign protein_product = all_products['protein-fiend-box'] | default: all_products['protein-fiend'] | default: all_products['just-the-snacks'] -%}
+{%- assign protein_product = all_products['protein-fiend-box'] | default: all_products['protein-fiend'] | default: all_products['protein-fiend-box-1'] -%}
 {%- assign protein_variant = nil -%}
 {%- if protein_product != blank -%}
   {%- assign protein_variant = protein_product.selected_or_first_available_variant -%}
 {%- endif -%}
-{%- assign active_protein_product = protein_product | default: seasonal_product -%}
-{%- assign active_protein_variant = protein_variant | default: active_protein_product.selected_or_first_available_variant -%}
 
 <div class="instamom-seasonal page-width">
   <div class="instamom-seasonal__header">
@@ -445,17 +443,16 @@
       </div>
       <div class="instamom-seasonal__card-actions">
         <button type="button" class="button button--secondary" onclick="openSeasonalModal('modal-protein-fiend')">Explore package</button>
-        {%- if active_protein_variant != blank -%}
+        {%- if protein_variant != blank -%}
           <product-form data-section-id="{{ section.id }}" style="flex: 1;">
             {%- form 'product',
-              active_protein_product,
+              protein_product,
               id: 'card-protein-form',
               class: 'form',
               novalidate: 'novalidate',
               data-type: 'add-to-cart-form'
             -%}
-              <input type="hidden" name="id" value="{{ active_protein_variant.id }}">
-              <input type="hidden" name="properties[Package]" value="Protein Fiend Box">
+              <input type="hidden" name="id" value="{{ protein_variant.id }}">
               <button
                 type="submit"
                 name="add"
@@ -468,7 +465,7 @@
             {%- endform -%}
           </product-form>
         {%- else -%}
-          <a href="/products/seasonal-celebrations" class="button button--primary">Add to cart</a>
+          <a href="/products/protein-fiend-box" class="button button--primary" style="flex: 1; text-align: center; justify-content: center; display: inline-flex;">Add to cart</a>
         {%- endif -%}
       </div>
     </div>
@@ -654,17 +651,16 @@
       <li>"Do You Even Lift Bro?" Gym Keychain & Fun Desk Buddy</li>
     </ul>
     <div style="margin-top: 24px;">
-      {%- if active_protein_variant != blank -%}
+      {%- if protein_variant != blank -%}
         <product-form data-section-id="{{ section.id }}">
           {%- form 'product',
-            active_protein_product,
+            protein_product,
             id: 'modal-protein-form',
             class: 'form',
             novalidate: 'novalidate',
             data-type: 'add-to-cart-form'
           -%}
-            <input type="hidden" name="id" value="{{ active_protein_variant.id }}">
-            <input type="hidden" name="properties[Package]" value="Protein Fiend Box">
+            <input type="hidden" name="id" value="{{ protein_variant.id }}">
             <button
               type="submit"
               name="add"
@@ -672,13 +668,13 @@
               onclick="closeSeasonalModal('modal-protein-fiend')"
               style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px;"
             >
-              <span>Add to cart — {{ active_protein_variant.price | money_without_trailing_zeros | default: '$60' }}</span>
+              <span>Add to cart — {{ protein_variant.price | money_without_trailing_zeros | default: '$60' }}</span>
               {%- render 'loading-spinner' -%}
             </button>
           {%- endform -%}
         </product-form>
       {%- else -%}
-        <a href="/products/seasonal-celebrations" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $60</a>
+        <a href="/products/protein-fiend-box" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $60</a>
       {%- endif -%}
     </div>
   </div>

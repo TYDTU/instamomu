@@ -151,6 +151,11 @@ textarea:focus-visible,
   overflow: hidden;
 }
 
+/* Center product grid cards on incomplete bottom row */
+.product-grid {
+  justify-content: center;
+}
+
 .card-wrapper .card,
 .card--standard,
 .collection-list__item .card {
@@ -271,6 +276,13 @@ textarea:focus-visible,
   border-radius: 99px;
   color: var(--imu-navy);
   background: var(--imu-gold);
+}
+
+.instamom-badge--now-shipping,
+.instamom-badge--shipping-soon {
+  color: var(--imu-navy-dark);
+  background: var(--imu-gold);
+  line-height: 1.3;
 }
 
 .instamom-badge--coming-soon {
@@ -408,6 +420,17 @@ textarea:focus-visible,
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* The per-variant lists in snippets/instamom-whats-inside.liquid are toggled by
+   setting `hidden` on the <ul>. The browser's own `[hidden] { display: none }`
+   comes from the UA stylesheet, so the `display: flex` above beats it and EVERY
+   variant's list renders at once — the product page shows Birthday's items and
+   Fall's items stacked together. Author-level rule needed to win it back.
+   Reported on Seasonal Celebrations, 1 Sep 2026; affects any multi-variant box
+   (Snack Attack renders the same way). */
+.instamom-contents[hidden] {
+  display: none;
 }
 
 .instamom-contents li {
@@ -1229,6 +1252,30 @@ textarea:focus-visible,
   background: var(--imu-surface);
   border-color: var(--imu-gold);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
+}
+
+.instamom-lineup__card--blue {
+  background: linear-gradient(135deg, #062b66 0%, #0d3b85 100%) !important;
+  border: 2px solid var(--imu-gold) !important;
+  box-shadow: 0 0 0 2px var(--imu-pink), 6px 6px 0 var(--imu-gold);
+  cursor: pointer;
+}
+
+.instamom-lineup__card--blue:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, #08347a 0%, #1048a0 100%) !important;
+  border-color: var(--imu-gold) !important;
+  box-shadow: 0 0 0 2px var(--imu-pink), 10px 10px 0 var(--imu-gold);
+}
+
+.instamom-lineup__card--blue .instamom-lineup__title,
+.instamom-lineup__card--blue .instamom-lineup__copy {
+  color: #ffffff !important;
+}
+
+.instamom-lineup__card--blue .instamom-lineup__link {
+  color: var(--imu-gold) !important;
+  font-weight: 800;
 }
 
 .instamom-lineup__title {
@@ -2295,7 +2342,287 @@ textarea:focus-visible,
   opacity: 0.9;
 }
 
+/* --- Insert-card guide pages (pages/guide-*) -----------------------------
+   Unlisted pages reached only by scanning the QR code on the printed card in
+   a care package. Bodies live in shopify/content/guide-*.html.
+
+   Someone lands here having just picked up their phone to scan a square of ink
+   on a card — the download has to be the first thing they see, not a link
+   buried in a paragraph. So the CTA is a card of its own: white on the cream
+   page, pink pill, and the file's shape (format, length, weight) stated under
+   it so nobody taps blind on cellular data. */
+.instamom-page .rte > .instamom-guide__download {
+  margin: 0 0 32px;
+  padding: 22px 24px;
+  background: var(--imu-surface);
+  border: 1.5px solid var(--imu-pink);
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* Dawn's .rte a is an underlined text link; this is a button, so every one of
+   those inherited text-link properties has to be answered here. Not a Dawn
+   .button — that class drags in the ::before/::after ring that the pill
+   overrides elsewhere in this file already fight. */
+.instamom-page .rte .instamom-guide__btn {
+  display: inline-block;
+  max-width: 100%;
+  padding: 15px 32px;
+  background: var(--imu-pink);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.3;
+  text-decoration: none;
+  box-shadow: 0 10px 26px rgba(237, 47, 137, 0.26);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.instamom-page .rte .instamom-guide__btn:hover,
+.instamom-page .rte .instamom-guide__btn:focus-visible {
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(237, 47, 137, 0.34);
+}
+
+.instamom-page .rte .instamom-guide__btn:focus-visible {
+  outline: 3px solid var(--imu-gold);
+  outline-offset: 3px;
+}
+
+.instamom-guide__meta {
+  display: block;
+  margin-top: 10px;
+  color: var(--imu-muted);
+  font-size: 1.28rem;
+  line-height: 1.5;
+}
+
+/* A YouTube embed. Dawn has no rich-text video hook, and a bare <iframe> in a
+   page body is fixed-pixel — it overflows a phone, which is the one device
+   these pages are guaranteed to be read on.
+
+   padding-bottom: 56.25% (9/16) rather than `aspect-ratio`, because the iframe
+   is absolutely positioned: if `aspect-ratio` ever fails to apply the box
+   collapses to zero height and the video vanishes silently. The padding trick
+   degrades to a correctly-sized box everywhere. Navy fill so the frame reads as
+   a video well during the beat before YouTube paints. */
+.instamom-page .rte > .instamom-guide__video {
+  position: relative;
+  height: 0;
+  padding-bottom: 56.25%;
+  margin: 0 0 28px;
+  background: var(--imu-navy-dark);
+  border: 1.5px solid var(--imu-pink);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.instamom-page .rte > .instamom-guide__video iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* A heading that introduces one video in a page holding several.
+
+   This class is NOT optional decoration — it is a repair. The content-page rule
+   `.instamom-page .rte > h3` above draws every h3 as the TOP HALF of a framed
+   card (border, radius 12px 12px 0 0, `border-bottom: 0`) and relies on the
+   `h3 + p` after it to draw the closing half. Put a video div after an h3
+   instead and nothing closes it: the heading renders as an open-bottomed box
+   with a seam hanging under it. So a video's heading has to opt out of the card
+   treatment entirely. */
+.instamom-page .rte > h3.instamom-guide__video-title {
+  margin: 32px 0 10px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  color: var(--imu-navy-dark);
+  font-size: 1.92rem;
+  line-height: 1.3;
+}
+
+/* The stand-in shown until the video exists. Deliberately NOT a 16:9 grey box —
+   an empty player-shaped hole reads as a broken embed, and someone who scanned
+   a QR code to get here would assume the page is failing rather than pending.
+   A short dashed panel reads as "not yet", and the dashes are the tell for
+   anyone reviewing the page that this is placeholder markup still to be
+   swapped. Delete this rule once no guide page uses the class. */
+.instamom-page .rte > .instamom-guide__video-pending {
+  margin: 0 0 28px;
+  padding: 22px 24px;
+  background: var(--imu-surface);
+  border: 1.5px dashed var(--imu-pink);
+  border-radius: 12px;
+  text-align: center;
+  color: var(--imu-muted);
+  font-size: 1.45rem;
+  line-height: 1.55;
+}
+
+/* Dawn's .rte drops list items and ordinary paragraphs to ~1.4rem, which is
+   fine on a policy page someone reads at a desk. This page is reached by
+   scanning a QR code, so it is read on a phone at arm's length, one-handed,
+   in a dorm room — and the per-device instructions are the part that actually
+   has to be followed. Bring them up to the lede's weight. */
+.instamom-page .rte > .instamom-guide__steps {
+  margin: 0 0 20px;
+  padding-left: 2.2rem;
+}
+
+.instamom-page .rte > .instamom-guide__steps li {
+  margin-bottom: 8px;
+  color: var(--imu-navy-dark);
+  font-size: 1.5rem;
+  line-height: 1.55;
+}
+
+.instamom-page .rte > .instamom-guide__body {
+  margin: 0 0 16px;
+  color: var(--imu-navy-dark);
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+/* The closing "why this matters" paragraph — set apart from the instructions
+   above it so it reads as the note it is rather than as a fifth step.
+   White, NOT --imu-cream: cream #fff0b8 on this page's --imu-paper #fff2ad is a
+   5-point difference and disappears, which is the same trap documented on
+   .instamom-legal__callout above. The gold rule alone can't carry the block. */
+.instamom-page .rte > .instamom-guide__note {
+  margin-top: 32px;
+  padding: 16px 20px;
+  background: var(--imu-surface);
+  border: 1.5px solid var(--imu-line);
+  border-left: 4px solid var(--imu-gold);
+  border-radius: 8px;
+  color: var(--imu-navy-dark);
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+@media screen and (max-width: 600px) {
+  .instamom-page .rte > .instamom-guide__download {
+    padding: 18px 16px;
+  }
+
+  /* A long label on a narrow phone wraps inside the pill; without this the
+     pill's horizontal padding pushes it past the card edge. */
+  .instamom-page .rte .instamom-guide__btn {
+    display: block;
+    padding: 15px 20px;
+  }
+}
+
+/* --- Scrollable image slider for Birthday Box card & modal --------------- */
+.instamom-seasonal__image-slider-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.instamom-seasonal__image-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.instamom-seasonal__image-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.instamom-seasonal__image-slider .instamom-seasonal__image,
+.instamom-seasonal__image-slider .instamom-seasonal-modal__image {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  scroll-snap-align: start;
+  margin-bottom: 0;
+}
+
+.instamom-seasonal-modal__image-slider .instamom-seasonal-modal__image {
+  height: 280px;
+}
+
+.instamom-seasonal__image-slider img[src*="instamom-birthday-box-2"],
+.instamom-seasonal__image-slider img[src*="instamom-fall-box-2"] {
+  object-fit: contain !important;
+  background-color: #f7f8fa;
+}
+
+.instamom-seasonal__slider-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.instamom-seasonal__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.instamom-seasonal__dot.is-active {
+  background: var(--imu-pink, #ed2f89);
+  transform: scale(1.25);
+}
+
+.instamom-seasonal__slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(4, 29, 69, 0.75);
+  color: #ffffff;
+  border: 1.5px solid var(--imu-gold, #ffc928);
+  font-size: 1.6rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.instamom-seasonal__slider-arrow:hover {
+  opacity: 1;
+  background: var(--imu-navy, #062b66);
+}
+
+.instamom-seasonal__slider-arrow--prev {
+  left: 8px;
+}
+
+.instamom-seasonal__slider-arrow--next {
+  right: 8px;
+}
+
 /* Asset revision marker. The CDN object for a given instamom.css is keyed by
    the content-derived ?v= hash, so when one goes bad the only way to mint a
    fresh URL is to change the bytes. Bumping this is that lever.
-   rev 2 — 2026-08-04 */
+   rev 6 — 2026-09-10 */
+

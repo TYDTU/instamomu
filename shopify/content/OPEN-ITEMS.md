@@ -166,19 +166,9 @@ category is what Shopify Tax uses to decide taxability, so an unset category is
 not cosmetic. **The 9 add-ons still have no category** and should get one before
 they're sold separately.
 
-## M. Snack Attack components + status changes (Virginia's 3 Aug email)
+## M. Snack Attack boxes (REMOVED)
 
-From *"I THINK This is what we need"*, cylke@lynchburg.edu, 3 Aug 2026.
-
-**Snack Attack is now three real bundles.** 20 component products created from
-her lists and attached per variant — Cheese Lovers 8, Chocolate Lovers 6,
-Protein Fiend 6 — with her wording as the customer-facing "What's Inside".
-
-Required the same rebuild as the Warmies products (app ownership), and it was
-overdue: Cheese Lovers' four existing components were **a Blank Roommate
-Contract, a Citrus Room & Linen Spray, Comfort Snacks and Assorted Snack
-Selection** — a roommate contract and room spray in a cheese snack box. Nothing
-worth keeping. `snack-attack-legacy` is parked as a DRAFT.
+**Snack Attack boxes have been permanently removed.** Those boxes no longer exist in the store catalogue or theme.
 
 Status changes, all three from her numbered list:
 
@@ -358,7 +348,6 @@ renders they replaced are deleted. **The filename is the key** — `Holder Pic` 
 | Warm Hug from Home | `Warm Hug From Home 50` | ✅ **Final** — the real contents: sloth Warmie, soup, tea, Emergen-C, Kleenex |
 | Room Refresh | `Room Refresh_Ready 50` | ✅ **Final**, but it's a styled shot of the room spray alone, not the box or its seven items |
 | Homesick Helper | `Homesick Helper Holder Pic` | ⚠️ Placeholder — the Warmies plush range, which is *relevant* but isn't this box |
-| Snack Attack | `Snack Attack Holder Pic` | ⚠️ Placeholder — a box of tissue paper on a chair. No snacks in shot |
 | Seasonal Celebrations | `Celebration Holder Pic` | ⚠️ Placeholder — an open box of tissue paper |
 | Regroup, Recover, Restart | `Regroup, Recover, Restart Holder Pic` | ⚠️ Placeholder — a box lid and tissue paper, shot from above |
 | Finals Reset Box | `Finals Reset Hold Pic` | ⚠️ Placeholder — a closed box with the crest |

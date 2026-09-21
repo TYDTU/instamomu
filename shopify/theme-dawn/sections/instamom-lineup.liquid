@@ -44,24 +44,42 @@
 
     {%- if lineup != blank and lineup.products_count > 0 -%}
       <ul class="instamom-lineup__track" data-lineup-track role="list">
+        <!-- Birthday Box Blue Card -->
+        <li class="instamom-lineup__card instamom-lineup__card--blue" onclick="scrollToSeasonalModal('modal-birthday', event)">
+          <span class="instamom-badge instamom-badge--now-shipping">Now Shipping</span>
+          <h3 class="instamom-lineup__title">Birthday Box</h3>
+          <p class="instamom-lineup__copy">Better than cupcakes or cake--this is a birthday party in a box! Balloons, party horns, and lots of yummy treats for their special day.</p>
+          <a class="instamom-lineup__link" href="#modal-birthday" onclick="scrollToSeasonalModal('modal-birthday', event)">View package &rarr;</a>
+        </li>
+
+        <!-- Anything But Basic Fall Box Blue Card -->
+        <li class="instamom-lineup__card instamom-lineup__card--blue" onclick="scrollToSeasonalModal('modal-fall', event)">
+          <span class="instamom-badge instamom-badge--shipping-soon">Order Now--Shipping Begins Sept 22</span>
+          <h3 class="instamom-lineup__title">Anything But Basic Fall Box</h3>
+          <p class="instamom-lineup__copy">Filled with the scents, tastes, and comforts of the fall season! Apple cider, pumpkin chai tea, and cozy blankets and socks will keep them warm as the days get cooler.</p>
+          <a class="instamom-lineup__link" href="#modal-fall" onclick="scrollToSeasonalModal('modal-fall', event)">View package &rarr;</a>
+        </li>
+
+        <!-- Protein Fiend Box Blue Card -->
+        <li class="instamom-lineup__card instamom-lineup__card--blue" onclick="scrollToSeasonalModal('modal-protein-fiend', event)">
+          <span class="instamom-badge instamom-badge--now-shipping">Now Shipping</span>
+          <h3 class="instamom-lineup__title">Protein Fiend Box</h3>
+          <p class="instamom-lineup__copy">Packed with high-protein shakes, jerky, Quest chips, pastries, and sweet snacks to fuel your student through study sessions and workouts.</p>
+          <a class="instamom-lineup__link" href="#modal-protein-fiend" onclick="scrollToSeasonalModal('modal-protein-fiend', event)">View package &rarr;</a>
+        </li>
+
         {%- for product in lineup.products limit: section.settings.products_to_show -%}
-          {%- assign blurb = product.metafields.custom.lineup_blurb.value | default: product.description -%}
-          <li class="instamom-lineup__card">
-            {% render 'instamom-badge', product: product %}
-            <h3 class="instamom-lineup__title">{{ product.title | escape }}</h3>
-            {%- if blurb != blank -%}
-              {%- comment -%}
-                Owner: "Regroup, Recover, Restart cuts off." Its blurb was 47
-                words against a 45-word cap. Her shorter first clause brings it
-                to 43, but Finals Reset sits at 44 — one word from the same
-                silent trim — so raise the cap rather than leave the next edit
-                to rediscover this. The cap stays because it's what keeps the
-                cards in the scrolling band a consistent height.
-              {%- endcomment -%}
-              <p class="instamom-lineup__copy">{{ blurb | strip_html | truncatewords: 60 }}</p>
-            {%- endif -%}
-            <a class="instamom-lineup__link" href="{{ product.url }}">View package &rarr;</a>
-          </li>
+          {%- unless product.handle == 'seasonal-celebrations' or product.handle == 'snack-attack' or product.tags contains 'seasonal' or product.title contains 'Seasonal' or product.title contains 'Snack Attack' -%}
+            {%- assign blurb = product.metafields.custom.lineup_blurb.value | default: product.description -%}
+            <li class="instamom-lineup__card instamom-lineup__card--blue">
+              {% render 'instamom-badge', product: product %}
+              <h3 class="instamom-lineup__title">{{ product.title | escape }}</h3>
+              {%- if blurb != blank -%}
+                <p class="instamom-lineup__copy">{{ blurb | strip_html | truncatewords: 60 }}</p>
+              {%- endif -%}
+              <a class="instamom-lineup__link" href="{{ product.url }}">View package &rarr;</a>
+            </li>
+          {%- endunless -%}
         {%- endfor -%}
       </ul>
     {%- else -%}
@@ -73,6 +91,18 @@
 </div>
 
 <script>
+  function scrollToSeasonalModal(modalId, e) {
+    if (e) e.preventDefault();
+    var modal = document.getElementById(modalId);
+    var section = document.querySelector('.instamom-seasonal') || modal;
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    if (typeof openSeasonalModal === 'function') {
+      openSeasonalModal(modalId);
+    }
+  }
+
   (function () {
     var root = document.getElementById('shopify-section-{{ section.id }}');
     if (!root) return;

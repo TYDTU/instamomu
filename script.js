@@ -148,44 +148,7 @@ const products = {
       "Mints and gum"
     ]
   },
-  snack: {
-    title: "Snack Attack",
-    studentType: "First-year starter",
-    moment: "Snack attack",
-    copy:
-      "Whether you love chocolate, cheese, salty snacks, protein-packed goodies, or the gross stuff no one else eats (licorice, anyone?) we've got a box chock full of your favorites.",
-  },
-  snack_cheese: {
-    title: "Snack Attack: Cheese Lovers",
-    price: 35,
-    studentType: "First-year starter",
-    moment: "Snack attack",
-    contents: [
-      "3 snack size packs each of",
-      "Cheetos",
-      "Doritos",
-      "Goldfish",
-      "Cheez-Its",
-      "Pringles Cheddar Cheese grab and go",
-      "Ruffles Sour Cream and Cheddar",
-      "Smartfood White Cheddar Popcorn",
-      "Microwave Kraft Mac and Cheese cups"
-    ]
-  },
-  snack_chocolate: {
-    title: "Snack Attack: Chocolate Lovers",
-    price: 45,
-    studentType: "First-year starter",
-    moment: "Snack attack",
-    contents: [
-      "Double chocolate brownie cookies (6 oz)",
-      "Milk chocolate covered pretzels (5 oz)",
-      "Ghirardelli chocolate squares (assorted)",
-      "Nutella & Go breadstick snack pack",
-      "M&Ms chocolate candies family size pack",
-      "Rich hot cocoa mixes (3)"
-    ]
-  },
+
   snack_protein: {
     title: "Snack Attack: Protein Fiend",
     price: 60,
@@ -212,12 +175,11 @@ const products = {
     price: 62,
     studentType: "Focused achiever",
     moment: "Holiday",
-    image: "assets/seasonal_birthday_box.jpg",
+    image: "assets/instamom-birthday-box-real.jpg",
     contents: [
-      "Vanilla Confetti Individual Cake Kit (nut free)—includes cake mix, frosting, pop-up baking tray for microwave, sprinkles, candle, and cake topper",
+      "Celebration mug cake",
+      "Mini Piñata filled with festive surprises",
       "Confetti balloons (6)",
-      "Balloon hand pump",
-      "Party poppers (4)",
       "Birthday horns (4)",
       "Bubblelick Sour Blue Raspberry Bubbles",
       "Mini Welch's sparkling white grape juice",
@@ -225,16 +187,30 @@ const products = {
       "Birthday cake cupcake bites",
       "Birthday cake Kit Kat",
       "Plush cupcake",
-      "Birthday Mad Libs",
-      "Faber-Castell Paint by Number Museum Series: The Starry Night"
+      "3D cupcake puzzle"
     ]
   },
   seasonal_fall: {
     title: "Anything But Basic Fall Box",
-    price: 60,
+    price: 64,
     studentType: "Focused achiever",
     moment: "Holiday",
-    copy: "Coming Soon!"
+    image: "assets/instamom-fall-box-crest.jpg",
+    contents: [
+      "Cozy throw blanket",
+      "Kodiak pumpkin chocolate chip muffin",
+      "Apple cider k-cup pods (2)",
+      "Cinnamon roll cookie with buttercream icing",
+      "Pumpkin shower steamer",
+      "Pumpkin spice caramels",
+      "Pumpkin spice latte lollipop",
+      "Fall leaves sachet",
+      "Fuzzy socks",
+      "Caramel hot chocolate",
+      "Bath and Body Works Fall mini hand sanitizer",
+      "Mini knit pumpkin",
+      "Caramel apple"
+    ]
   },
   seasonal_halloween: {
     title: "Halloween Box",

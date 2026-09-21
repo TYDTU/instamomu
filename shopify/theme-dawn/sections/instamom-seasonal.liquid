@@ -305,7 +305,12 @@
   {%- endfor -%}
 {%- endif -%}
 
-{%- assign protein_product = all_products['protein-fiend-box'] | default: all_products['protein-fiend'] | default: all_products['protein-fiend-box-1'] -%}
+{%- comment -%}
+  The handle MUST match the real product in the admin. The product was created as
+  "Protein Fiend College Care Package" → handle protein-fiend-college-care-package.
+  A guessed handle here silently falls through to the static link below, which 404s.
+{%- endcomment -%}
+{%- assign protein_product = all_products['protein-fiend-college-care-package'] -%}
 {%- assign protein_variant = nil -%}
 {%- if protein_product != blank -%}
   {%- assign protein_variant = protein_product.selected_or_first_available_variant -%}
@@ -465,7 +470,7 @@
             {%- endform -%}
           </product-form>
         {%- else -%}
-          <a href="/products/protein-fiend-box" class="button button--primary" style="flex: 1; text-align: center; justify-content: center; display: inline-flex;">Add to cart</a>
+          <a href="/products/protein-fiend-college-care-package" class="button button--primary" style="flex: 1; text-align: center; justify-content: center; display: inline-flex;">Add to cart</a>
         {%- endif -%}
       </div>
     </div>
@@ -674,7 +679,7 @@
           {%- endform -%}
         </product-form>
       {%- else -%}
-        <a href="/products/protein-fiend-box" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $60</a>
+        <a href="/products/protein-fiend-college-care-package" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $60</a>
       {%- endif -%}
     </div>
   </div>

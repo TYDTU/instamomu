@@ -159,6 +159,23 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   variants at $0.00, and it was only caught because the storefront grid showed
   "$0.00 USD". **Always set prices AFTER any component change, attach or detach,
   then re-read to confirm.** Get this wrong and the care packages go live free.
+- **A hard-coded `all_products['handle']` lookup fails silently.** The seasonal
+  section (`sections/instamom-seasonal.liquid`) looks the Protein Fiend Box up by
+  handle. It shipped with three *guessed* handles; the product was created in the
+  admin as "Protein Fiend College Care Package" → handle
+  `protein-fiend-college-care-package`. Liquid returns blank, the `{% if %}` falls
+  through to a static `<a href="/products/…">Add to cart</a>` fallback, and every
+  buy button on the card and modal 404s while the product page itself works fine.
+  Read the handle from the admin (or `products(query:"title:*…*"){handle}`) before
+  wiring a section to it, and grep the live HTML for `href="/products/` to confirm
+  the form rendered rather than the fallback.
+- **`shopify theme …` can hang silently with no prompt** (`theme list`, `theme pull`,
+  the driver's `pull-diff`/`push`) while `store execute` keeps working. Seen
+  2026-09-21. Kill the stuck node processes (`pkill -f "shopify theme"`), then
+  re-run a theme command in a real terminal so the CLI can open its browser login
+  for the alias domain. Until then, drift-check by fetching the rendered storefront
+  HTML / CDN asset URLs (`curl` past the password gate with a
+  `form_type=storefront_password` POST) and diffing for the markers you expect.
 - **Smart collections re-evaluate asynchronously.** After changing the tag that a
   smart collection rules on, the collection keeps reporting the old membership for
   a good 30s. Poll rather than concluding the tag edit failed.

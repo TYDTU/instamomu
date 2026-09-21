@@ -169,13 +169,6 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   Read the handle from the admin (or `products(query:"title:*…*"){handle}`) before
   wiring a section to it, and grep the live HTML for `href="/products/` to confirm
   the form rendered rather than the fallback.
-- **`shopify theme …` can hang silently with no prompt** (`theme list`, `theme pull`,
-  the driver's `pull-diff`/`push`) while `store execute` keeps working. Seen
-  2026-09-21. Kill the stuck node processes (`pkill -f "shopify theme"`), then
-  re-run a theme command in a real terminal so the CLI can open its browser login
-  for the alias domain. Until then, drift-check by fetching the rendered storefront
-  HTML / CDN asset URLs (`curl` past the password gate with a
-  `form_type=storefront_password` POST) and diffing for the markers you expect.
 - **Smart collections re-evaluate asynchronously.** After changing the tag that a
   smart collection rules on, the collection keeps reporting the old membership for
   a good 30s. Poll rather than concluding the tag edit failed.

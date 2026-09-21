@@ -178,6 +178,16 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   0-based `newPosition`, runs as an async job) and set `products_to_show` to the
   number of visible packages. Draft products in the collection don't count on the
   storefront. Adding the `package` tag is all a product needs to enter the grid.
+- **Deleting and recreating a product silently breaks any discount that targets it.**
+  STRONG5 (Buy-X-Get-Y: buy the Protein Fiend box, get $5 off the Athlete Recovery
+  Pack) was left with an EMPTY `customerBuys` product list after the box was
+  recreated under a new id, and was then deactivated (`endsAt` = the moment someone
+  hit Deactivate). A code in that state can never trigger. Reading discounts needs
+  `read_discounts` and writing needs `write_discounts` on the cached auth (neither is
+  in the driver's default `auth` scopes; re-auth with the superset). Fix with
+  `discountCodeBxgyUpdate(id, bxgyCodeDiscount:{endsAt:null, customerBuys:{items:{products:{productsToAdd:[…]}}}})`
+  and re-read to confirm `status: ACTIVE`. Checkout application still has to be
+  exercised by a human in a real browser (bot challenge).
 - **Smart collections re-evaluate asynchronously.** After changing the tag that a
   smart collection rules on, the collection keeps reporting the old membership for
   a good 30s. Poll rather than concluding the tag edit failed.

@@ -188,6 +188,16 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   `discountCodeBxgyUpdate(id, bxgyCodeDiscount:{endsAt:null, customerBuys:{items:{products:{productsToAdd:[…]}}}})`
   and re-read to confirm `status: ACTIVE`. Checkout application still has to be
   exercised by a human in a real browser (bot challenge).
+- **CRLF line endings on the live theme make `pull-diff` report a whole file as
+  drift.** Seven live files (instamom.css and the six protein-branch Liquid files)
+  arrived with `\r\n` on every line from a Windows push; `diff` then shows 2,600
+  changed lines on identical content. Cleaned 2026-09-21 by pushing git's LF
+  copies, and `.gitattributes` (`* text=auto eol=lf`) now keeps the repo LF. If it
+  recurs, detect with `grep -rl $'\r'` over a `theme pull`, confirm the content
+  matches with `tr -d '\r' < live | diff - local`, then push the LF copy.
+- **A branch cut before the seasonal/protein CSS landed (Sep 2026) is ~140 lines
+  behind live on `assets/instamom.css`.** Merge `main` in before pushing that file
+  from an older branch, or the push silently reverts the homepage styling.
 - **Smart collections re-evaluate asynchronously.** After changing the tag that a
   smart collection rules on, the collection keeps reporting the old membership for
   a good 30s. Poll rather than concluding the tag edit failed.

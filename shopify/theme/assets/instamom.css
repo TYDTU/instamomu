@@ -1323,6 +1323,10 @@ textarea:focus-visible,
    sections/main-cart-footer.liquid. A pink-framed box matching the
    prototype's checkout consent (owner review p.9, "vital"). */
 .instamom-candy {
+  /* Dawn lays the cart footer out as a flex row on desktop; without this the
+     two preference panels stretch to the height of the gift-note column beside
+     them and read as huge empty white boxes (owner, Sep 2026). */
+  align-self: flex-start;
   margin: 0 0 20px;
   padding: 14px 20px 18px;
   border: 1.5px solid var(--imu-pink);

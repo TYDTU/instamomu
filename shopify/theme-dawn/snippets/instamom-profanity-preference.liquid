@@ -1,0 +1,92 @@
+{% comment %}
+  InstaMom University — required preference for the occasional fun extra that
+  may contain a cheeky word or mild profanity.
+
+  Saved as the cart attribute "Fun extras profanity preference" so the choice
+  rides through to the order and is visible to packers under Additional details.
+  The radios' required attribute covers the standard cart form; the click guard
+  covers the Checkout control, and instamom-wallet-gate keeps iframe-based
+  express wallets hidden until a choice is made.
+
+  This intentionally reuses the candy-preference styling in instamom.css so the
+  two required choices read as a matched pair.
+{% endcomment %}
+
+{%- assign profanity_no = 'No profanity in fun extras' -%}
+{%- assign profanity_yes = 'Occasional profanity is OK' -%}
+{%- assign profanity_saved = cart.attributes['Fun extras profanity preference'] -%}
+{%- assign profanity_no_cmp = profanity_no | escape -%}
+{%- assign profanity_yes_cmp = profanity_yes | escape -%}
+
+<fieldset class="instamom-candy" id="instamom-profanity">
+  <legend class="instamom-candy__legend">
+    A Quick Note About Fun Extras <span class="instamom-candy__req">(Required)</span>
+  </legend>
+  <p class="instamom-candy__option" style="cursor: default;">
+    We love slipping in an occasional surprise to make a box extra fun. Every
+    now and then, that bonus may include a cheeky word or a little profanity.
+    Tell us what flies in your household:
+  </p>
+  <label class="instamom-candy__option">
+    <input
+      type="radio"
+      name="attributes[Fun extras profanity preference]"
+      value="{{ profanity_no }}"
+      form="cart"
+      required
+      {% if profanity_saved == profanity_no_cmp or profanity_saved == profanity_no %}checked{% endif %}
+    >
+    <span><strong>Keep it squeaky clean, please</strong> &mdash; no profanity in any fun extras.</span>
+  </label>
+  <label class="instamom-candy__option">
+    <input
+      type="radio"
+      name="attributes[Fun extras profanity preference]"
+      value="{{ profanity_yes }}"
+      form="cart"
+      {% if profanity_saved == profanity_yes_cmp or profanity_saved == profanity_yes %}checked{% endif %}
+    >
+    <span><strong>A little sass is fine</strong> &mdash; fun extras with occasional profanity are okay.</span>
+  </label>
+  <p class="instamom-candy__error" data-profanity-error hidden>
+    Please choose your fun-extras preference before checking out.
+  </p>
+</fieldset>
+
+<script>
+  (function () {
+    var group = document.getElementById('instamom-profanity');
+    if (!group) return;
+    var error = group.querySelector('[data-profanity-error]');
+
+    function chosen() {
+      return group.querySelector('input[name="attributes[Fun extras profanity preference]"]:checked');
+    }
+
+    function guard(event) {
+      if (chosen()) return;
+      event.preventDefault();
+      group.classList.add('instamom-candy--error');
+      if (error) error.hidden = false;
+      group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var first = group.querySelector('input');
+      if (first) first.focus();
+    }
+
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('#checkout, .cart__dynamic-checkout-buttons')) guard(event);
+    }, true);
+
+    group.addEventListener('change', function () {
+      var picked = chosen();
+      if (!picked) return;
+      group.classList.remove('instamom-candy--error');
+      if (error) error.hidden = true;
+      fetch((window.Shopify && window.Shopify.routes ? window.Shopify.routes.root : '/') + 'cart/update.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ attributes: { 'Fun extras profanity preference': picked.value } }),
+      }).catch(function () { /* the form submit still carries it */ });
+    });
+  })();
+</script>

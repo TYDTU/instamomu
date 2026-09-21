@@ -14,6 +14,9 @@ kept here, and the store copy is created from it.
 | `guide-syllabus-decoder.html` | `guide-syllabus-decoder` | **Unlisted.** Same — QR code only. |
 | `guide-syllabus-decoder-video.html` | `guide-syllabus-decoder-video` | **Unlisted.** Video embedded Aug 2026. |
 | `guide-college-success-videos.html` | `guide-college-success-videos` | **Unlisted** video library, one video in it. Handle is FROZEN — printed. |
+| `guide-homesick-video.html` | `guide-homesick-video` | **Unlisted.** Video embedded Sep 2026. |
+| `guide-find-your-logical-family.html` | `guide-find-your-logical-family` | **Unlisted.** Video placeholder; awaiting the final YouTube ID. |
+| `guide-building-a-comfy-college-life.html` | `guide-building-a-comfy-college-life` | **Unlisted.** Video placeholder; awaiting the final YouTube ID. |
 | `sweepstakes-official-rules.html` | — | **Shelved.** Page deleted Aug 2026 — see below. |
 | `sweepstakes-entry-form.html` | — | **Shelved.** Page deleted Aug 2026 — see below. |
 
@@ -58,6 +61,9 @@ should never be.
 | `guide-syllabus-decoder` | `gid://shopify/Page/128301236324` | `Syllabus_Decoder_PDF.pdf` — 10 pp, 248 KB |
 | `guide-syllabus-decoder-video` | `gid://shopify/Page/128307495012` | same PDF; video `DHU6QYAI6yg` |
 | `guide-college-success-videos` | `gid://shopify/Page/128311427172` | video library; 1 video (`CeWQzMt3Qd8`), **handle is printed** |
+| `guide-homesick-video` | `gid://shopify/Page/129328447588` | video `g4B2GmaudSg` |
+| `guide-find-your-logical-family` | `gid://shopify/Page/129328578660` | video placeholder; awaiting the final YouTube ID |
+| `guide-building-a-comfy-college-life` | `gid://shopify/Page/129328906340` | video placeholder; awaiting the final YouTube ID |
 
 Both PDFs are real AcroForms (52 and 127 text fields respectively), which is why
 the pages say "fillable" — check that before writing the same claim about a new
@@ -76,7 +82,7 @@ If a handle ever *has* to change, the old one needs a URL redirect
 (`urlRedirectCreate`, Online Store → Navigation → URL Redirects) created in the
 same breath, or the printed cards die.
 
-### The two video pages
+### The video pages
 
 `guide-syllabus-decoder-video` holds exactly one video; `guide-college-success-videos`
 is a library and holds several. As of Aug 2026 both have their first video in:
@@ -85,15 +91,21 @@ is a library and holds several. As of Aug 2026 both have their first video in:
 |---|---|---|
 | `guide-syllabus-decoder-video` | Syllabus Decoder walkthrough | `DHU6QYAI6yg` |
 | `guide-college-success-videos` | Welcome Week | `CeWQzMt3Qd8` |
+| `guide-homesick-video` | What To Do When You Are Homesick | `g4B2GmaudSg` |
 
-Both embeds go through `youtube-nocookie.com`, carry a real `title`, and are
+All embeds go through `youtube-nocookie.com`, carry a real `title`, and are
 `loading="lazy"` — see the `SWAP ME` section below for why each of those matters.
 
-The dashed `.instamom-guide__video-pending` stand-in is gone from both pages. Its
-CSS rule is deliberately left in `assets/instamom.css`: nothing uses it today, but
-it is the documented furniture for the next guide page that ships ahead of its
-video, and removing it would mean pushing the stylesheet to the live theme for no
-visible gain.
+`guide-find-your-logical-family` and `guide-building-a-comfy-college-life` mirror
+the same presentation but currently carry the dashed
+`.instamom-guide__video-pending` stand-in. When each final YouTube ID is
+available, replace its block with the same privacy-enhanced, titled, lazy-loaded
+embed used by the other video pages, then record the ID here.
+
+The dashed `.instamom-guide__video-pending` stand-in is gone from the three pages
+whose videos are embedded and is used by the two pages whose videos are pending.
+Its CSS rule lives in `assets/instamom.css` and is the documented furniture for
+any guide page that ships ahead of its video.
 
 `guide-college-success-videos` is still a thin page — an intro line, one video,
 and a closing note. It shipped with a "Ready right now" section linking to the two

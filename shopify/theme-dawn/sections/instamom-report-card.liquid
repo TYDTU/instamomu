@@ -1,0 +1,487 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --report-card-navy: var(--imu-navy, #062b66);
+    --report-card-gold: var(--imu-gold, #ffc928);
+    --report-card-pink: var(--imu-pink, #ed2f89);
+    --report-card-cream: var(--imu-cream, #fff0b8);
+    --report-card-ink: var(--imu-ink, #082b63);
+  }
+
+  .report-card {
+    padding: 4.8rem 0 7.2rem;
+  }
+
+  .report-card__intro {
+    max-width: 76rem;
+    margin: 0 auto 3.2rem;
+    text-align: center;
+  }
+
+  .report-card__eyebrow {
+    display: inline-block;
+    margin: 0 0 1.2rem;
+    padding: 0.7rem 1.3rem;
+    border-radius: 999px;
+    background: var(--report-card-pink);
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .report-card__title {
+    margin: 0;
+    color: var(--report-card-navy);
+  }
+
+  .report-card__lede {
+    max-width: 64rem;
+    margin: 1.4rem auto 0;
+    color: var(--report-card-ink);
+    font-size: 1.8rem;
+    line-height: 1.6;
+  }
+
+  .report-card__paper {
+    position: relative;
+    max-width: 88rem;
+    margin: 0 auto;
+    padding: 3.2rem;
+    overflow: hidden;
+    border: 2px solid var(--report-card-navy);
+    border-radius: 2rem;
+    background-color: #fffefa;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3.3rem,
+      rgba(6, 43, 102, 0.09) 3.4rem,
+      transparent 3.5rem
+    );
+    box-shadow: 0 0 0 3px var(--report-card-pink), 12px 12px 0 var(--report-card-gold);
+  }
+
+  .report-card__paper::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 5rem;
+    width: 1px;
+    background: rgba(237, 47, 137, 0.28);
+    content: '';
+  }
+
+  .report-card__form {
+    position: relative;
+  }
+
+  .report-card__status {
+    margin: 0 0 2.4rem;
+    padding: 1.8rem 2rem;
+    border: 2px solid var(--report-card-navy);
+    border-radius: 1.2rem;
+    background: var(--report-card-cream);
+    color: var(--report-card-navy);
+  }
+
+  .report-card__status--success {
+    text-align: center;
+  }
+
+  .report-card__status h2,
+  .report-card__status p {
+    margin: 0;
+  }
+
+  .report-card__status p {
+    margin-top: 0.6rem;
+  }
+
+  .report-card__error-list {
+    margin: 0.8rem 0 0;
+  }
+
+  .report-card__row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.8rem;
+  }
+
+  .report-card__field,
+  .report-card__grades {
+    margin: 0 0 2.4rem;
+  }
+
+  .report-card__label,
+  .report-card__legend {
+    display: block;
+    margin: 0 0 0.8rem;
+    color: var(--report-card-navy);
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .report-card__optional {
+    font-weight: 500;
+  }
+
+  .report-card__input,
+  .report-card__textarea {
+    width: 100%;
+    border: 1.5px solid var(--report-card-navy);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--report-card-ink);
+    font: inherit;
+    font-size: 1.6rem;
+  }
+
+  .report-card__input {
+    min-height: 5.2rem;
+    padding: 1.2rem 1.4rem;
+  }
+
+  .report-card__textarea {
+    min-height: 7rem;
+    padding: 1.4rem;
+    resize: vertical;
+  }
+
+  .report-card__input:focus,
+  .report-card__textarea:focus {
+    outline: 3px solid var(--report-card-gold);
+    outline-offset: 2px;
+  }
+
+  .report-card__grade-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .report-card__grade-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .report-card__grade-label {
+    display: flex;
+    min-height: 10rem;
+    padding: 1.2rem 0.8rem;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--report-card-navy);
+    border-radius: 1.2rem;
+    background: #fff;
+    color: var(--report-card-navy);
+    text-align: center;
+    transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+  }
+
+  .report-card__grade-letter {
+    font-family: var(--font-heading-family);
+    font-size: 3.6rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .report-card__grade-note {
+    margin-top: 0.6rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .report-card__grade-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 var(--report-card-gold);
+  }
+
+  .report-card__grade-input:focus-visible + .report-card__grade-label {
+    outline: 3px solid var(--report-card-pink);
+    outline-offset: 3px;
+  }
+
+  .report-card__grade-input:checked + .report-card__grade-label {
+    transform: translateY(-2px);
+    background: var(--report-card-gold);
+    box-shadow: 0 5px 0 var(--report-card-pink);
+  }
+
+  .report-card__required-note,
+  .report-card__privacy {
+    color: var(--report-card-ink);
+    font-size: 1.3rem;
+    line-height: 1.5;
+  }
+
+  .report-card__required-note {
+    margin: -1rem 0 2.4rem;
+  }
+
+  .report-card__actions {
+    display: flex;
+    margin-top: 3rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: center;
+  }
+
+  .report-card__submit {
+    min-width: 25rem;
+    border: 2px solid var(--report-card-navy);
+    background: var(--report-card-pink);
+    box-shadow: 5px 5px 0 var(--report-card-gold);
+    color: #fff;
+  }
+
+  .report-card__submit:hover {
+    background: var(--report-card-navy);
+  }
+
+  .report-card__submit:focus-visible {
+    outline: 3px solid var(--report-card-gold);
+    outline-offset: 3px;
+  }
+
+  .report-card__privacy {
+    max-width: 50rem;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .report-card {
+      padding: 3.2rem 0 5.6rem;
+    }
+
+    .report-card__paper {
+      padding: 2.4rem 1.8rem;
+      border-radius: 1.4rem;
+      box-shadow: 0 0 0 2px var(--report-card-pink), 7px 7px 0 var(--report-card-gold);
+    }
+
+    .report-card__paper::before {
+      display: none;
+    }
+
+    .report-card__row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .report-card__grade-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .report-card__grade-grid > div:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .report-card__grade-label {
+      min-height: 8.8rem;
+    }
+
+    .report-card__submit {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+{%- endstyle -%}
+
+<section class="report-card page-width" aria-labelledby="ReportCardTitle-{{ section.id }}">
+  <header class="report-card__intro">
+    <p class="report-card__eyebrow">InstaMom U customer feedback</p>
+    <h1 class="report-card__title h0" id="ReportCardTitle-{{ section.id }}">Grade your InstaMom experience</h1>
+    <p class="report-card__lede">
+      No pop quiz—just an honest report card. Tell us what earned high marks, what needs extra credit,
+      and what kind of box you would love to see next.
+    </p>
+  </header>
+
+  <div class="report-card__paper">
+    {%- form 'contact', id: 'InstaMomReportCard', class: 'report-card__form' -%}
+      <input type="hidden" name="contact[Feedback type]" value="InstaMom Report Card">
+
+      {%- if form.posted_successfully? -%}
+        <div class="report-card__status report-card__status--success" tabindex="-1" autofocus>
+          <h2 class="h2">Report card received!</h2>
+          <p>Thank you for helping InstaMom U get even better. We read every note.</p>
+        </div>
+      {%- elsif form.errors -%}
+        <div class="report-card__status" role="alert" tabindex="-1" autofocus>
+          <h2 class="h3">One quick correction, please.</h2>
+          <p>Check the fields below and try turning in your report card again.</p>
+          <ul class="report-card__error-list" role="list">
+            {%- for field in form.errors -%}
+              <li>
+                <a href="#ReportCard-{{ field | escape }}-{{ section.id }}">
+                  {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div class="report-card__row">
+        <div class="report-card__field">
+          <label class="report-card__label" for="ReportCard-name-{{ section.id }}">Your name</label>
+          <input
+            class="report-card__input"
+            autocomplete="name"
+            type="text"
+            id="ReportCard-name-{{ section.id }}"
+            name="contact[Name]"
+            value="{% if form.name %}{{ form.name | escape }}{% elsif customer %}{{ customer.name | escape }}{% endif %}"
+          >
+        </div>
+
+        <div class="report-card__field">
+          <label class="report-card__label" for="ReportCard-email-{{ section.id }}">Email <span aria-hidden="true">*</span></label>
+          <input
+            class="report-card__input"
+            autocomplete="email"
+            type="email"
+            id="ReportCard-email-{{ section.id }}"
+            name="contact[email]"
+            value="{% if form.email %}{{ form.email | escape }}{% elsif customer %}{{ customer.email | escape }}{% endif %}"
+            aria-required="true"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="report-card__row">
+        <div class="report-card__field">
+          <label class="report-card__label" for="ReportCard-order-{{ section.id }}">
+            Order number <span class="report-card__optional">(optional)</span>
+          </label>
+          <input
+            class="report-card__input"
+            type="text"
+            id="ReportCard-order-{{ section.id }}"
+            name="contact[Order number]"
+            inputmode="numeric"
+            placeholder="Example: 1042"
+          >
+        </div>
+
+        <div class="report-card__field">
+          <label class="report-card__label" for="ReportCard-product-{{ section.id }}">
+            What did you order? <span class="report-card__optional">(optional)</span>
+          </label>
+          <input
+            class="report-card__input"
+            type="text"
+            id="ReportCard-product-{{ section.id }}"
+            name="contact[Product purchased]"
+            placeholder="Box or add-on name"
+          >
+        </div>
+      </div>
+
+      <fieldset class="report-card__grades">
+        <legend class="report-card__legend">Overall grade <span aria-hidden="true">*</span></legend>
+        <div class="report-card__grade-grid">
+          <div>
+            <input class="report-card__grade-input" type="radio" id="ReportCard-grade-a-{{ section.id }}" name="contact[Overall grade]" value="A — Top of the class" required>
+            <label class="report-card__grade-label" for="ReportCard-grade-a-{{ section.id }}">
+              <span class="report-card__grade-letter">A</span>
+              <span class="report-card__grade-note">Top of the class</span>
+            </label>
+          </div>
+          <div>
+            <input class="report-card__grade-input" type="radio" id="ReportCard-grade-b-{{ section.id }}" name="contact[Overall grade]" value="B — Really good">
+            <label class="report-card__grade-label" for="ReportCard-grade-b-{{ section.id }}">
+              <span class="report-card__grade-letter">B</span>
+              <span class="report-card__grade-note">Really good</span>
+            </label>
+          </div>
+          <div>
+            <input class="report-card__grade-input" type="radio" id="ReportCard-grade-c-{{ section.id }}" name="contact[Overall grade]" value="C — Room to grow">
+            <label class="report-card__grade-label" for="ReportCard-grade-c-{{ section.id }}">
+              <span class="report-card__grade-letter">C</span>
+              <span class="report-card__grade-note">Room to grow</span>
+            </label>
+          </div>
+          <div>
+            <input class="report-card__grade-input" type="radio" id="ReportCard-grade-d-{{ section.id }}" name="contact[Overall grade]" value="D — Needs extra credit">
+            <label class="report-card__grade-label" for="ReportCard-grade-d-{{ section.id }}">
+              <span class="report-card__grade-letter">D</span>
+              <span class="report-card__grade-note">Needs extra credit</span>
+            </label>
+          </div>
+          <div>
+            <input class="report-card__grade-input" type="radio" id="ReportCard-grade-f-{{ section.id }}" name="contact[Overall grade]" value="F — Please contact me">
+            <label class="report-card__grade-label" for="ReportCard-grade-f-{{ section.id }}">
+              <span class="report-card__grade-letter">F</span>
+              <span class="report-card__grade-note">Please contact me</span>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="report-card__field">
+        <label class="report-card__label" for="ReportCard-body-{{ section.id }}">
+          Comments about your purchase <span aria-hidden="true">*</span>
+        </label>
+        <textarea
+          class="report-card__textarea"
+          id="ReportCard-body-{{ section.id }}"
+          name="contact[body]"
+          rows="3"
+          placeholder="What did we do well? What could make your next box even better?"
+          aria-required="true"
+          required
+        >{{- form.body -}}</textarea>
+      </div>
+
+      <div class="report-card__field">
+        <label class="report-card__label" for="ReportCard-ideas-{{ section.id }}">
+          Suggest a new box <span class="report-card__optional">(optional, but highly encouraged!)</span>
+        </label>
+        <textarea
+          class="report-card__textarea"
+          id="ReportCard-ideas-{{ section.id }}"
+          name="contact[New box suggestion]"
+          rows="2"
+          placeholder="What should InstaMom U dream up next?"
+        ></textarea>
+      </div>
+
+      <p class="report-card__required-note"><span aria-hidden="true">*</span> Required field</p>
+
+      <div class="report-card__actions">
+        <button class="button report-card__submit" type="submit">Turn in my report card</button>
+        <p class="report-card__privacy">Your email and order details are used only to understand your feedback and follow up if needed.</p>
+      </div>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "InstaMom report card",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "InstaMom report card"
+    }
+  ]
+}
+{% endschema %}

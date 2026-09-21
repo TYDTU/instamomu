@@ -294,7 +294,6 @@
 {%- assign seasonal_product = all_products['seasonal-celebrations'] -%}
 {%- assign birthday_variant = nil -%}
 {%- assign fall_variant = nil -%}
-{%- assign protein_variant = nil -%}
 {%- if seasonal_product != blank -%}
   {%- for v in seasonal_product.variants -%}
     {%- assign v_title = v.title | downcase -%}
@@ -302,18 +301,17 @@
       {%- assign birthday_variant = v -%}
     {%- elsif v_title contains 'fall' -%}
       {%- assign fall_variant = v -%}
-    {%- elsif v_title contains 'protein' or v_title contains 'snack' -%}
-      {%- assign protein_variant = v -%}
     {%- endif -%}
   {%- endfor -%}
 {%- endif -%}
-{%- if protein_variant == blank -%}
-  {%- assign protein_product = all_products['protein-fiend-box'] | default: all_products['just-the-snacks'] -%}
-  {%- if protein_product != blank -%}
-    {%- assign protein_variant = protein_product.selected_or_first_available_variant -%}
-  {%- endif -%}
+
+{%- assign protein_product = all_products['protein-fiend-box'] | default: all_products['protein-fiend'] | default: all_products['just-the-snacks'] -%}
+{%- assign protein_variant = nil -%}
+{%- if protein_product != blank -%}
+  {%- assign protein_variant = protein_product.selected_or_first_available_variant -%}
 {%- endif -%}
-{%- assign active_protein_variant = protein_variant | default: seasonal_product.selected_or_first_available_variant -%}
+{%- assign active_protein_product = protein_product | default: seasonal_product -%}
+{%- assign active_protein_variant = protein_variant | default: active_protein_product.selected_or_first_available_variant -%}
 
 <div class="instamom-seasonal page-width">
   <div class="instamom-seasonal__header">
@@ -450,7 +448,7 @@
         {%- if active_protein_variant != blank -%}
           <product-form data-section-id="{{ section.id }}" style="flex: 1;">
             {%- form 'product',
-              seasonal_product,
+              active_protein_product,
               id: 'card-protein-form',
               class: 'form',
               novalidate: 'novalidate',
@@ -659,7 +657,7 @@
       {%- if active_protein_variant != blank -%}
         <product-form data-section-id="{{ section.id }}">
           {%- form 'product',
-            seasonal_product,
+            active_protein_product,
             id: 'modal-protein-form',
             class: 'form',
             novalidate: 'novalidate',

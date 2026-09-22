@@ -197,7 +197,12 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   `seasonal-celebrations` LAST in the collection order (`collectionReorderProducts`,
   0-based `newPosition`, runs as an async job) and set `products_to_show` to the
   number of visible packages. Draft products in the collection don't count on the
-  storefront. Adding the `package` tag is all a product needs to enter the grid.
+  storefront. Adding the `package` tag is all a product needs to enter the grid,
+  EXCEPT the Protein Fiend box: the owner deliberately excludes it from the grid
+  (and the lineup loop) by handle in `sections/featured-collection.liquid` and
+  `sections/instamom-lineup.liquid`, because it already has its own hand-written
+  card in the seasonal section and the lineup strip. Do not "fix" that; the grid
+  showing six packages is intended (2026-09-21).
 - **Deleting and recreating a product silently breaks any discount that targets it.**
   STRONG5 (Buy-X-Get-Y: buy the Protein Fiend box, get $5 off the Athlete Recovery
   Pack) was left with an EMPTY `customerBuys` product list after the box was

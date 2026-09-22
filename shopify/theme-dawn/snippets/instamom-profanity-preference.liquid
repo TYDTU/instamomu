@@ -20,12 +20,10 @@
 
 <fieldset class="instamom-candy" id="instamom-profanity">
   <legend class="instamom-candy__legend">
-    A Quick Note About Fun Extras <span class="instamom-candy__req">(Required)</span>
+    Fun-Extra Wording <span class="instamom-candy__req">(Required)</span>
   </legend>
-  <p class="instamom-candy__option" style="cursor: default;">
-    We love slipping in an occasional surprise to make a box extra fun. Every
-    now and then, that bonus may include a cheeky word or a little profanity.
-    Tell us what flies in your household:
+  <p class="instamom-candy__helper">
+    A surprise extra may have a cheeky word. What works for your household?
   </p>
   <label class="instamom-candy__option">
     <input
@@ -36,7 +34,7 @@
       required
       {% if profanity_saved == profanity_no_cmp or profanity_saved == profanity_no %}checked{% endif %}
     >
-    <span><strong>Keep it squeaky clean, please</strong> &mdash; no profanity in any fun extras.</span>
+    <span><strong>Keep it squeaky clean</strong> &mdash; no profanity</span>
   </label>
   <label class="instamom-candy__option">
     <input
@@ -46,7 +44,7 @@
       form="cart"
       {% if profanity_saved == profanity_yes_cmp or profanity_saved == profanity_yes %}checked{% endif %}
     >
-    <span><strong>A little sass is fine</strong> &mdash; fun extras with occasional profanity are okay.</span>
+    <span><strong>A little sass is fine</strong> &mdash; occasional profanity is okay</span>
   </label>
   <p class="instamom-candy__error" data-profanity-error hidden>
     Please choose your fun-extras preference before checking out.

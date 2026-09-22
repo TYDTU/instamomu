@@ -1,0 +1,245 @@
+{% comment %}
+  Optional student details collected in the cart for possible free surprises.
+
+  These values are cart attributes, so they appear on the Shopify order under
+  Additional details for the packing team. `form="cart"` carries them through
+  standard checkout; the debounced /cart/update.js write also preserves them
+  for express wallets, which bypass the cart form.
+
+  This is intentionally four short fields rather than a long questionnaire.
+  No answer is required and a surprise is never promised.
+{% endcomment %}
+
+<style>
+  .instamom-student {
+    margin: 0 0 20px;
+    padding: 16px 18px 18px;
+    border: 1.5px solid var(--imu-gold, #ffc928);
+    border-radius: 12px;
+    background: var(--imu-surface, #fff);
+  }
+
+  .instamom-student__title {
+    margin: 0 0 6px;
+    color: var(--imu-navy-dark, #041d45);
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .instamom-student__intro {
+    margin: 0 0 14px;
+    color: var(--imu-muted, #2e3d52);
+    font-size: 1.3rem;
+    line-height: 1.5;
+  }
+
+  .instamom-student__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 14px;
+  }
+
+  .instamom-student__label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--imu-navy-dark, #041d45);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .instamom-student__optional {
+    color: var(--imu-muted, #2e3d52);
+    font-weight: 500;
+  }
+
+  .instamom-student__input {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 12px;
+    border: 1.5px solid var(--imu-line, #e8d38a);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--imu-ink, #082b63);
+    font: inherit;
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+
+  .instamom-student__input:focus {
+    border-color: var(--imu-navy, #062b66);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(6, 43, 102, 0.12);
+  }
+
+  .instamom-student__note {
+    margin: 12px 0 0;
+    color: var(--imu-muted, #2e3d52);
+    font-size: 1.2rem;
+    line-height: 1.45;
+  }
+
+  @media screen and (max-width: 749px) {
+    .instamom-student {
+      padding: 14px 14px 16px;
+    }
+
+    .instamom-student__grid {
+      grid-template-columns: 1fr;
+      gap: 11px;
+    }
+  }
+</style>
+
+<div class="instamom-student" id="instamom-student-details">
+  <h2 class="instamom-student__title">Help Us Personalize Their Box</h2>
+  <p class="instamom-student__intro">
+    Four quick clues are plenty! If inspiration, time, and materials line up,
+    we may tuck in a tiny 3D-printed surprise made just for them.
+  </p>
+
+  <div class="instamom-student__grid">
+    <div>
+      <label class="instamom-student__label" for="InstamomStudentNickname">
+        Their nickname <span class="instamom-student__optional">(optional)</span>
+      </label>
+      <input
+        class="instamom-student__input"
+        type="text"
+        id="InstamomStudentNickname"
+        name="attributes[Student nickname]"
+        form="cart"
+        maxlength="80"
+        autocomplete="off"
+        placeholder="The name that makes them grin"
+        value="{{ cart.attributes['Student nickname'] | escape }}"
+        data-student-detail
+        data-attribute-name="Student nickname"
+      >
+    </div>
+
+    <div>
+      <label class="instamom-student__label" for="InstamomStudentColors">
+        Favorite color(s) <span class="instamom-student__optional">(optional)</span>
+      </label>
+      <input
+        class="instamom-student__input"
+        type="text"
+        id="InstamomStudentColors"
+        name="attributes[Student favorite colors]"
+        form="cart"
+        maxlength="100"
+        autocomplete="off"
+        placeholder="Blue, purple, forest green&hellip;"
+        value="{{ cart.attributes['Student favorite colors'] | escape }}"
+        data-student-detail
+        data-attribute-name="Student favorite colors"
+      >
+    </div>
+
+    <div>
+      <label class="instamom-student__label" for="InstamomStudentAnimalCharacter">
+        Favorite animal or character <span class="instamom-student__optional">(optional)</span>
+      </label>
+      <input
+        class="instamom-student__input"
+        type="text"
+        id="InstamomStudentAnimalCharacter"
+        name="attributes[Student favorite animal or character]"
+        form="cart"
+        maxlength="120"
+        autocomplete="off"
+        placeholder="Otters, dragons, Spider-Man&hellip;"
+        value="{{ cart.attributes['Student favorite animal or character'] | escape }}"
+        data-student-detail
+        data-attribute-name="Student favorite animal or character"
+      >
+    </div>
+
+    <div>
+      <label class="instamom-student__label" for="InstamomStudentTeamHobby">
+        Favorite team, sport, hobby, or icon <span class="instamom-student__optional">(optional)</span>
+      </label>
+      <input
+        class="instamom-student__input"
+        type="text"
+        id="InstamomStudentTeamHobby"
+        name="attributes[Student favorite team sport hobby or icon]"
+        form="cart"
+        maxlength="120"
+        autocomplete="off"
+        placeholder="Buckeyes, soccer, gaming, music&hellip;"
+        value="{{ cart.attributes['Student favorite team sport hobby or icon'] | escape }}"
+        data-student-detail
+        data-attribute-name="Student favorite team sport hobby or icon"
+      >
+    </div>
+  </div>
+
+  <p class="instamom-student__note">
+    Any surprise is completely free and based on what we can make safely and quickly; it is a fun possibility, not a guarantee.
+  </p>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('instamom-student-details');
+    if (!root) return;
+
+    var fields = Array.prototype.slice.call(root.querySelectorAll('[data-student-detail]'));
+    var saveTimer = null;
+    var lastSaved = serialize();
+
+    function shopRoot() {
+      return (window.Shopify && window.Shopify.routes ? window.Shopify.routes.root : '/');
+    }
+
+    function attributes() {
+      return fields.reduce(function (values, field) {
+        values[field.dataset.attributeName] = field.value.trim();
+        return values;
+      }, {});
+    }
+
+    function serialize() {
+      return JSON.stringify(attributes());
+    }
+
+    function save() {
+      var payload = serialize();
+      if (payload === lastSaved) return;
+      lastSaved = payload;
+
+      fetch(shopRoot() + 'cart/update.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ attributes: attributes() }),
+      }).catch(function () {
+        lastSaved = null;
+      });
+    }
+
+    function queueSave() {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(save, 500);
+    }
+
+    fields.forEach(function (field) {
+      field.addEventListener('input', queueSave);
+      field.addEventListener('change', function () {
+        clearTimeout(saveTimer);
+        save();
+      });
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('#checkout, .cart__dynamic-checkout-buttons')) return;
+      clearTimeout(saveTimer);
+      save();
+    }, true);
+  })();
+</script>

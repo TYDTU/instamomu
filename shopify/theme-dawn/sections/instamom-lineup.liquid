@@ -69,7 +69,12 @@
         </li>
 
         {%- for product in lineup.products limit: section.settings.products_to_show -%}
-          {%- unless product.handle == 'seasonal-celebrations' or product.handle == 'snack-attack' or product.tags contains 'seasonal' or product.title contains 'Seasonal' or product.title contains 'Snack Attack' -%}
+          {%- comment -%}
+            The three seasonal/protein boxes above are hand-written blue cards, so the
+            collection loop must skip those products or they render twice now that the
+            Protein Fiend box carries the `package` tag.
+          {%- endcomment -%}
+          {%- unless product.handle == 'seasonal-celebrations' or product.handle == 'snack-attack' or product.handle == 'protein-fiend-college-care-package' or product.handle == 'protein-fiend-box' or product.handle == 'protein-fiend' or product.tags contains 'seasonal' or product.title contains 'Seasonal' or product.title contains 'Snack Attack' or product.title contains 'Protein' -%}
             {%- assign blurb = product.metafields.custom.lineup_blurb.value | default: product.description -%}
             <li class="instamom-lineup__card instamom-lineup__card--blue">
               {% render 'instamom-badge', product: product %}

@@ -97,7 +97,17 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
 - **Scopes beyond products need a re-auth.** The default `auth` grants only `write_products,read_products`. Inventory, locations, and publications each need their own scopes — re-run auth (opens a browser once) with the superset you need, e.g.:
   `shopify store auth --store rd3sqk-f2.myshopify.com --scopes "write_products,read_products,read_publications,write_publications,read_locations,read_inventory,write_inventory"`
 - **Publishing a product to the storefront needs `write_publications`.** `productCreate` (even `status: ACTIVE`) does **not** auto-publish — `onlineStoreUrl` stays `null`. Publish with `publishablePublish(id, input:[{publicationId}])` using the **Online Store** publication id (from `publications`, needs `read_publications`). Note: on this password-gated store `onlineStoreUrl` reads `null` **even when published** — confirm via `resourcePublications(first:5){nodes{publication{name} isPublished}}`, not the URL.
+- **Fixed bundles cannot publish to Google & YouTube.** In the Admin product page,
+  Manage publishing → **Publish to all** fails with `Channel Google & YouTube does
+  not support variant-fixed bundles`. Select **Online Store** explicitly and save.
+  Re-read the product through Admin GraphQL and open a cache-busted live URL before
+  touching the product it replaces; the failed all-channel attempt can leave the
+  Admin screen showing unsaved state that looks published.
 - **Inventory writes are fiddly (API 2026-04).** Use `inventoryAdjustQuantities` (deltas) or `inventorySetQuantities`, and:
+  - `ProductVariantsBulkInput.inventoryQuantities` works only while **creating** a
+    variant. On `productVariantsBulkUpdate` Shopify returns
+    `NO_INVENTORY_QUANTITIES_ON_VARIANTS_UPDATE`; update an existing variant's
+    stock with `inventorySetQuantities` instead.
   - The mutation **requires** the `@idempotent(key:$idempotencyKey)` directive on the mutation field, with a unique UUID string variable — omit it and it errors.
   - `name` must be **`available`** (not `on_hand` — `on_hand` demands a `ledgerDocumentUri`; valid names: available, damaged, incoming, quality_control, reserved, safety_stock).
   - Every change needs **`changeFromQuantity`** (the item's current value at that location) — read it first with `inventoryLevel(locationId:…){ quantities(names:["available"]){ quantity } }`.

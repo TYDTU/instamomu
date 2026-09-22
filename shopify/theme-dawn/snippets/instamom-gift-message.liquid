@@ -57,14 +57,59 @@
 
 {%- assign message = cart.attributes['Gift message'] | default: '' -%}
 
-<div
-  class="instamom-giftmsg{% if has_fancy_card %} instamom-giftmsg--long{% endif %}"
+<style>
+  .instamom-giftmsg.instamom-giftmsg--compact {
+    margin-bottom: 10px;
+    padding: 0;
+  }
+
+  .instamom-giftmsg__summary {
+    padding: 10px 12px;
+    color: var(--imu-navy-dark, #041d45);
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .instamom-giftmsg__summary::marker {
+    color: var(--imu-pink, #ed2f89);
+  }
+
+  .instamom-giftmsg--compact[open] .instamom-giftmsg__summary {
+    border-bottom: 1px solid var(--imu-line, #e8d38a);
+  }
+
+  .instamom-giftmsg__body {
+    padding: 10px 12px 12px;
+  }
+
+  .instamom-giftmsg--compact .instamom-giftmsg__field + .instamom-giftmsg__field {
+    margin-top: 9px;
+  }
+
+  .instamom-giftmsg--compact .instamom-giftmsg__input,
+  .instamom-giftmsg--compact .instamom-giftmsg__textarea {
+    padding: 7px 10px;
+  }
+
+  .instamom-giftmsg--compact .instamom-giftmsg__textarea {
+    min-height: 68px;
+  }
+</style>
+
+<details
+  class="instamom-giftmsg instamom-giftmsg--compact{% if has_fancy_card %} instamom-giftmsg--long{% endif %}"
   id="instamom-giftmsg"
   data-fancy-handle="{{ fancy_card_handle }}"
   data-limit-short="{{ limit_short }}"
   data-limit-long="{{ limit_long }}"
+  {% if message != blank or cart.attributes['Gift message to'] != blank or cart.attributes['Gift message from'] != blank %}open{% endif %}
 >
-  <h2 class="instamom-giftmsg__title">Message for Your Student</h2>
+  <summary class="instamom-giftmsg__summary">Gift Message (Optional)</summary>
+  <div class="instamom-giftmsg__body">
 
   <div class="instamom-giftmsg__field">
     <label class="instamom-giftmsg__label" for="InstamomGiftTo">To:</label>
@@ -147,7 +192,8 @@
       data-gift-from
     >
   </div>
-</div>
+  </div>
+</details>
 
 <script>
   (function () {

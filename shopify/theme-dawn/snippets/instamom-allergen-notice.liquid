@@ -20,8 +20,42 @@
   Styling: .instamom-allergen-notice* in assets/instamom.css
 {% endcomment %}
 
-<div class="instamom-allergen-notice">
-  <p class="instamom-allergen-notice__body">
+<style>
+  .instamom-allergen-notice.instamom-allergen-notice--compact {
+    margin-bottom: 10px;
+    padding: 0;
+  }
+
+  .instamom-allergen-notice__summary {
+    padding: 9px 12px;
+    color: var(--imu-navy-dark, #041d45);
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.35;
+    cursor: pointer;
+  }
+
+  .instamom-allergen-notice__summary::marker {
+    color: var(--imu-pink, #ed2f89);
+  }
+
+  .instamom-allergen-notice--compact[open] .instamom-allergen-notice__summary {
+    border-bottom: 1px solid rgba(4, 29, 69, 0.12);
+  }
+
+  .instamom-allergen-notice__details {
+    padding: 9px 12px 11px;
+  }
+
+  .instamom-allergen-notice__details .instamom-allergen-notice__link {
+    margin-top: 6px;
+  }
+</style>
+
+<details class="instamom-allergen-notice instamom-allergen-notice--compact">
+  <summary class="instamom-allergen-notice__summary">Allergy information &amp; full warning</summary>
+  <div class="instamom-allergen-notice__details">
+    <p class="instamom-allergen-notice__body">
     <strong>ALLERGEN WARNING:</strong> Care packages may contain or come into
     contact with major food allergens. InstaMom University is not an
     allergen-free business and cannot guarantee that any product is free from
@@ -32,8 +66,9 @@
       responsible for allergic reactions, sensitivities, illness, or injury
       resulting from consuming included food products.
     </strong>
-  </p>
-  <a class="instamom-allergen-notice__link" href="{{ pages['allergen-disclaimer'].url | default: '/pages/allergen-disclaimer' }}">
-    Read the full allergen &amp; dietary restriction disclaimer
-  </a>
-</div>
+    </p>
+    <a class="instamom-allergen-notice__link" href="{{ pages['allergen-disclaimer'].url | default: '/pages/allergen-disclaimer' }}">
+      Read the full allergen &amp; dietary restriction disclaimer
+    </a>
+  </div>
+</details>

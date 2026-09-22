@@ -15,6 +15,39 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  #main-cart-footer .instamom-required-details {
+    align-self: flex-start;
+  }
+
+  #main-cart-footer .instamom-candy {
+    margin-bottom: 10px;
+    padding: 9px 12px 11px;
+  }
+
+  #main-cart-footer .instamom-candy__legend {
+    padding: 0 4px;
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+
+  #main-cart-footer .instamom-candy__option {
+    gap: 7px;
+    margin: 6px 0 0;
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+
+  #main-cart-footer .instamom-candy__option input {
+    margin-top: 2px;
+  }
+
+  #main-cart-footer .instamom-candy__helper {
+    margin: 3px 0 6px;
+    color: var(--imu-muted, #2e3d52);
+    font-size: 1.15rem;
+    line-height: 1.35;
+  }
 {%- endstyle -%}
 
 {%- comment -%}
@@ -59,6 +92,7 @@
         belt-and-suspenders guard. Hidden while the cart is empty.
       {%- endcomment -%}
       {%- unless cart == empty -%}
+        <div class="instamom-required-details">
         {%- assign candy_no = "No Snickers or Reese's (allergy)" -%}
         {%- assign candy_yes = "Snickers and Reese's OK" -%}
         {%- comment -%}
@@ -80,7 +114,7 @@
         {%- assign candy_yes_cmp = candy_yes | escape -%}
         <fieldset class="instamom-candy" id="instamom-candy">
           <legend class="instamom-candy__legend">
-            Candy Preference <span class="instamom-candy__req">(Required)</span>
+            Candy &amp; Allergy Preference <span class="instamom-candy__req">(Required)</span>
           </legend>
           <label class="instamom-candy__option">
             <input
@@ -91,7 +125,7 @@
               required
               {% if candy_saved == candy_no_cmp or candy_saved == candy_no %}checked{% endif %}
             >
-            <span>Please do <strong>not</strong> include any Snickers or Reese&rsquo;s in my student&rsquo;s package!</span>
+            <span><strong>No Snickers or Reese&rsquo;s</strong> (allergy or sensitivity)</span>
           </label>
           <label class="instamom-candy__option">
             <input
@@ -101,7 +135,7 @@
               form="cart"
               {% if candy_saved == candy_yes_cmp or candy_saved == candy_yes %}checked{% endif %}
             >
-            <span>Please include Snickers and Reese&rsquo;s if they are a standard part of the treats in the package I ordered!</span>
+            <span>Snickers and Reese&rsquo;s are okay</span>
           </label>
           <p class="instamom-candy__error" data-candy-error hidden>Please choose a candy preference before checking out.</p>
         </fieldset>
@@ -146,6 +180,7 @@
         </script>
 
         {%- render 'instamom-profanity-preference' -%}
+        </div>
       {%- endunless -%}
 
       <div class="cart__blocks">

@@ -60,6 +60,14 @@
           <a class="instamom-lineup__link" href="#modal-fall" onclick="scrollToSeasonalModal('modal-fall', event)">View package &rarr;</a>
         </li>
 
+        <!-- Protein Fiend Box Blue Card -->
+        <li class="instamom-lineup__card instamom-lineup__card--blue" onclick="scrollToSeasonalModal('modal-protein-fiend', event)">
+          <span class="instamom-badge instamom-badge--now-shipping">Now Shipping</span>
+          <h3 class="instamom-lineup__title">Protein Fiend Box</h3>
+          <p class="instamom-lineup__copy">Packed with high-protein shakes, jerky, Quest chips, pastries, and sweet snacks to fuel your student through study sessions and workouts.</p>
+          <a class="instamom-lineup__link" href="#modal-protein-fiend" onclick="scrollToSeasonalModal('modal-protein-fiend', event)">View package &rarr;</a>
+        </li>
+
         {%- for product in lineup.products limit: section.settings.products_to_show -%}
           {%- unless product.handle == 'seasonal-celebrations' or product.handle == 'snack-attack' or product.handle == 'protein-fiend-college-care-package' or product.handle == 'protein-fiend-box' or product.handle == 'protein-fiend' or product.tags contains 'seasonal' or product.title contains 'Seasonal' or product.title contains 'Snack Attack' or product.title contains 'Protein' -%}
             {%- assign blurb = product.metafields.custom.lineup_blurb.value | default: product.description -%}

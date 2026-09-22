@@ -83,7 +83,7 @@ the same store the same way. You are not locked into any of them.
 
 ---
 
-## The five rules
+## The six rules
 
 1. **Check before you overwrite.** Anyone can edit the theme in Shopify's visual
    editor. Deploying without checking first silently destroys their work. The
@@ -109,6 +109,12 @@ the same store the same way. You are not locked into any of them.
    to do before it does it. A good assistant will ask you first; a rushed one won't.
 
 ---
+
+6. **The code goes into GitHub before it goes onto the store.** If an assistant
+   offers to "push it live" and there is no merged pull request for that change
+   yet, say no, and have it open the pull request first. The store must never
+   contain a change that GitHub does not also contain, because GitHub is the only
+   copy anyone can compare against, roll back to, or hand to the next person.
 
 ## 2. Set up your computer (one time)
 

@@ -81,6 +81,22 @@ admin is live the moment it is saved.
    published price, editing a live policy, or pushing to the live theme when a
    preview theme would do.
 
+8. **Nothing goes live that is not already on `main`.** Merge first, then push
+   the merged file from `main`. Never push to the live theme from a feature
+   branch, and never leave a file on the live theme that git does not have.
+   *Why:* on 2026-09-21 four assistants had each pushed unmerged branches to the
+   live theme. Main was a month behind the store, one push reverted another's
+   styling, a file was clobbered because its live edit existed nowhere in git,
+   and a product handle mismatch went unnoticed because nobody could diff live
+   against anything. The live theme is the deploy target, not a scratchpad.
+   Corollaries:
+   - Before your first push of a session, `pull-diff` **every** file you intend
+     to touch. If live has an edit git lacks, commit it to `main` first (a
+     "sync live edits" PR), *then* layer your change on top.
+   - A change that must be seen on the store before it can be judged goes on an
+     **unpublished preview theme**, not the live one — see `REVIEWING.md`.
+   - "I'll open the PR after" is how main fell a month behind. Open it before.
+
 ## Where the detailed knowledge is
 
 Read the relevant one before acting; they are dense and hard-won.

@@ -3,3 +3,8 @@
 # Byte-for-byte duplicate local export; the generator writes to the canonical
 # assets/college-semester-planner directory.
 /assets/college-semester-planner-svg/
+
+# Local trusted-read cache produced while editing connected Google Docs.
+# The Google Doc is the source of truth; these snapshots can contain customer
+# or business-document content and do not belong in the storefront repository.
+/bridge/

@@ -151,6 +151,11 @@ textarea:focus-visible,
   overflow: hidden;
 }
 
+/* Center product grid cards on incomplete bottom row */
+.product-grid {
+  justify-content: center;
+}
+
 .card-wrapper .card,
 .card--standard,
 .collection-list__item .card {
@@ -271,6 +276,13 @@ textarea:focus-visible,
   border-radius: 99px;
   color: var(--imu-navy);
   background: var(--imu-gold);
+}
+
+.instamom-badge--now-shipping,
+.instamom-badge--shipping-soon {
+  color: var(--imu-navy-dark);
+  background: var(--imu-gold);
+  line-height: 1.3;
 }
 
 .instamom-badge--coming-soon {
@@ -1242,6 +1254,30 @@ textarea:focus-visible,
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
 }
 
+.instamom-lineup__card--blue {
+  background: linear-gradient(135deg, #062b66 0%, #0d3b85 100%) !important;
+  border: 2px solid var(--imu-gold) !important;
+  box-shadow: 0 0 0 2px var(--imu-pink), 6px 6px 0 var(--imu-gold);
+  cursor: pointer;
+}
+
+.instamom-lineup__card--blue:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, #08347a 0%, #1048a0 100%) !important;
+  border-color: var(--imu-gold) !important;
+  box-shadow: 0 0 0 2px var(--imu-pink), 10px 10px 0 var(--imu-gold);
+}
+
+.instamom-lineup__card--blue .instamom-lineup__title,
+.instamom-lineup__card--blue .instamom-lineup__copy {
+  color: #ffffff !important;
+}
+
+.instamom-lineup__card--blue .instamom-lineup__link {
+  color: var(--imu-gold) !important;
+  font-weight: 800;
+}
+
 .instamom-lineup__title {
   margin: 0;
   /* Georgia serif — the prototype's lineup card titles (.lineup-card h3). */
@@ -1287,6 +1323,10 @@ textarea:focus-visible,
    sections/main-cart-footer.liquid. A pink-framed box matching the
    prototype's checkout consent (owner review p.9, "vital"). */
 .instamom-candy {
+  /* Dawn lays the cart footer out as a flex row on desktop; without this the
+     two preference panels stretch to the height of the gift-note column beside
+     them and read as huge empty white boxes (owner, Sep 2026). */
+  align-self: flex-start;
   margin: 0 0 20px;
   padding: 14px 20px 18px;
   border: 1.5px solid var(--imu-pink);
@@ -2521,7 +2561,108 @@ textarea:focus-visible,
   }
 }
 
+/* --- Scrollable image slider for Birthday Box card & modal --------------- */
+.instamom-seasonal__image-slider-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.instamom-seasonal__image-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.instamom-seasonal__image-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.instamom-seasonal__image-slider .instamom-seasonal__image,
+.instamom-seasonal__image-slider .instamom-seasonal-modal__image {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  scroll-snap-align: start;
+  margin-bottom: 0;
+}
+
+.instamom-seasonal-modal__image-slider .instamom-seasonal-modal__image {
+  height: 280px;
+}
+
+.instamom-seasonal__image-slider img[src*="instamom-birthday-box-2"],
+.instamom-seasonal__image-slider img[src*="instamom-fall-box-2"] {
+  object-fit: contain !important;
+  background-color: #f7f8fa;
+}
+
+.instamom-seasonal__slider-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.instamom-seasonal__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.instamom-seasonal__dot.is-active {
+  background: var(--imu-pink, #ed2f89);
+  transform: scale(1.25);
+}
+
+.instamom-seasonal__slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(4, 29, 69, 0.75);
+  color: #ffffff;
+  border: 1.5px solid var(--imu-gold, #ffc928);
+  font-size: 1.6rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.instamom-seasonal__slider-arrow:hover {
+  opacity: 1;
+  background: var(--imu-navy, #062b66);
+}
+
+.instamom-seasonal__slider-arrow--prev {
+  left: 8px;
+}
+
+.instamom-seasonal__slider-arrow--next {
+  right: 8px;
+}
+
 /* Asset revision marker. The CDN object for a given instamom.css is keyed by
    the content-derived ?v= hash, so when one goes bad the only way to mint a
    fresh URL is to change the bytes. Bumping this is that lever.
-   rev 5 — 2026-08-13 */
+   rev 6 — 2026-09-10 */
+

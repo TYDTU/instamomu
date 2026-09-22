@@ -179,6 +179,45 @@ Push, then load the storefront in a browser (Claude-in-Chrome is already past th
   variants at $0.00, and it was only caught because the storefront grid showed
   "$0.00 USD". **Always set prices AFTER any component change, attach or detach,
   then re-read to confirm.** Get this wrong and the care packages go live free.
+- **A hard-coded `all_products['handle']` lookup fails silently.** The seasonal
+  section (`sections/instamom-seasonal.liquid`) looks the Protein Fiend Box up by
+  handle. It shipped with three *guessed* handles; the product was created in the
+  admin as "Protein Fiend College Care Package" → handle
+  `protein-fiend-college-care-package`. Liquid returns blank, the `{% if %}` falls
+  through to a static `<a href="/products/…">Add to cart</a>` fallback, and every
+  buy button on the card and modal 404s while the product page itself works fine.
+  Read the handle from the admin (or `products(query:"title:*…*"){handle}`) before
+  wiring a section to it, and grep the live HTML for `href="/products/` to confirm
+  the form rendered rather than the fallback.
+- **The homepage grid's `products_to_show` is counted BEFORE the seasonal skip.**
+  `sections/featured-collection.liquid` loops `collection.products limit: n` and
+  then `continue`s past `seasonal-celebrations`, so if that product sits inside the
+  first *n* of the `packages` collection's MANUAL order, one card silently vanishes
+  (7 configured → 6 rendered, and the newest package is the one dropped). Keep
+  `seasonal-celebrations` LAST in the collection order (`collectionReorderProducts`,
+  0-based `newPosition`, runs as an async job) and set `products_to_show` to the
+  number of visible packages. Draft products in the collection don't count on the
+  storefront. Adding the `package` tag is all a product needs to enter the grid.
+- **Deleting and recreating a product silently breaks any discount that targets it.**
+  STRONG5 (Buy-X-Get-Y: buy the Protein Fiend box, get $5 off the Athlete Recovery
+  Pack) was left with an EMPTY `customerBuys` product list after the box was
+  recreated under a new id, and was then deactivated (`endsAt` = the moment someone
+  hit Deactivate). A code in that state can never trigger. Reading discounts needs
+  `read_discounts` and writing needs `write_discounts` on the cached auth (neither is
+  in the driver's default `auth` scopes; re-auth with the superset). Fix with
+  `discountCodeBxgyUpdate(id, bxgyCodeDiscount:{endsAt:null, customerBuys:{items:{products:{productsToAdd:[…]}}}})`
+  and re-read to confirm `status: ACTIVE`. Checkout application still has to be
+  exercised by a human in a real browser (bot challenge).
+- **CRLF line endings on the live theme make `pull-diff` report a whole file as
+  drift.** Seven live files (instamom.css and the six protein-branch Liquid files)
+  arrived with `\r\n` on every line from a Windows push; `diff` then shows 2,600
+  changed lines on identical content. Cleaned 2026-09-21 by pushing git's LF
+  copies, and `.gitattributes` (`* text=auto eol=lf`) now keeps the repo LF. If it
+  recurs, detect with `grep -rl $'\r'` over a `theme pull`, confirm the content
+  matches with `tr -d '\r' < live | diff - local`, then push the LF copy.
+- **A branch cut before the seasonal/protein CSS landed (Sep 2026) is ~140 lines
+  behind live on `assets/instamom.css`.** Merge `main` in before pushing that file
+  from an older branch, or the push silently reverts the homepage styling.
 - **Smart collections re-evaluate asynchronously.** After changing the tag that a
   smart collection rules on, the collection keeps reporting the old membership for
   a good 30s. Poll rather than concluding the tag edit failed.

@@ -492,7 +492,7 @@ footer {
 
 .package-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin-top: 32px;
 }
@@ -1675,3 +1675,23 @@ footer p {
   filter: brightness(1.05);
 }
 
+/* Seasonal Boxes Section & Subheader */
+.seasonal-packages-section {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 2px dashed rgba(4, 29, 69, 0.18);
+}
+
+.seasonal-header-row {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.seasonal-headline {
+  color: var(--navy-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.01em;
+}

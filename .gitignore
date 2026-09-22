@@ -1,0 +1,5 @@
+.DS_Store
+
+# Byte-for-byte duplicate local export; the generator writes to the canonical
+# assets/college-semester-planner directory.
+/assets/college-semester-planner-svg/

@@ -358,8 +358,7 @@ product editor, or set `Image Src` to the public URLs of the images in `assets/`
 
 That file is the **original seed import**, not a mirror of the store. It has one
 row per product and no variant rows, so it cannot describe the boxes as they now
-exist: Snack Attack sells at $40/$50/$65 across three variants (the CSV says
-$42), and Warm Hug from Home sells at $62/$72 across seven Warmies choices (the
+exist: Snack Attack has been removed from the catalogue, and Warm Hug from Home sells at $62/$72 across seven Warmies choices (the
 CSV says $48). Tags and descriptions in it are kept current because they're
 per-product and cheap to keep honest; **the prices and quantities in it are
 not authoritative and should not be re-imported.** Read the store instead:

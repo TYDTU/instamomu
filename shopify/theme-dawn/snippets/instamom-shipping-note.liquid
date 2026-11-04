@@ -43,7 +43,7 @@
 
 {%- liquid
   assign ships_aug_14 = false
-  if product.tags contains 'ships-aug-14'
+  if product.tags contains 'ships-aug-14' or product.tags contains 'now-shipping' or product.tags contains 'Now Shipping' or product.handle == 'regroup-recover-restart'
     assign ships_aug_14 = true
   endif
 -%}
@@ -57,6 +57,7 @@
   {%- endif -%}
   <p class="instamom-shipnote__body">
     Orders ship as soon as possible, and no later than 7&ndash;10 business days.
+    Free local delivery to Lynchburg, VA ZIP codes 24501, 24502, 24503 &amp; 24504.
     As supply chains shift, some items may be replaced with similar items of
     equal value.
   </p>

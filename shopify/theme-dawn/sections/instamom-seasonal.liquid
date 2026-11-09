@@ -575,7 +575,7 @@
 
   <div class="instamom-seasonal__grid">
     <!-- Spread the Holiday Love -->
-    <div class="instamom-seasonal__card" data-holiday-love-container="card">
+    <div class="instamom-seasonal__card">
       <div class="instamom-seasonal__badge-wrapper">
         {% render 'instamom-badge', modifier: 'seasonal', label: 'Seasonal' %}
       </div>
@@ -595,103 +595,11 @@
       </div>
       <div class="instamom-seasonal__card-title-row">
         <h3 class="instamom-seasonal__title">Spread the Holiday Love</h3>
-        <p class="instamom-seasonal__price" data-hl-price>$15</p>
-      </div>
-      <p class="instamom-seasonal__description">
-        Share some love with people around you--teachers, mail carriers, neighbors, or whoever has brightened your days throughout the year! Choose the Mini Bag or the Deluxe Bag.
-      </p>
-      <p class="instamom-seasonal__note">
-        <em>Because these are offered at cost, a minimum order of three bags is required per shipping address.</em>
-      </p>
-      <div class="instamom-holiday-options">
-        <div class="instamom-holiday-options__group">
-          <span class="instamom-holiday-options__label">Choose Bag (Mix &amp; Match — Min. 3 Bags):</span>
-          <div class="instamom-holiday-options__pills">
-            <button
-              type="button"
-              class="instamom-holiday-pill is-selected"
-              data-hl-bag="mini"
-              onclick="selectHolidayLoveBag('mini')"
-            >
-              Mini Bag — $15
-            </button>
-            <button
-              type="button"
-              class="instamom-holiday-pill"
-              data-hl-bag="deluxe"
-              onclick="selectHolidayLoveBag('deluxe')"
-            >
-              Deluxe Bag — $25
-            </button>
-          </div>
-        </div>
-
-        <div class="instamom-holiday-options__group" data-hl-mini-group>
-          <span class="instamom-holiday-options__label">Mini Bag Quantity ($15 each):</span>
-          <div class="instamom-hl-row" data-hl-item-row="mini">
-            <span class="instamom-hl-row__name">Mini Bag</span>
-            <div class="instamom-hl-stepper">
-              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('mini', -1)" aria-label="Decrease Mini Bag quantity">&minus;</button>
-              <span class="instamom-hl-stepper__val" data-hl-qty="mini">3</span>
-              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('mini', 1)" aria-label="Increase Mini Bag quantity">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="instamom-holiday-options__group instamom-holiday-options__Group-hidden" data-hl-scarf-group hidden>
-          <span class="instamom-holiday-options__label">Choose Scarf Color &amp; Quantity ($25 each):</span>
-          <div class="instamom-hl-scarf-grid">
-            <div class="instamom-hl-row" data-hl-item-row="ivory">
-              <span class="instamom-hl-row__name">Ivory</span>
-              <div class="instamom-hl-stepper">
-                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('ivory', -1)" aria-label="Decrease Ivory Scarf quantity">&minus;</button>
-                <span class="instamom-hl-stepper__val" data-hl-qty="ivory">0</span>
-                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('ivory', 1)" aria-label="Increase Ivory Scarf quantity">+</button>
-              </div>
-            </div>
-            <div class="instamom-hl-row" data-hl-item-row="red">
-              <span class="instamom-hl-row__name">Red</span>
-              <div class="instamom-hl-stepper">
-                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('red', -1)" aria-label="Decrease Red Scarf quantity">&minus;</button>
-                <span class="instamom-hl-stepper__val" data-hl-qty="red">0</span>
-                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('red', 1)" aria-label="Increase Red Scarf quantity">+</button>
-              </div>
-            </div>
-            <div class="instamom-hl-row" data-hl-item-row="green">
-              <span class="instamom-hl-row__name">Green</span>
-              <div class="instamom-hl-stepper">
-                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('green', -1)" aria-label="Decrease Green Scarf quantity">&minus;</button>
-                <span class="instamom-hl-stepper__val" data-hl-qty="green">0</span>
-                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('green', 1)" aria-label="Increase Green Scarf quantity">+</button>
-              </div>
-            </div>
-            <div class="instamom-hl-row" data-hl-item-row="gray">
-              <span class="instamom-hl-row__name">Gray</span>
-              <div class="instamom-hl-stepper">
-                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('gray', -1)" aria-label="Decrease Gray Scarf quantity">&minus;</button>
-                <span class="instamom-hl-stepper__val" data-hl-qty="gray">0</span>
-                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('gray', 1)" aria-label="Increase Gray Scarf quantity">+</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="instamom-hl-summary" data-hl-summary>
-          Selected: <strong>3 bags ($45)</strong> — 3&times; Mini Bag
-        </div>
+        <p class="instamom-seasonal__price">$15-$25</p>
       </div>
       <div class="instamom-seasonal__card-actions">
         <button type="button" class="button button--secondary" onclick="openSeasonalModal('modal-holiday-love')">Explore package</button>
-        <button
-          type="button"
-          class="button button--primary"
-          data-hl-submit-btn
-          onclick="submitHolidayLoveOrder(event, false)"
-          style="flex: 1; text-align: center; justify-content: center; display: inline-flex;"
-        >
-          <span data-hl-submit-label>Add 3 bags to cart</span>
-          {%- render 'loading-spinner' -%}
-        </button>
+        <button type="button" class="button button--primary" onclick="openSeasonalModal('modal-holiday-love')">Add to cart</button>
       </div>
     </div>
 
@@ -1078,7 +986,7 @@
     </div>
     <div class="instamom-seasonal-modal__title-row">
       <h3 class="instamom-seasonal-modal__title">Spread the Holiday Love</h3>
-      <p class="instamom-seasonal-modal__price" data-hl-price>$15</p>
+      <p class="instamom-seasonal-modal__price">$15-$25</p>
     </div>
     <p class="instamom-seasonal__description" style="font-size: 1.5rem; margin-bottom: 10px;">
       Share some love with people around you--teachers, mail carriers, neighbors, or whoever has brightened your days throughout the year! Choose the Mini Bag or the Deluxe Bag.
@@ -1294,10 +1202,6 @@
           }
         }
       });
-
-      var priceText = holidayLoveState.bag === 'deluxe' ? '$25' : '$15';
-      var priceEl = container.querySelector('[data-hl-price]');
-      if (priceEl) priceEl.textContent = priceText;
 
       var summaryEl = container.querySelector('[data-hl-summary]');
       if (summaryEl) {

@@ -581,6 +581,24 @@
 
         {%- render 'instamom-allergen-notice' -%}
 
+        {%- assign holiday_love_bag_qty = 0 -%}
+        {%- for item in cart.items -%}
+          {%- if item.product.handle == 'spread-the-holiday-love' -%}
+            {%- assign holiday_love_bag_qty = holiday_love_bag_qty | plus: item.quantity -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- assign holiday_love_min_unmet = false -%}
+        {%- if holiday_love_bag_qty > 0 and holiday_love_bag_qty < 3 -%}
+          {%- assign holiday_love_min_unmet = true -%}
+          {%- assign holiday_love_needed = 3 | minus: holiday_love_bag_qty -%}
+        {%- endif -%}
+
+        {%- if holiday_love_min_unmet -%}
+          <div style="background: rgba(237, 47, 137, 0.08); border: 1.5px solid #ed2f89; color: #041d45; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; font-size: 1.3rem; line-height: 1.45;">
+            <strong>Minimum 3 Bags Required:</strong> You have {{ holiday_love_bag_qty }} <em>Spread the Holiday Love</em> bag{% if holiday_love_bag_qty != 1 %}s{% endif %} in your cart. Please add {{ holiday_love_needed }} more (any mix of Mini or Deluxe) to check out.
+          </div>
+        {%- endif -%}
+
         <div class="cart__ctas" {{ block.shopify_attributes }}>
           <button
             type="submit"
@@ -588,7 +606,7 @@
             class="cart__checkout-button button"
             name="checkout"
             form="CartDrawer-Form"
-            {% if cart == empty %}
+            {% if cart == empty or holiday_love_min_unmet %}
               disabled
             {% endif %}
           >

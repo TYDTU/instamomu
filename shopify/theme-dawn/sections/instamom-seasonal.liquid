@@ -106,6 +106,90 @@
     display: none !important;
   }
 
+  .instamom-hl-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border: 1.5px solid rgba(4, 29, 69, 0.16);
+    border-radius: 8px;
+    padding: 7px 10px;
+    gap: 8px;
+  }
+
+  .instamom-hl-row.is-active-qty {
+    border-color: var(--imu-navy-dark, #041d45);
+    background: rgba(4, 29, 69, 0.04);
+  }
+
+  .instamom-hl-row__name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--imu-navy-dark, #041d45);
+  }
+
+  .instamom-hl-scarf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .instamom-hl-stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .instamom-hl-stepper__btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(4, 29, 69, 0.25);
+    background: #ffffff;
+    color: var(--imu-navy-dark, #041d45);
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .instamom-hl-stepper__btn:hover:not(:disabled) {
+    background: var(--imu-navy-dark, #041d45);
+    color: #ffffff;
+    border-color: var(--imu-navy-dark, #041d45);
+  }
+
+  .instamom-hl-stepper__btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .instamom-hl-stepper__val {
+    min-width: 18px;
+    text-align: center;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--imu-navy-dark, #041d45);
+  }
+
+  .instamom-hl-summary {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(4, 29, 69, 0.18);
+    font-size: 1.25rem;
+    line-height: 1.4;
+    color: var(--imu-navy-dark, #041d45);
+  }
+
+  .instamom-hl-summary.is-unmet {
+    color: var(--imu-pink, #ed2f89);
+    font-weight: 700;
+  }
+
   .instamom-seasonal__card {
     background: #ffffff;
     border: 2px solid rgba(4, 29, 69, 0.12);
@@ -521,14 +605,12 @@
       </p>
       <div class="instamom-holiday-options">
         <div class="instamom-holiday-options__group">
-          <span class="instamom-holiday-options__label">Choose Bag:</span>
+          <span class="instamom-holiday-options__label">Choose Bag (Mix &amp; Match — Min. 3 Bags):</span>
           <div class="instamom-holiday-options__pills">
             <button
               type="button"
               class="instamom-holiday-pill is-selected"
               data-hl-bag="mini"
-              data-variant-id="{{ hl_mini_variant.id }}"
-              data-available="{{ hl_mini_variant.available | default: true }}"
               onclick="selectHolidayLoveBag('mini')"
             >
               Mini Bag — $15
@@ -543,83 +625,73 @@
             </button>
           </div>
         </div>
-        <div class="instamom-holiday-options__group instamom-holiday-options__Group-hidden" data-hl-scarf-group hidden>
-          <span class="instamom-holiday-options__label">Choose Scarf Color:</span>
-          <div class="instamom-holiday-options__pills">
-            <button
-              type="button"
-              class="instamom-holiday-pill is-selected{% if hl_ivory_variant != blank and hl_ivory_variant.available == false %} is-soldout{% endif %}"
-              data-hl-scarf="ivory"
-              data-variant-id="{{ hl_ivory_variant.id }}"
-              data-available="{{ hl_ivory_variant.available | default: true }}"
-              {% if hl_ivory_variant != blank and hl_ivory_variant.available == false %}disabled{% endif %}
-              onclick="selectHolidayLoveScarf('ivory')"
-            >
-              Ivory
-            </button>
-            <button
-              type="button"
-              class="instamom-holiday-pill{% if hl_red_variant != blank and hl_red_variant.available == false %} is-soldout{% endif %}"
-              data-hl-scarf="red"
-              data-variant-id="{{ hl_red_variant.id }}"
-              data-available="{{ hl_red_variant.available | default: true }}"
-              {% if hl_red_variant != blank and hl_red_variant.available == false %}disabled{% endif %}
-              onclick="selectHolidayLoveScarf('red')"
-            >
-              Red
-            </button>
-            <button
-              type="button"
-              class="instamom-holiday-pill{% if hl_green_variant != blank and hl_green_variant.available == false %} is-soldout{% endif %}"
-              data-hl-scarf="green"
-              data-variant-id="{{ hl_green_variant.id }}"
-              data-available="{{ hl_green_variant.available | default: true }}"
-              {% if hl_green_variant != blank and hl_green_variant.available == false %}disabled{% endif %}
-              onclick="selectHolidayLoveScarf('green')"
-            >
-              Green
-            </button>
-            <button
-              type="button"
-              class="instamom-holiday-pill{% if hl_gray_variant != blank and hl_gray_variant.available == false %} is-soldout{% endif %}"
-              data-hl-scarf="gray"
-              data-variant-id="{{ hl_gray_variant.id }}"
-              data-available="{{ hl_gray_variant.available | default: true }}"
-              {% if hl_gray_variant != blank and hl_gray_variant.available == false %}disabled{% endif %}
-              onclick="selectHolidayLoveScarf('gray')"
-            >
-              Gray
-            </button>
+
+        <div class="instamom-holiday-options__group" data-hl-mini-group>
+          <span class="instamom-holiday-options__label">Mini Bag Quantity ($15 each):</span>
+          <div class="instamom-hl-row" data-hl-item-row="mini">
+            <span class="instamom-hl-row__name">Mini Bag</span>
+            <div class="instamom-hl-stepper">
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('mini', -1)" aria-label="Decrease Mini Bag quantity">&minus;</button>
+              <span class="instamom-hl-stepper__val" data-hl-qty="mini">3</span>
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('mini', 1)" aria-label="Increase Mini Bag quantity">+</button>
+            </div>
           </div>
+        </div>
+
+        <div class="instamom-holiday-options__group instamom-holiday-options__Group-hidden" data-hl-scarf-group hidden>
+          <span class="instamom-holiday-options__label">Choose Scarf Color &amp; Quantity ($25 each):</span>
+          <div class="instamom-hl-scarf-grid">
+            <div class="instamom-hl-row" data-hl-item-row="ivory">
+              <span class="instamom-hl-row__name">Ivory</span>
+              <div class="instamom-hl-stepper">
+                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('ivory', -1)" aria-label="Decrease Ivory Scarf quantity">&minus;</button>
+                <span class="instamom-hl-stepper__val" data-hl-qty="ivory">0</span>
+                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('ivory', 1)" aria-label="Increase Ivory Scarf quantity">+</button>
+              </div>
+            </div>
+            <div class="instamom-hl-row" data-hl-item-row="red">
+              <span class="instamom-hl-row__name">Red</span>
+              <div class="instamom-hl-stepper">
+                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('red', -1)" aria-label="Decrease Red Scarf quantity">&minus;</button>
+                <span class="instamom-hl-stepper__val" data-hl-qty="red">0</span>
+                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('red', 1)" aria-label="Increase Red Scarf quantity">+</button>
+              </div>
+            </div>
+            <div class="instamom-hl-row" data-hl-item-row="green">
+              <span class="instamom-hl-row__name">Green</span>
+              <div class="instamom-hl-stepper">
+                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('green', -1)" aria-label="Decrease Green Scarf quantity">&minus;</button>
+                <span class="instamom-hl-stepper__val" data-hl-qty="green">0</span>
+                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('green', 1)" aria-label="Increase Green Scarf quantity">+</button>
+              </div>
+            </div>
+            <div class="instamom-hl-row" data-hl-item-row="gray">
+              <span class="instamom-hl-row__name">Gray</span>
+              <div class="instamom-hl-stepper">
+                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('gray', -1)" aria-label="Decrease Gray Scarf quantity">&minus;</button>
+                <span class="instamom-hl-stepper__val" data-hl-qty="gray">0</span>
+                <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('gray', 1)" aria-label="Increase Gray Scarf quantity">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="instamom-hl-summary" data-hl-summary>
+          Selected: <strong>3 bags ($45)</strong> — 3&times; Mini Bag
         </div>
       </div>
       <div class="instamom-seasonal__card-actions">
         <button type="button" class="button button--secondary" onclick="openSeasonalModal('modal-holiday-love')">Explore package</button>
-        {%- if hl_default_variant != blank and target_holiday_love_product != blank -%}
-          <product-form data-section-id="{{ section.id }}" style="flex: 1;">
-            {%- form 'product',
-              target_holiday_love_product,
-              id: 'card-holiday-love-form',
-              class: 'form',
-              novalidate: 'novalidate',
-              data-type: 'add-to-cart-form'
-            -%}
-              <input type="hidden" name="id" value="{{ hl_default_variant.id }}" data-hl-variant-input>
-              <button
-                type="submit"
-                name="add"
-                class="button button--primary"
-                data-hl-submit-btn
-                style="width: 100%; text-align: center; justify-content: center; display: inline-flex;"
-              >
-                <span data-hl-submit-label>Add to cart</span>
-                {%- render 'loading-spinner' -%}
-              </button>
-            {%- endform -%}
-          </product-form>
-        {%- else -%}
-          <a href="{{ target_holiday_love_product.url | default: '/products/spread-the-holiday-love' }}" class="button button--primary">Add to cart</a>
-        {%- endif -%}
+        <button
+          type="button"
+          class="button button--primary"
+          data-hl-submit-btn
+          onclick="submitHolidayLoveOrder(event, false)"
+          style="flex: 1; text-align: center; justify-content: center; display: inline-flex;"
+        >
+          <span data-hl-submit-label>Add 3 bags to cart</span>
+          {%- render 'loading-spinner' -%}
+        </button>
       </div>
     </div>
 
@@ -1016,14 +1088,12 @@
     </p>
     <div class="instamom-holiday-options" style="margin-bottom: 20px;">
       <div class="instamom-holiday-options__group">
-        <span class="instamom-holiday-options__label">Choose Bag:</span>
+        <span class="instamom-holiday-options__label">Choose Bag (Mix &amp; Match — Min. 3 Bags):</span>
         <div class="instamom-holiday-options__pills">
           <button
             type="button"
             class="instamom-holiday-pill is-selected"
             data-hl-bag="mini"
-            data-variant-id="{{ hl_mini_variant.id }}"
-            data-available="{{ hl_mini_variant.available | default: true }}"
             onclick="selectHolidayLoveBag('mini')"
           >
             Mini Bag — $15
@@ -1038,94 +1108,149 @@
           </button>
         </div>
       </div>
-      <div class="instamom-holiday-options__group instamom-holiday-options__Group-hidden" data-hl-scarf-group hidden>
-        <span class="instamom-holiday-options__label">Choose Scarf Color:</span>
-        <div class="instamom-holiday-options__pills">
-          <button
-            type="button"
-            class="instamom-holiday-pill is-selected{% if hl_ivory_variant != blank and hl_ivory_variant.available == false %} is-soldout{% endif %}"
-            data-hl-scarf="ivory"
-            data-variant-id="{{ hl_ivory_variant.id }}"
-            data-available="{{ hl_ivory_variant.available | default: true }}"
-            {% if hl_ivory_variant != blank and hl_ivory_variant.available == false %}disabled{% endif %}
-            onclick="selectHolidayLoveScarf('ivory')"
-          >
-            Ivory
-          </button>
-          <button
-            type="button"
-            class="instamom-holiday-pill{% if hl_red_variant != blank and hl_red_variant.available == false %} is-soldout{% endif %}"
-            data-hl-scarf="red"
-            data-variant-id="{{ hl_red_variant.id }}"
-            data-available="{{ hl_red_variant.available | default: true }}"
-            {% if hl_red_variant != blank and hl_red_variant.available == false %}disabled{% endif %}
-            onclick="selectHolidayLoveScarf('red')"
-          >
-            Red
-          </button>
-          <button
-            type="button"
-            class="instamom-holiday-pill{% if hl_green_variant != blank and hl_green_variant.available == false %} is-soldout{% endif %}"
-            data-hl-scarf="green"
-            data-variant-id="{{ hl_green_variant.id }}"
-            data-available="{{ hl_green_variant.available | default: true }}"
-            {% if hl_green_variant != blank and hl_green_variant.available == false %}disabled{% endif %}
-            onclick="selectHolidayLoveScarf('green')"
-          >
-            Green
-          </button>
-          <button
-            type="button"
-            class="instamom-holiday-pill{% if hl_gray_variant != blank and hl_gray_variant.available == false %} is-soldout{% endif %}"
-            data-hl-scarf="gray"
-            data-variant-id="{{ hl_gray_variant.id }}"
-            data-available="{{ hl_gray_variant.available | default: true }}"
-            {% if hl_gray_variant != blank and hl_gray_variant.available == false %}disabled{% endif %}
-            onclick="selectHolidayLoveScarf('gray')"
-          >
-            Gray
-          </button>
+
+      <div class="instamom-holiday-options__group" data-hl-mini-group>
+        <span class="instamom-holiday-options__label">Mini Bag Quantity ($15 each):</span>
+        <div class="instamom-hl-row" data-hl-item-row="mini">
+          <span class="instamom-hl-row__name">Mini Bag</span>
+          <div class="instamom-hl-stepper">
+            <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('mini', -1)" aria-label="Decrease Mini Bag quantity">&minus;</button>
+            <span class="instamom-hl-stepper__val" data-hl-qty="mini">3</span>
+            <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('mini', 1)" aria-label="Increase Mini Bag quantity">+</button>
+          </div>
         </div>
+      </div>
+
+      <div class="instamom-holiday-options__group instamom-holiday-options__Group-hidden" data-hl-scarf-group hidden>
+        <span class="instamom-holiday-options__label">Choose Scarf Color &amp; Quantity ($25 each):</span>
+        <div class="instamom-hl-scarf-grid">
+          <div class="instamom-hl-row" data-hl-item-row="ivory">
+            <span class="instamom-hl-row__name">Ivory</span>
+            <div class="instamom-hl-stepper">
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('ivory', -1)" aria-label="Decrease Ivory Scarf quantity">&minus;</button>
+              <span class="instamom-hl-stepper__val" data-hl-qty="ivory">0</span>
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('ivory', 1)" aria-label="Increase Ivory Scarf quantity">+</button>
+            </div>
+          </div>
+          <div class="instamom-hl-row" data-hl-item-row="red">
+            <span class="instamom-hl-row__name">Red</span>
+            <div class="instamom-hl-stepper">
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('red', -1)" aria-label="Decrease Red Scarf quantity">&minus;</button>
+              <span class="instamom-hl-stepper__val" data-hl-qty="red">0</span>
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('red', 1)" aria-label="Increase Red Scarf quantity">+</button>
+            </div>
+          </div>
+          <div class="instamom-hl-row" data-hl-item-row="green">
+            <span class="instamom-hl-row__name">Green</span>
+            <div class="instamom-hl-stepper">
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('green', -1)" aria-label="Decrease Green Scarf quantity">&minus;</button>
+              <span class="instamom-hl-stepper__val" data-hl-qty="green">0</span>
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('green', 1)" aria-label="Increase Green Scarf quantity">+</button>
+            </div>
+          </div>
+          <div class="instamom-hl-row" data-hl-item-row="gray">
+            <span class="instamom-hl-row__name">Gray</span>
+            <div class="instamom-hl-stepper">
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('gray', -1)" aria-label="Decrease Gray Scarf quantity">&minus;</button>
+              <span class="instamom-hl-stepper__val" data-hl-qty="gray">0</span>
+              <button type="button" class="instamom-hl-stepper__btn" onclick="adjustHolidayLoveQty('gray', 1)" aria-label="Increase Gray Scarf quantity">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="instamom-hl-summary" data-hl-summary>
+        Selected: <strong>3 bags ($45)</strong> — 3&times; Mini Bag
       </div>
     </div>
     <div style="margin-top: 24px;">
-      {%- if hl_default_variant != blank and target_holiday_love_product != blank -%}
-        <product-form data-section-id="{{ section.id }}">
-          {%- form 'product',
-            target_holiday_love_product,
-            id: 'modal-holiday-love-form',
-            class: 'form',
-            novalidate: 'novalidate',
-            data-type: 'add-to-cart-form'
-          -%}
-            <input type="hidden" name="id" value="{{ hl_default_variant.id }}" data-hl-variant-input>
-            <button
-              type="submit"
-              name="add"
-              class="button button--primary"
-              data-hl-submit-btn
-              onclick="closeSeasonalModal('modal-holiday-love')"
-              style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px;"
-            >
-              <span data-hl-submit-label data-hl-modal-btn>Add to cart — $15</span>
-              {%- render 'loading-spinner' -%}
-            </button>
-          {%- endform -%}
-        </product-form>
-      {%- else -%}
-        <a href="{{ target_holiday_love_product.url | default: '/products/spread-the-holiday-love' }}" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $15</a>
-      {%- endif -%}
+      <button
+        type="button"
+        class="button button--primary"
+        data-hl-submit-btn
+        onclick="submitHolidayLoveOrder(event, true)"
+        style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px;"
+      >
+        <span data-hl-submit-label data-hl-modal-btn>Add 3 bags to cart — $45</span>
+        {%- render 'loading-spinner' -%}
+      </button>
     </div>
   </div>
 </div>
 
 <script>
-  var holidayLoveState = {
-    bag: 'mini',
-    scarf: 'ivory'
+  var holidayLoveVariants = {
+    mini: {
+      id: {{ hl_mini_variant.id | default: 0 | json }},
+      label: 'Mini Bag',
+      price: 15,
+      max: {{ hl_mini_variant.inventory_quantity | default: 40 | json }},
+      available: {{ hl_mini_variant.available | default: true | json }}
+    },
+    ivory: {
+      id: {{ hl_ivory_variant.id | default: 0 | json }},
+      label: 'Deluxe (Ivory)',
+      price: 25,
+      max: {{ hl_ivory_variant.inventory_quantity | default: 6 | json }},
+      available: {{ hl_ivory_variant.available | default: true | json }}
+    },
+    red: {
+      id: {{ hl_red_variant.id | default: 0 | json }},
+      label: 'Deluxe (Red)',
+      price: 25,
+      max: {{ hl_red_variant.inventory_quantity | default: 3 | json }},
+      available: {{ hl_red_variant.available | default: true | json }}
+    },
+    green: {
+      id: {{ hl_green_variant.id | default: 0 | json }},
+      label: 'Deluxe (Green)',
+      price: 25,
+      max: {{ hl_green_variant.inventory_quantity | default: 6 | json }},
+      available: {{ hl_green_variant.available | default: true | json }}
+    },
+    gray: {
+      id: {{ hl_gray_variant.id | default: 0 | json }},
+      label: 'Deluxe (Gray)',
+      price: 25,
+      max: {{ hl_gray_variant.inventory_quantity | default: 3 | json }},
+      available: {{ hl_gray_variant.available | default: true | json }}
+    }
   };
 
+  var holidayLoveState = {
+    bag: 'mini',
+    userAdjusted: false,
+    qtys: {
+      mini: 3,
+      ivory: 0,
+      red: 0,
+      green: 0,
+      gray: 0
+    }
+  };
+
+  function getHolidayLoveTotals() {
+    var keys = ['mini', 'ivory', 'red', 'green', 'gray'];
+    var totalBags = 0;
+    var totalPrice = 0;
+    var parts = [];
+    keys.forEach(function (k) {
+      var q = holidayLoveState.qtys[k] || 0;
+      if (q > 0) {
+        totalBags += q;
+        totalPrice += q * holidayLoveVariants[k].price;
+        parts.push(q + '\u00d7 ' + holidayLoveVariants[k].label);
+      }
+    });
+    return {
+      totalBags: totalBags,
+      totalPrice: totalPrice,
+      parts: parts
+    };
+  }
+
   function syncHolidayLoveUI() {
+    var totals = getHolidayLoveTotals();
     var containers = document.querySelectorAll('[data-holiday-love-container]');
     containers.forEach(function (container) {
       var bagBtns = container.querySelectorAll('[data-hl-bag]');
@@ -1137,21 +1262,36 @@
         }
       });
 
+      var miniGroup = container.querySelector('[data-hl-mini-group]');
       var scarfGroup = container.querySelector('[data-hl-scarf-group]');
-      if (scarfGroup) {
-        if (holidayLoveState.bag === 'deluxe') {
-          scarfGroup.removeAttribute('hidden');
-        } else {
-          scarfGroup.setAttribute('hidden', '');
-        }
+      if (holidayLoveState.bag === 'deluxe') {
+        if (miniGroup) miniGroup.setAttribute('hidden', '');
+        if (miniGroup) miniGroup.classList.add('instamom-holiday-options__Group-hidden');
+        if (scarfGroup) scarfGroup.removeAttribute('hidden');
+      } else {
+        if (miniGroup) miniGroup.removeAttribute('hidden');
+        if (miniGroup) miniGroup.classList.remove('instamom-holiday-options__Group-hidden');
+        if (scarfGroup) scarfGroup.setAttribute('hidden', '');
       }
 
-      var scarfBtns = container.querySelectorAll('[data-hl-scarf]');
-      scarfBtns.forEach(function (btn) {
-        if (btn.getAttribute('data-hl-scarf') === holidayLoveState.scarf) {
-          btn.classList.add('is-selected');
-        } else {
-          btn.classList.remove('is-selected');
+      var keys = ['mini', 'ivory', 'red', 'green', 'gray'];
+      keys.forEach(function (k) {
+        var q = holidayLoveState.qtys[k] || 0;
+        var valEl = container.querySelector('[data-hl-qty="' + k + '"]');
+        if (valEl) valEl.textContent = String(q);
+        var rowEl = container.querySelector('[data-hl-item-row="' + k + '"]');
+        if (rowEl) {
+          if (q > 0) {
+            rowEl.classList.add('is-active-qty');
+          } else {
+            rowEl.classList.remove('is-active-qty');
+          }
+          var btns = rowEl.querySelectorAll('.instamom-hl-stepper__btn');
+          if (btns.length === 2) {
+            btns[0].disabled = q <= 0;
+            var maxForKey = holidayLoveVariants[k].available === false ? 0 : Math.max(0, holidayLoveVariants[k].max);
+            btns[1].disabled = q >= maxForKey || totals.totalBags >= 40;
+          }
         }
       });
 
@@ -1159,27 +1299,43 @@
       var priceEl = container.querySelector('[data-hl-price]');
       if (priceEl) priceEl.textContent = priceText;
 
-      var activeBtn =
-        holidayLoveState.bag === 'mini'
-          ? container.querySelector('[data-hl-bag="mini"]')
-          : container.querySelector('[data-hl-scarf="' + holidayLoveState.scarf + '"]');
+      var summaryEl = container.querySelector('[data-hl-summary]');
+      if (summaryEl) {
+        if (totals.totalBags < 3) {
+          var needed = 3 - totals.totalBags;
+          summaryEl.classList.add('is-unmet');
+          summaryEl.innerHTML =
+            'Minimum 3 bags required: <strong>' +
+            totals.totalBags +
+            ' of 3 selected</strong> — add ' +
+            needed +
+            ' more (Mini or Deluxe)' +
+            (totals.parts.length ? ' [' + totals.parts.join(', ') + ']' : '');
+        } else {
+          summaryEl.classList.remove('is-unmet');
+          summaryEl.innerHTML =
+            'Selected: <strong>' +
+            totals.totalBags +
+            ' bags ($' +
+            totals.totalPrice +
+            ')</strong> — ' +
+            totals.parts.join(', ');
+        }
+      }
 
-      var variantInput = container.querySelector('[data-hl-variant-input]');
       var submitBtn = container.querySelector('[data-hl-submit-btn]');
       var submitLabel = container.querySelector('[data-hl-submit-label]');
-      if (activeBtn && variantInput) {
-        var vid = activeBtn.getAttribute('data-variant-id');
-        var avail = activeBtn.getAttribute('data-available') !== 'false';
-        if (vid) variantInput.value = vid;
-        if (submitBtn && submitLabel) {
-          var isModalBtn = submitLabel.hasAttribute('data-hl-modal-btn');
-          if (!avail) {
-            submitBtn.disabled = true;
-            submitLabel.textContent = 'Sold out';
-          } else {
-            submitBtn.disabled = false;
-            submitLabel.textContent = isModalBtn ? 'Add to cart — ' + priceText : 'Add to cart';
-          }
+      if (submitBtn && submitLabel) {
+        var isModalBtn = submitLabel.hasAttribute('data-hl-modal-btn');
+        if (totals.totalBags < 3) {
+          var rem = 3 - totals.totalBags;
+          submitBtn.disabled = true;
+          submitLabel.textContent = 'Select ' + rem + ' more bag' + (rem === 1 ? '' : 's') + ' (Min. 3)';
+        } else {
+          submitBtn.disabled = false;
+          submitLabel.textContent = isModalBtn
+            ? 'Add ' + totals.totalBags + ' bags to cart — $' + totals.totalPrice
+            : 'Add ' + totals.totalBags + ' bags to cart';
         }
       }
     });
@@ -1187,22 +1343,111 @@
 
   function selectHolidayLoveBag(bagType) {
     holidayLoveState.bag = bagType;
-    if (bagType === 'deluxe') {
-      var currentScarfBtn = document.querySelector('[data-hl-scarf="' + holidayLoveState.scarf + '"]');
-      if (currentScarfBtn && currentScarfBtn.disabled) {
-        var firstAvail = document.querySelector('[data-hl-scarf]:not([disabled])');
-        if (firstAvail) {
-          holidayLoveState.scarf = firstAvail.getAttribute('data-hl-scarf');
-        }
+    if (!holidayLoveState.userAdjusted) {
+      if (bagType === 'deluxe') {
+        holidayLoveState.qtys.mini = 0;
+        holidayLoveState.qtys.ivory = Math.min(3, holidayLoveVariants.ivory.max || 3);
+        holidayLoveState.qtys.red = 0;
+        holidayLoveState.qtys.green = 0;
+        holidayLoveState.qtys.gray = 0;
+      } else {
+        holidayLoveState.qtys.mini = 3;
+        holidayLoveState.qtys.ivory = 0;
+        holidayLoveState.qtys.red = 0;
+        holidayLoveState.qtys.green = 0;
+        holidayLoveState.qtys.gray = 0;
       }
     }
     syncHolidayLoveUI();
   }
 
-  function selectHolidayLoveScarf(color) {
-    holidayLoveState.scarf = color;
-    holidayLoveState.bag = 'deluxe';
+  function adjustHolidayLoveQty(key, delta) {
+    holidayLoveState.userAdjusted = true;
+    var current = holidayLoveState.qtys[key] || 0;
+    var totals = getHolidayLoveTotals();
+    var maxForKey = holidayLoveVariants[key].available === false ? 0 : Math.max(0, holidayLoveVariants[key].max);
+    var next = current + delta;
+    if (next < 0) next = 0;
+    if (next > maxForKey) next = maxForKey;
+    if (delta > 0 && totals.totalBags >= 40) return;
+    holidayLoveState.qtys[key] = next;
     syncHolidayLoveUI();
+  }
+
+  function submitHolidayLoveOrder(evt, fromModal) {
+    if (evt) evt.preventDefault();
+    var totals = getHolidayLoveTotals();
+    if (totals.totalBags < 3) return;
+
+    var items = [];
+    ['mini', 'ivory', 'red', 'green', 'gray'].forEach(function (k) {
+      var q = holidayLoveState.qtys[k] || 0;
+      var vid = holidayLoveVariants[k].id;
+      if (q > 0 && vid) {
+        items.push({ id: vid, quantity: q });
+      }
+    });
+    if (!items.length) return;
+
+    var btns = document.querySelectorAll('[data-hl-submit-btn]');
+    btns.forEach(function (b) {
+      b.disabled = true;
+      b.classList.add('loading');
+      var sp = b.querySelector('.loading__spinner');
+      if (sp) sp.classList.remove('hidden');
+    });
+
+    var cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
+    var payload = { items: items };
+    if (cart && typeof cart.getSectionsToRender === 'function') {
+      payload.sections = cart.getSectionsToRender().map(function (s) {
+        return s.id;
+      });
+      payload.sections_url = window.location.pathname;
+    }
+
+    var rootUrl = window.Shopify && window.Shopify.routes && window.Shopify.routes.root ? window.Shopify.routes.root : '/';
+    fetch(rootUrl + 'cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (res) {
+        if (fromModal) {
+          closeSeasonalModal('modal-holiday-love');
+        }
+        if (res.status && res.description) {
+          alert(res.description);
+          return;
+        }
+        if (cart && typeof cart.renderContents === 'function' && res.sections) {
+          if (cart.classList.contains('is-empty')) cart.classList.remove('is-empty');
+          cart.renderContents({
+            id: items[0].id,
+            sections: res.sections
+          });
+        } else {
+          window.location.href = rootUrl + 'cart';
+        }
+      })
+      .catch(function () {
+        window.location.href = rootUrl + 'cart';
+      })
+      .finally(function () {
+        btns.forEach(function (b) {
+          b.disabled = false;
+          b.classList.remove('loading');
+          var sp = b.querySelector('.loading__spinner');
+          if (sp) sp.classList.add('hidden');
+        });
+        syncHolidayLoveUI();
+      });
   }
 
   function openSeasonalModal(id) {

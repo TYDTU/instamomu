@@ -26,8 +26,84 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
-    max-width: 880px;
+    max-width: 1200px;
     margin: 0 auto;
+  }
+
+  .instamom-seasonal__description {
+    font-size: 1.4rem;
+    line-height: 1.55;
+    color: var(--imu-muted, #2e3d52);
+    margin: 0 0 8px 0;
+  }
+
+  .instamom-seasonal__note {
+    font-size: 1.3rem;
+    line-height: 1.45;
+    color: var(--imu-navy-dark, #041d45);
+    font-style: italic;
+    margin: 0 0 14px 0;
+  }
+
+  .instamom-holiday-options {
+    background: rgba(4, 29, 69, 0.03);
+    border: 1px solid rgba(4, 29, 69, 0.12);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 14px;
+  }
+
+  .instamom-holiday-options__group {
+    margin-bottom: 10px;
+  }
+
+  .instamom-holiday-options__group:last-child {
+    margin-bottom: 0;
+  }
+
+  .instamom-holiday-options__label {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--imu-navy-dark, #041d45);
+    margin-bottom: 6px;
+  }
+
+  .instamom-holiday-options__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .instamom-holiday-pill {
+    flex: 1 1 auto;
+    padding: 7px 12px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 1.5px solid rgba(4, 29, 69, 0.2);
+    background: #ffffff;
+    color: var(--imu-navy-dark, #041d45);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s ease;
+  }
+
+  .instamom-holiday-pill.is-selected {
+    background: var(--imu-navy-dark, #041d45);
+    color: #ffffff;
+    border-color: var(--imu-navy-dark, #041d45);
+  }
+
+  .instamom-holiday-pill:disabled,
+  .instamom-holiday-pill.is-soldout {
+    opacity: 0.45;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+
+  .instamom-holiday-options__Group-hidden[hidden] {
+    display: none !important;
   }
 
   .instamom-seasonal__card {
@@ -291,18 +367,70 @@
   }
 </style>
 
-{%- assign seasonal_product = all_products['seasonal-celebrations'] -%}
-{%- assign birthday_variant = nil -%}
+{%- comment -%} Prioritize Standalone Products so items appear cleanly in cart without parent bundle title {%- endcomment -%}
+{%- assign target_fall_product = all_products['anything-but-basic-fall-care-package'] | default: all_products['anything-but-basic-fall-box'] | default: all_products['fall-care-package'] -%}
 {%- assign fall_variant = nil -%}
-{%- if seasonal_product != blank -%}
-  {%- for v in seasonal_product.variants -%}
-    {%- assign v_title = v.title | downcase -%}
-    {%- if v_title contains 'birthday' -%}
-      {%- assign birthday_variant = v -%}
-    {%- elsif v_title contains 'fall' -%}
-      {%- assign fall_variant = v -%}
+{%- if target_fall_product != blank -%}
+  {%- assign fall_variant = target_fall_product.first_available_variant | default: target_fall_product.variants.first -%}
+{%- else -%}
+  {%- for p in collections.all.products -%}
+    {%- assign p_handle = p.handle | downcase -%}
+    {%- assign p_title = p.title | downcase -%}
+    {%- if p_handle contains 'fall' or p_title contains 'fall' -%}
+      {%- unless p_handle == 'seasonal-celebrations' -%}
+        {%- assign target_fall_product = p -%}
+        {%- assign fall_variant = p.first_available_variant | default: p.variants.first -%}
+        {%- break -%}
+      {%- endunless -%}
     {%- endif -%}
   {%- endfor -%}
+{%- endif -%}
+
+{%- comment -%} Fallback to variant in seasonal-celebrations bundle if standalone is missing {%- endcomment -%}
+{%- if fall_variant == blank -%}
+  {%- assign seasonal_bundle = all_products['seasonal-celebrations'] -%}
+  {%- if seasonal_bundle != blank -%}
+    {%- for v in seasonal_bundle.variants -%}
+      {%- assign v_title = v.title | downcase -%}
+      {%- if v_title contains 'fall' or v_title contains 'autumn' or v_title contains 'basic' -%}
+        {%- assign target_fall_product = seasonal_bundle -%}
+        {%- assign fall_variant = v -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign target_birthday_product = all_products['birthday-care-package'] | default: all_products['birthday-box'] -%}
+{%- assign birthday_variant = nil -%}
+{%- if target_birthday_product != blank -%}
+  {%- assign birthday_variant = target_birthday_product.first_available_variant | default: target_birthday_product.variants.first -%}
+{%- else -%}
+  {%- for p in collections.all.products -%}
+    {%- assign p_handle = p.handle | downcase -%}
+    {%- assign p_title = p.title | downcase -%}
+    {%- if p_handle contains 'birthday' or p_title contains 'birthday' -%}
+      {%- unless p_handle == 'seasonal-celebrations' -%}
+        {%- assign target_birthday_product = p -%}
+        {%- assign birthday_variant = p.first_available_variant | default: p.variants.first -%}
+        {%- break -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if birthday_variant == blank -%}
+  {%- assign seasonal_bundle = all_products['seasonal-celebrations'] -%}
+  {%- if seasonal_bundle != blank -%}
+    {%- for v in seasonal_bundle.variants -%}
+      {%- assign v_title = v.title | downcase -%}
+      {%- if v_title contains 'birthday' -%}
+        {%- assign target_birthday_product = seasonal_bundle -%}
+        {%- assign birthday_variant = v -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
 {%- endif -%}
 
 {%- assign protein_product = all_products['protein-fiend-college-care-package'] | default: all_products['protein-fiend-box'] | default: all_products['protein-fiend'] -%}
@@ -321,12 +449,180 @@
   {%- assign protein_variant = protein_product.selected_or_first_available_variant -%}
 {%- endif -%}
 
+{%- assign target_holiday_love_product = all_products['spread-the-holiday-love'] | default: all_products['holiday-love'] -%}
+{%- if target_holiday_love_product == blank -%}
+  {%- for p in collections.all.products -%}
+    {%- assign p_handle = p.handle | downcase -%}
+    {%- assign p_title = p.title | downcase -%}
+    {%- if p_handle contains 'holiday-love' or p_title contains 'spread the holiday love' -%}
+      {%- assign target_holiday_love_product = p -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- assign hl_mini_variant = nil -%}
+{%- assign hl_ivory_variant = nil -%}
+{%- assign hl_red_variant = nil -%}
+{%- assign hl_green_variant = nil -%}
+{%- assign hl_gray_variant = nil -%}
+{%- if target_holiday_love_product != blank -%}
+  {%- for v in target_holiday_love_product.variants -%}
+    {%- assign vt = v.title | downcase -%}
+    {%- if vt contains 'mini' -%}
+      {%- assign hl_mini_variant = v -%}
+    {%- elsif vt contains 'ivory' -%}
+      {%- assign hl_ivory_variant = v -%}
+    {%- elsif vt contains 'red' -%}
+      {%- assign hl_red_variant = v -%}
+    {%- elsif vt contains 'green' -%}
+      {%- assign hl_green_variant = v -%}
+    {%- elsif vt contains 'gray' or vt contains 'grey' -%}
+      {%- assign hl_gray_variant = v -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{%- assign hl_default_variant = hl_mini_variant | default: target_holiday_love_product.selected_or_first_available_variant | default: target_holiday_love_product.variants.first -%}
+
 <div class="instamom-seasonal page-width">
   <div class="instamom-seasonal__header">
     <h2 class="instamom-seasonal__heading">{{ section.settings.heading | default: 'Limited Time Only Seasonal Boxes' | escape }}</h2>
   </div>
 
   <div class="instamom-seasonal__grid">
+    <!-- Spread the Holiday Love -->
+    <div class="instamom-seasonal__card" data-holiday-love-container="card">
+      <div class="instamom-seasonal__badge-wrapper">
+        {% render 'instamom-badge', modifier: 'seasonal', label: 'Seasonal' %}
+      </div>
+      <div class="instamom-seasonal__image-slider-wrapper">
+        <div class="instamom-seasonal__image-slider" data-holiday-love-slider>
+          <img src="{{ 'instamom-holiday-love-1.jpg' | asset_url }}" alt="Spread the Holiday Love Photo 1" class="instamom-seasonal__image" loading="lazy">
+          <img src="{{ 'instamom-holiday-love-2.jpg' | asset_url }}" alt="Spread the Holiday Love Photo 2" class="instamom-seasonal__image" loading="lazy">
+          <img src="{{ 'instamom-holiday-love-3.jpg' | asset_url }}" alt="Spread the Holiday Love Scarf Colors" class="instamom-seasonal__image" loading="lazy">
+        </div>
+        <div class="instamom-seasonal__slider-dots">
+          <span class="instamom-seasonal__dot is-active"></span>
+          <span class="instamom-seasonal__dot"></span>
+          <span class="instamom-seasonal__dot"></span>
+        </div>
+        <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--prev" onclick="scrollSeasonalSlider('holiday-love', -1)" aria-label="Previous photo">&lsaquo;</button>
+        <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--next" onclick="scrollSeasonalSlider('holiday-love', 1)" aria-label="Next photo">&rsaquo;</button>
+      </div>
+      <div class="instamom-seasonal__card-title-row">
+        <h3 class="instamom-seasonal__title">Spread the Holiday Love</h3>
+        <p class="instamom-seasonal__price" data-hl-price>$15</p>
+      </div>
+      <p class="instamom-seasonal__description">
+        Share some love with people around you--teachers, mail carriers, neighbors, or whoever has brightened your days throughout the year! Choose the Mini Bag or the Deluxe Bag.
+      </p>
+      <p class="instamom-seasonal__note">
+        <em>Because these are offered at cost, a minimum order of three bags is required per shipping address.</em>
+      </p>
+      <div class="instamom-holiday-options">
+        <div class="instamom-holiday-options__group">
+          <span class="instamom-holiday-options__label">Choose Bag:</span>
+          <div class="instamom-holiday-options__pills">
+            <button
+              type="button"
+              class="instamom-holiday-pill is-selected"
+              data-hl-bag="mini"
+              data-variant-id="{{ hl_mini_variant.id }}"
+              data-available="{{ hl_mini_variant.available | default: true }}"
+              onclick="selectHolidayLoveBag('mini')"
+            >
+              Mini Bag — $15
+            </button>
+            <button
+              type="button"
+              class="instamom-holiday-pill"
+              data-hl-bag="deluxe"
+              onclick="selectHolidayLoveBag('deluxe')"
+            >
+              Deluxe Bag — $25
+            </button>
+          </div>
+        </div>
+        <div class="instamom-holiday-options__group instamom-holiday-options__Group-hidden" data-hl-scarf-group hidden>
+          <span class="instamom-holiday-options__label">Choose Scarf Color:</span>
+          <div class="instamom-holiday-options__pills">
+            <button
+              type="button"
+              class="instamom-holiday-pill is-selected{% if hl_ivory_variant != blank and hl_ivory_variant.available == false %} is-soldout{% endif %}"
+              data-hl-scarf="ivory"
+              data-variant-id="{{ hl_ivory_variant.id }}"
+              data-available="{{ hl_ivory_variant.available | default: true }}"
+              {% if hl_ivory_variant != blank and hl_ivory_variant.available == false %}disabled{% endif %}
+              onclick="selectHolidayLoveScarf('ivory')"
+            >
+              Ivory
+            </button>
+            <button
+              type="button"
+              class="instamom-holiday-pill{% if hl_red_variant != blank and hl_red_variant.available == false %} is-soldout{% endif %}"
+              data-hl-scarf="red"
+              data-variant-id="{{ hl_red_variant.id }}"
+              data-available="{{ hl_red_variant.available | default: true }}"
+              {% if hl_red_variant != blank and hl_red_variant.available == false %}disabled{% endif %}
+              onclick="selectHolidayLoveScarf('red')"
+            >
+              Red
+            </button>
+            <button
+              type="button"
+              class="instamom-holiday-pill{% if hl_green_variant != blank and hl_green_variant.available == false %} is-soldout{% endif %}"
+              data-hl-scarf="green"
+              data-variant-id="{{ hl_green_variant.id }}"
+              data-available="{{ hl_green_variant.available | default: true }}"
+              {% if hl_green_variant != blank and hl_green_variant.available == false %}disabled{% endif %}
+              onclick="selectHolidayLoveScarf('green')"
+            >
+              Green
+            </button>
+            <button
+              type="button"
+              class="instamom-holiday-pill{% if hl_gray_variant != blank and hl_gray_variant.available == false %} is-soldout{% endif %}"
+              data-hl-scarf="gray"
+              data-variant-id="{{ hl_gray_variant.id }}"
+              data-available="{{ hl_gray_variant.available | default: true }}"
+              {% if hl_gray_variant != blank and hl_gray_variant.available == false %}disabled{% endif %}
+              onclick="selectHolidayLoveScarf('gray')"
+            >
+              Gray
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="instamom-seasonal__card-actions">
+        <button type="button" class="button button--secondary" onclick="openSeasonalModal('modal-holiday-love')">Explore package</button>
+        {%- if hl_default_variant != blank and target_holiday_love_product != blank -%}
+          <product-form data-section-id="{{ section.id }}" style="flex: 1;">
+            {%- form 'product',
+              target_holiday_love_product,
+              id: 'card-holiday-love-form',
+              class: 'form',
+              novalidate: 'novalidate',
+              data-type: 'add-to-cart-form'
+            -%}
+              <input type="hidden" name="id" value="{{ hl_default_variant.id }}" data-hl-variant-input>
+              <button
+                type="submit"
+                name="add"
+                class="button button--primary"
+                data-hl-submit-btn
+                style="width: 100%; text-align: center; justify-content: center; display: inline-flex;"
+              >
+                <span data-hl-submit-label>Add to cart</span>
+                {%- render 'loading-spinner' -%}
+              </button>
+            {%- endform -%}
+          </product-form>
+        {%- else -%}
+          <a href="{{ target_holiday_love_product.url | default: '/products/spread-the-holiday-love' }}" class="button button--primary">Add to cart</a>
+        {%- endif -%}
+      </div>
+    </div>
+
     <!-- Birthday Box -->
     <div class="instamom-seasonal__card">
       <div class="instamom-seasonal__badge-wrapper">
@@ -352,10 +648,10 @@
       </div>
       <div class="instamom-seasonal__card-actions">
         <button type="button" class="button button--secondary" onclick="openSeasonalModal('modal-birthday')">Explore package</button>
-        {%- if birthday_variant != blank -%}
+        {%- if birthday_variant != blank and target_birthday_product != blank -%}
           <product-form data-section-id="{{ section.id }}" style="flex: 1;">
             {%- form 'product',
-              seasonal_product,
+              target_birthday_product,
               id: 'card-birthday-form',
               class: 'form',
               novalidate: 'novalidate',
@@ -374,7 +670,7 @@
             {%- endform -%}
           </product-form>
         {%- else -%}
-          <a href="/products/seasonal-celebrations" class="button button--primary">Add to cart</a>
+          <a href="{{ target_birthday_product.url | default: '/collections/all' }}" class="button button--primary">Add to cart</a>
         {%- endif -%}
       </div>
     </div>
@@ -402,10 +698,10 @@
       </div>
       <div class="instamom-seasonal__card-actions">
         <button type="button" class="button button--secondary" onclick="openSeasonalModal('modal-fall')">Explore package</button>
-        {%- if fall_variant != blank -%}
+        {%- if fall_variant != blank and target_fall_product != blank -%}
           <product-form data-section-id="{{ section.id }}" style="flex: 1;">
             {%- form 'product',
-              seasonal_product,
+              target_fall_product,
               id: 'card-fall-form',
               class: 'form',
               novalidate: 'novalidate',
@@ -424,7 +720,7 @@
             {%- endform -%}
           </product-form>
         {%- else -%}
-          <a href="/products/seasonal-celebrations" class="button button--primary">Add to cart</a>
+          <a href="{{ target_fall_product.url | default: '/collections/all' }}" class="button button--primary" style="flex: 1; text-align: center; justify-content: center; display: inline-flex;">Add to cart</a>
         {%- endif -%}
       </div>
     </div>
@@ -538,10 +834,10 @@
       <li>3D cupcake puzzle</li>
     </ul>
     <div style="margin-top: 24px;">
-      {%- if birthday_variant != blank -%}
+      {%- if birthday_variant != blank and target_birthday_product != blank -%}
         <product-form data-section-id="{{ section.id }}">
           {%- form 'product',
-            seasonal_product,
+            target_birthday_product,
             id: 'modal-birthday-form',
             class: 'form',
             novalidate: 'novalidate',
@@ -561,7 +857,7 @@
           {%- endform -%}
         </product-form>
       {%- else -%}
-        <a href="/products/seasonal-celebrations" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $62</a>
+        <a href="{{ target_birthday_product.url | default: '/collections/all' }}" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $62</a>
       {%- endif -%}
     </div>
   </div>
@@ -604,10 +900,10 @@
       <li>Caramel apple</li>
     </ul>
     <div style="margin-top: 24px;">
-      {%- if fall_variant != blank -%}
+      {%- if fall_variant != blank and target_fall_product != blank -%}
         <product-form data-section-id="{{ section.id }}">
           {%- form 'product',
-            seasonal_product,
+            target_fall_product,
             id: 'modal-fall-form',
             class: 'form',
             novalidate: 'novalidate',
@@ -627,7 +923,7 @@
           {%- endform -%}
         </product-form>
       {%- else -%}
-        <a href="/products/seasonal-celebrations" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $64</a>
+        <a href="{{ target_fall_product.url | default: '/collections/all' }}" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $64</a>
       {%- endif -%}
     </div>
   </div>
@@ -690,7 +986,225 @@
   </div>
 </div>
 
+<!-- Modal 4: Spread the Holiday Love -->
+<div id="modal-holiday-love" class="instamom-seasonal-modal" onclick="closeSeasonalModalOnOverlay(event, 'modal-holiday-love')" data-holiday-love-container="modal">
+  <div class="instamom-seasonal-modal__content">
+    <button type="button" class="instamom-seasonal-modal__close" onclick="closeSeasonalModal('modal-holiday-love')">&times;</button>
+    <div class="instamom-seasonal__image-slider-wrapper instamom-seasonal-modal__image-slider-wrapper">
+      <div class="instamom-seasonal__image-slider instamom-seasonal-modal__image-slider" data-holiday-love-modal-slider>
+        <img src="{{ 'instamom-holiday-love-1.jpg' | asset_url }}" alt="Spread the Holiday Love Photo 1" class="instamom-seasonal-modal__image" loading="lazy">
+        <img src="{{ 'instamom-holiday-love-2.jpg' | asset_url }}" alt="Spread the Holiday Love Photo 2" class="instamom-seasonal-modal__image" loading="lazy">
+        <img src="{{ 'instamom-holiday-love-3.jpg' | asset_url }}" alt="Spread the Holiday Love Scarf Colors" class="instamom-seasonal-modal__image" loading="lazy">
+      </div>
+      <div class="instamom-seasonal__slider-dots">
+        <span class="instamom-seasonal__dot is-active"></span>
+        <span class="instamom-seasonal__dot"></span>
+        <span class="instamom-seasonal__dot"></span>
+      </div>
+      <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--prev" onclick="scrollSeasonalSlider('holiday-love-modal', -1)" aria-label="Previous photo">&lsaquo;</button>
+      <button type="button" class="instamom-seasonal__slider-arrow instamom-seasonal__slider-arrow--next" onclick="scrollSeasonalSlider('holiday-love-modal', 1)" aria-label="Next photo">&rsaquo;</button>
+    </div>
+    <div class="instamom-seasonal-modal__title-row">
+      <h3 class="instamom-seasonal-modal__title">Spread the Holiday Love</h3>
+      <p class="instamom-seasonal-modal__price" data-hl-price>$15</p>
+    </div>
+    <p class="instamom-seasonal__description" style="font-size: 1.5rem; margin-bottom: 10px;">
+      Share some love with people around you--teachers, mail carriers, neighbors, or whoever has brightened your days throughout the year! Choose the Mini Bag or the Deluxe Bag.
+    </p>
+    <p class="instamom-seasonal__note" style="font-size: 1.4rem; margin-bottom: 18px;">
+      <em>Because these are offered at cost, a minimum order of three bags is required per shipping address.</em>
+    </p>
+    <div class="instamom-holiday-options" style="margin-bottom: 20px;">
+      <div class="instamom-holiday-options__group">
+        <span class="instamom-holiday-options__label">Choose Bag:</span>
+        <div class="instamom-holiday-options__pills">
+          <button
+            type="button"
+            class="instamom-holiday-pill is-selected"
+            data-hl-bag="mini"
+            data-variant-id="{{ hl_mini_variant.id }}"
+            data-available="{{ hl_mini_variant.available | default: true }}"
+            onclick="selectHolidayLoveBag('mini')"
+          >
+            Mini Bag — $15
+          </button>
+          <button
+            type="button"
+            class="instamom-holiday-pill"
+            data-hl-bag="deluxe"
+            onclick="selectHolidayLoveBag('deluxe')"
+          >
+            Deluxe Bag — $25
+          </button>
+        </div>
+      </div>
+      <div class="instamom-holiday-options__group instamom-holiday-options__Group-hidden" data-hl-scarf-group hidden>
+        <span class="instamom-holiday-options__label">Choose Scarf Color:</span>
+        <div class="instamom-holiday-options__pills">
+          <button
+            type="button"
+            class="instamom-holiday-pill is-selected{% if hl_ivory_variant != blank and hl_ivory_variant.available == false %} is-soldout{% endif %}"
+            data-hl-scarf="ivory"
+            data-variant-id="{{ hl_ivory_variant.id }}"
+            data-available="{{ hl_ivory_variant.available | default: true }}"
+            {% if hl_ivory_variant != blank and hl_ivory_variant.available == false %}disabled{% endif %}
+            onclick="selectHolidayLoveScarf('ivory')"
+          >
+            Ivory
+          </button>
+          <button
+            type="button"
+            class="instamom-holiday-pill{% if hl_red_variant != blank and hl_red_variant.available == false %} is-soldout{% endif %}"
+            data-hl-scarf="red"
+            data-variant-id="{{ hl_red_variant.id }}"
+            data-available="{{ hl_red_variant.available | default: true }}"
+            {% if hl_red_variant != blank and hl_red_variant.available == false %}disabled{% endif %}
+            onclick="selectHolidayLoveScarf('red')"
+          >
+            Red
+          </button>
+          <button
+            type="button"
+            class="instamom-holiday-pill{% if hl_green_variant != blank and hl_green_variant.available == false %} is-soldout{% endif %}"
+            data-hl-scarf="green"
+            data-variant-id="{{ hl_green_variant.id }}"
+            data-available="{{ hl_green_variant.available | default: true }}"
+            {% if hl_green_variant != blank and hl_green_variant.available == false %}disabled{% endif %}
+            onclick="selectHolidayLoveScarf('green')"
+          >
+            Green
+          </button>
+          <button
+            type="button"
+            class="instamom-holiday-pill{% if hl_gray_variant != blank and hl_gray_variant.available == false %} is-soldout{% endif %}"
+            data-hl-scarf="gray"
+            data-variant-id="{{ hl_gray_variant.id }}"
+            data-available="{{ hl_gray_variant.available | default: true }}"
+            {% if hl_gray_variant != blank and hl_gray_variant.available == false %}disabled{% endif %}
+            onclick="selectHolidayLoveScarf('gray')"
+          >
+            Gray
+          </button>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 24px;">
+      {%- if hl_default_variant != blank and target_holiday_love_product != blank -%}
+        <product-form data-section-id="{{ section.id }}">
+          {%- form 'product',
+            target_holiday_love_product,
+            id: 'modal-holiday-love-form',
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input type="hidden" name="id" value="{{ hl_default_variant.id }}" data-hl-variant-input>
+            <button
+              type="submit"
+              name="add"
+              class="button button--primary"
+              data-hl-submit-btn
+              onclick="closeSeasonalModal('modal-holiday-love')"
+              style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px;"
+            >
+              <span data-hl-submit-label data-hl-modal-btn>Add to cart — $15</span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+      {%- else -%}
+        <a href="{{ target_holiday_love_product.url | default: '/products/spread-the-holiday-love' }}" class="button button--primary" style="width: 100%; text-align: center; justify-content: center; display: inline-flex; min-height: 48px; text-decoration: none;">Add to cart — $15</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
 <script>
+  var holidayLoveState = {
+    bag: 'mini',
+    scarf: 'ivory'
+  };
+
+  function syncHolidayLoveUI() {
+    var containers = document.querySelectorAll('[data-holiday-love-container]');
+    containers.forEach(function (container) {
+      var bagBtns = container.querySelectorAll('[data-hl-bag]');
+      bagBtns.forEach(function (btn) {
+        if (btn.getAttribute('data-hl-bag') === holidayLoveState.bag) {
+          btn.classList.add('is-selected');
+        } else {
+          btn.classList.remove('is-selected');
+        }
+      });
+
+      var scarfGroup = container.querySelector('[data-hl-scarf-group]');
+      if (scarfGroup) {
+        if (holidayLoveState.bag === 'deluxe') {
+          scarfGroup.removeAttribute('hidden');
+        } else {
+          scarfGroup.setAttribute('hidden', '');
+        }
+      }
+
+      var scarfBtns = container.querySelectorAll('[data-hl-scarf]');
+      scarfBtns.forEach(function (btn) {
+        if (btn.getAttribute('data-hl-scarf') === holidayLoveState.scarf) {
+          btn.classList.add('is-selected');
+        } else {
+          btn.classList.remove('is-selected');
+        }
+      });
+
+      var priceText = holidayLoveState.bag === 'deluxe' ? '$25' : '$15';
+      var priceEl = container.querySelector('[data-hl-price]');
+      if (priceEl) priceEl.textContent = priceText;
+
+      var activeBtn =
+        holidayLoveState.bag === 'mini'
+          ? container.querySelector('[data-hl-bag="mini"]')
+          : container.querySelector('[data-hl-scarf="' + holidayLoveState.scarf + '"]');
+
+      var variantInput = container.querySelector('[data-hl-variant-input]');
+      var submitBtn = container.querySelector('[data-hl-submit-btn]');
+      var submitLabel = container.querySelector('[data-hl-submit-label]');
+      if (activeBtn && variantInput) {
+        var vid = activeBtn.getAttribute('data-variant-id');
+        var avail = activeBtn.getAttribute('data-available') !== 'false';
+        if (vid) variantInput.value = vid;
+        if (submitBtn && submitLabel) {
+          var isModalBtn = submitLabel.hasAttribute('data-hl-modal-btn');
+          if (!avail) {
+            submitBtn.disabled = true;
+            submitLabel.textContent = 'Sold out';
+          } else {
+            submitBtn.disabled = false;
+            submitLabel.textContent = isModalBtn ? 'Add to cart — ' + priceText : 'Add to cart';
+          }
+        }
+      }
+    });
+  }
+
+  function selectHolidayLoveBag(bagType) {
+    holidayLoveState.bag = bagType;
+    if (bagType === 'deluxe') {
+      var currentScarfBtn = document.querySelector('[data-hl-scarf="' + holidayLoveState.scarf + '"]');
+      if (currentScarfBtn && currentScarfBtn.disabled) {
+        var firstAvail = document.querySelector('[data-hl-scarf]:not([disabled])');
+        if (firstAvail) {
+          holidayLoveState.scarf = firstAvail.getAttribute('data-hl-scarf');
+        }
+      }
+    }
+    syncHolidayLoveUI();
+  }
+
+  function selectHolidayLoveScarf(color) {
+    holidayLoveState.scarf = color;
+    holidayLoveState.bag = 'deluxe';
+    syncHolidayLoveUI();
+  }
+
   function openSeasonalModal(id) {
     var modal = document.getElementById(id);
     if (modal) modal.classList.add('is-open');
@@ -739,16 +1253,22 @@
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
+      initSeasonalSliderDots('holiday-love');
+      initSeasonalSliderDots('holiday-love-modal');
       initSeasonalSliderDots('birthday');
       initSeasonalSliderDots('birthday-modal');
       initSeasonalSliderDots('fall');
       initSeasonalSliderDots('fall-modal');
+      syncHolidayLoveUI();
     });
   } else {
+    initSeasonalSliderDots('holiday-love');
+    initSeasonalSliderDots('holiday-love-modal');
     initSeasonalSliderDots('birthday');
     initSeasonalSliderDots('birthday-modal');
     initSeasonalSliderDots('fall');
     initSeasonalSliderDots('fall-modal');
+    syncHolidayLoveUI();
   }
 </script>
 

@@ -58,7 +58,7 @@
   snippets/instamom-wallet-gate.liquid for the whole story.
 {%- endcomment -%}
 {%- assign wallets_locked = true -%}
-{%- if cart.attributes['Candy preference'] != blank and cart.attributes['Fun extras profanity preference'] != blank and cart.attributes['Terms agreement'] != blank -%}
+{%- if cart.attributes['Candy preference'] != blank and cart.attributes['Terms agreement'] != blank -%}
   {%- assign wallets_locked = false -%}
 {%- endif -%}
 
@@ -178,8 +178,6 @@
             });
           })();
         </script>
-
-        {%- render 'instamom-profanity-preference' -%}
         </div>
       {%- endunless -%}
 

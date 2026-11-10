@@ -32,7 +32,7 @@
 {% endcomment %}
 
 <p class="instamom-wallet-gate" data-wallet-gate>
-  Choose your candy and fun-extras preferences, then agree to the Terms above,
+  Choose your candy preference, then agree to the Terms above,
   to pay with Shop&nbsp;Pay or another express wallet. You can also use the
   Checkout button.
 </p>
@@ -51,19 +51,15 @@
       return !!box && box.checked;
     }
 
-    function profanityChosen() {
-      return !!document.querySelector('input[name="attributes[Fun extras profanity preference]"]:checked');
-    }
-
     function sync() {
-      footer.classList.toggle('instamom-wallets-locked', !(candyChosen() && profanityChosen() && termsAgreed()));
+      footer.classList.toggle('instamom-wallets-locked', !(candyChosen() && termsAgreed()));
     }
 
-    // All three controls live in sibling snippets, so listen at the document
-    // rather than reaching into any one of them.
+    // Both controls live in sibling snippets, so listen at the document
+    // rather than reaching into either one of them.
     document.addEventListener('change', function (event) {
       if (!event.target.closest) return;
-      if (event.target.closest('#instamom-candy, #instamom-profanity, #instamom-terms')) sync();
+      if (event.target.closest('#instamom-candy, #instamom-terms')) sync();
     });
 
     // The preference radios and the terms box are restored from cart attributes
